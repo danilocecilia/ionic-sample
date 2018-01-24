@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { AuthPage } from '../pages/auth/auth';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -17,6 +19,15 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  checkPreviousAuthoziation(): void{
+    if((window.localStorage.getItem('username') === "undefined" || window.localStorage.getItem('username') === null) && 
+       (window.localStorage.getItem('password') === "undefined" || window.localStorage.getItem('password') === null)) {
+         this.rootPage = AuthPage;
+       } else{
+         this.rootPage = HomePage;
+       }
   }
 }
 
