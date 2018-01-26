@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home'
 import { VALID } from '@angular/forms/src/model';
@@ -26,16 +26,19 @@ export class AuthPage {
   userProfile = {};
 
   constructor(
-    public navCtrl:       NavController,
-    public navParams:     NavParams,
-    public formBuilder:   FormBuilder,
-    public storage:       Storage,
-    public authProvider:  AuthProvider, 
-    private toastCtrl:    ToastController) {
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public storage: Storage,
+    public authProvider: AuthProvider,
+    public menu        : MenuController,
+    private toastCtrl: ToastController) {
+
+    this.menu.enable(false);
     
     this.navCtrl = navCtrl;
 
-    this.authForm = formBuilder.group({
+    this.authForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
     });

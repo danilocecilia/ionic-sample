@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, MenuController } from 'ionic-angular';
 import { TodosProvider } from '../../providers/todos/todos';
 import { Storage } from '@ionic/storage';
 import { AuthPage } from '../auth/auth';
@@ -20,13 +20,19 @@ export class HomePage extends ProtectedPage{
     public todosProvider: TodosProvider, 
     public navParams:     NavParams,
     public alertCtrl:     AlertController,
-    public storage:       Storage) {
+    public storage:       Storage,
+    public menu:          MenuController) {
 
     super(navCtrl, navParams, storage)
-
+    
+    this.menu.enable(true);
     this.navCtrl = navCtrl;
-    this.username = window.localStorage.getItem('username');
-    this.getTodos();
+    
+    this.storage.get('username').then((val) => {
+      this.username = val;
+    });
+    
+    //this.getTodos();
   }
 
   getTodos() {

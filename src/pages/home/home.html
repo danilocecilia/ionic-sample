@@ -1,32 +1,38 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      CloudDO
+      Treinamento Ford
     </ion-title>
-    <ion-buttons end>
+
+    <!-- <ion-buttons end>
       <button ion-button icon-only (click)="createTodo()">
         <ion-icon name="cloud-upload"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
-
+<ion-content padding>
+    <button ion-button block menuToggle>Toggle Menu</button>
+  </ion-content>
 <ion-content>
-  <h1>Welcome {{username}}</h1>
+
   <!-- <button ion-button full color="primary" style="margin-top: 20px;" (click)="logout()">Logout</button> -->
   <ion-list no-lines>
-    
+    <h6>Welcome, you are logged as {{username}}</h6>
     <ion-item-sliding *ngFor="let todo of todos">
 
       <ion-item>
         {{todo.title}}
       </ion-item>
-      
+
       <ion-item-options>
         <button ion-button icon-only color="light" (click)="updateTodo(todo)">
           <ion-icon name="create"></ion-icon>
         </button>
-        
+
         <button ion-button icon-only color="light" (click)="deleteTodo(todo)">
           <ion-icon name="remove-circle"></ion-icon>
         </button>

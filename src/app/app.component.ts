@@ -1,24 +1,40 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { AuthPage } from '../pages/auth/auth';
+import { AuthProvider} from '../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  pages: Array<{title: string, component: any, method?: any}>;
+
+  constructor(
+    platform              : Platform, 
+    statusBar             : StatusBar, 
+    splashScreen          : SplashScreen,
+    public authProvider   : AuthProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.authProvider.startupTokenRefresh();
     });
+
+      // used for an example of ngFor and navigation
+      this.pages = [
+        
+        {title: 'Home', component: HomePage},
+        {title: 'Logout', component: 'AuthPage', method: 'logout'}
+      ];
   }
 
   checkPreviousAuthoziation(): void{
@@ -28,6 +44,14 @@ export class MyApp {
        } else{
          this.rootPage = HomePage;
        }
+  }
+
+  openPage(page) {
+    if (page.method && page.method === 'logout') {
+      this.authProvider.logout();
+    }
+
+    this.nav.setRoot(page.component);
   }
 }
 

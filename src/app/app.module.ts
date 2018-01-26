@@ -35,8 +35,9 @@ export function getAuthHttp(http : Http) {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
-      name: 'cloudo',
-      driverOrder: ['indexeddb', 'sqlite', 'websql']
+      name: 'cloudo'
+      // ,
+      // driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     HttpModule,
     HttpClientModule
