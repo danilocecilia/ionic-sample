@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, MenuController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 
@@ -31,12 +31,15 @@ export class AuthPage {
     public formBuilder: FormBuilder,
     public storage: Storage,
     public authProvider: AuthProvider,
-    public menu        : MenuController,
+    public menu: MenuController,
+    public events: Events,
     private toastCtrl: ToastController) {
 
     this.menu.enable(false);
-    
+
     this.navCtrl = navCtrl;
+
+    events.publish('hideHeader', { isHidden: true});
 
     this.authForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])],
@@ -68,5 +71,10 @@ export class AuthPage {
 
   ionViewDidLoad() {
 
+  }
+
+  ionViewWillLeave() {
+    //Make footer visible while leaving the page.
+    this.events.publish('hideHeader', { isHidden: false });
   }
 }

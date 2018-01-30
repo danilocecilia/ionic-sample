@@ -5,7 +5,7 @@ import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { CredentialsModel } from '../../models/credentials'
 import 'rxjs/add/operator/map';
 import *  as AppConfig from '../../app/config';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { HttpParams } from '@angular/common/http';
 
 /*
@@ -21,10 +21,6 @@ export class AuthProvider {
   private cfg: any;
   token: string;
   refreshSubscription: any;
-  //apiUrlLocalHost = "http://localhost:18299/api/authentication/demoauth";
-  //apiUrlDev = "http://136.140.193.16:10005/api/authentication/demoauth";
-  apiUrlProd = "http://198.180.251.216:10005/api/authentication/demoauth";
-  
 
   constructor(public http: Http, private authHttp: AuthHttp, private storage: Storage) {
     this.storage.get('token').then(token => { this.token = token });
@@ -39,17 +35,17 @@ export class AuthProvider {
     headers.append("Access-Control-Allow-Origin", "*")
     headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
   }
-  
+
   getAuthenticate(credentials: CredentialsModel) {
-    return this.authHttp.post(this.apiUrlProd, credentials)
+    return this.authHttp.post(this.cfg.apiUrl, credentials)
       .toPromise().then(data => {
         let rs = data.json();
         this.saveData(data);
         this.token = rs.token;
 
         this.scheduleRefresh();
-    })
-    .catch(e => console.log('login error', e));;
+      })
+      .catch(e => console.log('login error', e));;
   }
 
   public scheduleRefresh() {
@@ -80,9 +76,9 @@ export class AuthProvider {
   public startupTokenRefresh() {
     // If the user is authenticated, use the token stream
     // provided by angular2-jwt and flatMap the token
-    this.storage.get("token").then((thetoken)=>{
+    this.storage.get("token").then((thetoken) => {
 
-      if(thetoken){
+      if (thetoken) {
 
         let source = Observable.of(thetoken).flatMap(
           token => {
@@ -94,30 +90,28 @@ export class AuthProvider {
             exp.setUTCSeconds(jwtExp);
             let delay: number = exp.valueOf() - now;
 
-            if(delay <= 0) {
-              delay=1;
+            if (delay <= 0) {
+              delay = 1;
             }
-             // Use the delay in a timer to
+            // Use the delay in a timer to
             // run the refresh at the proper time
             return Observable.timer(delay);
           });
 
-         // Once the delay time from above is
-         // reached, get a new JWT and schedule
-         // additional refreshes
-         source.subscribe(() => {
-           this.getNewJwt();
-           this.scheduleRefresh();
-         });
+        // Once the delay time from above is
+        // reached, get a new JWT and schedule
+        // additional refreshes
+        source.subscribe(() => {
+          this.getNewJwt();
+          this.scheduleRefresh();
+        });
 
-      }else{
+      } else {
         //there is no user logined
         console.info("there is no user logined ");
-
       }
-
     });
-    }
+  }
 
   public getNewJwt() {
     // Get a new JWT from Auth0 using the refresh token saved
@@ -166,12 +160,4 @@ export class AuthProvider {
     this.storage.set("username", rs.username);
     this.storage.set("token", rs.token);
   }
-
-  authenticate(username, password) {
-
-    // let headers = new Headers();
-    // this.createAuthoziationHeader(headers, username, password);
-    // return this.http.get(this.apiurl, { headers: headers }).map((res: Response) => res.json());
-  }
-
 }

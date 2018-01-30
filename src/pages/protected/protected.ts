@@ -24,7 +24,6 @@ export class ProtectedPage {
   ionViewCanEnter() {
     this.storage.get('token').then(token => {
       if (token === null) {
-        debugger;
         this.navCtrl.setRoot('AuthPage');
         return false;
       }

@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { NavController, AlertController, MenuController } from 'ionic-angular';
+import { TodosProvider } from '../../providers/todos/todos';
+import { Storage } from '@ionic/storage';
+import { AuthPage } from '../auth/auth';
+import { ProtectedPage } from '../protected/protected';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html'
+})
+export class HomePage extends ProtectedPage{
+
+  username: string;
+  todos: any;
+
+  constructor(
+    public navCtrl:       NavController, 
+    public todosProvider: TodosProvider, 
+    public navParams:     NavParams,
+    public alertCtrl:     AlertController,
+    public storage:       Storage,
+    public menu:          MenuController) {
+
+    super(navCtrl, navParams, storage)
+    
+    this.menu.enable(true);
+    this.navCtrl = navCtrl;
+    
+    this.storage.get('username').then((val) => {
+      this.username = val;
+    });
+  }
+}

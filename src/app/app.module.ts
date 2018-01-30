@@ -11,8 +11,8 @@ import { Storage , IonicStorageModule} from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TodosProvider } from '../providers/todos/todos';
-// import { AuthPage } from '../pages/auth/auth';
 import { AuthProvider } from '../providers/auth/auth';
+import { FooterProvider } from '../providers/footer/footer';
 
 let storage = new Storage({});
 
@@ -29,7 +29,6 @@ export function getAuthHttp(http : Http) {
   declarations: [
     MyApp,
     HomePage,
-    //AuthPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +45,6 @@ export function getAuthHttp(http : Http) {
   entryComponents: [
     MyApp,
     HomePage,
-    //AuthPage
   ],
   providers: [
     StatusBar,
@@ -61,7 +59,8 @@ export function getAuthHttp(http : Http) {
       deps: [Http]
     },
     TodosProvider,
-    AuthProvider
+    AuthProvider,
+    FooterProvider
   ]
 })
 export class AppModule {}
