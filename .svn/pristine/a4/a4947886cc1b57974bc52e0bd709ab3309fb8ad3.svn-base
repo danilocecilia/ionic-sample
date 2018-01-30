@@ -1,0 +1,23 @@
+<ion-menu [content]="content" side="right">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <button menuClose="left" ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                {{p.title }}
+            </button>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" main #content swipeBackEnabled="false"></ion-nav>
+
+<ion-footer *ngIf="!footerIsHidden">
+    <ion-toolbar>
+
+    </ion-toolbar>
+</ion-footer>
