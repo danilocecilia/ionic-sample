@@ -17,10 +17,10 @@ export class FooterProvider {
     
   }
 
-  getIsFooterHidden(obj){
-    this.events.subscribe('hideHeader', (data) => {
-      obj = data.isHidden;
-    })
-  }
+  // getIsFooterHidden(obj){
+  //   this.events.subscribe('hideHeader', (data) => {
+  //     obj = data.isHidden;
+  //   })
+  // }
 
 }

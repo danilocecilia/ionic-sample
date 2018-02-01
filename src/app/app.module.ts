@@ -10,6 +10,10 @@ import { Storage , IonicStorageModule} from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ModalJobrolePage } from '../pages/modal-jobrole/modal-jobrole';
+import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
+// import { ChangePasswordPage } from '../pages/change-password/change-password';
+
 import { TodosProvider } from '../providers/todos/todos';
 import { AuthProvider } from '../providers/auth/auth';
 import { FooterProvider } from '../providers/footer/footer';
@@ -29,6 +33,8 @@ export function getAuthHttp(http : Http) {
   declarations: [
     MyApp,
     HomePage,
+    ModalJobrolePage,
+    PasswordRecoveryPage
   ],
   imports: [
     BrowserModule,
@@ -45,6 +51,8 @@ export function getAuthHttp(http : Http) {
   entryComponents: [
     MyApp,
     HomePage,
+    ModalJobrolePage,
+    PasswordRecoveryPage
   ],
   providers: [
     StatusBar,

@@ -26,12 +26,20 @@ export class HomePage extends ProtectedPage{
     public menu:          MenuController) {
 
     super(navCtrl, navParams, storage)
-    
+
     this.menu.enable(true);
     this.navCtrl = navCtrl;
 
     this.storage.get('username').then((val) => {
       this.username = val;
     });
+  }
+  
+  ionViewWillEnter(){
+    this.events.publish('hideHeader', { isHidden: false});
+  }
+
+  ionViewDidLoad() {
+    this.events.publish('hideHeader', { isHidden: false});
   }
 }

@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, MenuController, Events } from 'ionic-angular';
+import { Component,ViewChild} from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, MenuController, Events, Nav } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home'
-import { VALID } from '@angular/forms/src/model';
+import { PasswordRecoveryPage } from '../password-recovery/password-recovery';
+
 import { AuthProvider } from "../../providers/auth/auth";
-import { getAuthHttp } from '../../app/app.module';
-import { ProtectedPage } from '../protected/protected';
+
 /**
  * Generated class for the AuthPage page.
  *
@@ -21,6 +21,8 @@ import { ProtectedPage } from '../protected/protected';
   templateUrl: 'auth.html',
 })
 export class AuthPage {
+  //@ViewChild('myNav') nav: NavController
+  //@ViewChild(Nav) nav: Nav;
   public rootPage: any = HomePage;
   authForm: FormGroup;
   userProfile = {};
@@ -38,8 +40,6 @@ export class AuthPage {
     this.menu.enable(false);
 
     this.navCtrl = navCtrl;
-
-    events.publish('hideHeader', { isHidden: true});
 
     this.authForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])],
@@ -70,11 +70,10 @@ export class AuthPage {
   }
 
   ionViewDidLoad() {
-
+    this.events.publish('hideHeader', { isHidden: true});
   }
 
-  ionViewWillLeave() {
-    //Make footer visible while leaving the page.
-    this.events.publish('hideHeader', { isHidden: false });
+  goToPasswordRecovery(){
+    this.navCtrl.push(PasswordRecoveryPage);
   }
 }
