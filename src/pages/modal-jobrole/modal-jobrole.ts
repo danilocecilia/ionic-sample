@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'modal-jobrole.html',
 })
 export class ModalJobrolePage {
-
+  @ViewChild('myNav') nav: NavController
   constructor(
     public navCtrl    : NavController, 
     public navParams  : NavParams,

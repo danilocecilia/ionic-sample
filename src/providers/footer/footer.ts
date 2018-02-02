@@ -11,7 +11,7 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class FooterProvider {
 
-  //public footerIsHidden: boolean = false;
+  //public isHidden: boolean = false;
 
   constructor(public http: HttpClient, public events: Events) {
     

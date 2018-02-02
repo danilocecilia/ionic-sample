@@ -8,16 +8,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthHttp, AuthConfig} from 'angular2-jwt';
 import { Storage , IonicStorageModule} from '@ionic/storage';
 
+/***********************/
+//Pages
+/***********************/
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ModalJobrolePage } from '../pages/modal-jobrole/modal-jobrole';
 import { ModalNotificationPage } from '../pages/modal-notification/modal-notification';
 import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
-import { UserProfilePage } from '../pages/user-profile/user-profile';
 
+/***********************/
+//Components
+/***********************/
+import { HeaderMenuComponent } from '../components/header-menu/header-menu';
+import { HeaderCommomComponent } from '../components/header-commom/header-commom';
+import { FooterCommomComponent } from '../components/footer-commom/footer-commom';
+
+/***********************/
+//Providers
+/***********************/
 import { TodosProvider } from '../providers/todos/todos';
 import { AuthProvider } from '../providers/auth/auth';
 import { FooterProvider } from '../providers/footer/footer';
+
 
 let storage = new Storage({});
 
@@ -37,7 +50,9 @@ export function getAuthHttp(http : Http) {
     ModalJobrolePage,
     ModalNotificationPage,
     PasswordRecoveryPage,
-    UserProfilePage
+    HeaderMenuComponent,
+    HeaderCommomComponent,
+    FooterCommomComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +72,9 @@ export function getAuthHttp(http : Http) {
     ModalJobrolePage,
     ModalNotificationPage,
     PasswordRecoveryPage,
-    UserProfilePage
+    HeaderMenuComponent,
+    HeaderCommomComponent,
+    FooterCommomComponent
   ],
   providers: [
     StatusBar,
