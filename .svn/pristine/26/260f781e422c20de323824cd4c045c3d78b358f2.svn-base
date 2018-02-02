@@ -1,0 +1,93 @@
+<!--
+  Generated template for the AuthPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding no-bounce>
+
+    <ion-grid>
+        <ion-row align-items-center>
+            <ion-col col-3 col-sm-12>
+                <ion-thumbnail item-start>
+                    <img src="https://media.lovemondays.com.br/logos/8fdf5e/msx-international-do-brasil-original.png">
+                </ion-thumbnail>
+            </ion-col>
+            <ion-col offset-1>
+                <h1>MSXI Learn</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label floating>Username</ion-label>
+                        <ion-input formControlName="username" type="text"></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="authForm.controls.username.hasError('required') && authForm.controls.username.touched">
+                        <p>Sorry, field username is required!</p>
+                    </ion-item>
+                    <ion-item *ngIf="authForm.controls.username.hasError('pattern') && authForm.controls.username.touched">
+                        <p>Sorry, only small and capital letters are allowed!</p>
+                    </ion-item>
+                    <ion-item *ngIf="authForm.controls.username.hasError('minlength') && authForm.controls.username.touched">
+                        <p>Sorry, minimum username length is 8!</p>
+                    </ion-item>
+                    <ion-item *ngIf="authForm.controls.username.hasError('maxlength') && authForm.controls.username.touched">
+                        <p>Sorry, maximum username length is 30!</p>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Password</ion-label>
+                        <ion-input formControlName="password" type="password"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="authForm.controls.password.hasError('required') && authForm.controls.password.touched">
+                        <p>Sorry, field password is required!</p>
+                    </ion-item>
+                    <ion-item *ngIf="authForm.controls.password.hasError('minlength') && authForm.controls.password.touched">
+                        <p>Sorry, minimum password length is 8!</p>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col text-center>
+                    <button ion-button color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;display:inline-block;" type="submit">LOGIN</button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+
+                </ion-col>
+            </ion-row>
+            <ion-row padding text-center>
+                <ion-col>
+                    <ion-item-divider>
+                        <button ion-button (click)="goToPasswordRecovery()">Forgot my password</button>
+                    </ion-item-divider>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
