@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { Events, ModalController } from 'ionic-angular';
+import { ModalJobrolePage } from '../../pages/modal-jobrole/modal-jobrole';
 /**
  * Generated class for the FooterCommomComponent component.
  *
@@ -14,7 +15,7 @@ export class FooterCommomComponent {
   public isHidden: boolean = true;
   text: string;
 
-  constructor(public events: Events) {
+  constructor(public events: Events, public modalController: ModalController,) {
 
     //This if for hide footer from LoginPage
     events.subscribe('hideHeader', (data) => {
@@ -24,4 +25,8 @@ export class FooterCommomComponent {
     this.text = 'Hello World';
   }
 
+  openModal() {
+    let myModal = this.modalController.create(ModalJobrolePage);
+    myModal.present();
+  }
 }

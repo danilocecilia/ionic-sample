@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
-import { IonicModule } from 'ionic-angular';
 import { HeaderMenuComponent } from './header-menu/header-menu';
 import { HeaderCommomComponent } from './header-commom/header-commom';
 import { FooterCommomComponent } from './footer-commom/footer-commom';
+import { NotificationsComponent } from './notifications/notifications';
 @NgModule({
 	declarations: [HeaderMenuComponent,
     HeaderCommomComponent,
     FooterCommomComponent,
-    FooterCommomComponent],
+    FooterCommomComponent,
+    NotificationsComponent],
 	imports: [],
 	exports: [HeaderMenuComponent,
     HeaderCommomComponent,
     FooterCommomComponent,
-    FooterCommomComponent]
+    FooterCommomComponent,
+    NotificationsComponent]
 })
 export class ComponentsModule {}

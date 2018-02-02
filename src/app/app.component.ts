@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Events } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
-import { ModalJobrolePage } from '../pages/modal-jobrole/modal-jobrole'
 
 import { AuthProvider } from '../providers/auth/auth';
 
@@ -31,17 +30,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.authProvider.startupTokenRefresh();
-
-      // //This if for hide footer from LoginPage
-      // events.subscribe('hideHeader', (data) => {
-      //   this.isHidden = data.isHidden;
-      // })
     });
-  }
-
-  openModal() {
-    let myModal = this.modalController.create(ModalJobrolePage);
-    myModal.present();
   }
 }
 

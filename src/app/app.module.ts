@@ -5,8 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthHttp, AuthConfig} from 'angular2-jwt';
-import { Storage , IonicStorageModule} from '@ionic/storage';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { Storage, IonicStorageModule } from '@ionic/storage';
 
 /***********************/
 //Pages
@@ -23,6 +23,7 @@ import { PasswordRecoveryPage } from '../pages/password-recovery/password-recove
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { HeaderCommomComponent } from '../components/header-commom/header-commom';
 import { FooterCommomComponent } from '../components/footer-commom/footer-commom';
+import { NotificationsComponent } from '../components/notifications/notifications';
 
 /***********************/
 //Providers
@@ -34,11 +35,11 @@ import { FooterProvider } from '../providers/footer/footer';
 
 let storage = new Storage({});
 
-export function getAuthHttp(http : Http) {
+export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
     headerPrefix: 'JWT',
     noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
+    globalHeaders: [{ 'Accept': 'application/json' }],
     tokenGetter: (() => storage.get('token')),
   }), http);
 }
@@ -52,7 +53,8 @@ export function getAuthHttp(http : Http) {
     PasswordRecoveryPage,
     HeaderMenuComponent,
     HeaderCommomComponent,
-    FooterCommomComponent
+    FooterCommomComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -74,13 +76,14 @@ export function getAuthHttp(http : Http) {
     PasswordRecoveryPage,
     HeaderMenuComponent,
     HeaderCommomComponent,
-    FooterCommomComponent
+    FooterCommomComponent,
+    NotificationsComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {
-      provide: ErrorHandler, 
+      provide: ErrorHandler,
       useClass: IonicErrorHandler
     },
     {
@@ -93,4 +96,4 @@ export function getAuthHttp(http : Http) {
     FooterProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

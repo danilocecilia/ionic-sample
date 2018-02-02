@@ -6,7 +6,6 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 
 import { FooterProvider } from '../../providers/footer/footer';
 
-import { AuthPage } from '../auth/auth';
 import { ProtectedPage } from '../protected/protected';
 import { ModalNotificationPage } from '../modal-notification/modal-notification';
 
@@ -40,10 +39,6 @@ export class HomePage extends ProtectedPage {
     });
   }
 
-  openNotification() {
-    let modal = this.modalCtrl.create(ModalNotificationPage);
-    modal.present();
-  }
 
   ionViewWillEnter() {
     this.events.publish('hideHeader', { isHidden: false });
