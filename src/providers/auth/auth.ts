@@ -39,6 +39,7 @@ export class AuthProvider {
   getAuthenticate(credentials: CredentialsModel) {
     return this.authHttp.post(this.cfg.apiUrl, credentials)
       .toPromise().then(data => {
+        debugger;
         let rs = data.json();
         this.saveData(data);
         this.token = rs.token;

@@ -6,7 +6,7 @@
 <ion-content>
 
   <ion-list no-margin>
-    <ion-slides pager (ionSlideDidChange)="slideChanged()">
+    <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let comp of items.Competency" class="text-center slider-item">
         <div class="slide-text">
             <h2>{{comp.Level.Level}}</h2>
