@@ -7,6 +7,7 @@ import { HomePage } from '../home/home'
 import { PasswordRecoveryPage } from '../password-recovery/password-recovery';
 
 import { AuthProvider } from "../../providers/auth/auth";
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the AuthPage page.
@@ -21,9 +22,7 @@ import { AuthProvider } from "../../providers/auth/auth";
   templateUrl: 'auth.html',
 })
 export class AuthPage {
-  //@ViewChild('myNav') nav: NavController
-  //@ViewChild(Nav) nav: Nav;
-  public rootPage: any = HomePage;
+  // public rootPage: any = HomePage;
   authForm: FormGroup;
   userProfile = {};
 
@@ -45,6 +44,8 @@ export class AuthPage {
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
     });
+
+    this.events.publish('hideHeader', { isHidden: true});
   }
 
   invalidCredentialsMsg() {
@@ -58,7 +59,7 @@ export class AuthPage {
   }
 
   redirectToHome() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(TabsPage);
     this.navCtrl.popToRoot();
   }
 

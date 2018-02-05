@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ViewController, App } from 'ionic-angular';
+import { CurriculumPage } from '../curriculum/curriculum';
 /**
  * Generated class for the ModalJobrolePage page.
  *
@@ -18,6 +18,7 @@ export class ModalJobrolePage {
   constructor(
     public navCtrl    : NavController, 
     public navParams  : NavParams,
+    public appCtrl    : App,
     public viewCtrl   : ViewController) {
   }
 
@@ -27,6 +28,12 @@ export class ModalJobrolePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalJobrolePage');
+  }
+
+  getCurriculum(){
+    this.closeModal();
+    //this.appCtrl.getRootNav().push(CurriculumPage);
+    this.navCtrl.push(CurriculumPage);
   }
 
 }

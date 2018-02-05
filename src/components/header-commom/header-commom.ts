@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
   templateUrl: 'header-commom.html'
 })
 export class HeaderCommomComponent {
-
   text: string;
 
   constructor() {

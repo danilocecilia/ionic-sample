@@ -5,15 +5,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Events } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
+import {CurriculumPage } from '../pages/curriculum/curriculum';
 
 import { AuthProvider } from '../providers/auth/auth';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild('content') nav: NavController
-  public rootPage: any = HomePage;
+  public rootPage: any = TabsPage;
 
   public isHidden: boolean = true;
 
@@ -30,6 +32,11 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.authProvider.startupTokenRefresh();
+
+      //This if for hide footer from LoginPage
+      events.subscribe('hideHeader', (data) => {
+        this.isHidden = data.isHidden;
+      })
     });
   }
 }

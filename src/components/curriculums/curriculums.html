@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Curriculum</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <ion-list no-margin>
+    <ion-slides pager (ionSlideDidChange)="slideChanged()">
+      <ion-slide *ngFor="let comp of items.Competency" class="text-center slider-item">
+        <div class="slide-text">
+            <h2>{{comp.Level.Level}}</h2>
+        </div>
+        
+        <!-- <div class="slide-zoom">
+          <h2 class="slide-title">{{item.Level}}</h2>
+        </div> -->
+      </ion-slide>
+    </ion-slides>
+  </ion-list>
+
+  <!-- <div *ngIf="!isDivHidden">
+    <div class="well profile_view">
+      DIV 1
+    </div>
+  </div>
+  <div *ngIf="!isDivHidden">
+    <div class="well profile_view">
+      DIV 1
+    </div>
+  </div> -->
+
+</ion-content>

@@ -12,17 +12,9 @@ import { ModalJobrolePage } from '../../pages/modal-jobrole/modal-jobrole';
   templateUrl: 'footer-commom.html'
 })
 export class FooterCommomComponent {
-  public isHidden: boolean = true;
-  text: string;
-
   constructor(public events: Events, public modalController: ModalController,) {
-
-    //This if for hide footer from LoginPage
-    events.subscribe('hideHeader', (data) => {
-      this.isHidden = data.isHidden;
-    })
+    
     console.log('Hello FooterCommomComponent Component');
-    this.text = 'Hello World';
   }
 
   openModal() {

@@ -39,12 +39,14 @@ export class HomePage extends ProtectedPage {
     });
   }
 
-
   ionViewWillEnter() {
     this.events.publish('hideHeader', { isHidden: false });
   }
 
   ionViewDidLoad() {
-    this.events.publish('hideHeader', { isHidden: false });
+  }
+
+  viewDidLeave(){
+    this.events.publish('hideHeader', { isHidden: true });
   }
 }

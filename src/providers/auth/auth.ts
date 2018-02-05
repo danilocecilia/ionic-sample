@@ -4,7 +4,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { CredentialsModel } from '../../models/credentials'
 import 'rxjs/add/operator/map';
-import *  as AppConfig from '../../app/config';
+import * as AppConfig from '../../app/config';
 import { Observable } from 'rxjs/Rx';
 import { HttpParams } from '@angular/common/http';
 
