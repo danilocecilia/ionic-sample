@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Competency } from '../../models/competency';
 /*
   Generated class for the CurriculumProvider provider.
 
@@ -9,9 +11,46 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class CurriculumProvider {
+  competencies: Observable<Competency[]>;
+  private _competencies: BehaviorSubject<Competency[]>;
+  private baseUrl: string;
+  private dataStore: {
+    competencies: Competency[]
+  }
 
   constructor(public http: HttpClient) {
-    console.log('Hello CurriculumProvider Provider');
+    this.baseUrl = 'https://5a79a9137fbfbb0012625721.mockapi.io/api/';
+    this.dataStore = { competencies: [] };
+    this._competencies = <BehaviorSubject<Competency[]>>new BehaviorSubject([]);
+    this.competencies = this._competencies.asObservable();
+  }
+
+  load(token: string, idJobRole: number) {
+    this.http.get(`${this.baseUrl}/competency/${idJobRole}`).subscribe((data: any) => {
+      let notFound = true;
+
+      this.dataStore.competencies.forEach((item, index) => {
+        if (item.ID === data.ID) {
+          this.dataStore.competencies[index] = data;
+          notFound = false;
+        }
+      });
+
+      if (notFound) {
+        console.log('pushing data to datastore - ' + data);
+        this.dataStore.competencies.push(data);
+      }
+
+      this._competencies.next(Object.assign({}, this.dataStore).competencies);
+
+    }, error => console.log('Could not load todo.'));
+  }
+
+  loadAll() {
+    this.http.get(`${this.baseUrl}/competency`).subscribe((data: any) => {
+      this.dataStore.competencies = data;
+      this._competencies.next(Object.assign({}, this.dataStore).competencies);
+    }, error => console.log('Could not load todos.'));
   }
 
   getCurriculum(token, idJobRole) {
@@ -120,7 +159,7 @@ export class CurriculumProvider {
               "Percentage": 100.0,
               "Date": "2018-01-02T17:02:07", "Status": "PASS"
             },
-          ],
+            ],
           "QtyPass": 2,
           "QtyPending": 2,
           "Percentage": 50.0
@@ -173,8 +212,8 @@ export class CurriculumProvider {
           "QtyPending": 2,
           "Percentage": 50.0
         }
-      ],
-        
+        ],
+
       "QtyPass": 2,
       "QtyPending": 2,
       "Percentage": 50.0,

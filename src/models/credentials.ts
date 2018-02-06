@@ -1,5 +1,5 @@
-export class CredentialsModel {
-    public username: string;
-    public password: string;
+export interface CredentialsModel {
+    username: string;
+    password: string;
   }
   

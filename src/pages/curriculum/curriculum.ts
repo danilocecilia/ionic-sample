@@ -18,15 +18,15 @@ export class CurriculumPage {
     this.events.publish('hideHeader', { isHidden: true });
   }
 
-  radioChecked(value){
-    this.navCtrl.push(CurriculumsComponent, value);
+  radioChecked(value) {
+    this.navCtrl.push(CurriculumsComponent, { idCompetency: 1 });
   }
 
   ionViewDidLoad() {
     this.events.publish('hideHeader', { isHidden: true });
   }
 
-  viewDidLeave(){
+  viewDidLeave() {
     this.events.publish('hideHeader', { isHidden: true });
   }
 }

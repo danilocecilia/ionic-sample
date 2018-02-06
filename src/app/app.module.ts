@@ -35,6 +35,7 @@ import { TodosProvider } from '../providers/todos/todos';
 import { AuthProvider } from '../providers/auth/auth';
 import { FooterProvider } from '../providers/footer/footer';
 import { CurriculumProvider } from '../providers/curriculum/curriculum';
+import { CompetencyProvider } from '../providers/competency/competency';
 
 let storage = new Storage({});
 
@@ -103,7 +104,8 @@ export function getAuthHttp(http: Http) {
     TodosProvider,
     AuthProvider,
     FooterProvider,
-    CurriculumProvider
+    CurriculumProvider,
+    CompetencyProvider
   ]
 })
 export class AppModule { }
