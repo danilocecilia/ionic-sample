@@ -17,12 +17,11 @@ import { map } from 'rxjs/operators';
   templateUrl: 'curriculums.html'
 })
 export class CurriculumsComponent implements OnInit {
-  // competencies: Observable<Competency[]>;
+  private competency: any;
   // singleCompetency: Observable<Competency>;
-  competency: Competency;
+  items: any;
   idCompetency: number;
   text: string;
-  items: any;
 
   constructor(
     public navCtrl: NavController,
@@ -31,46 +30,21 @@ export class CurriculumsComponent implements OnInit {
     private competencyProvider: CompetencyProvider,
     public navParams: NavParams) {
     this.idCompetency = navParams.get("idCompetency");
-    // this.curriculumProvider.load('', 1);
-    // debugger;
   }
-
-  // loadCompetencies() {
-  //   this.competencyProvider.loadAllCompetencies().subscribe(comp => {
-  //     debugger;
-  //     this.competencies = comp
-  //   },
-  //     err => {
-  //       console.log(err);
-  //     });
-  // }
-
 
   ngOnInit() {
     this.getCompetency();
-    //this.loadCompetencies();
-    // this.competencies = this.curriculumProvider.competencies;
-
-    // this.singleCompetency = this.curriculumProvider.competencies.pipe(
-    //   map(todos => todos.find(item => item.ID === 44))
-    // );
-
-    // this.curriculumProvider.loadAll();
-    // console.log(this.competencies.ID);
-    // //this.items = this.curriculumProvider.load('', 1);
-
-
   }
 
   slideChanged() {
-
+    
   }
 
   getCompetency() {
-    this.competencyProvider.getCompetency(this.idCompetency).subscribe(comp => { debugger; this.competency = comp },
-      err => {
-        console.log(err);
-      });
+    this.competency = this.competencyProvider.getCompetency(this.idCompetency).subscribe((comp: Competency) => {
+      console.log(comp);
+      this.competency = comp;
+    });
   }
 
   ionViewDidLoad() {

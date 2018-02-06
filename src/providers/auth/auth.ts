@@ -39,7 +39,7 @@ export class AuthProvider {
   getAuthenticate(credentials: CredentialsModel) {
     return this.authHttp.post(this.cfg.apiUrl, credentials)
       .toPromise().then(data => {
-        debugger;
+        
         let rs = data.json();
         this.saveData(data);
         this.token = rs.token;
@@ -150,7 +150,7 @@ export class AuthProvider {
   }
 
   public unscheduleRefresh() {
-    // Unsubscribe fromt the refresh
+    // Unsubscribe from the refresh
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }

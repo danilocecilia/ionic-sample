@@ -7,52 +7,52 @@
 
   <ion-list no-margin>
     <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
-      <ion-slide *ngFor="let comp of competencies" class="text-center slider-item">
+      <ion-slide *ngFor="let comp of competency.Competency" class="text-center slider-item">
         <div class="slide-text">
-          <h2>{{comp.Competency[0].Level.Level}}</h2>
+          <h2>{{comp.Level.Level}}</h2>
         </div>
       </ion-slide>
     </ion-slides>
   </ion-list>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-11>
-        Gore-tex Membrane
-      </ion-col>
-      <ion-col col-1 right>
-        <ion-icon name="desktop"></ion-icon>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-img width="100%" height="150px" src="https://ionicframework.com/docs/demos/src/slides/www/assets/slide2.jpeg"></ion-img>
-    </ion-row>
-    <ion-row>
-      Description:
-      <p>in this course we will be introduced to the GORE-TEX membrane, the key feature of all GORE-TEX products that offer
-        the customer three main benefits: waterproofness, windproofness and breathbility.</p>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        Cost:
-      </ion-col>
-      <ion-col>
-        Course Expiration
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        200,00
-      </ion-col>
-      <ion-col>
-        365 Days
-      </ion-col>
-    </ion-row>
-    <ion-row col-12 text-right>
-      <ion-col no-margin>
-        <button ion-button color="dark">NOT STARTED</button>
-        <ion-item class="item-block" no-margin></ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-grid *ngFor="let comp of competency.Competency">
+      <ion-row>
+        <ion-col col-11>
+          {{competency.Hitory}}
+        </ion-col>
+        <ion-col col-1 right>
+          <ion-icon name="desktop"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-img width="100%" height="150px" src="https://ionicframework.com/docs/demos/src/slides/www/assets/slide2.jpeg"></ion-img>
+      </ion-row>
+      <ion-row>
+        Description:
+        <p>in this course we will be introduced to the GORE-TEX membrane, the key feature of all GORE-TEX products that offer
+          the customer three main benefits: waterproofness, windproofness and breathbility.</p>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          Cost:
+        </ion-col>
+        <ion-col>
+          Course Expiration
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          200,00
+        </ion-col>
+        <ion-col>
+          365 Days
+        </ion-col>
+      </ion-row>
+      <ion-row col-12 text-right>
+        <ion-col no-margin>
+          <button ion-button color="dark">NOT STARTED</button>
+          <ion-item class="item-block" no-margin></ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>
