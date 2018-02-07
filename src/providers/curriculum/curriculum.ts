@@ -21,13 +21,10 @@ export class CurriculumProvider {
   constructor(public http: HttpClient) {
     this.baseUrl = 'https://5a79a9137fbfbb0012625721.mockapi.io/api/';
     this.dataStore = { competencies: [] };
-    this._competencies = <BehaviorSubject<Competency[]>>new BehaviorSubject([]);
-    this.competencies = this._competencies.asObservable();
   }
 
-  getJobRoles() {
-    return this.http.get(`${this.baseUrl}/competency/`);
+  loadCurriculum() {
+    return this.http.get(`${this.baseUrl}/curriculum/`);
   }
-
 }
 

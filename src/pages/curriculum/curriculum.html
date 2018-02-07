@@ -1,9 +1,3 @@
-<!--
-  Generated template for the CurriculumPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>My Curriculum</ion-title>
@@ -15,23 +9,11 @@
     <ion-list-header>
       Select a Job Role
     </ion-list-header>
-
-    <ion-item>
-      <ion-label color="dark">Techinal</ion-label>
-      <ion-radio value="always" (ionSelect)="radioChecked('')"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label color="dark">Manager</ion-label>
-      <ion-radio></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label color="dark">Assistent</ion-label>
-      <ion-radio></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label color="dark">Director</ion-label>
-      <ion-radio></ion-radio>
+    <ion-item *ngFor="let jr of curriculum.APICompetency">
+      <ion-label color="dark">{{jr.JobRole.JobRole}}</ion-label>
+      <ion-radio (ionSelect)="radioChecked(jr.ID)"></ion-radio>
     </ion-item>
   </ion-list>
 </ion-content>
+
 <footer-commom></footer-commom>

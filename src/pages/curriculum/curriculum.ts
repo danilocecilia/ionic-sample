@@ -1,32 +1,45 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-import { CurriculumsComponent } from '../../components/curriculums/curriculums';
-/**
- * Generated class for the CurriculumPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component, OnInit } from "@angular/core";
+import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
+import { CurriculumsComponent } from "../../components/curriculums/curriculums";
+import { CurriculumProvider } from "../../providers/curriculum/curriculum";
 
 @IonicPage()
 @Component({
-  selector: 'page-curriculum',
-  templateUrl: 'curriculum.html',
+  selector: "page-curriculum",
+  templateUrl: "curriculum.html"
 })
-export class CurriculumPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
-    this.events.publish('hideHeader', { isHidden: true });
+export class CurriculumPage implements OnInit {
+  curriculum: any;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public events: Events,
+    public curriculumProvider: CurriculumProvider
+  ) {}
+
+  ngOnInit() {
+    this.loadCurriculum();
+  }
+
+  loadCurriculum() {
+    this.curriculum = this.curriculumProvider
+      .loadCurriculum()
+      .subscribe(res => {
+        this.curriculum = res[0];
+        console.log(this.curriculum);
+      });
   }
 
   radioChecked(value) {
-    this.navCtrl.push(CurriculumsComponent, { idCompetency: 1 });
+    this.navCtrl.push(CurriculumsComponent,  { idCompetency: value });
   }
 
   ionViewDidLoad() {
-    this.events.publish('hideHeader', { isHidden: true });
+    this.events.publish("hideHeader", { isHidden: true });
   }
 
   viewDidLeave() {
-    this.events.publish('hideHeader', { isHidden: true });
+    this.events.publish("hideHeader", { isHidden: true });
   }
 }
