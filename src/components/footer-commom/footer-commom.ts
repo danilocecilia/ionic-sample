@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Events, ModalController } from 'ionic-angular';
-import { ModalJobrolePage } from '../../pages/modal-jobrole/modal-jobrole';
+
 /**
  * Generated class for the FooterCommomComponent component.
  *
@@ -18,7 +18,7 @@ export class FooterCommomComponent {
   }
 
   openModal() {
-    let myModal = this.modalController.create(ModalJobrolePage);
-    myModal.present();
+    // let myModal = this.modalController.create(ModalJobrolePage);
+    // myModal.present();
   }
 }

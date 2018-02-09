@@ -7,13 +7,13 @@ import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Storage, IonicStorageModule } from '@ionic/storage';
+import { NgCalendarModule  } from 'ionic2-calendar';
 
 /***********************/
 //Pages
 /***********************/
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ModalJobrolePage } from '../pages/modal-jobrole/modal-jobrole';
 import { ModalNotificationPage } from '../pages/modal-notification/modal-notification';
 import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
 import { CurriculumPage } from '../pages/curriculum/curriculum';
@@ -27,6 +27,7 @@ import { HeaderCommomComponent } from '../components/header-commom/header-commom
 import { FooterCommomComponent } from '../components/footer-commom/footer-commom';
 import { NotificationsComponent } from '../components/notifications/notifications';
 import { CurriculumsComponent } from '../components/curriculums/curriculums';
+import { AgendaComponent } from "../components/agenda/agenda";
 
 /***********************/
 //Providers
@@ -52,7 +53,6 @@ export function getAuthHttp(http: Http) {
   declarations: [
     MyApp,
     HomePage,
-    ModalJobrolePage,
     ModalNotificationPage,
     PasswordRecoveryPage,
     HeaderMenuComponent,
@@ -61,7 +61,8 @@ export function getAuthHttp(http: Http) {
     NotificationsComponent,
     CurriculumPage,
     CurriculumsComponent,
-    TabsPage
+    TabsPage,
+    AgendaComponent
   ],
   imports: [
     BrowserModule,
@@ -72,13 +73,13 @@ export function getAuthHttp(http: Http) {
       // driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    NgCalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ModalJobrolePage,
     ModalNotificationPage,
     PasswordRecoveryPage,
     HeaderMenuComponent,
@@ -87,7 +88,8 @@ export function getAuthHttp(http: Http) {
     NotificationsComponent,
     CurriculumPage,
     CurriculumsComponent,
-    TabsPage
+    TabsPage,
+    AgendaComponent
   ],
   providers: [
     StatusBar,

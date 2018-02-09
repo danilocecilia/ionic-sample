@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar>
+        {{ viewTitle }}
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-content class="has-header">
+        <calendar [locale]="calendar.locale"
+                [eventSource]="eventSource"
+                  [calendarMode]="calendar.mode"
+                  [currentDate]="calendar.currentDate"
+                  (onCurrentDateChanged)="onCurrentDateChanged($event)"
+                  (onEventSelected)="onEventSelected($event)"
+                  (onTitleChanged)="onViewTitleChanged($event)"
+                  (onTimeSelected)="onTimeSelected($event)"
+                  step="30">
+        </calendar>
+  <button ion-button color="danger" showToggleButtons="true" (click)="dismiss()">Close Modal</button>
+</ion-content>
