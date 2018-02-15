@@ -3,26 +3,12 @@
     <ion-title>My Curriculum</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content>
-  
-  <ion-list no-margin>
-    <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
-      <ion-slide *ngFor="let comp of competency.Competency" class="text-center slider-item">
-        <div class="slide-text">
-          <h6>{{comp.Level.Level}}</h6>
-        </div>
-        <div class="progress-outer">
-          <div class="progress-inner"  [style.width]="progress + '%'">
-              {{progress}}%
-          </div>
-      </div>
-      </ion-slide>
-    </ion-slides>
-  </ion-list>
-  <ion-grid *ngFor="let his of history">
-    <ion-row>
+  <ion-grid *ngIf="!isEnrollmentHidden">
+    <ion-row wrap>
       <ion-col col-11>
-        {{his.Training.Training}}
+        {{training.Training}}
       </ion-col>
       <ion-col col-1 right>
         <ion-icon name="desktop"></ion-icon>
@@ -33,7 +19,7 @@
     </ion-row>
     <ion-row>
       Description:
-      <p>{{his.Training.Summary}}</p>
+      <p>{{training.Summary}}</p>
     </ion-row>
     <ion-row>
       <ion-col>
@@ -45,22 +31,77 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        200,00
+        199,00
       </ion-col>
       <ion-col>
-        365 Days
+        366 Days
       </ion-col>
     </ion-row>
     <ion-row col-12 text-right>
       <ion-col no-margin>
-        <button ion-button color="dark">{{his.Status}}</button>
+        <!-- <button ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE'" (click)=openCalendar(1) color="dark">{{his.Status}}</button>
+                <button ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE'" color="dark">{{his.Status}}</button> -->
         <ion-item class="item-block" no-margin></ion-item>
       </ion-col>
-      <ion-col no-margin>
-          <button ion-button color="dark" (click)=openCalendar(1)>CALENDAR</button>
-          <ion-item class="item-block" no-margin></ion-item>
-        </ion-col>
     </ion-row>
   </ion-grid>
 
+  <ng-container *ngIf="isEnrollmentHidden">
+    <ion-list no-margin>
+      <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
+        <ion-slide *ngFor="let comp of competency.Competency" class="text-center slider-item">
+          <div class="slide-text">
+            <h6>{{comp.Level.Level}}</h6>
+          </div>
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="progress + '%'">
+              {{progress}}%
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-list>
+    <ion-grid *ngFor="let his of history">
+      <ion-row wrap>
+        <ion-col col-11>
+          {{his.Training.Training}}
+        </ion-col>
+        <ion-col col-1 right>
+          <ion-icon name="desktop"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+      </ion-row>
+      <ion-row>
+        Description:
+        <p>{{his.Training.Summary}}</p>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          Cost:
+        </ion-col>
+        <ion-col>
+          Course Expiration
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          200,00
+        </ion-col>
+        <ion-col>
+          365 Days
+        </ion-col>
+      </ion-row>
+      <ion-row col-12 text-right>
+        <ion-col no-margin>
+          <button ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(1)
+            color="dark">{{his.Status}}</button>
+          <button ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
+            color="dark">{{his.Status}}</button>
+          <ion-item class="item-block" no-margin></ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
 </ion-content>

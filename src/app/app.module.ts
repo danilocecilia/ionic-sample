@@ -28,6 +28,7 @@ import { FooterCommomComponent } from '../components/footer-commom/footer-commom
 import { NotificationsComponent } from '../components/notifications/notifications';
 import { CurriculumsComponent } from '../components/curriculums/curriculums';
 import { AgendaComponent } from "../components/agenda/agenda";
+import { EnrollmentComponent  } from "../components/enrollment/enrollment";
 
 /***********************/
 //Providers
@@ -37,6 +38,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { FooterProvider } from '../providers/footer/footer';
 import { CurriculumProvider } from '../providers/curriculum/curriculum';
 import { CompetencyProvider } from '../providers/competency/competency';
+import { AgendaProvider } from '../providers/agenda/agenda';
 
 let storage = new Storage({});
 
@@ -55,10 +57,11 @@ export function getAuthHttp(http: Http) {
     HomePage,
     ModalNotificationPage,
     PasswordRecoveryPage,
-    HeaderMenuComponent,
     HeaderCommomComponent,
+    HeaderMenuComponent,
     FooterCommomComponent,
     NotificationsComponent,
+    EnrollmentComponent,
     CurriculumPage,
     CurriculumsComponent,
     TabsPage,
@@ -82,10 +85,11 @@ export function getAuthHttp(http: Http) {
     HomePage,
     ModalNotificationPage,
     PasswordRecoveryPage,
-    HeaderMenuComponent,
     HeaderCommomComponent,
+    HeaderMenuComponent,
     FooterCommomComponent,
     NotificationsComponent,
+    EnrollmentComponent,
     CurriculumPage,
     CurriculumsComponent,
     TabsPage,
@@ -107,7 +111,8 @@ export function getAuthHttp(http: Http) {
     AuthProvider,
     FooterProvider,
     CurriculumProvider,
-    CompetencyProvider
+    CompetencyProvider,
+    AgendaProvider
   ]
 })
 export class AppModule { }

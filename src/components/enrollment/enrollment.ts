@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
 
 /**
  * Generated class for the EnrollmentComponent component.
@@ -12,11 +13,15 @@ import { Component } from '@angular/core';
 })
 export class EnrollmentComponent {
 
-  text: string;
+  training:any;
+  status:string;
 
-  constructor() {
-    console.log('Hello EnrollmentComponent Component');
-    this.text = 'Hello World';
+  constructor(public navParam : NavParams) {
+    
+    this.training = this.navParam.data.training;
+    this.status = this.navParam.data.status;
   }
+
+
 
 }

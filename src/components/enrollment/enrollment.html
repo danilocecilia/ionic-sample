@@ -1,4 +1,88 @@
-<!-- Generated template for the EnrollmentComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-header>
+    <ion-navbar>
+        <ion-title>Course Enrollment</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row wrap>
+            <ion-col col-11>
+                {{training.Training}}
+            </ion-col>
+            <ion-col col-1 right>
+                <ion-icon name="desktop"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+        </ion-row>
+        <ion-row>
+            Description:
+            <p>{{training.Summary}}</p>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                Cost:
+            </ion-col>
+            <ion-col>
+                Course Expiration
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                199,00
+            </ion-col>
+            <ion-col>
+                366 Days
+            </ion-col>
+        </ion-row>
+        <ion-row col-12 text-right>
+            <ion-col no-margin>
+                <!-- <button ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE'" (click)=openCalendar(1) color="dark">{{his.Status}}</button>
+                    <button ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE'" color="dark">{{his.Status}}</button> -->
+                <ion-item class="item-block" no-margin></ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content><ion-content>
+        <ion-grid>
+            <ion-row wrap>
+                <ion-col col-11>
+                    {{training.Training}}
+                </ion-col>
+                <ion-col col-1 right>
+                    <ion-icon name="desktop"></ion-icon>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+            </ion-row>
+            <ion-row>
+                Description:
+                <p>{{training.Summary}}</p>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    Cost:
+                </ion-col>
+                <ion-col>
+                    Course Expiration
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    199,00
+                </ion-col>
+                <ion-col>
+                    366 Days
+                </ion-col>
+            </ion-row>
+            <ion-row col-12 text-right>
+                <ion-col no-margin>
+                    <!-- <button ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE'" (click)=openCalendar(1) color="dark">{{his.Status}}</button>
+                        <button ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE'" color="dark">{{his.Status}}</button> -->
+                    <ion-item class="item-block" no-margin></ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-content>
