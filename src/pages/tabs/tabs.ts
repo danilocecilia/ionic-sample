@@ -4,6 +4,7 @@ import { App } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CurriculumPage } from '../curriculum/curriculum';
 import { Events } from 'ionic-angular';
+import { AgendaComponent } from '../../components/agenda/agenda';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -13,7 +14,7 @@ export class TabsPage {
   // should be each tab's root Page
   tab1Root: any = HomePage;
   tab2Root: any = CurriculumPage;
-  tab3Root: any = HomePage;
+  tab3Root: any = AgendaComponent;
   tab4Root: any = HomePage;
   tab5Root: any = HomePage;
 
