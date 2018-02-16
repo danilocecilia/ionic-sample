@@ -29,6 +29,7 @@ import { NotificationsComponent } from '../components/notifications/notification
 import { CurriculumsComponent } from '../components/curriculums/curriculums';
 import { AgendaComponent } from "../components/agenda/agenda";
 import { EnrollmentComponent  } from "../components/enrollment/enrollment";
+import { LibraryComponent  } from "../components/library/library";
 
 /***********************/
 //Providers
@@ -39,6 +40,7 @@ import { FooterProvider } from '../providers/footer/footer';
 import { CurriculumProvider } from '../providers/curriculum/curriculum';
 import { CompetencyProvider } from '../providers/competency/competency';
 import { AgendaProvider } from '../providers/agenda/agenda';
+import { LibraryProvider } from '../providers/library/library';
 
 let storage = new Storage({});
 
@@ -62,6 +64,7 @@ export function getAuthHttp(http: Http) {
     FooterCommomComponent,
     NotificationsComponent,
     EnrollmentComponent,
+    LibraryComponent,
     CurriculumPage,
     CurriculumsComponent,
     TabsPage,
@@ -89,6 +92,7 @@ export function getAuthHttp(http: Http) {
     HeaderMenuComponent,
     FooterCommomComponent,
     NotificationsComponent,
+    LibraryComponent,
     EnrollmentComponent,
     CurriculumPage,
     CurriculumsComponent,
@@ -112,7 +116,8 @@ export function getAuthHttp(http: Http) {
     FooterProvider,
     CurriculumProvider,
     CompetencyProvider,
-    AgendaProvider
+    AgendaProvider,
+    LibraryProvider
   ]
 })
 export class AppModule { }

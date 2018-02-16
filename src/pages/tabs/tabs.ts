@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { CurriculumPage } from '../curriculum/curriculum';
 import { Events } from 'ionic-angular';
 import { AgendaComponent } from '../../components/agenda/agenda';
+import { LibraryComponent } from '../../components/library/library';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -15,7 +16,7 @@ export class TabsPage {
   tab1Root: any = HomePage;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
-  tab4Root: any = HomePage;
+  tab4Root: any = LibraryComponent;
   tab5Root: any = HomePage;
 
   constructor(public appCtrl : App, public events: Events) {

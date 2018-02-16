@@ -5,6 +5,8 @@ import { NotificationsComponent } from './notifications/notifications';
 import { CurriculumsComponent } from './curriculums/curriculums';
 import { EnrollmentComponent } from './enrollment/enrollment';
 import { AgendaComponent } from './agenda/agenda';
+import { LibraryComponent } from './library/library';
+import { MediaComponent } from './media/media';
 @NgModule({
 	declarations: [HeaderMenuComponent,
     FooterCommomComponent,
@@ -12,7 +14,9 @@ import { AgendaComponent } from './agenda/agenda';
     NotificationsComponent,
     CurriculumsComponent,
     EnrollmentComponent,
-    AgendaComponent],
+    AgendaComponent,
+    LibraryComponent,
+    MediaComponent],
 	imports: [],
 	exports: [HeaderMenuComponent,
     FooterCommomComponent,
@@ -20,6 +24,8 @@ import { AgendaComponent } from './agenda/agenda';
     NotificationsComponent,
     CurriculumsComponent,
     EnrollmentComponent,
-    AgendaComponent]
+    AgendaComponent,
+    LibraryComponent,
+    MediaComponent]
 })
 export class ComponentsModule {}

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Media</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ng-container>
+    <ion-searchbar (ionInput)="getItems($event)" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
+    
+    <ion-grid *ngFor="let lib of libs.Libraries">
+      <ion-row align-items>
+        <ion-col col-1>
+          <ion-icon no-margin name="document"></ion-icon>
+        </ion-col>
+        <ion-col col-7 style="font-size:90%;">
+          <b>{{lib.Name}}</b>
+        </ion-col>
+        <ion-col text-right col-4 style="font-size:70%;">
+          {{lib.Category.Category}}
+        </ion-col>
+      </ion-row>
+      <ion-row no-margin align-items>
+        <ion-col col-10 style="font-size:70%;">
+          <b>published at {{lib.Date}}</b>
+        </ion-col>
+        <ion-col text-right col-2 style="font-size:70%">
+          <b>{{lib.File.Size}}MB</b>
+        </ion-col>
+      </ion-row>
+      <ion-row text-left style="border-bottom: 1px solid; border-color:lightgray;padding-bottom:5px">
+        <ion-col col-12>
+          {{lib.Summary}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+</ion-content>

@@ -5,47 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid *ngIf="!isEnrollmentHidden">
-    <ion-row wrap>
-      <ion-col col-11>
-        {{training.Training}}
-      </ion-col>
-      <ion-col col-1 right>
-        <ion-icon name="desktop"></ion-icon>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
-    </ion-row>
-    <ion-row>
-      Description:
-      <p>{{training.Summary}}</p>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        Cost:
-      </ion-col>
-      <ion-col>
-        Course Expiration
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        199,00
-      </ion-col>
-      <ion-col>
-        366 Days
-      </ion-col>
-    </ion-row>
-    <ion-row col-12 text-right>
-      <ion-col no-margin>
-        <!-- <button ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE'" (click)=openCalendar(1) color="dark">{{his.Status}}</button>
-                <button ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE'" color="dark">{{his.Status}}</button> -->
-        <ion-item class="item-block" no-margin></ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
   <ng-container *ngIf="isEnrollmentHidden">
     <ion-list no-margin>
       <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
@@ -71,11 +30,15 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+        <ion-col>
+          <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+        </ion-col>
       </ion-row>
       <ion-row>
-        Description:
-        <p>{{his.Training.Summary}}</p>
+        <ion-col>
+          Description:
+          <p>{{his.Training.Summary}}</p>
+        </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
@@ -95,13 +58,60 @@
       </ion-row>
       <ion-row col-12 text-right>
         <ion-col no-margin>
-          <button ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(1)
+          <button full ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(1)
             color="dark">{{his.Status}}</button>
-          <button ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
+          <button full ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
             color="dark">{{his.Status}}</button>
           <ion-item class="item-block" no-margin></ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ng-container>
+
+  <ion-grid *ngIf="!isEnrollmentHidden">
+    <ion-row>
+      <ion-col col-11>
+        <p>{{training.Training}}</p>
+      </ion-col>
+      <ion-col col-1 right>
+        <ion-icon name="desktop"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <p>Description:</p>
+        <p>{{training.Summary}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <p>Cost:</p>
+      </ion-col>
+      <ion-col col-6>
+        <p>Course Expiration</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <p>199,00</p>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label no-margin>366 Days</ion-label>
+        <!-- <p>366 Days</p> -->
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col>
+        <ion-label>Open Enrollment</ion-label>
+        <p>by clicking at Start button you are accepting the terms and starting the course.</p>
+        <button full ion-button color="dark">Start</button>
+        <ion-item class="item-block" no-margin></ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

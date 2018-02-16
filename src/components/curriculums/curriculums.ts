@@ -73,7 +73,7 @@ export class CurriculumsComponent implements OnInit {
     }
   }
 
-  ionViewDidLoad() {
-    this.events.publish("hideHeader", { isHidden: true });
-  }
+  // ionViewDidLoad() {
+  //   this.events.publish("hideHeader", { isHidden: true });
+  // }
 }
