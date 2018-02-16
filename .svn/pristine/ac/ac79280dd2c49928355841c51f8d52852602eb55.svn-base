@@ -1,0 +1,12 @@
+agenda {
+    .toolbar-title {
+        overflow: visible;
+        position: relative;
+        .subtitle {
+          position: relative;
+          top: 4px;
+          font-size: 66%;
+          margin: 0;
+        }
+      }
+}

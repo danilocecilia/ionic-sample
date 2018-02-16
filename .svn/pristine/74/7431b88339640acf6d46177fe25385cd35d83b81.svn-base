@@ -1,0 +1,65 @@
+<!--
+  Generated template for the PasswordRecoveryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+
+  <ion-navbar>
+    <ion-title>Password Recovery</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col col-3 col-sm-12>
+        <ion-thumbnail item-start>
+          <img src="https://media.lovemondays.com.br/logos/8fdf5e/msx-international-do-brasil-original.png">
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col offset-1>
+        <h1>MSXI Learn</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <p>Password Recovery</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input formControlName="username" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="authForm.controls.username.hasError('required') && authForm.controls.username.touched">
+            <p>Sorry, field Username is required!</p>
+          </ion-item>
+          <ion-item *ngIf="authForm.controls.username.hasError('pattern') && authForm.controls.username.touched">
+            <p>Sorry, only small and capital letters are allowed!</p>
+          </ion-item>
+          <ion-item *ngIf="authForm.controls.username.hasError('minlength') && authForm.controls.username.touched">
+            <p>Sorry, minimum username length is 8!</p>
+          </ion-item>
+          <ion-item *ngIf="authForm.controls.username.hasError('maxlength') && authForm.controls.username.touched">
+            <p>Sorry, maximum username length is 30!</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <button ion-button color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;display:inline-block;" type="submit">LOGIN</button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+</ion-content>

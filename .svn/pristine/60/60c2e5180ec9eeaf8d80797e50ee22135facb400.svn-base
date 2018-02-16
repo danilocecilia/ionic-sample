@@ -1,0 +1,7 @@
+<header-commom *ngIf="!isHidden"></header-commom>
+
+<ion-content padding-top>
+
+  <notifications></notifications>
+
+</ion-content>
