@@ -7,6 +7,7 @@ import { EnrollmentComponent } from './enrollment/enrollment';
 import { AgendaComponent } from './agenda/agenda';
 import { LibraryComponent } from './library/library';
 import { MediaComponent } from './media/media';
+import { DashboardComponent } from './dashboard/dashboard';
 @NgModule({
 	declarations: [HeaderMenuComponent,
     FooterCommomComponent,
@@ -16,7 +17,8 @@ import { MediaComponent } from './media/media';
     EnrollmentComponent,
     AgendaComponent,
     LibraryComponent,
-    MediaComponent],
+    MediaComponent,
+    DashboardComponent],
 	imports: [],
 	exports: [HeaderMenuComponent,
     FooterCommomComponent,
@@ -26,6 +28,7 @@ import { MediaComponent } from './media/media';
     EnrollmentComponent,
     AgendaComponent,
     LibraryComponent,
-    MediaComponent]
+    MediaComponent,
+    DashboardComponent]
 })
 export class ComponentsModule {}

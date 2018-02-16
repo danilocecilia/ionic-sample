@@ -16,6 +16,6 @@ export class LibraryProvider {
   }
 
   loadLibrary() {
-    return this.http.get(`${this.baseUrl}/library`).map((res: Response) => res.json());
+    return this.http.get(`${this.baseUrl}/library`);
   }
 }

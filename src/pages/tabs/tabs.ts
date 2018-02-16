@@ -6,6 +6,8 @@ import { CurriculumPage } from '../curriculum/curriculum';
 import { Events } from 'ionic-angular';
 import { AgendaComponent } from '../../components/agenda/agenda';
 import { LibraryComponent } from '../../components/library/library';
+import { MediaComponent } from '../../components/media/media';
+import { DashboardComponent } from '../../components/dashboard/dashboard';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -13,11 +15,11 @@ import { LibraryComponent } from '../../components/library/library';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = HomePage;
+  tab1Root: any = DashboardComponent;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
   tab4Root: any = LibraryComponent;
-  tab5Root: any = HomePage;
+  tab5Root: any = MediaComponent;
 
   constructor(public appCtrl : App, public events: Events) {
 

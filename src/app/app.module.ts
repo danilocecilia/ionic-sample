@@ -30,6 +30,8 @@ import { CurriculumsComponent } from '../components/curriculums/curriculums';
 import { AgendaComponent } from "../components/agenda/agenda";
 import { EnrollmentComponent  } from "../components/enrollment/enrollment";
 import { LibraryComponent  } from "../components/library/library";
+import { MediaComponent } from "../components/media/media";
+import { DashboardComponent  } from "../components/dashboard/dashboard";
 
 /***********************/
 //Providers
@@ -64,6 +66,8 @@ export function getAuthHttp(http: Http) {
     FooterCommomComponent,
     NotificationsComponent,
     EnrollmentComponent,
+    DashboardComponent,
+    MediaComponent,
     LibraryComponent,
     CurriculumPage,
     CurriculumsComponent,
@@ -91,7 +95,9 @@ export function getAuthHttp(http: Http) {
     HeaderCommomComponent,
     HeaderMenuComponent,
     FooterCommomComponent,
+    MediaComponent,
     NotificationsComponent,
+    DashboardComponent,
     LibraryComponent,
     EnrollmentComponent,
     CurriculumPage,
