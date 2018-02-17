@@ -5,56 +5,129 @@
 </ion-header>
 
 <ion-content no-bounce>
-  <ion-grid>
-    <ion-row text-center>
-      <ion-col>
-        Users
-      </ion-col>
-      <ion-col>
-        Online
-      </ion-col>
-      <ion-col>
-        Tickets
-      </ion-col>
-      <ion-col>
-        Opened
-      </ion-col>
-    </ion-row>
-    <ion-row text-center>
-      <ion-col>
-        6057
-      </ion-col>
-      <ion-col>
-        19
-      </ion-col>
-      <ion-col>
-        49
-      </ion-col>
-      <ion-col>
-        7
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-card>
+    <ion-grid>
+      <ion-row text-center>
+        <ion-col>
+          Users
+        </ion-col>
+        <ion-col>
+          Online
+        </ion-col>
+        <ion-col>
+          Tickets
+        </ion-col>
+        <ion-col>
+          Opened
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          6057
+        </ion-col>
+        <ion-col>
+          19
+        </ion-col>
+        <ion-col>
+          49
+        </ion-col>
+        <ion-col>
+          7
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <b>Daily Access</b>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <div>Daily Access</div>
+          <b>Billings Summary</b>
         </ion-col>
       </ion-row>
-      
-      <ion-row>
-        <ion-col col-12>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      <ion-row text-center>
+        <ion-col>
+          Revenues
+        </ion-col>
+        <ion-col>
+          Expenses
+        </ion-col>
+        <ion-col>
+          Unbilled
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          $3,450.00
+        </ion-col>
+        <ion-col>
+          $1,691.98
+        </ion-col>
+        <ion-col>
+          $6,300.00
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          Investments by Type
         </ion-col>
       </ion-row>
     </ion-grid>
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/advance-card-bttf.png">
-    <!-- <ion-card-content>
-        <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-          Whoa. This is heavy.</p>
-      </ion-card-content> -->
+    <ion-card-content>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <b>Trainings</b>
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          Pass
+        </ion-col>
+        <ion-col>
+          Fail
+        </ion-col>
+        <ion-col>
+          In Progress
+        </ion-col>
+        <ion-col>
+          Enrolled
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          126940
+        </ion-col>
+        <ion-col>
+          2467
+        </ion-col>
+        <ion-col>
+          2787
+        </ion-col>
+        <ion-col>
+          226
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card-content>
+      <canvas #pieCanvas></canvas>
+    </ion-card-content>
   </ion-card>
 </ion-content>
