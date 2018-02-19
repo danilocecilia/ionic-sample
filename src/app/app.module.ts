@@ -44,12 +44,14 @@ import { CurriculumProvider } from '../providers/curriculum/curriculum';
 import { CompetencyProvider } from '../providers/competency/competency';
 import { AgendaProvider } from '../providers/agenda/agenda';
 import { LibraryProvider } from '../providers/library/library';
-
+import { NotificationProvider } from '../providers/notification/notification';
 
 import { CurriculumPageModule } from "../pages/curriculum/curriculum.module";
 import { ModalNotificationPageModule  } from "../pages/modal-notification/modal-notification.module";
 import { PasswordRecoveryPageModule  } from "../pages/password-recovery/password-recovery.module";
 import { TabsPageModule  } from "../pages/tabs/tabs.module";
+import { AuthPageModule } from '../pages/auth/auth.module';
+
 
 let storage = new Storage({});
 
@@ -77,6 +79,7 @@ export function getAuthHttp(http: Http) {
     LibraryComponent,
     CurriculumsComponent,
     AgendaComponent,
+    //AuthPage
     //CurriculumPage,
     //TabsPage,
   ],
@@ -94,7 +97,8 @@ export function getAuthHttp(http: Http) {
     CurriculumPageModule,
     ModalNotificationPageModule,
     PasswordRecoveryPageModule,
-    TabsPageModule
+    TabsPageModule,
+    AuthPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -111,6 +115,7 @@ export function getAuthHttp(http: Http) {
     EnrollmentComponent,
     CurriculumsComponent,
     AgendaComponent,
+    //AuthPage
     //CurriculumPage,
     // TabsPage,
   ],
@@ -132,7 +137,8 @@ export function getAuthHttp(http: Http) {
     CurriculumProvider,
     CompetencyProvider,
     AgendaProvider,
-    LibraryProvider
+    LibraryProvider,
+    NotificationProvider
   ]
 })
 export class AppModule { }

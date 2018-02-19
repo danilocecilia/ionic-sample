@@ -9,9 +9,26 @@
   <ion-navbar>
     <ion-title>Notification Detail</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <ul class="timeline widget" padding>
+    <li padding-top>
+      <h6>
+        <ion-icon name="browsers"></ion-icon>
+        <a>{{notification.Notification}}</a>
+      </h6>
+      <div class="byline">
+        <span>published at {{notification.Date}}</span>
+      </div>
+      <p>{{notification.Summary}}
+      </p>
+    </li>
+    <li [innerHtml]="notification.Body">
+        
+    </li>
+  </ul>
+
   <button ion-button block (click)="closeModal()">Close Modal</button>
 </ion-content>

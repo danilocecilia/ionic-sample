@@ -1,13 +1,21 @@
-import { Component,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, MenuController, Events, Nav } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Storage } from '@ionic/storage';
+import { Component, ViewChild } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ToastController,
+  MenuController,
+  Events,
+  Nav
+} from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Storage } from "@ionic/storage";
 
-import { HomePage } from '../home/home'
-import { PasswordRecoveryPage } from '../password-recovery/password-recovery';
+import { HomePage } from "../home/home";
+import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
 
 import { AuthProvider } from "../../providers/auth/auth";
-import { TabsPage } from '../tabs/tabs';
+import { TabsPage } from "../tabs/tabs";
 
 /**
  * Generated class for the AuthPage page.
@@ -18,14 +26,14 @@ import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
-  selector: 'page-auth',
-  templateUrl: 'auth.html',
+  selector: "page-auth",
+  templateUrl: "auth.html"
 })
 export class AuthPage {
   // public rootPage: any = HomePage;
   authForm: FormGroup;
   userProfile = {};
-
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,25 +42,38 @@ export class AuthPage {
     public authProvider: AuthProvider,
     public menu: MenuController,
     public events: Events,
-    private toastCtrl: ToastController) {
-
+    private toastCtrl: ToastController
+  ) {
     this.menu.enable(false);
 
     this.navCtrl = navCtrl;
 
     this.authForm = this.formBuilder.group({
-      username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+      username: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("[a-zA-Z]*"),
+          Validators.minLength(8),
+          Validators.maxLength(30)
+        ])
+      ],
+      password: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(8)])
+      ]
     });
 
-    this.events.publish('hideHeader', { isHidden: true});
+    this.events.publish("hideHeader", { isHidden: true });
+
+    //if (localStorage.getItem("token") === null) this.navCtrl.setRoot(AuthPage);
   }
 
   invalidCredentialsMsg() {
     let toast = this.toastCtrl.create({
-      message: 'Invalid Username or Password.',
+      message: "Invalid Username or Password.",
       duration: 3000,
-      position: 'bottom'
+      position: "bottom"
     });
 
     toast.present();
@@ -65,16 +86,17 @@ export class AuthPage {
 
   onSubmit(value: any): void {
     if (this.authForm.valid) {
-      this.authProvider.getAuthenticate(this.authForm.value)
+      this.authProvider
+        .getAuthenticate(this.authForm.value)
         .then(() => this.redirectToHome());
     }
   }
 
   ionViewDidLoad() {
-    this.events.publish('hideHeader', { isHidden: true});
+    this.events.publish("hideHeader", { isHidden: true });
   }
 
-  goToPasswordRecovery(){
+  goToPasswordRecovery() {
     this.navCtrl.push(PasswordRecoveryPage);
   }
 }

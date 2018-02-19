@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ViewController
+} from "ionic-angular";
+import { getNonHydratedSegmentIfLinkAndUrlMatch } from "ionic-angular/navigation/url-serializer";
+import { NotificationProvider } from "../../providers/notification/notification";
 
 /**
  * Generated class for the ModalNotificationPage page.
@@ -10,17 +17,19 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 @IonicPage()
 @Component({
-  selector: 'page-modal-notification',
-  templateUrl: 'modal-notification.html',
+  selector: "page-modal-notification",
+  templateUrl: "modal-notification.html"
 })
 export class ModalNotificationPage {
+  notification: any;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public viewCtrl: ViewController) {
-
-      //NavParams.get()
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    private notificationProvider: NotificationProvider
+  ) {
+    this.notification = this.navParams.get("notification");
   }
 
   closeModal() {
@@ -28,7 +37,6 @@ export class ModalNotificationPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalNotificationPage');
+    console.log("ionViewDidLoad ModalNotificationPage");
   }
-
 }
