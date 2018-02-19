@@ -15,7 +15,7 @@ import { DashboardComponent } from '../../components/dashboard/dashboard';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = DashboardComponent;
+  tab1Root: any = HomePage;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
   tab4Root: any = LibraryComponent;

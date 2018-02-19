@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { ModalNotificationPage } from '../../pages/modal-notification/modal-notification';
-import { ModalController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { ModalNotificationPage } from "../../pages/modal-notification/modal-notification";
+import { ModalController } from "ionic-angular";
 /**
  * Generated class for the NotificationsComponent component.
  *
@@ -8,22 +8,16 @@ import { ModalController } from 'ionic-angular';
  * Components.
  */
 @Component({
-  selector: 'notifications',
-  templateUrl: 'notifications.html'
+  selector: "notifications",
+  templateUrl: "notifications.html"
 })
 export class NotificationsComponent {
+  constructor(public modalCtrl: ModalController) {}
 
-  text: string;
-
-  constructor(public modalCtrl: ModalController,) {
-    console.log('Hello NotificationsComponent Component');
-    this.text = 'Hello World';
-  }
-
-
-  openNotification() {
-    let modal = this.modalCtrl.create(ModalNotificationPage);
+  openNotification(value) {
+    let modal = this.modalCtrl.create(ModalNotificationPage, {
+      idNotification: value
+    });
     modal.present();
   }
-
 }

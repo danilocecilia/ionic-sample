@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { DashboardComponent } from "../dashboard/dashboard";
 /**
  * Generated class for the HeaderCommomComponent component.
  *
@@ -7,15 +8,13 @@ import { Component } from '@angular/core';
  * Components.
  */
 @Component({
-  selector: 'header-commom',
-  templateUrl: 'header-commom.html'
+  selector: "header-commom",
+  templateUrl: "header-commom.html"
 })
 export class HeaderCommomComponent {
-  text: string;
+  constructor(private navCtrl: NavController) {}
 
-  constructor() {
-    console.log('Hello HeaderCommomComponent Component');
-    this.text = 'Hello World';
+  openDashboard() {
+    this.navCtrl.push(DashboardComponent);
   }
-
 }

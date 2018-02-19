@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, IonicPageModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule, Http } from '@angular/http';
@@ -9,22 +9,23 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { NgCalendarModule  } from 'ionic2-calendar';
 
+//import { ComponentsModule  } from "../components/components.module";
+
 /***********************/
 //Pages
 /***********************/
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ModalNotificationPage } from '../pages/modal-notification/modal-notification';
-import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
+//import { ModalNotificationPage } from '../pages/modal-notification/modal-notification';
+//import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
 import { CurriculumPage } from '../pages/curriculum/curriculum';
-import { TabsPage } from '../pages/tabs/tabs';
+//import { TabsPage } from '../pages/tabs/tabs';
 
 /***********************/
 //Components
 /***********************/
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { HeaderCommomComponent } from '../components/header-commom/header-commom';
-import { FooterCommomComponent } from '../components/footer-commom/footer-commom';
 import { NotificationsComponent } from '../components/notifications/notifications';
 import { CurriculumsComponent } from '../components/curriculums/curriculums';
 import { AgendaComponent } from "../components/agenda/agenda";
@@ -44,6 +45,12 @@ import { CompetencyProvider } from '../providers/competency/competency';
 import { AgendaProvider } from '../providers/agenda/agenda';
 import { LibraryProvider } from '../providers/library/library';
 
+
+import { CurriculumPageModule } from "../pages/curriculum/curriculum.module";
+import { ModalNotificationPageModule  } from "../pages/modal-notification/modal-notification.module";
+import { PasswordRecoveryPageModule  } from "../pages/password-recovery/password-recovery.module";
+import { TabsPageModule  } from "../pages/tabs/tabs.module";
+
 let storage = new Storage({});
 
 export function getAuthHttp(http: Http) {
@@ -59,20 +66,19 @@ export function getAuthHttp(http: Http) {
   declarations: [
     MyApp,
     HomePage,
-    ModalNotificationPage,
-    PasswordRecoveryPage,
+    //ModalNotificationPage,
+    //PasswordRecoveryPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
-    FooterCommomComponent,
     NotificationsComponent,
     EnrollmentComponent,
     DashboardComponent,
     MediaComponent,
     LibraryComponent,
-    CurriculumPage,
     CurriculumsComponent,
-    TabsPage,
-    AgendaComponent
+    AgendaComponent,
+    //CurriculumPage,
+    //TabsPage,
   ],
   imports: [
     BrowserModule,
@@ -84,26 +90,29 @@ export function getAuthHttp(http: Http) {
     }),
     HttpModule,
     HttpClientModule,
-    NgCalendarModule
+    NgCalendarModule,
+    CurriculumPageModule,
+    ModalNotificationPageModule,
+    PasswordRecoveryPageModule,
+    TabsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ModalNotificationPage,
-    PasswordRecoveryPage,
+    //ModalNotificationPage,
+    //PasswordRecoveryPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
-    FooterCommomComponent,
     MediaComponent,
     NotificationsComponent,
     DashboardComponent,
     LibraryComponent,
     EnrollmentComponent,
-    CurriculumPage,
     CurriculumsComponent,
-    TabsPage,
-    AgendaComponent
+    AgendaComponent,
+    //CurriculumPage,
+    // TabsPage,
   ],
   providers: [
     StatusBar,

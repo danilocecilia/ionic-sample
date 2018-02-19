@@ -19,6 +19,8 @@ export class ModalNotificationPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController) {
+
+      //NavParams.get()
   }
 
   closeModal() {

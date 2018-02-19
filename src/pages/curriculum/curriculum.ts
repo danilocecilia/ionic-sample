@@ -27,7 +27,6 @@ export class CurriculumPage implements OnInit {
       .loadCurriculum()
       .subscribe(res => {
         this.curriculum = res[0];
-        console.log(this.curriculum);
       });
   }
 
@@ -35,11 +34,11 @@ export class CurriculumPage implements OnInit {
     this.navCtrl.push(CurriculumsComponent,  { idCompetency: value });
   }
 
-  ionViewDidLoad() {
-    this.events.publish("hideHeader", { isHidden: true });
-  }
+  // ionViewDidLoad() {
+  //   this.events.publish("hideHeader", { isHidden: true });
+  // }
 
-  viewDidLeave() {
-    this.events.publish("hideHeader", { isHidden: true });
-  }
+  // viewDidLeave() {
+  //   this.events.publish("hideHeader", { isHidden: true });
+  // }
 }
