@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule, IonicPageModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule, Http } from '@angular/http';
@@ -18,7 +18,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 //import { ModalNotificationPage } from '../pages/modal-notification/modal-notification';
 //import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
-import { CurriculumPage } from '../pages/curriculum/curriculum';
+// import { CurriculumPage } from '../pages/curriculum/curriculum';
 //import { TabsPage } from '../pages/tabs/tabs';
 
 /***********************/
@@ -29,7 +29,7 @@ import { HeaderCommomComponent } from '../components/header-commom/header-commom
 import { NotificationsComponent } from '../components/notifications/notifications';
 import { CurriculumsComponent } from '../components/curriculums/curriculums';
 import { AgendaComponent } from "../components/agenda/agenda";
-import { EnrollmentComponent  } from "../components/enrollment/enrollment";
+import { CourseStepsComponent  } from "../components/course-steps/course-steps";
 import { LibraryComponent  } from "../components/library/library";
 import { MediaComponent } from "../components/media/media";
 import { DashboardComponent  } from "../components/dashboard/dashboard";
@@ -68,20 +68,15 @@ export function getAuthHttp(http: Http) {
   declarations: [
     MyApp,
     HomePage,
-    //ModalNotificationPage,
-    //PasswordRecoveryPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
     NotificationsComponent,
-    EnrollmentComponent,
     DashboardComponent,
     MediaComponent,
     LibraryComponent,
     CurriculumsComponent,
     AgendaComponent,
-    //AuthPage
-    //CurriculumPage,
-    //TabsPage,
+    CourseStepsComponent
   ],
   imports: [
     BrowserModule,
@@ -104,20 +99,15 @@ export function getAuthHttp(http: Http) {
   entryComponents: [
     MyApp,
     HomePage,
-    //ModalNotificationPage,
-    //PasswordRecoveryPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
     MediaComponent,
     NotificationsComponent,
     DashboardComponent,
     LibraryComponent,
-    EnrollmentComponent,
     CurriculumsComponent,
     AgendaComponent,
-    //AuthPage
-    //CurriculumPage,
-    // TabsPage,
+    CourseStepsComponent
   ],
   providers: [
     StatusBar,

@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content>
+  <!-- LIST OF TRAININGS -->
   <ng-container *ngIf="isEnrollmentHidden">
     <ion-list no-margin>
       <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
@@ -68,6 +69,7 @@
     </ion-grid>
   </ng-container>
 
+  <!-- SELECTED TRAINING ENROLLMENT -->
   <ion-grid *ngIf="!isEnrollmentHidden">
     <ion-row>
       <ion-col col-11>
@@ -79,7 +81,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-img width="350" height="150" src="https://dailysmarty-production.s3.amazonaws.com/uploads/post/img/248/feature_thumb_course-thumb.jpg"></ion-img>
+          <img src="http://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png">
       </ion-col>
     </ion-row>
     <ion-row>
@@ -109,7 +111,7 @@
       <ion-col>
         <ion-label>Open Enrollment</ion-label>
         <p>by clicking at Start button you are accepting the terms and starting the course.</p>
-        <button full ion-button color="dark">Start</button>
+        <button full ion-button color="dark" (click)="onClickStartCourse()">Start</button>
         <ion-item class="item-block" no-margin></ion-item>
       </ion-col>
     </ion-row>

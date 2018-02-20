@@ -5,7 +5,7 @@ import { CompetencyProvider } from "../../providers/competency/competency";
 import { Competency } from "../../models/competency";
 import { ModalController } from "ionic-angular/components/modal/modal-controller";
 import { AgendaComponent } from "../agenda/agenda";
-import { EnrollmentComponent } from "../enrollment/enrollment";
+import { CourseStepsComponent } from "../course-steps/course-steps";
 
 /**
  * Generated class for the CurriculumsComponent component.
@@ -25,7 +25,7 @@ export class CurriculumsComponent implements OnInit {
   idCompetency: number;
   text: string;
   isEnrollmentHidden: boolean = true;
-  training:any;
+  training: any;
 
   @Input("progress") progress;
   constructor(
@@ -47,8 +47,6 @@ export class CurriculumsComponent implements OnInit {
     let currentIndex = this.slides.getActiveIndex();
     this.history = this.competency.Competency[currentIndex].History;
     this.progress = this.competency.Competency[currentIndex].Percentage;
-
-    console.log(this.history);
   }
 
   getCompetency() {
@@ -66,14 +64,14 @@ export class CurriculumsComponent implements OnInit {
     calendarModal.present();
   }
 
-  onClick(training, status){
-    if(status == "NOT_STARTED"){
+  onClickStartCourse(){
+    this.navCtrl.push(CourseStepsComponent, {});
+  }
+
+  onClick(training, status) {
+    if (status == "NOT_STARTED") {
       this.isEnrollmentHidden = false;
       this.training = training;
     }
   }
-
-  // ionViewDidLoad() {
-  //   this.events.publish("hideHeader", { isHidden: true });
-  // }
 }

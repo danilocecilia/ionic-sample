@@ -32,8 +32,8 @@ export class ModalNotificationPage {
     this.notification = this.navParams.get("notification");
   }
 
-  closeModal() {
-    this.viewCtrl.dismiss();
+  onCloseModal() {
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {
