@@ -1,0 +1,15 @@
+assessment {
+  .border_bottom {
+    //border-bottom: 1px;
+    // background-color: lightgrey;
+    border-bottom: 1px solid;
+    border-color: lightgrey;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    // border-radius: 15px;
+  }
+
+  ion-icon {
+    font-size: 25px; //Preferred size here
+  }
+}

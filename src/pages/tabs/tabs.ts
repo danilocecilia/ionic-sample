@@ -9,6 +9,7 @@ import { LibraryComponent } from '../../components/library/library';
 import { MediaComponent } from '../../components/media/media';
 import { DashboardComponent } from '../../components/dashboard/dashboard';
 import { CourseStepsComponent } from '../../components/course-steps/course-steps';
+import { AssessmentComponent } from '../../components/assessment/assessment';
 
 @Component({
   templateUrl: 'tabs.html'

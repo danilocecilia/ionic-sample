@@ -84,4 +84,8 @@
     <allow-navigation href="http://136.140.151.134:8100" />
     <allow-navigation href="http://172.24.242.49:8100" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.2">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
 </widget>

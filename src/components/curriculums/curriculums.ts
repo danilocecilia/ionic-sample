@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild, Input } from "@angular/core";
-import { NavController, Events, NavParams, Slides } from "ionic-angular";
-import { CurriculumProvider } from "../../providers/curriculum/curriculum";
+import {
+  NavController,
+  Events,
+  NavParams,
+  Slides,
+  Platform
+} from "ionic-angular";
 import { CompetencyProvider } from "../../providers/competency/competency";
 import { Competency } from "../../models/competency";
 import { ModalController } from "ionic-angular/components/modal/modal-controller";
@@ -31,7 +36,6 @@ export class CurriculumsComponent implements OnInit {
   constructor(
     public navCtrl: NavController,
     public events: Events,
-    private curriculumProvider: CurriculumProvider,
     private competencyProvider: CompetencyProvider,
     private modalController: ModalController,
     public navParams: NavParams
@@ -59,12 +63,15 @@ export class CurriculumsComponent implements OnInit {
       });
   }
 
-  openCalendar(value) {
+  openCalendar(status) {
+    if (status == "PASS" || status == "ENROLLED")
+      return this.onClickStartCourse();
+
     let calendarModal = this.modalController.create(AgendaComponent);
     calendarModal.present();
   }
 
-  onClickStartCourse(){
+  onClickStartCourse() {
     this.navCtrl.push(CourseStepsComponent, {});
   }
 
@@ -72,6 +79,8 @@ export class CurriculumsComponent implements OnInit {
     if (status == "NOT_STARTED") {
       this.isEnrollmentHidden = false;
       this.training = training;
+    } else if (status == "PASS" || status == "ENROLLED") {
+      this.onClickStartCourse();
     }
   }
 }

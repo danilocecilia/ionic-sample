@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { NavController, NavParams, Platform } from "ionic-angular";
+import { AssessmentComponent } from "../assessment/assessment";
 
 /**
  * Generated class for the CourseStepsComponent component.
@@ -7,13 +9,15 @@ import { Component } from '@angular/core';
  * Components.
  */
 @Component({
-  selector: 'course-steps',
-  templateUrl: 'course-steps.html'
+  selector: "course-steps",
+  templateUrl: "course-steps.html"
 })
 export class CourseStepsComponent {
+  constructor(private navCtrl: NavController) {
 
-  constructor() {
-    
   }
 
+  startAssessment() {
+    this.navCtrl.push(AssessmentComponent, {});
+  }
 }

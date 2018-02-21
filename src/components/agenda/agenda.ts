@@ -1,10 +1,16 @@
-import { NavController } from "ionic-angular/index";
-import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
+import { NavController, Platform } from "ionic-angular/index";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  ViewChild
+} from "@angular/core";
 import * as moment from "moment";
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
 import { AgendaProvider } from "../../providers/agenda/agenda";
 import { ViewController } from "ionic-angular/navigation/view-controller";
 import { NavParams } from "ionic-angular/navigation/nav-params";
+import { CourseStepsComponent } from "../course-steps/course-steps";
 /**
  * Generated class for the AgendaComponent component.
  *
@@ -20,9 +26,11 @@ export class AgendaComponent implements OnInit {
   eventSource;
   viewTitle;
   isToday: boolean;
-  param:any;
-  subtitle:string;
-  description:string;
+  param: any;
+  subtitle: string;
+  description: string;
+  hide: boolean = false;
+  @ViewChild("btnClose") btnClose: any;
 
   calendar = {
     mode: "month",
@@ -57,13 +65,14 @@ export class AgendaComponent implements OnInit {
   };
 
   ngOnInit() {
-    if(this.param.loadType === "general"){
+    if (this.param.loadType === "general") {
       this.loadEvents();
       this.description = "What message here?";
-    }
-    else{
+      this.btnCloseHide(!this.hide);
+    } else {
       this.getEvents(1);
       this.description = "Do you confirm your enrollment for this date event?";
+      this.btnCloseHide(this.hide);
     }
   }
 
@@ -77,22 +86,35 @@ export class AgendaComponent implements OnInit {
     this.param = this.navParams.data;
   }
 
-  bindSubTitle(event){
+  bindSubTitle(event) {
     let start = moment(event.startTime).format("LT");
     let end = moment(event.endTime).format("LT");
 
-    return start + ` - ` + end + `<br>` +
-            `
-            Session: `      + event.TrainingCode + `<br> 
-            Seats Status: ` + event.SeatStatus   + `<br>
-            instructor: `   + event.Instructor   + `<br>
-            Location: `     + event.Location     + `<br>`
+    return (
+      start +
+      ` - ` +
+      end +
+      `<br>` +
+      `
+            Session: ` +
+      event.TrainingCode +
+      `<br> 
+            Seats Status: ` +
+      event.SeatStatus +
+      `<br>
+            Instructor: ` +
+      event.Instructor +
+      `<br>
+            Location: ` +
+      event.Location +
+      `<br>`
+    );
   }
 
-  bindElements(response){
+  bindElements(response) {
     if (response) {
       this.events = response;
-      
+
       this.events.forEach(element => {
         element.startTime = new Date(element.startTime);
         element.endTime = new Date(element.endTime);
@@ -108,7 +130,7 @@ export class AgendaComponent implements OnInit {
     });
   }
 
-  getEvents(trainingId){
+  getEvents(trainingId) {
     this.agendaProvider.getEvents(trainingId).subscribe(res => {
       this.bindElements(res);
     });
@@ -119,23 +141,26 @@ export class AgendaComponent implements OnInit {
   }
 
   doConfirm(event) {
-    
     let alert = this.alertCtrl.create({
       title: "" + event.title,
       subTitle: this.bindSubTitle(event),
       message: this.description,
-      buttons: [ {
-        text: 'No',
-        handler: () => {
-          console.log('No');
+      buttons: [
+        {
+          text: "No",
+          handler: () => {
+            console.log("No");
+          }
+        },
+        {
+          text: "Yes",
+          handler: () => {
+            // this.navController.pop();
+            this.navController.push(CourseStepsComponent, {});
+            console.log("Yes");
+          }
         }
-      },
-      {
-        text: 'Yes',
-        handler: () => {
-          console.log('Yes');
-        }
-      }]
+      ]
     });
 
     alert.present();
@@ -171,6 +196,14 @@ export class AgendaComponent implements OnInit {
         ", disabled: " +
         ev.disabled
     );
+  }
+
+  onCloseModal() {
+    this.navController.pop();
+  }
+
+  btnCloseHide(value) {
+    this.hide = !value;
   }
 
   onCurrentDateChanged(event: Date) {
@@ -253,7 +286,7 @@ export class AgendaComponent implements OnInit {
   //   return date < current;
   // };
 
-  dismiss(){
+  dismiss() {
     this.viewCtrl.dismiss();
   }
 }

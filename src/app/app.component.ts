@@ -5,13 +5,9 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Events } from "ionic-angular";
 
-import { HomePage } from "../pages/home/home";
-import { CurriculumPage } from "../pages/curriculum/curriculum";
-
 import { AuthProvider } from "../providers/auth/auth";
 import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
-import { audit } from "rxjs/operators/audit";
 
 @Component({
   templateUrl: "app.html"

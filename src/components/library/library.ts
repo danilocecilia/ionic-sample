@@ -53,7 +53,6 @@ export class LibraryComponent implements OnInit {
 
     // set q to the value of the searchbar
     var val = event.target.value;
-    debugger;
     if(val === '' || val === undefined)
       return this.loadLibrary();
 
@@ -73,7 +72,7 @@ export class LibraryComponent implements OnInit {
   }
 
   shouldLibCancel() {
-    debugger;
+    
   }
 
   onCancel(event) {

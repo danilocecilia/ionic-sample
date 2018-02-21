@@ -59,7 +59,7 @@
       </ion-row>
       <ion-row col-12 text-right>
         <ion-col no-margin>
-          <button full ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(1)
+          <button full ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(his.Status)
             color="dark">{{his.Status}}</button>
           <button full ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
             color="dark">{{his.Status}}</button>
