@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { EsEnrollmentsComponent } from '../es-enrollments/es-enrollments';
 
 /**
  * Generated class for the EventSummaryComponent component.
@@ -12,11 +14,12 @@ import { Component } from '@angular/core';
 })
 export class EventSummaryComponent {
 
-  text: string;
+  constructor(private navCtrl: NavController) {
 
-  constructor() {
-    console.log('Hello EventSummaryComponent Component');
-    this.text = 'Hello World';
+  }
+
+  onClickEnrollment() {
+    this.navCtrl.push(EsEnrollmentsComponent, {});
   }
 
 }

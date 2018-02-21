@@ -11,6 +11,7 @@ import { DashboardComponent } from '../../components/dashboard/dashboard';
 import { CourseStepsComponent } from '../../components/course-steps/course-steps';
 import { AssessmentComponent } from '../../components/assessment/assessment';
 import { EventSummaryComponent } from '../../components/event-summary/event-summary';
+import { EsEnrollmentsComponent } from '../../components/es-enrollments/es-enrollments';
 
 @Component({
   templateUrl: 'tabs.html'

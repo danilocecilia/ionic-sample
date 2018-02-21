@@ -1,10 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>My Curriculum</ion-title>
+    <ion-title>Event Summary</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-item text-center>
+    <b>FF2137_CL0001</b>
+  </ion-item>
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -12,14 +15,14 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-4 text-center>
-        <button ion-button small class="font-sm">Presence List</button>
+      <ion-col col-12 text-center>
+        <button full ion-button small class="font-sm">Presence List</button>
       </ion-col>
-      <ion-col col-4 text-center>
-        <button ion-button small class="font-sm">Pre test</button>
+      <ion-col col-12 text-center>
+        <button full ion-button small class="font-sm">Pre test</button>
       </ion-col>
-      <ion-col col-4 text-center>
-        <button ion-button small class="font-sm">Post Test</button>
+      <ion-col col-12 text-center>
+        <button full ion-button small class="font-sm">Post Test</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -53,7 +56,7 @@
     </ion-row>
   </ion-grid>
   <ion-grid>
-    <ion-row class="border-bottom">
+    <ion-row class="border-bottom" (click)="onClickEnrollment()">
       <ion-col col-12>
         <ion-icon name="people"></ion-icon> Enrollments</ion-col>
       <ion-col col-6 class="font-sm">Seats:</ion-col>

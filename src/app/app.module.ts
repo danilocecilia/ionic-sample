@@ -38,6 +38,8 @@ import { MediaComponent } from "../components/media/media";
 import { DashboardComponent } from "../components/dashboard/dashboard";
 import { AssessmentComponent } from "../components/assessment/assessment";
 import { EventSummaryComponent  } from "../components/event-summary/event-summary";
+import { EsEnrollmentsComponent  } from "../components/es-enrollments/es-enrollments";
+
 /***********************/
 //Providers
 /***********************/
@@ -85,7 +87,8 @@ export function getAuthHttp(http: Http) {
     AgendaComponent,
     CourseStepsComponent,
     AssessmentComponent,
-    EventSummaryComponent
+    EventSummaryComponent,
+    EsEnrollmentsComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +122,8 @@ export function getAuthHttp(http: Http) {
     AgendaComponent,
     CourseStepsComponent,
     AssessmentComponent,
-    EventSummaryComponent
+    EventSummaryComponent,
+    EsEnrollmentsComponent
   ],
   providers: [
     StatusBar,
