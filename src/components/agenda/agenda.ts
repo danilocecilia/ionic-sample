@@ -67,7 +67,8 @@ export class AgendaComponent implements OnInit {
   ngOnInit() {
     if (this.param.loadType === "general") {
       this.loadEvents();
-      this.description = "What message here?";
+      this.description =
+        "Confirm to see the Event Summary for this date and class?";
       this.btnCloseHide(!this.hide);
     } else {
       this.getEvents(1);
@@ -155,9 +156,13 @@ export class AgendaComponent implements OnInit {
         {
           text: "Yes",
           handler: () => {
-            // this.navController.pop();
-            this.navController.push(CourseStepsComponent, {});
-            console.log("Yes");
+            //TODO: 
+            if (this.param.loadType === "general") {
+              
+            } else {
+              this.navController.push(CourseStepsComponent, {});
+              console.log("Yes");
+            }
           }
         }
       ]

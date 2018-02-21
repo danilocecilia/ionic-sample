@@ -10,6 +10,7 @@ import { MediaComponent } from '../../components/media/media';
 import { DashboardComponent } from '../../components/dashboard/dashboard';
 import { CourseStepsComponent } from '../../components/course-steps/course-steps';
 import { AssessmentComponent } from '../../components/assessment/assessment';
+import { EventSummaryComponent } from '../../components/event-summary/event-summary';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -17,7 +18,7 @@ import { AssessmentComponent } from '../../components/assessment/assessment';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = HomePage;
+  tab1Root: any = EventSummaryComponent;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
   tab4Root: any = LibraryComponent;

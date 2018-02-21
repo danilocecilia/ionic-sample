@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Curriculum</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-icon name="cloud-download"></ion-icon> Downloads
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4 text-center>
+        <button>Presence List</button>
+      </ion-col>
+      <ion-col col-4 text-center>
+        <button>Pre test</button>
+      </ion-col>
+      <ion-col col-4 text-center>
+        <button>Post Test</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col><ion-icon name="cog"></ion-icon> Actions</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>Status</ion-label>
+          <ion-select [(ngModel)]="status" interface="popover">
+            <ion-option value="IN_PROGRESS">IN_PROGRESS</ion-option>
+            <ion-option value="ENROLLED">ENROLLED</ion-option>
+            <ion-option value="PASS">PASS</ion-option>
+            <ion-option value="FAIL">FAIL</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>Step</ion-label>
+          <ion-select [(ngModel)]="step" interface="popover">
+            <ion-option value="PRE_TEST">PRE_TEST</ion-option>
+            <ion-option value="POST_TEST">POST_TEST</ion-option>
+            <ion-option value="TRAINING">TRAINING</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-icon name="cog"></ion-icon> Enrollments</ion-col>
+      <ion-col col-6>Seats:</ion-col>
+      <ion-col col-6 text-right>14 of 14 (Overbook)</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-icon name="cog"></ion-icon> Grades</ion-col>
+      <ion-col col-6>Average:</ion-col>
+      <ion-col col-6 text-right>80.00</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-icon name="cog"></ion-icon> Logistics</ion-col>
+      <ion-col col-6>Expenses:</ion-col>
+      <ion-col col-6 text-right>$750.00</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-icon name="cog"></ion-icon> Billings</ion-col>
+      <ion-col col-6>Revenues:</ion-col>
+      <ion-col col-6 text-right>$ 2500.00</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
