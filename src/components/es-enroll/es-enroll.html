@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Enroll Users
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="border-bottom" class="border-bottom">
+      <ion-col col-12 padding-vertical>
+        <b>FF2137_CL0001</b>
+      </ion-col>
+      <ion-col col-12>
+        Seats: 14 of 14 (overbook) / Seats by Organization: 2
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-searchbar (ionInput)="getItems($event)" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
+
+  <ion-grid>
+    <ion-row class="border-bottom" *ngFor="let e of enrollments.Histories">
+      <ion-col col-3>
+        <ion-avatar item-start>
+          <img src="{{e.User.Thumbnail}}">
+        </ion-avatar>
+        <!-- <ion-icon name="person" style="font-size:70px;"></ion-icon> -->
+      </ion-col>
+      <ion-col col-9 class="font-sm">
+        <ion-list no-margin>
+          <ion-item-sliding #item>
+            <ion-item>
+              <b>{{e.User.Name}}</b>
+              <p>{{e.User.Email}}</p>
+              <p>{{e.User.Phone}}</p>
+              <p>{{e.User.JobRolesStringfied}}</p>
+              <p>{{e.User.Organization.Organization}}</p>
+              <p>{{e.User.Organization.Country}}</p>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button color="secondary" (click)="unread(item)">
+                <ion-icon name="person-add"></ion-icon>
+                Enroll
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <ion-grid>
+    <ion-row class="border-bottom">
+      <ion-col col-3>
+        <ion-avatar item-start>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-9 class="font-sm">
+        <ion-list no-margin>
+          <ion-item-sliding #item>
+            <ion-item>
+              <b>Angelo Martins</b>
+              <p>amartins@msxi.com</p>
+              <p>+5511992028376</p>
+              <p>Aftersales Manager</p>
+              <p>Triumph</p>
+              <p>Executivo de Negocios,Garçon,Gerente,Internal,Pace Maker, Bla bla bla</p>
+              <p>Germany</p>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button color="secondary" (click)="unread(item)">
+                <ion-icon name="person-add"></ion-icon>
+                Enroll
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col col-3>
+        <ion-avatar item-start>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-9 class="font-sm">
+        <ion-list no-margin>
+          <ion-item-sliding #item>
+            <ion-item>
+              <b>Angelo Martins</b>
+              <p>amartins@msxi.com</p>
+              <p>+5511992028376</p>
+              <p>Aftersales Manager</p>
+              <p>Triumph</p>
+              <p>Executivo de Negocios,Garçon,Gerente,Internal,Pace Maker, Bla bla bla</p>
+              <p>Germany</p>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button color="secondary" (click)="unread(item)">
+                <ion-icon name="person-add"></ion-icon>
+                Enroll
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col col-3>
+        <ion-avatar item-start>
+          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-5 class="font-xm">
+        <b>Angelo Martins</b> amartins@msxi.com +5511992028376 Aftersales Manager Triumph Flagshipstore NL Frankfurt Germany
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+</ion-content>

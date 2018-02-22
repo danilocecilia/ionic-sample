@@ -8,53 +8,44 @@
   <ion-item text-center>
     <b>FF2137_CL0001</b>
   </ion-item>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-icon name="cloud-download"></ion-icon> Downloads
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-12 text-center>
-        <button full ion-button small class="font-sm">Presence List</button>
-      </ion-col>
-      <ion-col col-12 text-center>
-        <button full ion-button small class="font-sm">Pre test</button>
-      </ion-col>
-      <ion-col col-12 text-center>
-        <button full ion-button small class="font-sm">Post Test</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-icon name="cog"></ion-icon> Actions</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-12>
-        <ion-item>
-          <ion-label>Status</ion-label>
-          <ion-select [(ngModel)]="status" interface="popover">
-            <ion-option value="IN_PROGRESS">IN_PROGRESS</ion-option>
-            <ion-option value="ENROLLED">ENROLLED</ion-option>
-            <ion-option value="PASS">PASS</ion-option>
-            <ion-option value="FAIL">FAIL</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-      <ion-col col-12>
-        <ion-item>
-          <ion-label>Step</ion-label>
-          <ion-select [(ngModel)]="step" interface="popover">
-            <ion-option value="PRE_TEST">PRE_TEST</ion-option>
-            <ion-option value="POST_TEST">POST_TEST</ion-option>
-            <ion-option value="TRAINING">TRAINING</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+  <accordion-list title="Downloads" textColor="#000000" hasMargin="false" headerColor="#f0f0f0" [expanded]="index === 0">
+    <ion-col col-12 text-center>
+      <button full ion-button small class="font-sm">Presence List</button>
+    </ion-col>
+    <ion-col col-12 text-center>
+      <button full ion-button small class="font-sm">Pre test</button>
+    </ion-col>
+    <ion-col col-12 text-center>
+      <button full ion-button small class="font-sm">Post Test</button>
+    </ion-col>
+  </accordion-list>
+
+
+  <accordion-list title="Actions" hasMargin="false" headerColor="#f0f0f0" [expanded]="index === 0">
+    <ion-col col-12>
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select [(ngModel)]="status" interface="popover">
+          <ion-option value="IN_PROGRESS">IN_PROGRESS</ion-option>
+          <ion-option value="ENROLLED">ENROLLED</ion-option>
+          <ion-option value="PASS">PASS</ion-option>
+          <ion-option value="FAIL">FAIL</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col col-12 text-center>
+      <ion-item>
+        <ion-label>Step</ion-label>
+        <ion-select [(ngModel)]="step" interface="popover">
+          <ion-option value="PRE_TEST">PRE_TEST</ion-option>
+          <ion-option value="POST_TEST">POST_TEST</ion-option>
+          <ion-option value="TRAINING">TRAINING</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </accordion-list>
+
   <ion-grid>
     <ion-row class="border-bottom" (click)="onClickEnrollment()">
       <ion-col col-12>

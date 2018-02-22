@@ -11,6 +11,7 @@ import { AgendaProvider } from "../../providers/agenda/agenda";
 import { ViewController } from "ionic-angular/navigation/view-controller";
 import { NavParams } from "ionic-angular/navigation/nav-params";
 import { CourseStepsComponent } from "../course-steps/course-steps";
+import { EventSummaryComponent } from "../event-summary/event-summary";
 /**
  * Generated class for the AgendaComponent component.
  *
@@ -158,7 +159,7 @@ export class AgendaComponent implements OnInit {
           handler: () => {
             //TODO: 
             if (this.param.loadType === "general") {
-              
+              this.navController.push(EventSummaryComponent, {});
             } else {
               this.navController.push(CourseStepsComponent, {});
               console.log("Yes");

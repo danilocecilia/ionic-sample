@@ -19,10 +19,6 @@ import { Toast } from "@ionic-native/toast";
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { ModalAssessmentPage } from "../pages/modal-assessment/modal-assessment";
-//import { ModalNotificationPage } from '../pages/modal-notification/modal-notification';
-//import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery';
-// import { CurriculumPage } from '../pages/curriculum/curriculum';
-//import { TabsPage } from '../pages/tabs/tabs';
 
 /***********************/
 //Components
@@ -39,6 +35,8 @@ import { DashboardComponent } from "../components/dashboard/dashboard";
 import { AssessmentComponent } from "../components/assessment/assessment";
 import { EventSummaryComponent  } from "../components/event-summary/event-summary";
 import { EsEnrollmentsComponent  } from "../components/es-enrollments/es-enrollments";
+import { AccordionListComponent  } from "../components/accordion-list/accordion-list";
+import { EsEnrollComponent  } from "../components/es-enroll/es-enroll";
 
 /***********************/
 //Providers
@@ -51,12 +49,17 @@ import { CompetencyProvider } from "../providers/competency/competency";
 import { AgendaProvider } from "../providers/agenda/agenda";
 import { LibraryProvider } from "../providers/library/library";
 import { NotificationProvider } from "../providers/notification/notification";
+import { EnrollmentProvider } from '../providers/enrollment/enrollment';
 
+/***********************/
+//Modules
+/***********************/
 import { CurriculumPageModule } from "../pages/curriculum/curriculum.module";
 import { ModalNotificationPageModule } from "../pages/modal-notification/modal-notification.module";
 import { PasswordRecoveryPageModule } from "../pages/password-recovery/password-recovery.module";
 import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
+
 
 let storage = new Storage({});
 
@@ -88,7 +91,9 @@ export function getAuthHttp(http: Http) {
     CourseStepsComponent,
     AssessmentComponent,
     EventSummaryComponent,
-    EsEnrollmentsComponent
+    EsEnrollmentsComponent,
+    AccordionListComponent,
+    EsEnrollComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +128,9 @@ export function getAuthHttp(http: Http) {
     CourseStepsComponent,
     AssessmentComponent,
     EventSummaryComponent,
-    EsEnrollmentsComponent
+    EsEnrollmentsComponent,
+    AccordionListComponent,
+    EsEnrollComponent
   ],
   providers: [
     StatusBar,
@@ -146,7 +153,8 @@ export function getAuthHttp(http: Http) {
     LibraryProvider,
     NotificationProvider,
     BarcodeScanner,
-    Toast
+    Toast,
+    EnrollmentProvider
   ]
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-es-enrollments {
+es-enroll {
   .font-sm {
     font-size: 0.8em;
   }
@@ -7,23 +7,24 @@ es-enrollments {
     font-size: 0.7em;
   }
 
+  .border-bottom {
+    border-bottom: 2px solid;
+    border-color: lightgray;
+  }
+
   .item {
     font-size: 1em;
     padding-left: 0px;
   }
 
+
   .label {
     font-size: 1em;
     margin: 0;
     p {
-      margin:0px;
+      margin: 0px;
       font-size: 1em;
       color: black;
     }
-  }
-
-  .border-bottom {
-    border-bottom: 1px solid;
-    border-color: lightgray;
   }
 }

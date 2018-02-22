@@ -12,6 +12,7 @@ import { CourseStepsComponent } from '../../components/course-steps/course-steps
 import { AssessmentComponent } from '../../components/assessment/assessment';
 import { EventSummaryComponent } from '../../components/event-summary/event-summary';
 import { EsEnrollmentsComponent } from '../../components/es-enrollments/es-enrollments';
+import { EsEnrollComponent } from '../../components/es-enroll/es-enroll';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -19,7 +20,7 @@ import { EsEnrollmentsComponent } from '../../components/es-enrollments/es-enrol
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = EventSummaryComponent;
+  tab1Root: any = EsEnrollComponent;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
   tab4Root: any = LibraryComponent;

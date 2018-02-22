@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { EsEnrollmentsComponent } from '../es-enrollments/es-enrollments';
-
+import { AccordionListComponent  } from "../accordion-list/accordion-list";
 /**
  * Generated class for the EventSummaryComponent component.
  *

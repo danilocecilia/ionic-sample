@@ -1,28 +1,26 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
-import { EsEnrollComponent } from "../es-enroll/es-enroll";
 import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
+
 /**
- * Generated class for the EsEnrollmentsComponent component.
+ * Generated class for the EsEnrollComponent component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
-  selector: "es-enrollments",
-  templateUrl: "es-enrollments.html"
+  selector: "es-enroll",
+  templateUrl: "es-enroll.html"
 })
-export class EsEnrollmentsComponent implements OnInit {
+export class EsEnrollComponent {
   enrollments: any;
-
   constructor(
     private navCtrl: NavController,
     private enrollmentProvider: EnrollmentProvider
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadEnrollments();
-    
   }
   loadEnrollments() {
     this.enrollments = this.enrollmentProvider
