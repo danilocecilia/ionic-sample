@@ -59,6 +59,7 @@ import { ModalNotificationPageModule } from "../pages/modal-notification/modal-n
 import { PasswordRecoveryPageModule } from "../pages/password-recovery/password-recovery.module";
 import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
+import { LoadingProvider } from '../providers/loading/loading';
 
 
 let storage = new Storage({});
@@ -154,7 +155,8 @@ export function getAuthHttp(http: Http) {
     NotificationProvider,
     BarcodeScanner,
     Toast,
-    EnrollmentProvider
+    EnrollmentProvider,
+    LoadingProvider
   ]
 })
 export class AppModule {}

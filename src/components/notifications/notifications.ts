@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ModalNotificationPage } from "../../pages/modal-notification/modal-notification";
-import { ModalController } from "ionic-angular";
+import { ModalController, Loading } from "ionic-angular";
 import { NotificationProvider } from "../../providers/notification/notification";
+
+import { LoadingProvider  } from "../../providers/loading/loading";
 /**
  * Generated class for the NotificationsComponent component.
  *
@@ -12,27 +14,27 @@ import { NotificationProvider } from "../../providers/notification/notification"
   selector: "notifications",
   templateUrl: "notifications.html"
 })
-export class NotificationsComponent {
+export class NotificationsComponent implements OnInit {
   notifications: any = [];
 
   constructor(
     public modalCtrl: ModalController,
-    private notificationProvider: NotificationProvider
-  ) {
+    private notificationProvider: NotificationProvider,
+    private loadingProvider: LoadingProvider
+  ) {}
+
+  ngOnInit() {
+    this.loadingProvider.presentLoadingDefault();
     this.loadNotifications();
   }
 
   loadNotifications() {
-    this.notifications = this.notificationProvider
+    this.notificationProvider
       .loadNotifications()
       .subscribe(res => {
+        this.loadingProvider.loading.dismiss();
         this.notifications = res[0];
       });
-    // .toPromise()
-    // .then(res => {
-    //   this.notifications = res[0];
-    //   this.notificationProvider.notifications = res[0];
-    // });
   }
 
   openNotification(value) {

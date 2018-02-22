@@ -25,7 +25,7 @@ import { CourseStepsComponent } from "../course-steps/course-steps";
 export class CurriculumsComponent implements OnInit {
   @ViewChild(Slides) slides: Slides;
 
-  competency: any;
+  competency: any = {};
   history: any;
   idCompetency: number;
   text: string;
@@ -54,7 +54,7 @@ export class CurriculumsComponent implements OnInit {
   }
 
   getCompetency() {
-    this.competency = this.competencyProvider
+    this.competencyProvider
       .getCompetency(this.idCompetency)
       .subscribe((comp: Competency) => {
         this.competency = comp;

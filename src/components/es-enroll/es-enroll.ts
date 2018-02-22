@@ -13,7 +13,7 @@ import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
   templateUrl: "es-enroll.html"
 })
 export class EsEnrollComponent {
-  enrollments: any;
+  enrollments: any = {};
   constructor(
     private navCtrl: NavController,
     private enrollmentProvider: EnrollmentProvider
@@ -23,11 +23,10 @@ export class EsEnrollComponent {
     this.loadEnrollments();
   }
   loadEnrollments() {
-    this.enrollments = this.enrollmentProvider
+    this.enrollmentProvider
       .loadEnrollments()
       .subscribe(res => {
         this.enrollments = res[0];
-        console.log(this.enrollments);
       });
   }
 

@@ -13,7 +13,7 @@ import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
   templateUrl: "es-enrollments.html"
 })
 export class EsEnrollmentsComponent implements OnInit {
-  enrollments: any;
+  enrollments: any = {};
 
   constructor(
     private navCtrl: NavController,
@@ -25,11 +25,10 @@ export class EsEnrollmentsComponent implements OnInit {
     
   }
   loadEnrollments() {
-    this.enrollments = this.enrollmentProvider
+    this.enrollmentProvider
       .loadEnrollments()
       .subscribe(res => {
         this.enrollments = res[0];
-        console.log(this.enrollments);
       });
   }
 

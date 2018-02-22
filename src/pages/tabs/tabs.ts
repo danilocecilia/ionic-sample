@@ -20,7 +20,7 @@ import { EsEnrollComponent } from '../../components/es-enroll/es-enroll';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = EsEnrollComponent;
+  tab1Root: any = HomePage;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
   tab4Root: any = LibraryComponent;
