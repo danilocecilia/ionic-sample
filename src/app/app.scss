@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,6 +14,19 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.center-icon{
-    text-align: center;
+.center-icon {
+  text-align: center;
+}
+
+.border-bottom {
+  border-bottom: 1px solid;
+  border-color: lightgray;
+}
+
+.font-sm {
+  font-size: 0.8em;
+}
+
+.font-xm {
+  font-size: 0.7em;
 }

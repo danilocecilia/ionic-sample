@@ -37,7 +37,8 @@ import { EventSummaryComponent  } from "../components/event-summary/event-summar
 import { EsEnrollmentsComponent  } from "../components/es-enrollments/es-enrollments";
 import { AccordionListComponent  } from "../components/accordion-list/accordion-list";
 import { EsEnrollComponent  } from "../components/es-enroll/es-enroll";
-
+import { EsGradesComponent  } from "../components/es-grades/es-grades";
+import { EsBillingsComponent  } from "../components/es-billings/es-billings";
 /***********************/
 //Providers
 /***********************/
@@ -94,7 +95,9 @@ export function getAuthHttp(http: Http) {
     EventSummaryComponent,
     EsEnrollmentsComponent,
     AccordionListComponent,
-    EsEnrollComponent
+    EsEnrollComponent,
+    EsGradesComponent,
+    EsBillingsComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +134,9 @@ export function getAuthHttp(http: Http) {
     EventSummaryComponent,
     EsEnrollmentsComponent,
     AccordionListComponent,
-    EsEnrollComponent
+    EsEnrollComponent,
+    EsGradesComponent,
+    EsBillingsComponent
   ],
   providers: [
     StatusBar,

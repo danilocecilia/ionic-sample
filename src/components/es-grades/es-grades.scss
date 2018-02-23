@@ -1,3 +1,44 @@
 es-grades {
+  .border-bottom {
+    border-bottom: 1px solid;
+    border-color: lightgray;
+  }
 
+  .select .select-icon{
+    position: relative;
+    width: 16px;
+    height: 19px;
+  }
+
+  .item-md.item-block .item-inner{
+    padding-right: 0px;
+  }
+
+  .select{
+    padding: 8px 0px 8px 0px;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .select .select-icon .select-icon-inner{
+    height: 40px;
+  }
+
+  .item {
+    font-size: 0.9em;
+    padding-left: 0px;
+  }
+  p {
+    margin: 0;
+  }
+
+  .ng-hide:not(.ng-hide-animate) {
+    /* These are just alternative ways of hiding an element */
+    display: block !important;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 }
