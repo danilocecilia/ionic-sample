@@ -3,6 +3,7 @@ import { NavController } from "ionic-angular";
 import { EsEnrollmentsComponent } from "../es-enrollments/es-enrollments";
 import { AccordionListComponent } from "../accordion-list/accordion-list";
 import { EsGradesComponent } from "../es-grades/es-grades";
+import { EsBillingsComponent } from "../es-billings/es-billings";
 /**
  * Generated class for the EventSummaryComponent component.
  *
@@ -22,5 +23,10 @@ export class EventSummaryComponent {
 
   onClickEnrollment() {
     this.navCtrl.push(EsEnrollmentsComponent, {});
+  }
+
+  onClickBilling() {
+    debugger;
+    this.navCtrl.push(EsBillingsComponent, {});
   }
 }

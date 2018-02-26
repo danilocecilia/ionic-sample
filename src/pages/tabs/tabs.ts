@@ -22,7 +22,7 @@ import { EsBillingsComponent } from '../../components/es-billings/es-billings';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = EsBillingsComponent;
+  tab1Root: any = EventSummaryComponent;
   tab2Root: any = CurriculumPage;
   tab3Root: any = AgendaComponent;
   tab4Root: any = LibraryComponent;

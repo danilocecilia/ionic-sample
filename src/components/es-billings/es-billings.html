@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Grades
+      Billing
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,63 +9,98 @@
 <ion-content>
   <ion-grid>
     <ion-row class="border-bottom">
-      <ion-col col-9 padding-vertical>
+      <ion-col col-12 padding-vertical text-center>
         <b>FF2137_CL0001</b>
-      </ion-col>
-      <ion-col col-3>
-        <button ion-button small (click)="showWhenNotPresent()">UPDATE</button>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-content>
-    <ion-grid>
-      <ion-row class="border-bottom  font-sm">
-        <ion-col col-3 style="height:84px">
-          <ion-avatar item-start>
-            <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-          </ion-avatar>
+  <ion-card>
+    <div class="status">
+      <button ion-button small>UPDATE</button>
+    </div>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+      </ion-avatar>
+      <b>Angelo Martins da Silva Medeiros</b>
+      <p>Triumph Flagshipstore NL Frankfurt</p>
+      <p>Cargos</p>
+    </ion-item>
+    <ion-item style="padding-left:20px; padding-right:150px;">
+      <ion-label>
+        <b>Billed</b>
+      </ion-label>
+      <ion-select interface="popover">
+        <ion-option [value]="true">YES</ion-option>
+        <ion-option selected [value]="false">NO</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-4>
+          <b>Billing Date</b>
         </ion-col>
-        <ion-col col-6 class="font-sm border-left" style="height:84px">
-          <b class="title">Angelo Martins</b>
-          <p>Triumph Flagshipstore NL Frankfurt</p>
-          <p>Cargos</p>
+        <ion-col col-4>
+          <b>Billing By</b>
         </ion-col>
-        <ion-col col-3 text-right style="height:84px">
-          <button ion-button small outline color="secondary">Pass</button>
+        <ion-col col-4 text-right>
+          <b>Value</b>
         </ion-col>
-        <ion-col col-3>
-
-        </ion-col>
-        <ion-col col-9 class="border-left">
-          <ion-item>
-            <ion-label>Billed</ion-label>
-            <ion-select [(ngModel)]="billed" interface="popover">
-              <ion-option [value]="true">YES</ion-option>
-              <ion-option [value]="false">NO</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-3></ion-col>
-        <ion-col col-3>
-          Billing Date
-        </ion-col>
-        <ion-col col-3>
-          Billing By
-        </ion-col>
-        <ion-col col-2>
-          Value
-        </ion-col>
-        <ion-col col-3></ion-col>
         <ion-col>
           29-01/2018
         </ion-col>
         <ion-col>
           Danilo Cecilia
         </ion-col>
-        <ion-col>
+        <ion-col text-right>
           125.00
         </ion-col>
       </ion-row>
-    </ion-grid>
-  </ion-content>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <div class="status">
+      <!-- <div (click)="onClickUpdate()">UPDATE</div> -->
+      <button ion-button small>UPDATE</button>
+    </div>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+      </ion-avatar>
+      <b>Angelo Martins da Silva Medeiros</b>
+      <p>Triumph Flagshipstore NL Frankfurt</p>
+      <p>Cargos</p>
+    </ion-item>
+    <ion-item style="padding-left:20px; padding-right:150px;">
+      <ion-label>
+        <b>Billed</b>
+      </ion-label>
+      <ion-select interface="popover">
+        <ion-option [value]="true">YES</ion-option>
+        <ion-option selected [value]="false">NO</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-4>
+          <b>Billing Date</b>
+        </ion-col>
+        <ion-col col-4>
+          <b>Billing By</b>
+        </ion-col>
+        <ion-col col-4 text-right>
+          <b>Value</b>
+        </ion-col>
+        <ion-col>
+          29-01/2018
+        </ion-col>
+        <ion-col>
+          Danilo Cecilia
+        </ion-col>
+        <ion-col text-right>
+          125.00
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

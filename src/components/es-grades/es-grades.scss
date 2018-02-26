@@ -1,44 +1,88 @@
 es-grades {
-  .border-bottom {
-    border-bottom: 1px solid;
-    border-color: lightgray;
+  .item p {
+    margin: 0px;
+    font-size: 0.7em;
+    color: black;
   }
 
-  .select .select-icon{
-    position: relative;
-    width: 16px;
-    height: 19px;
+  .card-head .label {
+    // .label {
+    max-width: 168px;
+    padding-right: 10px;
+    // }
+    // background-color: green;
   }
 
-  .item-md.item-block .item-inner{
-    padding-right: 0px;
-  }
-
-  .select{
-    padding: 8px 0px 8px 0px;
-  }
-
-  .title {
-    font-size: 1.2em;
-  }
-
-  .select .select-icon .select-icon-inner{
-    height: 40px;
-  }
-
-  .item {
-    font-size: 0.9em;
-    padding-left: 0px;
-  }
-  p {
-    margin: 0;
-  }
-
-  .ng-hide:not(.ng-hide-animate) {
-    /* These are just alternative ways of hiding an element */
-    display: block !important;
+  .status {
     position: absolute;
-    top: -9999px;
-    left: -9999px;
+    z-index: 1;
+    padding-top: 11px;
+    padding-left: 260px;
+    font-size: 11px;
+    border-radius: 5px;
+    width: 92%;
+
+    button {
+      height: 1.8em;
+      font-size: 1.2rem;
+      margin: 0px;
+      width: 100%;
+
+      .button-effect {
+        display: none;
+      }
+    }
+
+    div {
+      // text-align: center;
+      //max-width: 62px;
+      width: 100%;
+      border: 1px solid green;
+      padding: 2px;
+      color: green;
+    }
   }
+
+  // .border-bottom {
+  //   border-bottom: 1px solid;
+  //   border-color: lightgray;
+  // }
+
+  // .select .select-icon{
+  //   position: relative;
+  //   width: 16px;
+  //   height: 19px;
+  // }
+
+  // .item-md.item-block .item-inner{
+  //   padding-right: 0px;
+  // }
+
+  // .select{
+  //   padding: 8px 0px 8px 0px;
+  // }
+
+  // .title {
+  //   font-size: 1.2em;
+  // }
+
+  // .select .select-icon .select-icon-inner{
+  //   height: 40px;
+  // }
+
+  // .item {
+  //   font-size: 0.9em;
+  //   padding-left: 0px;
+  // }
+  // p {
+  //   margin: 0;
+  // }
+
+  // .ng-hide:not(.ng-hide-animate) {
+  //   /* These are just alternative ways of hiding an element */
+  //   display: block !important;
+  //   position: absolute;
+  //   top: -9999px;
+  //   left: -9999px;
+  // }
 }

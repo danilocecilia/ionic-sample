@@ -19,4 +19,8 @@ export class EsBillingsComponent {
     this.text = 'Hello World';
   }
 
+  onClickUpdate(){
+    console.log('teste');
+  }
+
 }
