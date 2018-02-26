@@ -9,7 +9,10 @@ import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { Storage, IonicStorageModule } from "@ionic/storage";
 import { NgCalendarModule } from "ionic2-calendar";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { File } from "@ionic-native/file";
+import { FileTransfer } from "@ionic-native/file-transfer";
 import { Toast } from "@ionic-native/toast";
+import { Camera } from '@ionic-native/camera';
 
 //import { ComponentsModule  } from "../components/components.module";
 
@@ -19,6 +22,7 @@ import { Toast } from "@ionic-native/toast";
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { ModalAssessmentPage } from "../pages/modal-assessment/modal-assessment";
+import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
 
 /***********************/
 //Components
@@ -33,12 +37,14 @@ import { LibraryComponent } from "../components/library/library";
 import { MediaComponent } from "../components/media/media";
 import { DashboardComponent } from "../components/dashboard/dashboard";
 import { AssessmentComponent } from "../components/assessment/assessment";
-import { EventSummaryComponent  } from "../components/event-summary/event-summary";
-import { EsEnrollmentsComponent  } from "../components/es-enrollments/es-enrollments";
-import { AccordionListComponent  } from "../components/accordion-list/accordion-list";
-import { EsEnrollComponent  } from "../components/es-enroll/es-enroll";
-import { EsGradesComponent  } from "../components/es-grades/es-grades";
-import { EsBillingsComponent  } from "../components/es-billings/es-billings";
+import { EventSummaryComponent } from "../components/event-summary/event-summary";
+import { EsEnrollmentsComponent } from "../components/es-enrollments/es-enrollments";
+import { AccordionListComponent } from "../components/accordion-list/accordion-list";
+import { EsEnrollComponent } from "../components/es-enroll/es-enroll";
+import { EsGradesComponent } from "../components/es-grades/es-grades";
+import { EsBillingsComponent } from "../components/es-billings/es-billings";
+import { EsLogisticsComponent } from "../components/es-logistics/es-logistics";
+
 /***********************/
 //Providers
 /***********************/
@@ -50,7 +56,7 @@ import { CompetencyProvider } from "../providers/competency/competency";
 import { AgendaProvider } from "../providers/agenda/agenda";
 import { LibraryProvider } from "../providers/library/library";
 import { NotificationProvider } from "../providers/notification/notification";
-import { EnrollmentProvider } from '../providers/enrollment/enrollment';
+import { EnrollmentProvider } from "../providers/enrollment/enrollment";
 
 /***********************/
 //Modules
@@ -60,8 +66,7 @@ import { ModalNotificationPageModule } from "../pages/modal-notification/modal-n
 import { PasswordRecoveryPageModule } from "../pages/password-recovery/password-recovery.module";
 import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
-import { LoadingProvider } from '../providers/loading/loading';
-
+import { LoadingProvider } from "../providers/loading/loading";
 
 let storage = new Storage({});
 
@@ -82,6 +87,7 @@ export function getAuthHttp(http: Http) {
     MyApp,
     HomePage,
     ModalAssessmentPage,
+    ModalLogisticPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
     NotificationsComponent,
@@ -97,7 +103,8 @@ export function getAuthHttp(http: Http) {
     AccordionListComponent,
     EsEnrollComponent,
     EsGradesComponent,
-    EsBillingsComponent
+    EsBillingsComponent,
+    EsLogisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -121,6 +128,7 @@ export function getAuthHttp(http: Http) {
     MyApp,
     HomePage,
     ModalAssessmentPage,
+    ModalLogisticPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
     MediaComponent,
@@ -136,7 +144,8 @@ export function getAuthHttp(http: Http) {
     AccordionListComponent,
     EsEnrollComponent,
     EsGradesComponent,
-    EsBillingsComponent
+    EsBillingsComponent,
+    EsLogisticsComponent
   ],
   providers: [
     StatusBar,
@@ -161,7 +170,10 @@ export function getAuthHttp(http: Http) {
     BarcodeScanner,
     Toast,
     EnrollmentProvider,
-    LoadingProvider
+    LoadingProvider,
+    File,
+    FileTransfer,
+    Camera
   ]
 })
 export class AppModule {}

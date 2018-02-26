@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Logistic</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="onCloseModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row class="border-bottom">
+      <ion-col col-6 padding-vertical>
+        <b>FF2137_CL0001</b>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item>
+    <ion-label>Type</ion-label>
+    <ion-select interface="popover">
+      <ion-option [value]="noshow">Location</ion-option>
+      <ion-option [value]="justified">Justified</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Item</ion-label>
+    <ion-select interface="popover">
+      <ion-option [value]="noshow">Accomodation</ion-option>
+      <ion-option [value]="justified">Justified</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked>Quantity</ion-label>
+    <ion-input type="text" placeholder="Quantity of items"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Monetary</ion-label>
+    <ion-select interface="popover">
+      <ion-option [value]="noshow">US$</ion-option>
+      <ion-option [value]="justified">BR</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked>Total Cost</ion-label>
+    <ion-input type="text" placeholder="Total Cost"></ion-input>
+  </ion-item>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <b>Receipt</b>
+        </ion-col>
+
+        <ion-col col-6 text-right>
+          <button ion-button color="secondary" (click)="getImage()">Get Image</button>
+          <button ion-button (click)="uploadFile()">Upload</button>
+          <ion-icon name="add-circle"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>
