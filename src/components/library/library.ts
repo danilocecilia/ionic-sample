@@ -4,6 +4,7 @@ import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { LibraryProvider } from "../../providers/library/library";
 import { Loading } from "ionic-angular/components/loading/loading";
 import { Observable } from "rxjs";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 /**
  * Generated class for the LibraryComponent component.
@@ -18,16 +19,18 @@ import { Observable } from "rxjs";
 
 export class LibraryComponent implements OnInit {
 
-  constructor(public events: Events, public libProvider: LibraryProvider) { }
+  constructor(public events: Events, public libProvider: LibraryProvider, private loadingProvider : LoadingProvider) { }
 
   libs: any = {};
   libsArray: any = {};
   ngOnInit() {
+    this.loadingProvider.presentLoadingDefault();
     this.loadLibrary();
   }
 
   loadLibrary() {
     this.libProvider.loadLibrary().subscribe(res => {
+      this.loadingProvider.loading.dismiss();
       this.libs = res[0];
       this.libsArray = res[0];
     });

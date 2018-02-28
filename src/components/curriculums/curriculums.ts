@@ -11,7 +11,7 @@ import { Competency } from "../../models/competency";
 import { ModalController } from "ionic-angular/components/modal/modal-controller";
 import { AgendaComponent } from "../agenda/agenda";
 import { CourseStepsComponent } from "../course-steps/course-steps";
-
+import { LoadingProvider } from "../../providers/loading/loading";
 /**
  * Generated class for the CurriculumsComponent component.
  *
@@ -38,12 +38,14 @@ export class CurriculumsComponent implements OnInit {
     public events: Events,
     private competencyProvider: CompetencyProvider,
     private modalController: ModalController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private loadingProvider: LoadingProvider
   ) {
     this.idCompetency = navParams.get("idCompetency");
   }
 
   ngOnInit() {
+    this.loadingProvider.presentLoadingDefault();
     this.getCompetency();
   }
 
@@ -57,6 +59,7 @@ export class CurriculumsComponent implements OnInit {
     this.competencyProvider
       .getCompetency(this.idCompetency)
       .subscribe((comp: Competency) => {
+        this.loadingProvider.loading.dismiss();
         this.competency = comp;
         this.history = this.competency.Competency[0].History;
         this.progress = this.competency.Competency[0].Percentage;

@@ -12,12 +12,8 @@ import { ViewController } from "ionic-angular/navigation/view-controller";
 import { NavParams } from "ionic-angular/navigation/nav-params";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { EventSummaryComponent } from "../event-summary/event-summary";
-/**
- * Generated class for the AgendaComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { LoadingProvider } from "../../providers/loading/loading";
+
 @Component({
   selector: "agenda",
   templateUrl: "agenda.html"
@@ -32,6 +28,17 @@ export class AgendaComponent implements OnInit {
   description: string;
   hide: boolean = false;
   @ViewChild("btnClose") btnClose: any;
+
+  constructor(
+    private navController: NavController,
+    private alertCtrl: AlertController,
+    private agendaProvider: AgendaProvider,
+    public viewCtrl: ViewController,
+    public navParams: NavParams,
+    private loadingProvider: LoadingProvider
+  ) {
+    this.param = this.navParams.data;
+  }
 
   calendar = {
     mode: "month",
@@ -66,6 +73,8 @@ export class AgendaComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.loadingProvider.presentLoadingDefault();
+
     if (this.param.loadType === "general") {
       this.loadEvents();
       this.description =
@@ -76,16 +85,6 @@ export class AgendaComponent implements OnInit {
       this.description = "Do you confirm your enrollment for this date event?";
       this.btnCloseHide(this.hide);
     }
-  }
-
-  constructor(
-    private navController: NavController,
-    private alertCtrl: AlertController,
-    private agendaProvider: AgendaProvider,
-    public viewCtrl: ViewController,
-    public navParams: NavParams
-  ) {
-    this.param = this.navParams.data;
   }
 
   bindSubTitle(event) {
@@ -128,12 +127,14 @@ export class AgendaComponent implements OnInit {
 
   loadEvents() {
     this.agendaProvider.loadAllEvents("", "").subscribe(res => {
+      this.loadingProvider.loading.dismiss();
       this.bindElements(res);
     });
   }
 
   getEvents(trainingId) {
     this.agendaProvider.getEvents(trainingId).subscribe(res => {
+      this.loadingProvider.loading.dismiss();
       this.bindElements(res);
     });
   }
@@ -157,7 +158,7 @@ export class AgendaComponent implements OnInit {
         {
           text: "Yes",
           handler: () => {
-            //TODO: 
+            //TODO:
             if (this.param.loadType === "general") {
               this.navController.push(EventSummaryComponent, {});
             } else {

@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { EsEnrollComponent } from "../es-enroll/es-enroll";
 import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
+import { LoadingProvider } from "../../providers/loading/loading";
+
 /**
  * Generated class for the EsEnrollmentsComponent component.
  *
@@ -17,10 +19,12 @@ export class EsEnrollmentsComponent implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private enrollmentProvider: EnrollmentProvider
+    private enrollmentProvider: EnrollmentProvider,
+    private loadingProvider: LoadingProvider
   ) {}
 
   ngOnInit(){
+    this.loadingProvider.presentLoadingDefault();
     this.loadEnrollments();
     
   }
@@ -28,6 +32,7 @@ export class EsEnrollmentsComponent implements OnInit {
     this.enrollmentProvider
       .loadEnrollments()
       .subscribe(res => {
+        this.loadingProvider.loading.dismiss();
         this.enrollments = res[0];
       });
   }

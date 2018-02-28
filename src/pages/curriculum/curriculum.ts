@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { CurriculumsComponent } from "../../components/curriculums/curriculums";
 import { CurriculumProvider } from "../../providers/curriculum/curriculum";
-
+import { LoadingProvider  } from "../../providers/loading/loading";
 @IonicPage()
 @Component({
   selector: "page-curriculum",
@@ -15,10 +15,12 @@ export class CurriculumPage implements OnInit {
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
-    public curriculumProvider: CurriculumProvider
+    public curriculumProvider: CurriculumProvider,
+    private loadingProvider: LoadingProvider
   ) {}
 
   ngOnInit() {
+    this.loadingProvider.presentLoadingDefault();
     this.loadCurriculum();
   }
 
@@ -26,6 +28,7 @@ export class CurriculumPage implements OnInit {
     this.curriculum = this.curriculumProvider
       .loadCurriculum()
       .subscribe(res => {
+        this.loadingProvider.loading.dismiss();
         this.curriculum = res[0];
       });
   }

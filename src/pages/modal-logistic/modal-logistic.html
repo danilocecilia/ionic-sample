@@ -9,14 +9,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-grid>
-    <ion-row class="border-bottom">
-      <ion-col col-6 padding-vertical>
-        <b>FF2137_CL0001</b>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content>
+  <!-- <ion-grid> -->
+  <ion-row text-center>
+    <ion-col col-12>
+      <b>FF2137_CL0001</b>
+    </ion-col>
+  </ion-row>
+  <!-- </ion-grid> -->
 
   <ion-item>
     <ion-label>Type</ion-label>
@@ -33,7 +33,7 @@
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Quantity</ion-label>
+    <ion-label fixed>Quantity</ion-label>
     <ion-input type="text" placeholder="Quantity of items"></ion-input>
   </ion-item>
   <ion-item>
@@ -44,8 +44,12 @@
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Total Cost</ion-label>
+    <ion-label fixed>Total Cost</ion-label>
     <ion-input type="text" placeholder="Total Cost"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>Date</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate"></ion-datetime>
   </ion-item>
 
   <ion-card>
@@ -56,9 +60,13 @@
         </ion-col>
 
         <ion-col col-6 text-right>
-          <button ion-button color="secondary" (click)="getImage()">Get Image</button>
-          <button ion-button (click)="uploadFile()">Upload</button>
           <ion-icon name="add-circle"></ion-icon>
+        </ion-col>
+        <ion-col col-12>
+          <button full ion-button color="secondary" small (click)="getFile()">Get Image</button>
+        </ion-col>
+        <ion-col col-12>
+          <button full ion-button (click)="uploadFile()" small>Upload</button>
         </ion-col>
       </ion-row>
     </ion-grid>

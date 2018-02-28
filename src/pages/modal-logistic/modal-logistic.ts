@@ -11,14 +11,15 @@ import {
   FileTransferObject
 } from "@ionic-native/file-transfer";
 import { File } from "@ionic-native/file";
-import { Camera, CameraOptions } from "@ionic-native/camera";
+import { FileChooser } from "@ionic-native/file-chooser";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 @Component({
   selector: "page-modal-logistic",
   templateUrl: "modal-logistic.html"
 })
 export class ModalLogisticPage {
-  imageURI: any;
+  fileURI: any;
   imageFileName: any;
 
   constructor(
@@ -26,8 +27,9 @@ export class ModalLogisticPage {
     public navParams: NavParams,
     private file: File,
     private transfer: FileTransfer,
-    private camera: Camera,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private fileChooser: FileChooser,
+    private loadingProvider: LoadingProvider
   ) {}
 
   fileTransfer: FileTransferObject = this.transfer.create();
@@ -46,65 +48,72 @@ export class ModalLogisticPage {
     toast.present();
   }
 
-  getImage() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    };
-
-    this.camera.getPicture(options).then(
-      imageData => {
-        this.imageURI = imageData;
-      },
-      err => {
+  getFile() {
+    this.fileChooser
+      .open()
+      .then(uri => {
+        this.fileURI = uri;
+      })
+      .catch(err => {
         console.log(err);
         this.presentToast(err);
-      }
-    );
+      });
   }
 
-  uploadFile() {
-    debugger;
+  // getImage() {
+  //   const options: CameraOptions = {
+  //     quality: 100,
+  //     destinationType: this.camera.DestinationType.FILE_URI,
+  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+  //   };
 
+  //   this.camera.getPicture(options).then(
+  //     imageData => {
+  //       this.imageURI = imageData;
+  //     },
+  //     err => {
+  //       console.log(err);
+  //       this.presentToast(err);
+  //     }
+  //   );
+  // }
+
+  uploadFile() {
+    this.loadingProvider.presentLoadingDefault();
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     let options: FileUploadOptions = {
-      fileKey: "ionicfile",
-      fileName: "ionicfile",
-      //chunkedMode: false,
-      mimeType: "image/jpeg",
-      headers: {
-        fileKey: "ionicfile",
-        fileName: "ionicfile.jpg",
-        mimeType: "image/jpeg"
-      }
+      fileKey: "receiptLogistic",
+      params: { classID: 1, token: "AUhaUhAuhAuAHUA" }
     };
 
     fileTransfer
       .upload(
-        this.imageURI,
-        "https://5a79a9137fbfbb0012625721.mockapi.io/api/file",
-        options,
-        true
+        this.fileURI,
+        "http://198.180.251.216:10005/fileupload/api/test/files",
+        options
       )
       .then(
         data => {
+          this.loadingProvider.loading.dismiss();
           console.log(data + " Uploaded Successfully");
           //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
           // loader.dismiss();
-          this.presentToast("Image uploaded successfully");
+          this.presentToast("Receipt uploaded successfully");
         },
         err => {
+          this.loadingProvider.loading.dismiss();
           console.log(err);
           // loader.dismiss();
-          this.presentToast(err);
+          this.presentToast(
+            "There was an error trying to upload your receipt, please contact the App Administrator."
+          );
         }
       );
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad ModalLogisticPage");
+    //console.log("ionViewDidLoad ModalLogisticPage");
   }
   onCloseModal() {
     this.navCtrl.pop();
