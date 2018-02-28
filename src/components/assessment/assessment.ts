@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { PrePostTestComponent  } from "../../components/pre-post-test/pre-post-test";
+import { NavController } from 'ionic-angular';
 /**
  * Generated class for the AssessmentComponent component.
  *
@@ -12,11 +13,12 @@ import { Component } from '@angular/core';
 })
 export class AssessmentComponent {
 
-  text: string;
-
-  constructor() {
-    console.log('Hello AssessmentComponent Component');
-    this.text = 'Hello World';
+  constructor(private navCtrl : NavController) {
+  
   }
 
+
+  onClickOpenAssessment(){
+    this.navCtrl.push(PrePostTestComponent, {});
+  }
 }

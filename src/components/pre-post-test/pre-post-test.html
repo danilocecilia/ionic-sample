@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Pre or Post Test
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="!hide">
+    <ion-row padding class="border-bottom">
+      <ion-col col-6>
+        <b>GORE-TEX Membrane</b>
+      </ion-col>
+      <ion-col col-6 text-right>
+        <ion-icon name="star"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-list radio-group>
+        <p padding>
+          <b>Além de reproduzir sons com sensação surround no seu ambiente, essa função conta com sons voltados para o alto,
+            aumentando a amplitude vertical e proporcionando maior imersão sonora aos seus jogos e filmes”. Essa alternativa
+            se refere a qual função?</b>
+        </p>
+        <ion-item>
+          <ion-label>Virtual Surround Plus</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Vertical 3D Sound</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>3D SmartZooming</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Smart Surround Mode</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row>
+      <ion-list radio-group>
+        <p padding>
+          <b>Através dessa tecnologia, a TV automaticamente equaliza seus alto falantes de acordo com o conteúdo que está sendo
+            reproduzido”. Essa alternativa se refere a qual função?</b>
+        </p>
+        <ion-item>
+          <ion-label>Virtual Surround Plus</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Vertical 3D Sound</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>3D SmartZooming</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Smart Surround Mode</ion-label>
+          <ion-radio></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <button ion-button full (click)="onClickSubmitEvaluation()">Submit</button>
+      </ion-item>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="hide">
+    <ion-row>
+      <ion-col col-12>
+        Pre Test Assessment
+      </ion-col>
+      <ion-col>
+        <p>Congratulations! You have finished this step.</p>
+        <p>Click in the button below to return to the course summary:</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

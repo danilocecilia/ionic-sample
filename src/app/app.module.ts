@@ -12,7 +12,8 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { File } from "@ionic-native/file";
 import { FileTransfer } from "@ionic-native/file-transfer";
 import { Toast } from "@ionic-native/toast";
-import { Camera } from '@ionic-native/camera';
+import { Camera } from "@ionic-native/camera";
+import { FileChooser } from "@ionic-native/file-chooser";
 
 //import { ComponentsModule  } from "../components/components.module";
 
@@ -44,6 +45,7 @@ import { EsEnrollComponent } from "../components/es-enroll/es-enroll";
 import { EsGradesComponent } from "../components/es-grades/es-grades";
 import { EsBillingsComponent } from "../components/es-billings/es-billings";
 import { EsLogisticsComponent } from "../components/es-logistics/es-logistics";
+import { PrePostTestComponent } from "../components/pre-post-test/pre-post-test";
 
 /***********************/
 //Providers
@@ -104,7 +106,8 @@ export function getAuthHttp(http: Http) {
     EsEnrollComponent,
     EsGradesComponent,
     EsBillingsComponent,
-    EsLogisticsComponent
+    EsLogisticsComponent,
+    PrePostTestComponent
   ],
   imports: [
     BrowserModule,
@@ -145,7 +148,8 @@ export function getAuthHttp(http: Http) {
     EsEnrollComponent,
     EsGradesComponent,
     EsBillingsComponent,
-    EsLogisticsComponent
+    EsLogisticsComponent,
+    PrePostTestComponent
   ],
   providers: [
     StatusBar,
@@ -173,7 +177,8 @@ export function getAuthHttp(http: Http) {
     LoadingProvider,
     File,
     FileTransfer,
-    Camera
+    Camera,
+    FileChooser
   ]
 })
 export class AppModule {}
