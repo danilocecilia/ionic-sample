@@ -8,6 +8,6 @@
   </ion-item>
   <ion-item *ngFor="let p of pages" [menuToggle] (click)="openPage(p)">
     <ion-icon name='{{p.icon}}' item-start></ion-icon>
-    {{p.title}}
+    {{p.title | translate}}
   </ion-item>
 </ion-list>

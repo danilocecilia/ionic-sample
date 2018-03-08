@@ -8,6 +8,7 @@ import { Events } from "ionic-angular";
 import { AuthProvider } from "../providers/auth/auth";
 import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   templateUrl: "app.html"
@@ -15,7 +16,7 @@ import { AuthPage } from "../pages/auth/auth";
 export class MyApp {
   @ViewChild("content") nav: NavController;
 
-  //public isHidden: boolean = true;
+  private currentLanguage: string;
 
   constructor(
     platform: Platform,
@@ -24,7 +25,8 @@ export class MyApp {
     public events: Events,
     private storage: Storage,
     public modalController: ModalController,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    private translate: TranslateService
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -33,10 +35,16 @@ export class MyApp {
       splashScreen.hide();
       this.authProvider.startupTokenRefresh();
 
-      //This if for hide footer from LoginPage
-      // events.subscribe('hideHeader', (data) => {
-      //   this.isHidden = data.isHidden;
-      // })
+      translate.addLangs(["en", "pt"]);
+      translate.setDefaultLang("pt");
+
+      //let browserLang = translate.getBrowserLang();
+
+      // console.log(this.currentLanguage);
+      // this.storage.get("currentLanguage").then(lang => {
+      //   this.currentLanguage = lang;
+      //   translate.use(this.currentLanguage);
+      // });
 
       this.storage.get("token").then(token => {
         if (!token) this.nav.setRoot(AuthPage);
