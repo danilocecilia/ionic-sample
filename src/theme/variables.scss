@@ -33,25 +33,17 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-$colors: ( primary: #387ef5, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222, linkedin:#0077B5, fb:#4867AA);
+$colors: (
+  primary:    #0063bc,
+  secondary:  #003e75,
+  danger:     #f53d3d,
+  light:      #5fa2ff,
+  dark:       #0049a6,
+  favorite:   #69BB7B,
+  read:       lightgray
+);
 
-// $colors: (
-//   primary:    #387ef5,
-//   secondary:  #3498db,
-//   danger:     #f53d3d,
-//   light:      #f4f4f4,
-//   dark:       #222,
-//   favorite:   #69BB7B
-// );
-
-// $colors: (
-//   primary:    #488aff,
-//   secondary:  #32db64,
-//   danger:     #f53d3d,
-//   light:      #f4f4f4,
-//   dark:       #222
-// );
-
+$toolbar-background:#0063bc;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -63,9 +55,8 @@ $colors: ( primary: #387ef5, secondary: #32db64, danger: #f53d3d, light: #f4f4f4
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-
-
+$tabs-md-tab-font-size-active: 1.3rem;
+$item-md-font-size:1.3rem;
 
 // App Windows Variables
 // --------------------------------------------------
