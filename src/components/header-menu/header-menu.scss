@@ -1,3 +1,31 @@
 header-menu {
+  // Material Design Sidemenu
+  .menu-header {
+    padding: 5px 15px;
+    background-image: url("../assets/img/material-design-background_03.jpg");
+    background-size: cover;
+    opacity: 0.9;
 
+    color: white;
+    .name {
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .e-mail {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  }
+  .user-avatar {
+    padding: 0.5em;
+    height: 12vh;
+  }
+  h3,
+  .label {
+    color: map-get($colors, secondary);
+    font-weight: 600;
+  }
+  ion-icon {
+    color: map-get($colors, secondary);
+  }
 }

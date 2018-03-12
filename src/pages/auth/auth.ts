@@ -6,23 +6,16 @@ import {
   ToastController,
   MenuController,
   Events,
-  Nav
+  Nav,
+  Toast
 } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
-
 import { HomePage } from "../home/home";
 import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
-
 import { AuthProvider } from "../../providers/auth/auth";
 import { TabsPage } from "../tabs/tabs";
-
-/**
- * Generated class for the AuthPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { LoadingProvider } from "../../providers/loading/loading";
 
 @IonicPage()
 @Component({
@@ -30,10 +23,9 @@ import { TabsPage } from "../tabs/tabs";
   templateUrl: "auth.html"
 })
 export class AuthPage {
-  // public rootPage: any = HomePage;
   authForm: FormGroup;
   userProfile = {};
-  
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,7 +34,9 @@ export class AuthPage {
     public authProvider: AuthProvider,
     public menu: MenuController,
     public events: Events,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private loadingProvider: LoadingProvider,
+    
   ) {
     this.menu.enable(false);
 
@@ -69,15 +63,15 @@ export class AuthPage {
     //if (localStorage.getItem("token") === null) this.navCtrl.setRoot(AuthPage);
   }
 
-  invalidCredentialsMsg() {
-    let toast = this.toastCtrl.create({
-      message: "Invalid Username or Password.",
-      duration: 3000,
-      position: "bottom"
-    });
+  // invalidCredentialsMsg() {
+  //   let toast = this.toastCtrl.create({
+  //     message: "Invalid Username or Password.",
+  //     duration: 3000,
+  //     position: "bottom"
+  //   });
 
-    toast.present();
-  }
+  //   toast.present();
+  // }
 
   redirectToHome() {
     this.navCtrl.setRoot(TabsPage);
@@ -86,10 +80,34 @@ export class AuthPage {
 
   onSubmit(value: any): void {
     if (this.authForm.valid) {
+      this.loadingProvider.presentLoadingDefault();
       this.authProvider
         .getAuthenticate(this.authForm.value)
-        .then(() => this.redirectToHome());
+        .then(() => {
+          return this.loadingProvider.loading.dismiss().then(() => {
+            this.redirectToHome();
+          });
+        })
+        .catch(err => {
+          return this.loadingProvider.loading.dismiss().then(() => {
+            this.presentToast();
+            console.log(err);
+          });
+        });
     }
+  }
+
+  presentToast(): Promise<any> {
+    let toast = this.toastCtrl.create({
+      message:
+        "There were some error trying to login, please contact the Administrator",
+      duration: 3000,
+      position: "bottom",
+      closeButtonText: "OK",
+      showCloseButton: true
+    });
+
+    return toast.present();
   }
 
   ionViewDidLoad() {
@@ -97,6 +115,8 @@ export class AuthPage {
   }
 
   goToPasswordRecovery() {
+    debugger;
+    //this.loadingProvider.loading.dismiss();
     this.navCtrl.push(PasswordRecoveryPage);
   }
 }

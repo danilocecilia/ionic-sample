@@ -1,13 +1,15 @@
-<ion-list>
-  <ion-item>
-    <ion-avatar item-start>
-      <img src="https://ionicframework.com/dist/preview-app/www/assets/img/thumbnail-terminator.png">
-    </ion-avatar>
-    <h2>Angelo Martins</h2>
-    <p>Administrator</p>
-  </ion-item>
-  <ion-item *ngFor="let p of pages" [menuToggle] (click)="openPage(p)">
-    <ion-icon name='{{p.icon}}' item-start></ion-icon>
-    {{p.title | translate}}
-  </ion-item>
-</ion-list>
+<ion-content>
+  <div class="menu-header">
+    <!--material-design-background-->
+    <img class="user-avatar round" [src]="chosenPicture || placeholder" onerror="this.src='assets/img/thumbnail-terminator.png'"
+    />
+    <p class="name">Angelo Martins</p>
+    <p class="e-mail">amartins@msxi.com</p>
+  </div>
+  <ion-list no-lines>
+    <button menuClose="left" ion-item detail-none *ngFor="let p of pages" [menuToggle] (click)="openPage(p)">
+      <ion-icon [name]="p.icon" color="secundary" item-left></ion-icon>
+      {{p.title | translate}}
+    </button>
+  </ion-list>
+</ion-content>

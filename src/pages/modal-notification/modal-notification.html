@@ -1,9 +1,3 @@
-<!--
-  Generated template for the ModalNotificationPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Notification Detail</ion-title>
@@ -15,19 +9,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content >
-
-  <ul class="notification" padding>
-    <li padding-top>
-      <h6>
-        <ion-icon name="browsers"></ion-icon>
-        <a>{{notification.Notification}}</a>
-      </h6>
+<ion-content>
+  <ul class="notification-detail">
+    <li>
       <div class="byline">
-        <span>published at {{notification.Date}}</span>
+        <span>publicado em {{notification.Date}}</span>
       </div>
-      <p>{{notification.Summary}}
-      </p>
     </li>
     <li>
       <div [innerHtml]="notification.Body"></div>

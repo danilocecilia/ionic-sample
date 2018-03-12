@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController, MenuController, Events, ModalController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import {
+  NavController,
+  AlertController,
+  MenuController,
+  Events,
+  ModalController
+} from "ionic-angular";
 
-import { Storage } from '@ionic/storage';
-import { NavParams } from 'ionic-angular/navigation/nav-params';
+import { Storage } from "@ionic/storage";
+import { NavParams } from "ionic-angular/navigation/nav-params";
 
-import { FooterProvider } from '../../providers/footer/footer';
+import { FooterProvider } from "../../providers/footer/footer";
 
-import { ProtectedPage } from '../protected/protected';
-import { ModalNotificationPage } from '../modal-notification/modal-notification';
-
+import { ProtectedPage } from "../protected/protected";
+import { ModalNotificationPage } from "../modal-notification/modal-notification";
+import { StatusBar } from "@ionic-native/status-bar";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage extends ProtectedPage {
-
   username: string;
   todos: any;
 
@@ -27,26 +32,28 @@ export class HomePage extends ProtectedPage {
     public storage: Storage,
     public events: Events,
     public modalCtrl: ModalController,
-    public menu: MenuController) {
+    public menu: MenuController,
+    private statusBar: StatusBar
+  ) {
+    super(navCtrl, navParams, storage);
 
-    super(navCtrl, navParams, storage)
+    //this.statusBar.backgroundColorByHexString('#0063bc');
 
     this.menu.enable(true);
     this.navCtrl = navCtrl;
 
-    this.storage.get('username').then((val) => {
+    this.storage.get("username").then(val => {
       this.username = val;
     });
   }
 
   ionViewWillEnter() {
-    this.events.publish('hideHeader', { isHidden: false });
+    this.events.publish("hideHeader", { isHidden: false });
   }
 
-  ionViewDidLoad() {
-  }
+  ionViewDidLoad() {}
 
-  viewDidLeave(){
-    this.events.publish('hideHeader', { isHidden: true });
+  viewDidLeave() {
+    this.events.publish("hideHeader", { isHidden: true });
   }
 }

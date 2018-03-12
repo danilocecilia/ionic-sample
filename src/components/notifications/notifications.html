@@ -1,15 +1,7 @@
-<ion-title text-center>Notification</ion-title>
-
-<ul class="timeline widget notification" padding>
-  <li padding-top (click)="openNotification(nt)" *ngFor="let nt of notifications.Notifications">
-    <h6>
-      <ion-icon name="browsers"></ion-icon>
-      <a>{{nt.Notification}}</a>
-    </h6>
-    <div class="byline">
-      <span>published at {{nt.Date}}</span>
-    </div>
-    <p>{{nt.Summary}}
-    </p>
-  </li> 
-</ul>
+<ion-list style="margin-top:56px;">
+  <ion-item class="{{nt.Status == 'READ' ? 'read item item-block item-md' : 'unread item item-block item-md'}}" no-line (click)="openNotification(nt)" *ngFor="let nt of notifications.Notifications">
+    <ion-icon name="mail{{nt.Status == 'READ' ? '-open' : ''}}" color="{{nt.Status == 'READ' ? 'read' : 'primary'}}" item-start></ion-icon>
+    <p color="secundary" class="title">{{nt.Notification}}</p>
+    <p text-wrap class="summary subtitle">{{nt.Summary}}</p>
+  </ion-item>
+</ion-list>

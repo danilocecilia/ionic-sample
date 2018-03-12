@@ -1,5 +1,14 @@
 page-modal-notification {
-    ul li{
-        list-style-type: none;
-      }
+  ul li {
+    list-style-type: none;
+  }
+
+  ion-icon{
+    font-size: 23px;
+  }
+
+  .notification-detail{
+      padding-left: 10px;
+      padding-right: 10px;
+  }
 }

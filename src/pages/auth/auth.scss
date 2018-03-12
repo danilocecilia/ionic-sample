@@ -1,3 +1,33 @@
 page-auth {
+  img.center {
+    display: block;
+    margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    width: 98px;
+    height: 98px;
+  }
 
+  .space {
+    margin-bottom: 20px;
+  }
+
+  .welcome {
+    color: rgba($color: #000000, $alpha: 0.6);
+    font-size: 15px;
+  }
+
+  .login {
+    margin-top: 20px;
+  }
+
+  .input-text {
+    border: 2px solid map-get($colors, secondary);
+    border-radius: 15px;
+  }
+
+  .forgot-password {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
 }
