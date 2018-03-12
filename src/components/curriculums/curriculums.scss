@@ -39,9 +39,11 @@ curriculums {
     background-color: #fa3;
     transition: all 300ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
   }
+  .swiper-pagination-black .swiper-pagination-bullet-active {
+    background: map-get($colors, secondary);
+  }
 
   .slider-item {
-    //height: 100px;
     width: 50%;
     background-size: cover;
   }
@@ -49,12 +51,11 @@ curriculums {
     height: 100%;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.22)) !important;
   }
+  
   .slide-text {
-    // position: relative;
     text-align: center;
-    //  top: 100%;
-    // transform: translateY(-50%);
   }
+
   .text-center {
     text-align: center;
     color: rgb(17, 6, 6);
@@ -66,6 +67,30 @@ curriculums {
     min-height: 150px;
     background: #eee;
     contain: strict;
+  }
+
+  ion-slides {
+    background: map-get($colors, light);
+
+    h6 {
+      color: white;
+    }
+  }
+
+  ion-card {
+    .item {
+      background: map-get($colors, secondary);
+
+      h2 {
+        color: white;
+      }
+    }
+
+    .more-info {
+      margin-right: 12px;
+      margin-left: 12px;
+      font-weight: 600;
+    }
   }
 
   //ION-ITEM

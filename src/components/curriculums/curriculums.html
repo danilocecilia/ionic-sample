@@ -5,8 +5,60 @@
 </ion-header>
 
 <ion-content>
-  <!-- LIST OF TRAININGS -->
   <ng-container *ngIf="isEnrollmentHidden">
+    <ion-list no-margin>
+      <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
+        <ion-slide *ngFor="let comp of competency.Competency" class="text-center slider-item">
+          <div class="slide-text">
+            <h6>{{comp.Level.Level}}</h6>
+          </div>
+          <div class="progress-outer">
+            <div class="progress-inner" [style.width]="progress + '%'">
+              {{progress}}%
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-list>
+
+    <ion-card *ngFor="let his of history">
+      <ion-item>
+        <h2>{{his.Training.Training}}</h2>
+      </ion-item>
+      <img src="http://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png">
+      <ion-card-content>
+        <p>{{his.Training.Summary}}</p>
+      </ion-card-content>
+      <ion-row class="more-info">
+        <ion-col>
+          Cost
+        </ion-col>
+        <ion-col>
+          Course Expiration
+        </ion-col>
+      </ion-row>
+      <ion-row class="more-info">
+        <ion-col>
+          200,00
+        </ion-col>
+        <ion-col>
+          365 Days
+        </ion-col>
+      </ion-row>
+      <ion-row col-12 text-right>
+        <ion-col no-margin>
+          <button full ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(his.Status)
+            color="dark">{{his.Status}}</button>
+          <button full ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
+            color="dark">{{his.Status}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ng-container>
+
+
+  <!-- LIST OF TRAININGS -->
+  <!-- <ng-container *ngIf="isEnrollmentHidden">
     <ion-list no-margin>
       <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
         <ion-slide *ngFor="let comp of competency.Competency" class="text-center slider-item">
@@ -67,7 +119,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ng-container>
+  </ng-container> -->
 
   <!-- SELECTED TRAINING ENROLLMENT -->
   <ion-grid *ngIf="!isEnrollmentHidden">
@@ -81,7 +133,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-          <img src="http://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png">
+        <img src="http://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png">
       </ion-col>
     </ion-row>
     <ion-row>
