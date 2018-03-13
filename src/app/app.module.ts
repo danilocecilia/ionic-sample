@@ -74,6 +74,7 @@ import { PasswordRecoveryPageModule } from "../pages/password-recovery/password-
 import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
 import { LoadingProvider } from "../providers/loading/loading";
+import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
 
 let storage = new Storage({});
 
@@ -87,7 +88,10 @@ export function getAuthHttp(http: Http) {
       headerPrefix: "JWT",
       noJwtError: true,
       globalHeaders: [{ Accept: "application/json" }],
-      tokenGetter: () => storage.get("token")
+      tokenGetter: () =>
+        storage.get("currentUser").then(u => {
+          if (u) return u.Token;
+        })
     }),
     http
   );
@@ -131,9 +135,8 @@ export function getAuthHttp(http: Http) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
-      name: "cloudo"
-      // ,
-      // driverOrder: ['indexeddb', 'sqlite', 'websql']
+      name: "lmsmsx",
+      driverOrder: ["indexeddb", "sqlite", "websql"]
     }),
     HttpModule,
     HttpClientModule,
@@ -141,6 +144,7 @@ export function getAuthHttp(http: Http) {
     CurriculumPageModule,
     ModalNotificationPageModule,
     PasswordRecoveryPageModule,
+    ChangePasswordPageModule,
     TabsPageModule,
     AuthPageModule
   ],

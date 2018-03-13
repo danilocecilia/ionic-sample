@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Storage} from '@ionic/storage';
-import { AuthPage } from '../auth/auth';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Storage } from "@ionic/storage";
+import { AuthPage } from "../auth/auth";
 /**
  * Generated class for the ProtectedPage page.
  *
@@ -10,21 +10,18 @@ import { AuthPage } from '../auth/auth';
  */
 
 export class ProtectedPage {
-
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public storage: Storage) {
-  }
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage
+  ) {}
 
-  ionViewDidLoad() {
-    
-  }
+  ionViewDidLoad() {}
 
   ionViewCanEnter() {
-    this.storage.get('token').then(token => {
-      if (token === null) {
-        this.navCtrl.setRoot('AuthPage');
+    this.storage.get("currentUser").then(user => {
+      if (!user) {
+        this.navCtrl.setRoot("AuthPage");
         return false;
       }
     });

@@ -16,6 +16,9 @@ import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
 import { AuthProvider } from "../../providers/auth/auth";
 import { TabsPage } from "../tabs/tabs";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { Response } from "@angular/http";
+import { TranslateService } from "@ngx-translate/core";
+import { APIStatus } from "../../app/config";
 
 @IonicPage()
 @Component({
@@ -36,7 +39,7 @@ export class AuthPage {
     public events: Events,
     private toastCtrl: ToastController,
     private loadingProvider: LoadingProvider,
-    
+    private translateService: TranslateService
   ) {
     this.menu.enable(false);
 
@@ -47,31 +50,23 @@ export class AuthPage {
         "",
         Validators.compose([
           Validators.required,
-          Validators.pattern("[a-zA-Z]*"),
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"),
           Validators.minLength(8),
           Validators.maxLength(30)
         ])
       ],
       password: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(8)])
-      ]
+        Validators.compose([Validators.required, Validators.minLength(3)])
+      ],
+      devideToken: "uiashdfiuahs79dfasdyf8asbdfugas0dfajs8",
+      device: "android"
     });
 
     this.events.publish("hideHeader", { isHidden: true });
 
     //if (localStorage.getItem("token") === null) this.navCtrl.setRoot(AuthPage);
   }
-
-  // invalidCredentialsMsg() {
-  //   let toast = this.toastCtrl.create({
-  //     message: "Invalid Username or Password.",
-  //     duration: 3000,
-  //     position: "bottom"
-  //   });
-
-  //   toast.present();
-  // }
 
   redirectToHome() {
     this.navCtrl.setRoot(TabsPage);
@@ -84,27 +79,31 @@ export class AuthPage {
       this.authProvider
         .getAuthenticate(this.authForm.value)
         .then(() => {
-          return this.loadingProvider.loading.dismiss().then(() => {
+          return this.loadingProvider.loading.dismiss().then(res => {
             this.redirectToHome();
           });
         })
-        .catch(err => {
+        .catch((err: Response) => {
           return this.loadingProvider.loading.dismiss().then(() => {
-            this.presentToast();
-            console.log(err);
+            console.error(err);
+            let errMsg = err.json();
+
+            this.translateService
+              .get("ApiStatus." + errMsg)
+              .toPromise()
+              .then(val => {
+                this.presentToast(val);
+              });
           });
         });
     }
   }
 
-  presentToast(): Promise<any> {
+  presentToast(text: string): Promise<any> {
     let toast = this.toastCtrl.create({
-      message:
-        "There were some error trying to login, please contact the Administrator",
+      message: text,
       duration: 3000,
-      position: "bottom",
-      closeButtonText: "OK",
-      showCloseButton: true
+      position: "bottom"
     });
 
     return toast.present();
@@ -115,8 +114,6 @@ export class AuthPage {
   }
 
   goToPasswordRecovery() {
-    debugger;
-    //this.loadingProvider.loading.dismiss();
     this.navCtrl.push(PasswordRecoveryPage);
   }
 }

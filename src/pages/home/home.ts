@@ -21,7 +21,7 @@ import { StatusBar } from "@ionic-native/status-bar";
   templateUrl: "home.html"
 })
 export class HomePage extends ProtectedPage {
-  username: string;
+  //username: string;
   todos: any;
 
   constructor(
@@ -37,14 +37,12 @@ export class HomePage extends ProtectedPage {
   ) {
     super(navCtrl, navParams, storage);
 
-    //this.statusBar.backgroundColorByHexString('#0063bc');
-
     this.menu.enable(true);
     this.navCtrl = navCtrl;
 
-    this.storage.get("username").then(val => {
-      this.username = val;
-    });
+    // this.storage.get("username").then(val => {
+    //   this.username = val;
+    // });
   }
 
   ionViewWillEnter() {

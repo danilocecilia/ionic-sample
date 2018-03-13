@@ -14,9 +14,9 @@ import { TranslateService } from "@ngx-translate/core";
   templateUrl: "app.html"
 })
 export class MyApp {
+  currentUser: any;
   @ViewChild("content") nav: NavController;
-
-  private currentLanguage: string;
+  cultures: any = ["pt", "en", "es"];
 
   constructor(
     platform: Platform,
@@ -29,27 +29,46 @@ export class MyApp {
     private translate: TranslateService
   ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+      statusBar.backgroundColorByHexString("#003a8b");
       splashScreen.hide();
       this.authProvider.startupTokenRefresh();
 
       translate.addLangs(["en", "pt"]);
-      translate.setDefaultLang("pt");
-
-      //let browserLang = translate.getBrowserLang();
-
-      // console.log(this.currentLanguage);
-      // this.storage.get("currentLanguage").then(lang => {
-      //   this.currentLanguage = lang;
-      //   translate.use(this.currentLanguage);
-      // });
-
-      this.storage.get("token").then(token => {
-        if (!token) this.nav.setRoot(AuthPage);
-        else this.nav.setRoot(TabsPage);
-      });
     });
+
+    this.getLocalStorageUser();
+  }
+
+  checkLoggedUser() {
+    if (!this.currentUser) this.nav.setRoot(AuthPage);
+    else {
+      this.nav.setRoot(TabsPage);
+    }
+  }
+
+  getLocalStorageUser() {
+    this.storage
+      .get("currentUser")
+      .then(user => {
+        this.currentUser = user;
+      })
+      .then(() => this.setCurrentCulture(this.currentUser))
+      .then(() => this.checkLoggedUser());
+  }
+
+  setCurrentCulture(user) {
+    if (user) {
+      if (user.Language && user.Language.Culture) {
+        let culture = user.Language.Culture.substring(0, 2);
+
+        for (let c of this.cultures) {
+          if (culture === c) {
+            this.translate.setDefaultLang(culture); // Set language
+          }
+        }
+      } else {
+        this.translate.setDefaultLang("en"); //Set default culture
+      }
+    }
   }
 }
