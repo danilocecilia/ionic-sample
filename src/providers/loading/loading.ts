@@ -1,18 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingController } from 'ionic-angular';
 
-/*
-  Generated class for the LoadingProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class LoadingProvider {
 
   loading:any;
-  constructor(public http: HttpClient, public loadingController: LoadingController) {
+  constructor(public loadingController: LoadingController) {
 
   }
 
@@ -23,9 +16,9 @@ export class LoadingProvider {
 
     this.loading.present();
 
-    // setTimeout(() => {
-    //   this.loading.dismiss();
-    // }, 5000);
+    setTimeout(() => {
+      this.loading.dismiss();
+    }, 10000);
   }
 
   presentLoadingCustom() {

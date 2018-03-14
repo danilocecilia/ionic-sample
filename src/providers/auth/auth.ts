@@ -7,7 +7,7 @@ import "rxjs/add/operator/map";
 import * as AppConfig from "../../app/config";
 import { Observable } from "rxjs/Rx";
 import { HttpParams } from "@angular/common/http";
-import { ToastController } from "ionic-angular";
+import { ToastController, App } from "ionic-angular";
 
 /*
   Generated class for the AuthProvider provider.
@@ -27,7 +27,8 @@ export class AuthProvider {
     public http: Http,
     private authHttp: AuthHttp,
     private storage: Storage,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private app: App
   ) {
     this.storage.get("currentUser").then(user => {
       if (user) {
@@ -39,17 +40,11 @@ export class AuthProvider {
     this.apiStatus = AppConfig.APIStatus;
   }
 
-  createAuthoziationHeader(headers: Headers, username, password) {
-    headers.append("Access-Control-Allow-Origin", "*");
-    headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-  }
-
   getAuthenticate(credentials: CredentialsModel) {
     return this.authHttp
-      .post(this.cfg.apiUrl, credentials)
+      .post(`${this.cfg.apiUrl + this.cfg.user.login}`, credentials)
       .toPromise()
       .then(data => {
-        debugger;
         let rs = data.json();
         this.saveData(data);
         this.token = rs.Token;
@@ -63,13 +58,19 @@ export class AuthProvider {
     let source = Observable.of(this.token).flatMap(token => {
       // The delay to generate in this case is the difference
       // between the expiry time and the issued at time
-      let jwtIat = this.jwtHelper.decodeToken(token).iat;
-      let jwtExp = this.jwtHelper.decodeToken(token).exp;
+
+      let jwtIat = this.jwtHelper.decodeToken(token).iat; // issuedAt
+      let jwtExp = this.jwtHelper.decodeToken(token).exp; // expirationTime
       let iat = new Date(0);
       let exp = new Date(0);
+      console.info("jwtIat: " + jwtIat);
+      console.info("jwtExp: " + jwtExp);
 
       let delay = exp.setUTCSeconds(jwtExp) - iat.setUTCSeconds(jwtIat);
-      console.log("will start refresh after :", delay / 1000 / 60);
+
+      console.info("delay: " + delay);
+      console.log("will start refresh after :", delay / 1000 / 60) + "minutes";
+
       if (delay - 1000 <= 0) delay = 1;
       return Observable.interval(delay);
     });
@@ -128,16 +129,14 @@ export class AuthProvider {
       };
 
       this.http
-        .get(this.cfg.apiUrl + this.cfg.user.refresh + "?Token=" + user.Token)
+        .get(this.cfg.apiUrl + this.cfg.user.refresh + "?token=" + user.Token)
         .map(res => res.json())
         .subscribe(
           res => {
             console.log(JSON.stringify(res));
-            console.log(res.status);
-            // If the API returned a successful response, mark the user as logged in
-            // this need to be fixed on Laravel project to retun the New Token ;
-            if (res.status == "success") {
-              this.storage.set("currentUser.Token", res.token);
+
+            if (res.refreshToken) {
+              this.storage.set("currentUser.Token", res.refreshToken);
             } else {
               console.log("The Token Black Listed");
               this.logout();
@@ -145,6 +144,7 @@ export class AuthProvider {
           },
           err => {
             console.error("ERROR", err);
+            this.logout();
           }
         );
     });
@@ -154,6 +154,9 @@ export class AuthProvider {
     // stop function of auto refesh
     this.unscheduleRefresh();
     this.storage.remove("currentUser");
+
+    var nav = this.app.getRootNav();
+    nav.push("AuthPage");
   }
 
   public unscheduleRefresh() {

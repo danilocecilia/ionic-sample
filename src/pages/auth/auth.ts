@@ -50,8 +50,8 @@ export class AuthPage {
         "",
         Validators.compose([
           Validators.required,
-          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"),
-          Validators.minLength(8),
+          //Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"),
+          Validators.minLength(3),
           Validators.maxLength(30)
         ])
       ],
@@ -64,8 +64,6 @@ export class AuthPage {
     });
 
     this.events.publish("hideHeader", { isHidden: true });
-
-    //if (localStorage.getItem("token") === null) this.navCtrl.setRoot(AuthPage);
   }
 
   redirectToHome() {
@@ -87,13 +85,18 @@ export class AuthPage {
           return this.loadingProvider.loading.dismiss().then(() => {
             console.error(err);
             let errMsg = err.json();
-
+            
             this.translateService
               .get("ApiStatus." + errMsg)
-              .toPromise()
-              .then(val => {
-                this.presentToast(val);
+              .subscribe(value => {
+                if (value) {
+                  console.log("found: " + value); //debugger;
+                } else console.log("not found: " + value);
               });
+            // .toPromise()
+            // .then(val => {
+            //   this.presentToast(val);
+            // });
           });
         });
     }

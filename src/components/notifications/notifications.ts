@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalNotificationPage } from "../../pages/modal-notification/modal-notification";
-import { ModalController, Loading } from "ionic-angular";
+import { ModalController, Loading, ToastController } from "ionic-angular";
+
 import { NotificationProvider } from "../../providers/notification/notification";
 
-import { LoadingProvider  } from "../../providers/loading/loading";
+import { LoadingProvider } from "../../providers/loading/loading";
+import { ToastProvider } from "../../providers/toast/toast";
 /**
  * Generated class for the NotificationsComponent component.
  *
@@ -20,7 +22,8 @@ export class NotificationsComponent implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     private notificationProvider: NotificationProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private toastProvider: ToastProvider
   ) {}
 
   ngOnInit() {
@@ -29,12 +32,16 @@ export class NotificationsComponent implements OnInit {
   }
 
   loadNotifications() {
-    this.notificationProvider
-      .loadNotifications()
-      .subscribe(res => {
+    this.notificationProvider.loadNotifications().then(
+      res => {
         this.loadingProvider.loading.dismiss();
-        this.notifications = res[0];
-      });
+        this.notifications = res;
+      },
+      err => {
+        this.toastProvider.presentToast("Erro ao carregar as notificações.");
+        this.loadingProvider.loading.dismiss();
+      }
+    );
   }
 
   openNotification(value) {

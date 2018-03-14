@@ -41,7 +41,6 @@ export class UserProfilePage {
   }
 
   onClickSave() {
-    debugger;
     this.storage.set("currentLanguage", this.language);
     this.translate.use(this.language);
   }

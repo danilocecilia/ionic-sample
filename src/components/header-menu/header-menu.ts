@@ -48,13 +48,10 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   openPage(page) {
+    this.menuCtrl.close();
+
     if (page.method && page.method === "logout") {
       this.authProvider.logout();
     }
-
-    this.menuCtrl.close();
-
-    var nav = this.app.getRootNav();
-    nav.push(page.component);
   }
 }
