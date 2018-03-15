@@ -2,7 +2,8 @@
   "Login": "LOGIN",
   "Password": "Senha",
   "ForgotPassword": "ESQUECEU A SENHA?",
-
+  "Recover": "Recuperar",
+  "LoadingMessage": "Aguarde, carregando...",
   "ValidatorMessage": {
     "Required": "O campo {{value}} é obrigatório.",
     "Pattern": "Somente letras minúsculas e maiúsculas são aceitas.",
@@ -15,21 +16,24 @@
   "MenuProfile": {
     "Profile": "Perfil",
     "ChangePassword": "Mudar Senha",
-    "Logoff": "Log Off"
+    "Logoff": "Sair"
   },
   "ApiStatus": {
     "SUCCESS": "Success",
     "FAILURE": "Failure",
-    "BLOCKED_USER": "This user is blocked",
-    "DELETED_USER": "This is a deleted user",
-    "EXPIRED_TOKEN": "The token has expired",
-    "INACTIVE_USER": "This user is inactive",
+    "BLOCKED_USER": "Usuário bloqueado.",
+    "DELETED_USER": "This is a deleted user.",
+    "EXPIRED_TOKEN": "Token expirado.",
+    "INACTIVE_USER": "Usuário inativo.",
     "INVALID_CURRENT_PASSWORD": "",
     "INVALID_NEW_PASSWORD": "",
-    "INVALID_TOKEN": "Invalid token",
+    "INVALID_TOKEN": "Token inválido.",
     "NOT_PERMITTED": "Not permitted",
     "PASSWORD_NOT_MATCH": "",
-    "USER_NOT_FOUND": "User not found",
+    "USER_NOT_FOUND": "Uusário não encontrado.",
     "USER_PASSWORD_NOT_MATCH": "User password not match"
+  },
+  "PagesTitle": {
+    "PasswordRecovery": "Recuração de Senha"
   }
 }

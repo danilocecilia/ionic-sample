@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-/**
- * Generated class for the PasswordRecoveryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { TranslateService } from "@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -14,14 +9,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'password-recovery.html',
 })
 export class PasswordRecoveryPage {
-  // @ViewChild('myNav') nav: NavController
+  username: any = { value: "username" };
+  minlength: any = { value: "8" };
+  maxlength: any = { value: "30" };
   authForm: FormGroup;
 
   constructor(
     public navCtrl      : NavController,
     public navParams    : NavParams,
     public formBuilder  : FormBuilder,
-    public events: Events) {
+    private translate   : TranslateService,
+    public events       : Events) {
 
     this.authForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])]
@@ -36,6 +34,5 @@ export class PasswordRecoveryPage {
 
   ionViewDidLoad() {
     this.events.publish('hideHeader', { isHidden: true });
-    console.log('ionViewDidLoad PasswordRecoveryPage');
   }
 }

@@ -2,7 +2,8 @@
   "Login": "LOGIN",
   "Password":"Password",
   "ForgotPassword": "FORGOT PASSWORD?",
-
+  "Recover": "Recover",
+  "LoadingMessage": "Please Wait...",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
@@ -32,5 +33,8 @@
     "PASSWORD_NOT_MATCH": "",
     "USER_NOT_FOUND": "User not found",
     "USER_PASSWORD_NOT_MATCH": "User password not match"
+  },
+  "PagesTitle": {
+    "PasswordRecovery": "Password Recovery"
   }
 }

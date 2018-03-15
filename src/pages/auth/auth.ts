@@ -1,14 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  ToastController,
-  MenuController,
-  Events,
-  Nav,
-  Toast
-} from "ionic-angular";
+import { IonicPage,NavController, NavParams, ToastController, MenuController, Events, Nav, Toast } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { HomePage } from "../home/home";
@@ -26,7 +17,7 @@ import { APIStatus } from "../../app/config";
   templateUrl: "auth.html"
 })
 export class AuthPage {
-  username: any = { value: "username" };
+  username: any = { value: "email" };
   password: any = { value: "password" };
   minlength: any = { value: "8" };
   maxlength: any = { value: "30" };
@@ -100,10 +91,6 @@ export class AuthPage {
                 console.log("found: " + value);
               } else console.log("not found: " + value);
             });
-            // .toPromise()
-            // .then(val => {
-            //   this.presentToast(val);
-            // });
           });
         });
     }
