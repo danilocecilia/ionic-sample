@@ -17,40 +17,40 @@
                         <ion-input type="text" placeholder="Email" formControlName="username" clearInput></ion-input>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.username.hasError('required') && authForm.controls.username.touched">
-                        <p>Sorry, field username is required!</p>
+                        <p>{{'ValidatorMessage.Required' | translate:username}}</p>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.username.hasError('pattern') && authForm.controls.username.touched">
-                        <p>Sorry, only small and capital letters are allowed!</p>
+                        <p>{{'ValidatorMessage.Pattern' | translate}}</p>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.username.hasError('minlength') && authForm.controls.username.touched">
-                        <p>Sorry, minimum username length is 8!</p>
+                        <p>{{'ValidatorMessage.UserMinLength' | translate:minlength}}</p>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.username.hasError('maxlength') && authForm.controls.username.touched">
-                        <p>Sorry, maximum username length is 30!</p>
+                        <p>{{'ValidatorMessage.UserMaxLength' | translate:maxlength}}</p>
                     </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col>
                     <ion-item class="input-text">
-                        <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>
+                        <ion-input formControlName="password" placeholder="{{'Password' | translate}}" type="password"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.password.hasError('required') && authForm.controls.password.touched">
-                        <p>Sorry, field password is required!</p>
+                        <p>{{'ValidatorMessage.Required' | translate:password}}</p>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.password.hasError('minlength') && authForm.controls.password.touched">
-                        <p>Sorry, minimum password length is 8!</p>
+                        <p>{{'ValidatorMessage.PassMinLength' | translate:minlength}}</p>
                     </ion-item>
                 </ion-col>
                 <ion-col text-center col-12>
-                    <button ion-button [round]="true" color="primary" full [disabled]="!authForm.valid" class="login" type="submit">LOGIN</button>
+                    <button ion-button [round]="true" color="primary" full [disabled]="!authForm.valid" class="login" type="submit">{{ 'Login' | translate }}</button>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </form>
     <ion-row class="forgot-password">
         <ion-col text-center col-12>
-            <button ion-button full color="primary" [round]="true" (click)="goToPasswordRecovery()">FORGOT PASSWORD?</button>
+            <button ion-button full color="primary" [round]="true" (click)="goToPasswordRecovery()">{{'ForgotPassword' | translate}}</button>
         </ion-col>
     </ion-row>
 </ion-content>

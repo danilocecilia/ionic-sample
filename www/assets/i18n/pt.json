@@ -1,0 +1,35 @@
+{
+  "Login": "LOGIN",
+  "Password": "Senha",
+  "ForgotPassword": "ESQUECEU A SENHA?",
+
+  "ValidatorMessage": {
+    "Required": "O campo {{value}} é obrigatório.",
+    "Pattern": "Somente letras minúsculas e maiúsculas são aceitas.",
+    "UserMinLength": "Tamanho mínimo de caracteres é {{value}}.",
+    "UserMaxLength": "Tamanho máximo de caracteres é {{value}}.",
+    "PassMinLength": "Tamanho mínimo de caracteres é {{value}}.",
+    "PassMaxLength": "Tamanho máximo de caracteres é {{value}}."
+  },
+
+  "MenuProfile": {
+    "Profile": "Perfil",
+    "ChangePassword": "Mudar Senha",
+    "Logoff": "Log Off"
+  },
+  "ApiStatus": {
+    "SUCCESS": "Success",
+    "FAILURE": "Failure",
+    "BLOCKED_USER": "This user is blocked",
+    "DELETED_USER": "This is a deleted user",
+    "EXPIRED_TOKEN": "The token has expired",
+    "INACTIVE_USER": "This user is inactive",
+    "INVALID_CURRENT_PASSWORD": "",
+    "INVALID_NEW_PASSWORD": "",
+    "INVALID_TOKEN": "Invalid token",
+    "NOT_PERMITTED": "Not permitted",
+    "PASSWORD_NOT_MATCH": "",
+    "USER_NOT_FOUND": "User not found",
+    "USER_PASSWORD_NOT_MATCH": "User password not match"
+  }
+}

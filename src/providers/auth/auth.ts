@@ -19,7 +19,7 @@ import { ToastController, App } from "ionic-angular";
 export class AuthProvider {
   jwtHelper: JwtHelper = new JwtHelper();
   private cfg: any;
-  private apiStatus: any;
+
   token: string;
   refreshSubscription: any;
 
@@ -30,14 +30,9 @@ export class AuthProvider {
     private toastCtrl: ToastController,
     private app: App
   ) {
-    this.storage.get("currentUser").then(user => {
-      if (user) {
-        this.token = user.Token;
-      }
-    });
+    this.getToken();
 
     this.cfg = AppConfig.cfg;
-    this.apiStatus = AppConfig.APIStatus;
   }
 
   getAuthenticate(credentials: CredentialsModel) {
@@ -150,13 +145,14 @@ export class AuthProvider {
     });
   }
 
-  logout() {
+  logout(message?) {
+    debugger;
     // stop function of auto refesh
     this.unscheduleRefresh();
     this.storage.remove("currentUser");
 
     var nav = this.app.getRootNav();
-    nav.push("AuthPage");
+    nav.push("AuthPage", { message });
   }
 
   public unscheduleRefresh() {
@@ -170,5 +166,13 @@ export class AuthProvider {
     let rs = data.json();
     console.log("currentUser: " + rs);
     this.storage.set("currentUser", rs);
+  }
+
+  getToken() {
+    return this.storage.get("currentUser").then(user => {
+      if (user) {
+        return (this.token = user.Token);
+      }
+    });
   }
 }

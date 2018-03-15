@@ -26,8 +26,14 @@ import { APIStatus } from "../../app/config";
   templateUrl: "auth.html"
 })
 export class AuthPage {
+  username: any = { value: "username" };
+  password: any = { value: "password" };
+  minlength: any = { value: "8" };
+  maxlength: any = { value: "30" };
+
   authForm: FormGroup;
   userProfile = {};
+  toastMessage: string;
 
   constructor(
     public navCtrl: NavController,
@@ -39,11 +45,13 @@ export class AuthPage {
     public events: Events,
     private toastCtrl: ToastController,
     private loadingProvider: LoadingProvider,
-    private translateService: TranslateService
+    private translate: TranslateService
   ) {
     this.menu.enable(false);
 
     this.navCtrl = navCtrl;
+
+    this.toastMessage = navParams.get("message");
 
     this.authForm = this.formBuilder.group({
       username: [
@@ -85,14 +93,13 @@ export class AuthPage {
           return this.loadingProvider.loading.dismiss().then(() => {
             console.error(err);
             let errMsg = err.json();
-            
-            this.translateService
-              .get("ApiStatus." + errMsg)
-              .subscribe(value => {
-                if (value) {
-                  console.log("found: " + value); //debugger;
-                } else console.log("not found: " + value);
-              });
+
+            this.translate.get("ApiStatus." + errMsg).subscribe(value => {
+              if (value) {
+                this.presentToast(value);
+                console.log("found: " + value);
+              } else console.log("not found: " + value);
+            });
             // .toPromise()
             // .then(val => {
             //   this.presentToast(val);
@@ -112,7 +119,17 @@ export class AuthPage {
     return toast.present();
   }
 
+  translateMessage() {
+    return this.translate.get("ApiStatus." + this.toastMessage).toPromise();
+  }
+
   ionViewDidLoad() {
+    if (this.toastMessage) {
+      this.translateMessage().then(translated => {
+        if (translated) this.presentToast(translated);
+        else console.log("not found: " + translated);
+      });
+    }
     this.events.publish("hideHeader", { isHidden: true });
   }
 

@@ -1,0 +1,36 @@
+{
+  "Login": "LOGIN",
+  "Password":"Password",
+  "ForgotPassword": "FORGOT PASSWORD?",
+
+  "ValidatorMessage": {
+    "Required": "Field {{value}} is required.",
+    "Pattern": "Only small and capital letters are allowed.",
+    "UserMinLength": "Minimum username length is {{value}}.",
+    "UserMaxLength": "Maximum username length is {{value}}.",
+    "PassMinLength": "Minimum username length is {{value}}.",
+    "PassMaxLength": "Maximum username length is {{value}}."
+  },
+
+  "MenuProfile": {
+    "Profile": "Profile",
+    "ChangePassword": "Change Password",
+    "Logoff": "Log off"
+  },
+
+  "ApiStatus": {
+    "SUCCESS": "Success",
+    "FAILURE": "Failure",
+    "BLOCKED_USER": "This user is blocked",
+    "DELETED_USER": "This is a deleted user",
+    "EXPIRED_TOKEN": "The token has expired",
+    "INACTIVE_USER": "This user is inactive",
+    "INVALID_CURRENT_PASSWORD": "",
+    "INVALID_NEW_PASSWORD": "",
+    "INVALID_TOKEN": "Invalid token",
+    "NOT_PERMITTED": "Not permitted",
+    "PASSWORD_NOT_MATCH": "",
+    "USER_NOT_FOUND": "User not found",
+    "USER_PASSWORD_NOT_MATCH": "User password not match"
+  }
+}

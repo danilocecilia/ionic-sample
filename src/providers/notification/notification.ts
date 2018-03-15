@@ -1,34 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as AppConfig from "../../app/config";
-import { Storage } from "@ionic/storage";
+import { AuthProvider } from "../../providers/auth/auth";
 
 @Injectable()
 export class NotificationProvider {
   private cfg: any;
-  token: string;
 
-  constructor(public http: HttpClient, private storage: Storage) {
+  constructor(public http: HttpClient, private auth: AuthProvider) {
     this.cfg = AppConfig.cfg;
   }
 
-  getToken() {
-    return this.storage.get("currentUser").then(user => {
-      if (user) {
-        this.token = user.Token;
-      }
-    });
-  }
-
   loadNotifications() {
-    //return this.http.get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=aushdfiuhasiudhfiuahsdiufh`);
-
-    return this.getToken().then(() => {
+    return this.auth.getToken().then((token) => {
       return this.http
-        .get(
-          `${this.cfg.apiUrl + this.cfg.notification.all}?token=${this.token}`
-        )
-        .toPromise();
+        .get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=${token}`).toPromise();
     });
   }
 }

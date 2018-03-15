@@ -75,6 +75,8 @@ import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
 import { LoadingProvider } from "../providers/loading/loading";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
+import { ToastProvider } from '../providers/toast/toast';
+import { Globalization } from "@ionic-native/globalization";
 
 let storage = new Storage({});
 
@@ -203,7 +205,9 @@ export function getAuthHttp(http: Http) {
     FileTransfer,
     Camera,
     FileChooser,
-    InAppBrowser
+    InAppBrowser,
+    Globalization,
+    ToastProvider
   ]
 })
 export class AppModule {}

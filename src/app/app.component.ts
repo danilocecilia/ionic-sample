@@ -9,7 +9,7 @@ import { AuthProvider } from "../providers/auth/auth";
 import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
 import { TranslateService } from "@ngx-translate/core";
-
+import { Globalization } from "@ionic-native/globalization";
 @Component({
   templateUrl: "app.html"
 })
@@ -26,7 +26,8 @@ export class MyApp {
     private storage: Storage,
     public modalController: ModalController,
     public authProvider: AuthProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private globalization: Globalization
   ) {
     platform.ready().then(() => {
       statusBar.backgroundColorByHexString("#003a8b");
@@ -57,6 +58,7 @@ export class MyApp {
   }
 
   setCurrentCulture(user) {
+    debugger;
     if (user) {
       if (user.Language && user.Language.Culture) {
         let culture = user.Language.Culture.substring(0, 2);
@@ -64,11 +66,29 @@ export class MyApp {
         for (let c of this.cultures) {
           if (culture === c) {
             this.translate.setDefaultLang(culture); // Set language
+            this.translate.use(culture);
           }
         }
       } else {
-        this.translate.setDefaultLang("en"); //Set default culture
+        this.translate.setDefaultLang("en");
+        this.translate.use("en");
       }
+    } else {
+      this.globalization
+        .getPreferredLanguage()
+        .then(lang => {
+          if (lang) {
+            let l = lang.value.substring(0, 2);
+
+            this.translate.setDefaultLang(l);
+            this.translate.use(l);
+          }
+        })
+        .catch(e => {
+          this.translate.setDefaultLang("pt");
+          this.translate.use("pt");
+          console.error(e);
+        });
     }
   }
 }
