@@ -1,15 +1,16 @@
-import { Component, ViewChild } from "@angular/core";
-import { IonicPage,NavController, NavParams, ToastController, MenuController, Events, Nav, Toast } from "ionic-angular";
+import { Component } from "@angular/core";
+import { IonicPage,NavController, NavParams, MenuController, Events } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
-import { HomePage } from "../home/home";
 import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
 import { AuthProvider } from "../../providers/auth/auth";
 import { TabsPage } from "../tabs/tabs";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { Response } from "@angular/http";
 import { TranslateService } from "@ngx-translate/core";
-import { APIStatus } from "../../app/config";
+import { TranslateProvider } from "../../providers/translate/translate";
+import { ToastProvider } from "../../providers/toast/toast";
+import * as APPConfig from "../../app/config";
 
 @IonicPage()
 @Component({
@@ -17,8 +18,8 @@ import { APIStatus } from "../../app/config";
   templateUrl: "auth.html"
 })
 export class AuthPage {
-  username: any = { value: "email" };
-  password: any = { value: "password" };
+  username:  any = { value: "email" };
+  password:  any = { value: "password" };
   minlength: any = { value: "8" };
   maxlength: any = { value: "30" };
 
@@ -34,9 +35,11 @@ export class AuthPage {
     public authProvider: AuthProvider,
     public menu: MenuController,
     public events: Events,
-    private toastCtrl: ToastController,
+    // private toastCtrl: ToastController,
     private loadingProvider: LoadingProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private translateProvider: TranslateProvider,
+    private toastProvider: ToastProvider
   ) {
     this.menu.enable(false);
 
@@ -77,6 +80,7 @@ export class AuthPage {
         .getAuthenticate(this.authForm.value)
         .then(() => {
           return this.loadingProvider.loading.dismiss().then(res => {
+            this.setCurrentCulture();
             this.redirectToHome();
           });
         })
@@ -85,10 +89,10 @@ export class AuthPage {
             console.error(err);
             let errMsg = err.json();
 
-            this.translate.get("ApiStatus." + errMsg).subscribe(value => {
+            this.translateProvider.translateMessage(errMsg).then((value) =>{
               if (value) {
-                this.presentToast(value);
-                console.log("found: " + value);
+                this.toastProvider.presentToast(value);
+                console.log("translation found: " + value);
               } else console.log("not found: " + value);
             });
           });
@@ -96,28 +100,29 @@ export class AuthPage {
     }
   }
 
-  presentToast(text: string): Promise<any> {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: "bottom"
-    });
-
-    return toast.present();
-  }
-
-  translateMessage() {
-    return this.translate.get("ApiStatus." + this.toastMessage).toPromise();
-  }
-
   ionViewDidLoad() {
     if (this.toastMessage) {
-      this.translateMessage().then(translated => {
-        if (translated) this.presentToast(translated);
-        else console.log("not found: " + translated);
+      this.translateProvider.translateMessage(this.toastMessage).then(translated => {
+        if (translated) this.toastProvider.presentToast(translated);
+        else console.log("translated not found: " + translated);
       });
     }
     this.events.publish("hideHeader", { isHidden: true });
+  }
+
+  setCurrentCulture(){
+    return this.storage.get("currentUser").then(user => {
+      if (user) {
+        this.events.publish("currentUser", { currentUser: user });
+
+        if (user.Language && user.Language.Culture) {
+          let culture = user.Language.Culture.substring(0, 2);
+
+          this.translate.setDefaultLang(culture);
+          this.translate.use(culture);
+        }
+      }
+    });
   }
 
   goToPasswordRecovery() {

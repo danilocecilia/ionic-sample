@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>My Curriculum</ion-title>
+    <ion-title>{{'PagesTitle.MyCurriculum' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -25,101 +25,36 @@
       <ion-item>
         <h2>{{his.Training.Training}}</h2>
       </ion-item>
-      <img src="http://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png">
+      <img src="data:image/png;base64,{{his.Training.Thumbnail}}">
       <ion-card-content>
         <p>{{his.Training.Summary}}</p>
       </ion-card-content>
       <ion-row class="more-info">
         <ion-col>
-          Cost
+          {{'Cost' | translate}}
         </ion-col>
         <ion-col>
-          Course Expiration
+          {{'CourseExpiration' | translate}}
         </ion-col>
       </ion-row>
       <ion-row class="more-info">
         <ion-col>
-          200,00
+          {{his.Training.Cost === 0 ? ('Free' | translate) : his.Training.Cost}}
         </ion-col>
         <ion-col>
-          365 Days
+          {{his.Training.CompletionExpirationDays}} Day(s)
         </ion-col>
       </ion-row>
       <ion-row col-12 text-right>
         <ion-col no-margin>
           <button full ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(his.Status)
-            color="dark">{{his.Status}}</button>
+            color="dark">{{('HistoryStatus.' + his.Status) | translate}}</button>
           <button full ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
-            color="dark">{{his.Status}}</button>
+            color="dark">{{('HistoryStatus.' + his.Status) | translate}}</button>
         </ion-col>
       </ion-row>
     </ion-card>
   </ng-container>
-
-
-  <!-- LIST OF TRAININGS -->
-  <!-- <ng-container *ngIf="isEnrollmentHidden">
-    <ion-list no-margin>
-      <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
-        <ion-slide *ngFor="let comp of competency.Competency" class="text-center slider-item">
-          <div class="slide-text">
-            <h6>{{comp.Level.Level}}</h6>
-          </div>
-          <div class="progress-outer">
-            <div class="progress-inner" [style.width]="progress + '%'">
-              {{progress}}%
-            </div>
-          </div>
-        </ion-slide>
-      </ion-slides>
-    </ion-list>
-    <ion-grid *ngFor="let his of history">
-      <ion-row wrap>
-        <ion-col col-11>
-          {{his.Training.Training}}
-        </ion-col>
-        <ion-col col-1 right>
-          <ion-icon name="desktop"></ion-icon>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <img src="http://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png">
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          Description:
-          <p>{{his.Training.Summary}}</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          Cost:
-        </ion-col>
-        <ion-col>
-          Course Expiration
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          200,00
-        </ion-col>
-        <ion-col>
-          365 Days
-        </ion-col>
-      </ion-row>
-      <ion-row col-12 text-right>
-        <ion-col no-margin>
-          <button full ion-button *ngIf="his.Training.Category === 'FACE_TO_FACE' || his.Training.Category === 'VCT'" (click)=openCalendar(his.Status)
-            color="dark">{{his.Status}}</button>
-          <button full ion-button *ngIf="his.Training.Category !== 'FACE_TO_FACE' && his.Training.Category !== 'VCT'" (click)="onClick(his.Training, his.Status)"
-            color="dark">{{his.Status}}</button>
-          <ion-item class="item-block" no-margin></ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ng-container> -->
 
   <!-- SELECTED TRAINING ENROLLMENT -->
   <ion-grid *ngIf="!isEnrollmentHidden">

@@ -1,7 +1,7 @@
 <ion-tabs color="light">
-  <ion-tab [root]="tab1Root" tabTitle="Notification" tabIcon="notifications" (ionSelect)="resetHeader()" tabBadge="4" tabBadgeStyle="primary"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Curriculum" tabIcon="book"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Calendar" [rootParams]="{ loadType : 'general' }" tabIcon="calendar"></ion-tab>
-  <ion-tab [root]="tab4Root" tabTitle="Library" tabIcon="briefcase"></ion-tab>
-  <ion-tab [root]="tab5Root" tabTitle="Media" tabIcon="images"></ion-tab>
+  <ion-tab [root]="tab1Root" tabTitle="{{ 'TabsTitle.Notification' | translate }} " tabIcon="notifications" (ionSelect)="resetHeader()" tabBadge="4" tabBadgeStyle="primary"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="{{ 'TabsTitle.Curriculum' | translate }} " tabIcon="book"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="{{ 'TabsTitle.Calendar' | translate }} " [rootParams]="{ loadType : 'general' }" tabIcon="calendar"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="{{ 'TabsTitle.Library' | translate }} " tabIcon="briefcase"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="{{ 'TabsTitle.Media' | translate }} " tabIcon="images"></ion-tab>
 </ion-tabs>

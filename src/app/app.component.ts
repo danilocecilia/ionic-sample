@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, Input } from "@angular/core";
 import { Platform, ModalController, NavController } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 import { StatusBar } from "@ionic-native/status-bar";
@@ -10,13 +10,14 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
+import * as APPConfig from "../app/config";
+
 @Component({
   templateUrl: "app.html"
 })
 export class MyApp {
   currentUser: any;
   @ViewChild("content") nav: NavController;
-  cultures: any = ["pt", "en", "es"];
 
   constructor(
     platform: Platform,
@@ -37,7 +38,9 @@ export class MyApp {
       translate.addLangs(["en", "pt"]);
     });
 
-    this.getLocalStorageUser();
+    this.getLocalStorageUser()
+      .then(() => this.bindCulture(this.currentUser))
+      .then(() => this.checkLoggedUser());
   }
 
   checkLoggedUser() {
@@ -48,47 +51,39 @@ export class MyApp {
   }
 
   getLocalStorageUser() {
-    this.storage
-      .get("currentUser")
-      .then(user => {
+    return this.storage.get("currentUser").then(user => {
+      if(user)
         this.currentUser = user;
-      })
-      .then(() => this.setCurrentCulture(this.currentUser))
-      .then(() => this.checkLoggedUser());
+    });
   }
 
-  setCurrentCulture(user) {
-    debugger;
+  bindCulture(user) {
     if (user) {
       if (user.Language && user.Language.Culture) {
         let culture = user.Language.Culture.substring(0, 2);
 
-        for (let c of this.cultures) {
-          if (culture === c) {
-            this.translate.setDefaultLang(culture); // Set language
-            this.translate.use(culture);
-          }
-        }
+        this.setDefaultCulture(culture);
       } else {
-        this.translate.setDefaultLang("en");
-        this.translate.use("en");
+        this.setDefaultCulture("pt");
       }
     } else {
       this.globalization
         .getPreferredLanguage()
         .then(lang => {
           if (lang) {
-            let l = lang.value.substring(0, 2);
-
-            this.translate.setDefaultLang(l);
-            this.translate.use(l);
+            let c = lang.value.substring(0, 2);
+            this.setDefaultCulture(c);
           }
         })
         .catch(e => {
-          this.translate.setDefaultLang("pt");
-          this.translate.use("pt");
+          this.setDefaultCulture("pt");
           console.error(e);
         });
     }
+  }
+
+  setDefaultCulture(culture: string) {
+    this.translate.setDefaultLang(culture);
+    this.translate.use(culture);
   }
 }

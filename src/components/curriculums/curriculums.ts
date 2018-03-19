@@ -1,23 +1,16 @@
 import { Component, OnInit, ViewChild, Input } from "@angular/core";
-import {
-  NavController,
-  Events,
-  NavParams,
-  Slides,
-  Platform
-} from "ionic-angular";
+import { NavController, Events, NavParams, Slides } from "ionic-angular";
 import { CompetencyProvider } from "../../providers/competency/competency";
-import { Competency } from "../../models/competency";
 import { ModalController } from "ionic-angular/components/modal/modal-controller";
 import { AgendaComponent } from "../agenda/agenda";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { LoadingProvider } from "../../providers/loading/loading";
-/**
- * Generated class for the CurriculumsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import * as AppConfig from '../../app/config';
+import { TranslateService } from "@ngx-translate/core";
+import { TranslateProvider } from '../../providers/translate/translate';
+import { ToastProvider  } from "../../providers/toast/toast";
+import { AuthProvider } from "../../providers/auth/auth";
+
 @Component({
   selector: "curriculums",
   templateUrl: "curriculums.html"
@@ -39,7 +32,11 @@ export class CurriculumsComponent implements OnInit {
     private competencyProvider: CompetencyProvider,
     private modalController: ModalController,
     public navParams: NavParams,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private translate: TranslateService,
+    private translateProvider : TranslateProvider,
+    private toastProvider: ToastProvider,
+    private authProvider: AuthProvider
   ) {
     this.idCompetency = navParams.get("idCompetency");
   }
@@ -58,11 +55,24 @@ export class CurriculumsComponent implements OnInit {
   getCompetency() {
     this.competencyProvider
       .getCompetency(this.idCompetency)
-      .subscribe((comp: Competency) => {
-        this.loadingProvider.loading.dismiss();
+      .then(comp => {
         this.competency = comp;
+        
         this.history = this.competency.Competency[0].History;
         this.progress = this.competency.Competency[0].Percentage;
+        this.loadingProvider.loading.dismiss();
+      })
+      .catch((err) => {
+        this.loadingProvider.loading.dismiss();
+
+        if (AppConfig.hasFoundAPIStatus(err.error)){
+          if(AppConfig.APIStatus[err.error] === "INVALID_TOKEN"){
+            this.translateProvider.translateMessage(err.error).then((text) => {
+              this.authProvider.logout(text);
+            })
+          } 
+        } 
+        else this.toastProvider.presentToast(err.error.Message);
       });
   }
 

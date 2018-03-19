@@ -1,27 +1,23 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
-import { App, Nav, MenuController } from "ionic-angular";
+import { Component, ViewChild, OnInit, Input } from "@angular/core";
+import { App, Nav, MenuController, Events } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
-import { TranslateService } from "@ngx-translate/core";
-/**
- * Generated class for the HeaderMenuComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { Storage } from "@ionic/storage";
 @Component({
   selector: "header-menu",
   templateUrl: "header-menu.html"
 })
 export class HeaderMenuComponent implements OnInit {
   @ViewChild(Nav) nav: Nav;
-  titlePage: string;
+  currentUser: any;
+
   pages: Array<{ title: string; component: any; method?: any; icon?: any }>;
 
   constructor(
     public authProvider: AuthProvider,
     public app: App,
     public menuCtrl: MenuController,
-    private translate: TranslateService
+    private storage: Storage,
+    public events: Events
   ) {
     this.pages = [
       {
@@ -41,10 +37,23 @@ export class HeaderMenuComponent implements OnInit {
         icon: "md-log-out"
       }
     ];
+
+    events.subscribe("currentUser", user => {
+      this.currentUser = user.currentUser;
+      console.log(this.currentUser);
+    });
   }
 
   ngOnInit() {
-   
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    this.authProvider.getLoggedUser().then(res => {
+      this.currentUser = res;
+      console.log('getCurrentUser: '+ this.currentUser);
+      debugger;
+    });
   }
 
   openPage(page) {
@@ -52,6 +61,9 @@ export class HeaderMenuComponent implements OnInit {
 
     if (page.method && page.method === "logout") {
       this.authProvider.logout();
+    } else {
+      var nav = this.app.getRootNav();
+      nav.push(page.component);
     }
   }
 }
