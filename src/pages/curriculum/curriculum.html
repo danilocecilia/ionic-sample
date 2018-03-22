@@ -1,17 +1,17 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>My Curriculum</ion-title>
+    <ion-title>{{'PagesTitle.JobRole' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="outer-content">
   <ion-list radio-group>
     <ion-list-header>
-      Select a Job Role
+      {{'SelectJobRole' | translate}}
     </ion-list-header>
     <ion-item *ngFor="let jr of curriculum.APICompetency">
       <ion-label color="dark">{{jr.JobRole.JobRole}}</ion-label>
-      <ion-radio (ionSelect)="radioChecked(jr.ID)"></ion-radio>
+      <ion-radio (ionSelect)="radioChecked(jr.JobRole.ID)"></ion-radio>
     </ion-item>
   </ion-list>
 </ion-content>

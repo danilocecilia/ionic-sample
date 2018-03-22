@@ -1,47 +1,50 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 import { TranslateService } from "@ngx-translate/core";
+import { AuthProvider } from "../../providers/auth/auth";
 
-/**
- * Generated class for the UserProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+export interface Language {
+  name: string;
+  code: string;
+}
 
 @IonicPage()
 @Component({
   selector: "page-user-profile",
   templateUrl: "user-profile.html"
 })
-export class UserProfilePage {
-  language: string;
-  languages = [
-    { name: "English", code: "en" },
-    { name: "Portuguese", code: "pt" },
-    { name: "French", code: "fr" }
-  ];
-  countries = ["Brazil", "USA", "France"];
-  user = {
-    name: "Angelo Martins",
-    imageUrl:
-      "https://ionicframework.com/dist/preview-app/www/assets/img/marty-avatar.png"
-  };
 
+export class UserProfilePage implements OnInit {
+  currentLanguage: Language = { name: "Portuguese", code: "pt-BR" };
+  loggedUser:any;
+  currentUser: any;
+
+  optionLanguages: Language[] = [
+    { name: "English", code: "en-US" },
+    { name: "Portuguese", code: "pt-BR" },
+    { name: "Spanish", code: "es" }
+  ];
+
+  countries = ["Brazil", "USA", "Spanish"];
+  placeholder = "assets/img/thumbnail.png";
+  stateOptionKeys = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private storage: Storage,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public authProvider: AuthProvider
   ) {}
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad UserProfilePage");
+  ngOnInit() {
+    this.loggedUser = this.authProvider.loggedUser
   }
 
+  updateProfileImage() {}
+
   onClickSave() {
-    this.storage.set("currentLanguage", this.language);
-    this.translate.use(this.language);
+    //this.storage.set("currentLanguage", this.language);
+    //this.translate.use(this.language);
   }
 }

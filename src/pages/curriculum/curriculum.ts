@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { CurriculumsComponent } from "../../components/curriculums/curriculums";
 import { CurriculumProvider } from "../../providers/curriculum/curriculum";
-import { LoadingProvider  } from "../../providers/loading/loading";
+import { LoadingProvider } from "../../providers/loading/loading";
+import { ToastProvider } from "../../providers/toast/toast";
 @IonicPage()
 @Component({
   selector: "page-curriculum",
@@ -16,7 +17,8 @@ export class CurriculumPage implements OnInit {
     public navParams: NavParams,
     public events: Events,
     public curriculumProvider: CurriculumProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private toast:ToastProvider
   ) {}
 
   ngOnInit() {
@@ -27,21 +29,17 @@ export class CurriculumPage implements OnInit {
   loadCurriculum() {
     this.curriculum = this.curriculumProvider
       .loadCurriculum()
-      .subscribe(res => {
+      .then(res => {
         this.loadingProvider.loading.dismiss();
-        this.curriculum = res[0];
+        this.curriculum = res;
+      })
+      .catch(err => {
+        this.loadingProvider.loading.dismiss();
+        this.toast.presentToast("Erro ao carregar os curriculums.")
       });
   }
 
   radioChecked(value) {
-    this.navCtrl.push(CurriculumsComponent,  { idCompetency: value });
+    this.navCtrl.push(CurriculumsComponent, { idCompetency: value });
   }
-
-  // ionViewDidLoad() {
-  //   this.events.publish("hideHeader", { isHidden: true });
-  // }
-
-  // viewDidLeave() {
-  //   this.events.publish("hideHeader", { isHidden: true });
-  // }
 }

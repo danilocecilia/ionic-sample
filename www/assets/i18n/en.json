@@ -1,9 +1,14 @@
 {
   "Login": "LOGIN",
-  "Password":"Password",
+  "Password": "Password",
   "ForgotPassword": "FORGOT PASSWORD?",
   "Recover": "Recover",
   "LoadingMessage": "Please Wait...",
+  "SelectJobRole": "Select a Job Role",
+  "ConfirmEventSummary": "Confirm to see the Event Summary for this date and class?",
+  "ConfirmEnrollment" : "Do you confirm your enrollment for this date event?",
+  "Today": "Today",
+  "NoEvents": "No Events",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
@@ -12,13 +17,22 @@
     "PassMinLength": "Minimum username length is {{value}}.",
     "PassMaxLength": "Maximum username length is {{value}}."
   },
-
+  "Cost": "Cost",
+  "CourseExpiration": "Course Expiration",
   "MenuProfile": {
     "Profile": "Profile",
     "ChangePassword": "Change Password",
     "Logoff": "Log off"
   },
-
+  "Profile": {
+    "SITE_ADMIN": "Site Admininistrator",
+    "USER": "User",
+    "ADMINISTRATOR": "Administrator",
+    "INSTRUCTOR": "Instructor",
+    "DOMAIN_MANAGER": "Domain Manager",
+    "REGION_MANAGER": "Region Manager",
+    "ORGANIZATION_MANAGER": "Organization Manager"
+  },
   "ApiStatus": {
     "SUCCESS": "Success",
     "FAILURE": "Failure",
@@ -34,7 +48,29 @@
     "USER_NOT_FOUND": "User not found",
     "USER_PASSWORD_NOT_MATCH": "User password not match"
   },
+  "Free": "Free",
   "PagesTitle": {
-    "PasswordRecovery": "Password Recovery"
+    "PasswordRecovery": "Password Recovery",
+    "MyCurriculum": "My Curriculum",
+    "ProfileSettings": "Profile Settings",
+    "JobRole": "Job Role"
+  },
+  "TabsTitle": {
+    "Notification": "Notification",
+    "Media": "Media",
+    "Curriculum": "Curriculum",
+    "Calendar": "Calendar",
+    "Library": "Library"
+  },
+  "HistoryStatus": {
+    "PASS": "PASS",
+    "FAIL": "FAIL",
+    "IN_PROGRESS": "IN PROGRESS",
+    "NOT_STARTED": "NOT STARTED",
+    "ABSENT": "ABSENT",
+    "ENROLLED": "ENROLLED",
+    "WAITING": "WAITING",
+    "INTEND": "INTEND",
+    "CANCELLED": "CANCELLED"
   }
 }

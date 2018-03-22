@@ -1,42 +1,41 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Profile Settings</ion-title>
+    <ion-title>{{'PagesTitle.ProfileSettings' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
-
 
 <ion-content>
   <ion-list>
     <ion-list-header>
       <ion-avatar item-start (click)="updateProfileImage()">
-        <img [src]="user.imageUrl ? user.imageUrl : placeholderPicture">
+        <img src="data:image/png;base64,{{loggedUser.Thumbnail}}">
       </ion-avatar>
-      <p class="username">{{user.name}}</p>
-      <p>Owner</p>
+      <p class="username">{{loggedUser.Name}}</p>
+      <p>{{('Profile.' + loggedUser.Profile) | translate}}</p>
     </ion-list-header>
   </ion-list>
   <ion-list no-border>
-    <ion-list-header>
+    <ion-list-header color="secondary">
       Personal Info
     </ion-list-header>
     <ion-item>
+      <ion-label>App Language</ion-label>
+      <ion-select [(ngModel)]="currentLanguage.code">
+        <ion-option *ngFor="let l of optionLanguages" [value]="l.code">{{l.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
       <ion-label>First Name</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="loggedUser.Name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Last Name</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="loggedUser.LastName"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-icon name='settings' item-start></ion-icon>
-      <ion-label>App Language</ion-label>
-      <ion-select [(ngModel)]="language">
-        <ion-option *ngFor="let language of languages" [value]="language.code">{{language.name}}</ion-option>
-      </ion-select>
-    </ion-item>
+
   </ion-list>
   <ion-list no-border>
-    <ion-list-header>
+    <ion-list-header color="secondary">
       Address Info
     </ion-list-header>
     <ion-item>
@@ -48,15 +47,15 @@
       <ion-input placeholder="Address Line 2"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-icon name='globe' item-start></ion-icon>
+
       <ion-label>Country</ion-label>
       <ion-select [(ngModel)]="country">
         <ion-option *ngFor="let country of countries" [value]="country">{{country}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label stacked>State</ion-label>
-      <ion-input placeholder="State"></ion-input>
+      <ion-label class="label-size">State</ion-label>
+      <ion-input></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Postal Code</ion-label>
@@ -64,15 +63,15 @@
     </ion-item>
   </ion-list>
   <ion-list>
-    <ion-list-header>
+    <ion-list-header color="secondary">
       Phone Info
     </ion-list-header>
     <ion-item>
-      <ion-label>Phone</ion-label>
+      <ion-label class="label-size">Phone</ion-label>
       <ion-input></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Fax</ion-label>
+      <ion-label class="label-size">Fax</ion-label>
       <ion-input></ion-input>
     </ion-item>
   </ion-list>
@@ -80,15 +79,4 @@
   <ion-item>
     <button ion-button full (click)="onClickSave()">SAVE</button>
   </ion-item>
-  <!-- <ion-list>
-    <ion-list-header>
-      Other
-    </ion-list-header>
-    <ion-item>
-      <ion-icon name='power' item-start></ion-icon>
-      <button ion-button (click)="logOut()" item-end>
-        Logout
-      </button>
-    </ion-item>
-  </ion-list> -->
 </ion-content>

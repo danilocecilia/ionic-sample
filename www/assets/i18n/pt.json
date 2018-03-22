@@ -4,6 +4,11 @@
   "ForgotPassword": "ESQUECEU A SENHA?",
   "Recover": "Recuperar",
   "LoadingMessage": "Aguarde, carregando...",
+  "SelectJobRole": "Selecione um cargo",
+  "ConfirmEventSummary": "Confirma em ver o sumario de eventos para data e turma selecionada?",
+  "ConfirmEnrollment" : "Confirma a inscrição para esta data?",
+  "Today": "Hoje",
+  "NoEvents": "Nenhum evento",
   "ValidatorMessage": {
     "Required": "O campo {{value}} é obrigatório.",
     "Pattern": "Somente letras minúsculas e maiúsculas são aceitas.",
@@ -12,11 +17,21 @@
     "PassMinLength": "Tamanho mínimo de caracteres é {{value}}.",
     "PassMaxLength": "Tamanho máximo de caracteres é {{value}}."
   },
-
+  "Cost": "Custo",
+  "CourseExpiration": "Expiração do Curso",
   "MenuProfile": {
     "Profile": "Perfil",
     "ChangePassword": "Mudar Senha",
     "Logoff": "Sair"
+  },
+  "Profile": {
+    "SITE_ADMIN": "Site Admininistrador",
+    "USER": "Usuário",
+    "ADMINISTRATOR": "Administrador",
+    "INSTRUCTOR": "Instrutor",
+    "DOMAIN_MANAGER": "Administrator do Domínio",
+    "REGION_MANAGER": "Administrator Regional",
+    "ORGANIZATION_MANAGER": "Administrator da Organização"
   },
   "ApiStatus": {
     "SUCCESS": "Success",
@@ -33,7 +48,29 @@
     "USER_NOT_FOUND": "Uusário não encontrado.",
     "USER_PASSWORD_NOT_MATCH": "User password not match"
   },
+  "Free": "Grátis",
   "PagesTitle": {
-    "PasswordRecovery": "Recuração de Senha"
+    "PasswordRecovery": "Recuração de Senha",
+    "MyCurriculum": "Meu Curriculum",
+    "ProfileSettings": "Configuração do Perfil",
+    "JobRole": "Cargo"
+  },
+  "TabsTitle": {
+    "Notification": "Notificação",
+    "Media": "Media",
+    "Curriculum": "Curriculum",
+    "Calendar": "Calendário",
+    "Library": "Biblioteca"
+  },
+  "HistoryStatus": {
+    "PASS": "PASSOU",
+    "FAIL": "FALHOU",
+    "IN_PROGRESS": "EM ANDAMENTO",
+    "NOT_STARTED": "NÃO INICIADO",
+    "ABSENT": "AUSENTE",
+    "ENROLLED": "INSCRITO",
+    "WAITING": "AGUARDANDO",
+    "INTEND": "INTEND",
+    "CANCELLED": "CANCELADO"
   }
 }
