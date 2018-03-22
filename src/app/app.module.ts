@@ -16,6 +16,11 @@ import { Camera } from "@ionic-native/camera";
 import { FileChooser } from "@ionic-native/file-chooser";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { LOCALE_ID } from "@angular/core";
+import { registerLocaleData } from "@angular/common";
+// import localePt from "@angular/common/locales/pt";
+// import localeEs from "@angular/common/locales/es";
+// import { NavController } from "ionic-angular";
 //import { ComponentsModule  } from "../components/components.module";
 
 /***********************/
@@ -26,7 +31,6 @@ import { HomePage } from "../pages/home/home";
 import { ModalAssessmentPage } from "../pages/modal-assessment/modal-assessment";
 import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
 import { TestPage } from "../pages/test/test";
-import { UserProfilePage } from "../pages/user-profile/user-profile";
 
 /***********************/
 //Components
@@ -75,8 +79,9 @@ import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
 import { LoadingProvider } from "../providers/loading/loading";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
-import { ToastProvider } from '../providers/toast/toast';
+import { ToastProvider } from "../providers/toast/toast";
 import { Globalization } from "@ionic-native/globalization";
+import { TranslateProvider } from "../providers/translate/translate";
 
 let storage = new Storage({});
 
@@ -98,6 +103,9 @@ export function getAuthHttp(http: Http) {
     http
   );
 }
+
+// registerLocaleData(localePt);
+// registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -189,6 +197,10 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
+    {
+      provide: LOCALE_ID,
+      useValue: "en-US"
+    },
     TodosProvider,
     AuthProvider,
     FooterProvider,
@@ -207,7 +219,8 @@ export function getAuthHttp(http: Http) {
     FileChooser,
     InAppBrowser,
     Globalization,
-    ToastProvider
+    ToastProvider,
+    TranslateProvider
   ]
 })
 export class AppModule {}
