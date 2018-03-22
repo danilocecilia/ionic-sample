@@ -17,7 +17,7 @@ import { FileChooser } from "@ionic-native/file-chooser";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { LOCALE_ID } from "@angular/core";
-import { registerLocaleData } from "@angular/common";
+// import { registerLocaleData } from "@angular/common";
 // import localePt from "@angular/common/locales/pt";
 // import localeEs from "@angular/common/locales/es";
 // import { NavController } from "ionic-angular";
@@ -30,7 +30,7 @@ import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { ModalAssessmentPage } from "../pages/modal-assessment/modal-assessment";
 import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
-import { TestPage } from "../pages/test/test";
+// import { TestPage } from "../pages/test/test";
 
 /***********************/
 //Components
@@ -132,7 +132,7 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
-    TestPage
+    // TestPage
   ],
   imports: [
     BrowserModule,
@@ -183,7 +183,7 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
-    TestPage
+    // TestPage
   ],
   providers: [
     StatusBar,

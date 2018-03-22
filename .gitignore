@@ -12,6 +12,7 @@ log.txt
 .vscode/
 npm-debug.log*
 
+.svn/
 .idea/
 .sourcemaps/
 .sass-cache/
@@ -26,8 +27,11 @@ hooks/
 platforms/
 plugins/
 plugins/android.json
+www/assets/lms/
+www/assets/fonts/
+www/assets/js/
+www/build/
 plugins/ios.json
-www/
 $RECYCLE.BIN/
 
 .DS_Store

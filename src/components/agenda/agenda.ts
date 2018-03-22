@@ -59,7 +59,6 @@ export class AgendaComponent implements OnInit {
 
   calendar = {
     mode: "month",
-    //locale: this.loggedUser != null && this.loggedUser.Language != null? this.loggedUser.Language.Culture : 'pt',
     currentDate: new Date(),
     dateFormatter: {
       formatMonthViewDay: function(date: Date) {
