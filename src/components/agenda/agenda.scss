@@ -1,12 +1,21 @@
 agenda {
-    .toolbar-title {
-        overflow: visible;
-        position: relative;
-        .subtitle {
-          position: relative;
-          top: 4px;
-          font-size: 66%;
-          margin: 0;
-        }
-      }
+  // ion-alert > .alert-wrapper > .alert-message {
+  //   color: red;
+  //   background: blue;
+  // }
+  // #alert-msg-0 {
+  //   color: red;
+  //   background: blue;
+  // }
+
+  .toolbar-title {
+    overflow: visible;
+    position: relative;
+    .subtitle {
+      position: relative;
+      top: 4px;
+      font-size: 66%;
+      margin: 0;
+    }
+  }
 }

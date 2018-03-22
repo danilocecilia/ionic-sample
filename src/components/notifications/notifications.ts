@@ -1,29 +1,28 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalNotificationPage } from "../../pages/modal-notification/modal-notification";
-import { ModalController, Loading, ToastController } from "ionic-angular";
+import { ModalController } from "ionic-angular";
 
 import { NotificationProvider } from "../../providers/notification/notification";
 
 import { LoadingProvider } from "../../providers/loading/loading";
 import { ToastProvider } from "../../providers/toast/toast";
-/**
- * Generated class for the NotificationsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import * as AppConfig from "../../app/config";
+import { AuthProvider } from "../../providers/auth/auth";
+
 @Component({
   selector: "notifications",
   templateUrl: "notifications.html"
 })
 export class NotificationsComponent implements OnInit {
   notifications: any = [];
-
+  //private apiStatus: any;
+  //private cfg: any;
   constructor(
     public modalCtrl: ModalController,
     private notificationProvider: NotificationProvider,
     private loadingProvider: LoadingProvider,
-    private toastProvider: ToastProvider
+    private toastProvider: ToastProvider,
+    private authProvider: AuthProvider
   ) {}
 
   ngOnInit() {
@@ -32,16 +31,18 @@ export class NotificationsComponent implements OnInit {
   }
 
   loadNotifications() {
-    this.notificationProvider.loadNotifications().then(
-      res => {
+    this.notificationProvider
+      .loadNotifications()
+      .then(res => {
         this.loadingProvider.loading.dismiss();
         this.notifications = res;
-      },
-      err => {
-        this.toastProvider.presentToast("Erro ao carregar as notificações.");
-        this.loadingProvider.loading.dismiss();
-      }
-    );
+      })
+      .catch(err => {
+        if (AppConfig.hasFoundAPIStatus(err.error)) this.authProvider.logout(err.error);
+
+        // this.toastProvider.presentToast("Erro ao carregar as notificações.");
+        //this.loadingProvider.loading.dismiss();
+      });
   }
 
   openNotification(value) {

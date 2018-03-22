@@ -6,6 +6,6 @@ export class TranslateProvider {
   constructor(private translate: TranslateService) {}
 
   translateMessage(message) {
-    return this.translate.get("ApiStatus." + message).toPromise();
+    return this.translate.get(message).toPromise();
   }
 }

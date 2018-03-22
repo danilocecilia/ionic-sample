@@ -10,7 +10,6 @@ export class PrePostTestComponent {
   constructor() {}
 
   onClickSubmitEvaluation() {
-    debugger;
     this.hide = true;
   }
 }

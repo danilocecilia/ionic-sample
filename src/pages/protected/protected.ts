@@ -4,6 +4,8 @@ import { Storage } from "@ionic/storage";
 import { AuthPage } from "../auth/auth";
 
 export class ProtectedPage {
+  currentUser:any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -18,6 +20,7 @@ export class ProtectedPage {
         this.navCtrl.setRoot("AuthPage");
         return false;
       }
+      else this.currentUser = user;
     });
 
     return true;

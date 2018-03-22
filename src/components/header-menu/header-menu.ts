@@ -1,7 +1,7 @@
-import { Component, ViewChild, OnInit, Input } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
 import { App, Nav, MenuController, Events } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
-import { Storage } from "@ionic/storage";
+
 @Component({
   selector: "header-menu",
   templateUrl: "header-menu.html"
@@ -16,7 +16,6 @@ export class HeaderMenuComponent implements OnInit {
     public authProvider: AuthProvider,
     public app: App,
     public menuCtrl: MenuController,
-    private storage: Storage,
     public events: Events
   ) {
     this.pages = [
@@ -38,27 +37,27 @@ export class HeaderMenuComponent implements OnInit {
       }
     ];
 
-    events.subscribe("currentUser", user => {
-      this.currentUser = user.currentUser;
-      console.log(this.currentUser);
+    this.events.subscribe("currentUser", user => {
+      if (user) this.currentUser = user.currentUser;
     });
   }
 
   ngOnInit() {
+    
     this.getCurrentUser();
   }
 
   getCurrentUser() {
     this.authProvider.getLoggedUser().then(res => {
-      this.currentUser = res;
-      console.log('getCurrentUser: '+ this.currentUser);
-      debugger;
+      if (res) {
+        this.currentUser = res;
+        console.log("getCurrentUser: " + this.currentUser);
+      }
     });
   }
 
   openPage(page) {
     this.menuCtrl.close();
-
     if (page.method && page.method === "logout") {
       this.authProvider.logout();
     } else {

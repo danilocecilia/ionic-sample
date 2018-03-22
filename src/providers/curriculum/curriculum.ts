@@ -1,24 +1,21 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Competency } from "../../models/competency";
-/*
-  Generated class for the CurriculumProvider provider.
+import * as AppConfig from "../../app/config";
+import { AuthProvider } from "../auth/auth";
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class CurriculumProvider {
-  private baseUrl: string;
+  private cfg: any;
 
-  constructor(public http: HttpClient) {
-    this.baseUrl = "https://5a79a9137fbfbb0012625721.mockapi.io/api/";
-    //this.dataStore = { competencies: [] };
+  constructor(public http: HttpClient, private auth: AuthProvider) {
+    this.cfg = AppConfig.cfg;
   }
 
   loadCurriculum() {
-    return this.http.get(`${this.baseUrl}/curriculum/`);
+    return this.auth.getToken().then((token) => {
+      return this.http
+        .get(`${this.cfg.apiUrl + this.cfg.curriculum.all}?token=${token}`)
+        .toPromise();
+    });
   }
 }

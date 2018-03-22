@@ -1,25 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as APPConfig from '../../app/config'
+import { AuthProvider } from "../auth/auth";
 
-/*
-  Generated class for the AgendaProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AgendaProvider {
-  private baseUrl: string;
-  constructor(public http: HttpClient) {
-    this.baseUrl = 'https://5a79a9137fbfbb0012625721.mockapi.io/api/'
+  
+  constructor(public http: HttpClient, private authProvider: AuthProvider) {
   }
 
   loadAllEvents(start, end){
-     return this.http.get(`${this.baseUrl}/agenda`);
+    return this.authProvider.getToken()
+    .then(token => {
+      return this.http.get(`${APPConfig.cfg.apiUrl + APPConfig.cfg.agenda.agenda}?token=${token}&start=${start}&end=${end}`).toPromise();
+    });
   }
 
-  getEvents(trainingId){
-    return this.http.get(`${this.baseUrl}/agenda?search=New Dealer`);
-  }
+  // getEvents(trainingId){
+  //   return this.http.get(`${this.baseUrl}/agenda?search=New Dealer`);
+  // }
 
 }

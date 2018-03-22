@@ -53,7 +53,10 @@ export class MyApp {
   getLocalStorageUser() {
     return this.storage.get("currentUser").then(user => {
       if(user)
-        this.currentUser = user;
+        this.currentUser = this.authProvider.loggedUser = user;
+        this.events.publish('currentUser', this.currentUser);
+        
+        console.log('logged user: ' + this.authProvider.loggedUser);
     });
   }
 
@@ -64,7 +67,7 @@ export class MyApp {
 
         this.setDefaultCulture(culture);
       } else {
-        this.setDefaultCulture("pt");
+        this.setDefaultCulture("en");
       }
     } else {
       this.globalization
@@ -76,7 +79,7 @@ export class MyApp {
           }
         })
         .catch(e => {
-          this.setDefaultCulture("pt");
+          this.setDefaultCulture("en");
           console.error(e);
         });
     }

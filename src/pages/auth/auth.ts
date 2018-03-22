@@ -1,5 +1,11 @@
 import { Component } from "@angular/core";
-import { IonicPage,NavController, NavParams, MenuController, Events } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  MenuController,
+  Events
+} from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
@@ -18,14 +24,15 @@ import * as APPConfig from "../../app/config";
   templateUrl: "auth.html"
 })
 export class AuthPage {
-  username:  any = { value: "email" };
-  password:  any = { value: "password" };
+  username: any = { value: "email" };
+  password: any = { value: "password" };
   minlength: any = { value: "8" };
   maxlength: any = { value: "30" };
 
   authForm: FormGroup;
   userProfile = {};
   toastMessage: string;
+  loggedUser: any;
 
   constructor(
     public navCtrl: NavController,
@@ -80,6 +87,10 @@ export class AuthPage {
         .getAuthenticate(this.authForm.value)
         .then(() => {
           return this.loadingProvider.loading.dismiss().then(res => {
+            if (this.authProvider.loggedUser) {
+              this.loggedUser = this.authProvider.loggedUser;
+            }
+
             this.setCurrentCulture();
             this.redirectToHome();
           });
@@ -89,7 +100,7 @@ export class AuthPage {
             console.error(err);
             let errMsg = err.json();
 
-            this.translateProvider.translateMessage(errMsg).then((value) =>{
+            this.translateProvider.translateMessage(errMsg).then(value => {
               if (value) {
                 this.toastProvider.presentToast(value);
                 console.log("translation found: " + value);
@@ -102,27 +113,25 @@ export class AuthPage {
 
   ionViewDidLoad() {
     if (this.toastMessage) {
-      this.translateProvider.translateMessage(this.toastMessage).then(translated => {
-        if (translated) this.toastProvider.presentToast(translated);
-        else console.log("translated not found: " + translated);
-      });
+      this.translateProvider
+        .translateMessage(this.toastMessage)
+        .then(translated => {
+          if (translated) this.toastProvider.presentToast(translated);
+          else console.log("translated not found: " + translated);
+        });
     }
     this.events.publish("hideHeader", { isHidden: true });
   }
 
-  setCurrentCulture(){
-    return this.storage.get("currentUser").then(user => {
-      if (user) {
-        this.events.publish("currentUser", { currentUser: user });
+  setCurrentCulture() {
+    this.events.publish("currentUser", { currentUser: this.loggedUser });
+    
+    if (this.loggedUser.Language && this.loggedUser.Language.Culture) {
+      let culture = this.loggedUser.Language.Culture.substring(0, 2);
 
-        if (user.Language && user.Language.Culture) {
-          let culture = user.Language.Culture.substring(0, 2);
-
-          this.translate.setDefaultLang(culture);
-          this.translate.use(culture);
-        }
-      }
-    });
+      this.translate.setDefaultLang(culture);
+      this.translate.use(culture);
+    }
   }
 
   goToPasswordRecovery() {

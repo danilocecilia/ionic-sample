@@ -25,7 +25,6 @@ export class EsGradesComponent {
   showWhenNotPresent(selectedValue: any) {
     this.hide = !this.hide;
 
-    debugger;
     // if (!selectedValue) {
     //   let alert = this.alertCtrl.create();
 

@@ -9,17 +9,11 @@ import { Observable } from "rxjs/Rx";
 import { HttpParams } from "@angular/common/http";
 import { ToastController, App } from "ionic-angular";
 
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthProvider {
   jwtHelper: JwtHelper = new JwtHelper();
   private cfg: any;
-
+  public loggedUser: any;
   token: string;
   refreshSubscription: any;
 
@@ -129,9 +123,19 @@ export class AuthProvider {
         .subscribe(
           res => {
             console.log(JSON.stringify(res));
+            let updatedUser;
 
             if (res.refreshToken) {
-              this.storage.set("currentUser.Token", res.refreshToken);
+              this.storage
+                .get("currentUser")
+                .then(user => {
+                  if (user) {
+                    user.Token = res.refreshToken;
+                  }
+                })
+                .then(() => {
+                  this.storage.set("currentUser", user);
+                });
             } else {
               console.log("The Token Black Listed");
               this.logout();
@@ -146,7 +150,6 @@ export class AuthProvider {
   }
 
   logout(message?) {
-    debugger;
     // stop function of auto refesh
     this.unscheduleRefresh();
     this.storage.remove("currentUser");
@@ -164,8 +167,16 @@ export class AuthProvider {
 
   saveData(data: any) {
     let rs = data.json();
-    console.log("currentUser: " + rs);
     this.storage.set("currentUser", rs);
+    this.loggedUser = rs;
+  }
+
+  getLoggedUser() {
+    return this.storage.get("currentUser").then(user => {
+      if (user) {
+        return this.loggedUser = user;
+      }
+    });
   }
 
   getToken() {

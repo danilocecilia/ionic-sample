@@ -67,7 +67,7 @@ export class CurriculumsComponent implements OnInit {
 
         if (AppConfig.hasFoundAPIStatus(err.error)){
           if(AppConfig.APIStatus[err.error] === "INVALID_TOKEN"){
-            this.translateProvider.translateMessage(err.error).then((text) => {
+            this.translateProvider.translateMessage("ApiStatus." + err.error).then((text) => {
               this.authProvider.logout(text);
             })
           } 

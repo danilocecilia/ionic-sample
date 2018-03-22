@@ -1,10 +1,5 @@
-import { NavController, Platform } from "ionic-angular/index";
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnInit,
-  ViewChild
-} from "@angular/core";
+import { NavController } from "ionic-angular/index";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import * as moment from "moment";
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
 import { AgendaProvider } from "../../providers/agenda/agenda";
@@ -13,6 +8,12 @@ import { NavParams } from "ionic-angular/navigation/nav-params";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { EventSummaryComponent } from "../event-summary/event-summary";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { AuthProvider } from "../../providers/auth/auth";
+import localePt from "@angular/common/locales/pt";
+import localeEs from "@angular/common/locales/es";
+import { registerLocaleData } from "@angular/common";
+import { TranslateProvider } from "../../providers/translate/translate";
+// import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "agenda",
@@ -20,29 +21,45 @@ import { LoadingProvider } from "../../providers/loading/loading";
 })
 export class AgendaComponent implements OnInit {
   events: any;
-  eventSource;
-  viewTitle;
+  eventSource: any;
+  viewTitle: string;
   isToday: boolean;
   param: any;
   subtitle: string;
   description: string;
   hide: boolean = false;
+  loggedUser: any = {};
+
   @ViewChild("btnClose") btnClose: any;
 
   constructor(
     private navController: NavController,
     private alertCtrl: AlertController,
     private agendaProvider: AgendaProvider,
-    public viewCtrl: ViewController,
-    public navParams: NavParams,
-    private loadingProvider: LoadingProvider
+    private viewCtrl: ViewController,
+    private navParams: NavParams,
+    private loadingProvider: LoadingProvider,
+    private authProvider: AuthProvider,
+    private translateProvider: TranslateProvider
   ) {
     this.param = this.navParams.data;
   }
 
+  loadLocaleData(culture) {
+    if (culture) {
+      switch (culture) {
+        case "pt-BR":
+          registerLocaleData(localePt);
+          break;
+        case "es-ES":
+          registerLocaleData(localeEs);
+      }
+    }
+  }
+
   calendar = {
     mode: "month",
-    locale: "en-US",
+    //locale: this.loggedUser != null && this.loggedUser.Language != null? this.loggedUser.Language.Culture : 'pt',
     currentDate: new Date(),
     dateFormatter: {
       formatMonthViewDay: function(date: Date) {
@@ -72,17 +89,35 @@ export class AgendaComponent implements OnInit {
     }
   };
 
+  reloadData(){
+    this.loadingProvider.presentLoadingDefault();
+    this.loadEvents();
+    this.today();
+    this.loadingProvider.loading.dismiss();
+  }
+
   ngOnInit() {
+    this.loggedUser = this.authProvider.loggedUser;
+    
+    this.loadLocaleData(this.loggedUser.Language.Culture);
+    
     this.loadingProvider.presentLoadingDefault();
 
     if (this.param.loadType === "general") {
       this.loadEvents();
-      this.description =
-        "Confirm to see the Event Summary for this date and class?";
-      this.btnCloseHide(!this.hide);
+      
+      this.translateProvider.translateMessage("ConfirmEventSummary").then((res) => {
+        this.description = `<span cssClass="description">${res}</span>`;
+        this.btnCloseHide(!this.hide);
+      });
     } else {
       this.getEvents(1);
-      this.description = "Do you confirm your enrollment for this date event?";
+
+      this.translateProvider.translateMessage("ConfirmEnrollment").then((res) => {
+        this.description = `<span cssClass="description">${res}</span>`;
+        this.btnCloseHide(!this.hide);
+      });
+
       this.btnCloseHide(this.hide);
     }
   }
@@ -92,27 +127,21 @@ export class AgendaComponent implements OnInit {
     let end = moment(event.endTime).format("LT");
 
     return (
-      start +
-      ` - ` +
-      end +
-      `<br>` +
-      `
-            Session: ` +
-      event.TrainingCode +
-      `<br> 
-            Seats Status: ` +
-      event.SeatStatus +
+      `<b>${start}</b> - <b>${end}</b>`          + 
       `<br>
-            Instructor: ` +
-      event.Instructor +
+        Session: <b> ${event.Class} </b>` +
       `<br>
-            Location: ` +
-      event.Location +
+        Seats Status: <b>${event.QtdyEnrolledUsers}/${event.Seats}</b>` +
+      `<br>
+        Instructor: <b>${event.Instructor}</b>`  +
+      `<br>
+        Location: <b>${event.Location.Location}</b>`      +
       `<br>`
     );
   }
 
   bindElements(response) {
+    debugger;
     if (response) {
       this.events = response;
 
@@ -126,17 +155,24 @@ export class AgendaComponent implements OnInit {
   }
 
   loadEvents() {
-    this.agendaProvider.loadAllEvents("", "").subscribe(res => {
-      this.loadingProvider.loading.dismiss();
-      this.bindElements(res);
-    });
+    // this.agendaProvider.loadAllEvents("", "").subscribe(res => {
+    //   this.loadingProvider.loading.dismiss();
+    //   this.bindElements(res);
+    // });
+    this.agendaProvider.loadAllEvents("1", "2").then(res => {
+        this.loadingProvider.loading.dismiss();
+        this.bindElements(res);
+      })
+      .catch((err) => {   
+          console.error(err);
+      })
   }
 
   getEvents(trainingId) {
-    this.agendaProvider.getEvents(trainingId).subscribe(res => {
-      this.loadingProvider.loading.dismiss();
-      this.bindElements(res);
-    });
+    // this.agendaProvider.getEvents(trainingId).subscribe(res => {
+    //   this.loadingProvider.loading.dismiss();
+    //   this.bindElements(res);
+    // });
   }
 
   onViewTitleChanged(title) {
@@ -148,6 +184,7 @@ export class AgendaComponent implements OnInit {
       title: "" + event.title,
       subTitle: this.bindSubTitle(event),
       message: this.description,
+      cssClass: 'description',
       buttons: [
         {
           text: "No",
@@ -158,7 +195,6 @@ export class AgendaComponent implements OnInit {
         {
           text: "Yes",
           handler: () => {
-            //TODO:
             if (this.param.loadType === "general") {
               this.navController.push(EventSummaryComponent, {});
             } else {
@@ -214,10 +250,10 @@ export class AgendaComponent implements OnInit {
   }
 
   onCurrentDateChanged(event: Date) {
-    // var today = new Date();
-    // today.setHours(0, 0, 0, 0);
-    // event.setHours(0, 0, 0, 0);
-    // this.isToday = today.getTime() === event.getTime();
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    event.setHours(0, 0, 0, 0);
+    this.isToday = today.getTime() === event.getTime();
   }
 
   // createRandomEvents() {

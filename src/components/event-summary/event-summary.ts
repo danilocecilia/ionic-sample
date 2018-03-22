@@ -26,7 +26,6 @@ export class EventSummaryComponent {
   }
 
   onClickBilling() {
-    debugger;
     this.navCtrl.push(EsBillingsComponent, {});
   }
 }

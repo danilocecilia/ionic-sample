@@ -39,10 +39,6 @@ export class HomePage extends ProtectedPage {
 
     this.menu.enable(true);
     this.navCtrl = navCtrl;
-
-    // this.storage.get("username").then(val => {
-    //   this.username = val;
-    // });
   }
 
   ionViewWillEnter() {
