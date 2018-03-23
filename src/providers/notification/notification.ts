@@ -12,9 +12,7 @@ export class NotificationProvider {
   }
 
   loadNotifications() {
-    return this.auth.getToken().then((token) => {
-      return this.http
-        .get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=${token}`).toPromise();
-    });
+    return this.http
+    .get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=${this.auth.token}`).toPromise();
   }
 }

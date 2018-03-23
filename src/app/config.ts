@@ -6,8 +6,8 @@
 export let cfg = {
   apiUrl: "http://136.140.193.16:10002/API/",
   tokenName: "token",
-  agenda:{
-    agenda:"Class/GetClassesByDate"
+  agenda: {
+    agenda: "Class/GetClassesByDate"
   },
   user: {
     register: "",
@@ -20,6 +20,9 @@ export let cfg = {
   curriculum: {
     all: "curriculum/GetCurriculumSummary",
     getByJobRole: "curriculum/GetCurriculum"
+  },
+  library: {
+    all: "Library/GetLibraries"
   }
 };
 

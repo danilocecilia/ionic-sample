@@ -53,7 +53,8 @@
     "PasswordRecovery": "Password Recovery",
     "MyCurriculum": "My Curriculum",
     "ProfileSettings": "Profile Settings",
-    "JobRole": "Job Role"
+    "JobRole": "Job Role",
+    "Library": "Library"
   },
   "TabsTitle": {
     "Notification": "Notification",

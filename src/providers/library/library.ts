@@ -1,21 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
-/*
-  Generated class for the LibraryProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+// import "rxjs/add/operator/map";
+import * as APPConfig from "../../app/config";
+import { AuthProvider } from "../auth/auth";
 @Injectable()
 export class LibraryProvider {
-  private baseUrl: string;
-
-  constructor(public http: HttpClient) {
-    this.baseUrl = "https://5a79a9137fbfbb0012625721.mockapi.io/api/";
-  }
+  constructor(public http: HttpClient, private auth: AuthProvider) {}
 
   loadLibrary() {
-    return this.http.get(`${this.baseUrl}/library`);
+    return this.http.get(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.library.all}?token=${this.auth.token}`).toPromise();
   }
 }

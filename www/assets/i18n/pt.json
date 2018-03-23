@@ -53,7 +53,8 @@
     "PasswordRecovery": "Recuração de Senha",
     "MyCurriculum": "Meu Curriculum",
     "ProfileSettings": "Configuração do Perfil",
-    "JobRole": "Cargo"
+    "JobRole": "Cargo",
+    "Library": "Biblioteca"
   },
   "TabsTitle": {
     "Notification": "Notificação",

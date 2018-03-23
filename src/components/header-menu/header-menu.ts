@@ -51,7 +51,7 @@ export class HeaderMenuComponent implements OnInit {
     this.authProvider.getLoggedUser().then(res => {
       if (res) {
         this.currentUser = res;
-        console.log("getCurrentUser: " + this.currentUser);
+        //console.log("getCurrentUser: " + this.currentUser);
       }
     });
   }

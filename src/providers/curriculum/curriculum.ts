@@ -12,10 +12,8 @@ export class CurriculumProvider {
   }
 
   loadCurriculum() {
-    return this.auth.getToken().then((token) => {
-      return this.http
-        .get(`${this.cfg.apiUrl + this.cfg.curriculum.all}?token=${token}`)
+    return this.http
+        .get(`${this.cfg.apiUrl + this.cfg.curriculum.all}?token=${this.auth.token}`)
         .toPromise();
-    });
   }
 }

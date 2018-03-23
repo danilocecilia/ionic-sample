@@ -104,9 +104,6 @@ export function getAuthHttp(http: Http) {
   );
 }
 
-// registerLocaleData(localePt);
-// registerLocaleData(localeEs);
-
 @NgModule({
   declarations: [
     MyApp,
@@ -132,7 +129,6 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
-    // TestPage
   ],
   imports: [
     BrowserModule,
@@ -183,7 +179,6 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
-    // TestPage
   ],
   providers: [
     StatusBar,

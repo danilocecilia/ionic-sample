@@ -1,6 +1,6 @@
-import { Component, ViewChild, Input } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { Platform, ModalController, NavController } from "ionic-angular";
-import { Storage } from "@ionic/storage";
+// import { Storage } from "@ionic/storage";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Events } from "ionic-angular";
@@ -10,7 +10,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
-import * as APPConfig from "../app/config";
+// import * as APPConfig from "../app/config";
 
 @Component({
   templateUrl: "app.html"
@@ -24,7 +24,7 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public events: Events,
-    private storage: Storage,
+    // private storage: Storage,
     public modalController: ModalController,
     public authProvider: AuthProvider,
     private translate: TranslateService,
@@ -51,13 +51,21 @@ export class MyApp {
   }
 
   getLocalStorageUser() {
-    return this.storage.get("currentUser").then(user => {
-      if(user)
-        this.currentUser = this.authProvider.loggedUser = user;
-        this.events.publish('currentUser', this.currentUser);
-        
-        console.log('logged user: ' + this.authProvider.loggedUser);
+    debugger;
+    return this.authProvider.getLoggedUser().then((res) => {
+      
+      this.currentUser = res;
+
+      this.events.publish('currentUser', this.currentUser);
     });
+
+    // return this.storage.get("currentUser").then(user => {
+    //   if(user)
+    //     this.currentUser = this.authProvider.loggedUser = user;
+        
+        
+    //     //console.log('logged user: ' + JSON.stringify(this.authProvider.loggedUser));
+    // });
   }
 
   bindCulture(user) {
