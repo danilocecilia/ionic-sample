@@ -16,7 +16,9 @@ import { Camera } from "@ionic-native/camera";
 import { FileChooser } from "@ionic-native/file-chooser";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { LOCALE_ID } from "@angular/core";
+import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { Globalization } from "@ionic-native/globalization";
+// import { LOCALE_ID } from "@angular/core";
 // import { registerLocaleData } from "@angular/common";
 // import localePt from "@angular/common/locales/pt";
 // import localeEs from "@angular/common/locales/es";
@@ -30,7 +32,9 @@ import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { ModalAssessmentPage } from "../pages/modal-assessment/modal-assessment";
 import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
-// import { TestPage } from "../pages/test/test";
+import { LibraryPage } from "../pages/library/library";
+import { AgendaPage } from "../pages/agenda/agenda";
+import { MediaPage } from "../pages/media/media";
 
 /***********************/
 //Components
@@ -39,10 +43,7 @@ import { HeaderMenuComponent } from "../components/header-menu/header-menu";
 import { HeaderCommomComponent } from "../components/header-commom/header-commom";
 import { NotificationsComponent } from "../components/notifications/notifications";
 import { CurriculumsComponent } from "../components/curriculums/curriculums";
-import { AgendaComponent } from "../components/agenda/agenda";
 import { CourseStepsComponent } from "../components/course-steps/course-steps";
-import { LibraryComponent } from "../components/library/library";
-import { MediaComponent } from "../components/media/media";
 import { DashboardComponent } from "../components/dashboard/dashboard";
 import { AssessmentComponent } from "../components/assessment/assessment";
 import { EventSummaryComponent } from "../components/event-summary/event-summary";
@@ -67,7 +68,7 @@ import { AgendaProvider } from "../providers/agenda/agenda";
 import { LibraryProvider } from "../providers/library/library";
 import { NotificationProvider } from "../providers/notification/notification";
 import { EnrollmentProvider } from "../providers/enrollment/enrollment";
-import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { TranslateProvider } from "../providers/translate/translate";
 
 /***********************/
 //Modules
@@ -80,8 +81,8 @@ import { AuthPageModule } from "../pages/auth/auth.module";
 import { LoadingProvider } from "../providers/loading/loading";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
 import { ToastProvider } from "../providers/toast/toast";
-import { Globalization } from "@ionic-native/globalization";
-import { TranslateProvider } from "../providers/translate/translate";
+import { PipesModule  } from "../pipes/pipes.module";
+
 
 let storage = new Storage({});
 
@@ -114,10 +115,10 @@ export function getAuthHttp(http: Http) {
     HeaderMenuComponent,
     NotificationsComponent,
     DashboardComponent,
-    MediaComponent,
-    LibraryComponent,
+    MediaPage,
+    LibraryPage,
     CurriculumsComponent,
-    AgendaComponent,
+    AgendaPage,
     CourseStepsComponent,
     AssessmentComponent,
     EventSummaryComponent,
@@ -151,8 +152,9 @@ export function getAuthHttp(http: Http) {
     ModalNotificationPageModule,
     PasswordRecoveryPageModule,
     ChangePasswordPageModule,
+    PipesModule,
     TabsPageModule,
-    AuthPageModule
+    AuthPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -162,12 +164,12 @@ export function getAuthHttp(http: Http) {
     ModalLogisticPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
-    MediaComponent,
+    MediaPage,
     NotificationsComponent,
     DashboardComponent,
-    LibraryComponent,
+    LibraryPage,
     CurriculumsComponent,
-    AgendaComponent,
+    AgendaPage,
     CourseStepsComponent,
     AssessmentComponent,
     EventSummaryComponent,
@@ -192,10 +194,10 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    {
-      provide: LOCALE_ID,
-      useValue: "en-US"
-    },
+    // {
+    //   provide: LOCALE_ID,
+    //   useValue: "en-US"
+    // },
     TodosProvider,
     AuthProvider,
     FooterProvider,

@@ -51,7 +51,6 @@ export class MyApp {
   }
 
   getLocalStorageUser() {
-    debugger;
     return this.authProvider.getLoggedUser().then((res) => {
       
       this.currentUser = res;
