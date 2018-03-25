@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { NavController, Events, NavParams, Slides } from "ionic-angular";
 import { CompetencyProvider } from "../../providers/competency/competency";
 import { ModalController } from "ionic-angular/components/modal/modal-controller";
-import { AgendaComponent } from "../agenda/agenda";
+import { AgendaPage } from "../../pages/agenda/agenda";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { LoadingProvider } from "../../providers/loading/loading";
 import * as AppConfig from '../../app/config';
@@ -80,7 +80,7 @@ export class CurriculumsComponent implements OnInit {
     if (status == "PASS" || status == "ENROLLED")
       return this.onClickStartCourse();
 
-    let calendarModal = this.modalController.create(AgendaComponent);
+    let calendarModal = this.modalController.create(AgendaPage);
     calendarModal.present();
   }
 

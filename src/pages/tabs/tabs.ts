@@ -4,9 +4,9 @@ import { App } from "ionic-angular";
 import { HomePage } from "../home/home";
 import { CurriculumPage } from "../curriculum/curriculum";
 import { Events } from "ionic-angular";
-import { AgendaComponent } from "../../components/agenda/agenda";
-import { LibraryComponent } from "../../components/library/library";
-import { MediaComponent } from "../../components/media/media";
+import { AgendaPage } from "../../pages/agenda/agenda";
+import { LibraryPage } from "../../pages/library/library";
+import { MediaPage } from "../../pages/media/media";
 
 // import { DashboardComponent } from "../../components/dashboard/dashboard";
 // import { CourseStepsComponent } from "../../components/course-steps/course-steps";
@@ -32,9 +32,9 @@ export class TabsPage {
   // should be each tab's root Page
   tab1Root: any = HomePage;
   tab2Root: any = CurriculumPage;
-  tab3Root: any = AgendaComponent;
-  tab4Root: any = LibraryComponent;
-  tab5Root: any = MediaComponent;
+  tab3Root: any = AgendaPage;
+  tab4Root: any = LibraryPage;
+  tab5Root: any = MediaPage;
 
   constructor(
     public appCtrl: App,
