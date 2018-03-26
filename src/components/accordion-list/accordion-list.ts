@@ -11,8 +11,8 @@ import {
   templateUrl: "accordion-list.html"
 })
 export class AccordionListComponent {
-  @Input() headerColor: string = "#F53D3D";
-  @Input() textColor: string = "#000000";
+  @Input() headerColor: string = "#003e75";
+  @Input() textColor: string = "#ffffff";
   @Input() contentColor: string = "#F9F9F9";
   @Input() title: string;
   @Input() hasMargin: boolean = true;
