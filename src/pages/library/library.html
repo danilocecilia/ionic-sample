@@ -21,7 +21,7 @@
           <b>{{lib.File.Size}}MB</b>
         </div>
         <div class="date">
-            {{lib.Date | localeDate:format:locale}}
+            {{lib.Date | localeDate:currentCulture}}
         </div>
       </ion-item>
       <ion-row text-left class="summary" padding-left padding-right>

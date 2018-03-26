@@ -13,8 +13,8 @@ export class LibraryPage implements OnInit {
   loggedUser: any;
   libs: any = {};
   libsArray: any = {};
-  format: string;
-  locale: string;
+  currentCulture:string;
+
   constructor(
     public events: Events,
     public libProvider: LibraryProvider,
@@ -25,27 +25,8 @@ export class LibraryPage implements OnInit {
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
-    this.loadLocaleData(this.loggedUser.Language.Culture);
+    this.currentCulture = this.loggedUser.Language.Culture;
     this.loadLibrary();
-  }
-
-  loadLocaleData(culture) {
-
-    if (culture) {
-      switch (culture) {
-        case "pt-BR":
-          this.locale = 'pt';
-          this.format = 'DD/MM/YYYY'
-          break;
-        case "es-ES":
-          this.locale = 'es';
-          this.format = 'DD/MM/YYYY'
-          break;
-        default:
-          this.locale = 'en';
-          this.format = 'MM/DD/YYYY';
-      }
-    }
   }
 
   loadLibrary() {
