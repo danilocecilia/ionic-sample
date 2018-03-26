@@ -4,7 +4,8 @@
 //let baseUrl = "http://136.140.193.16:10002/API/Authentication/";
 
 export let cfg = {
-  apiUrl: "http://136.140.193.16:10002/API/",
+  apiUrl: "http://136.140.193.16:10002/API/", // INTERNAL IP
+  //apiUrl: "http://198.180.251.216:10002/API/", // EXTERNAL IP
   tokenName: "token",
   agenda: {
     agenda: "Class/GetClassesByDate"
