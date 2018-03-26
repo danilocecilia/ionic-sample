@@ -76,11 +76,11 @@ export class CurriculumsComponent implements OnInit {
       });
   }
 
-  openCalendar(status) {
+  openCalendar(status, training_id) {
     if (status == "PASS" || status == "ENROLLED")
       return this.onClickStartCourse();
 
-    let calendarModal = this.modalController.create(AgendaPage);
+    let calendarModal = this.modalController.create(AgendaPage, {id : training_id});
     calendarModal.present();
   }
 
