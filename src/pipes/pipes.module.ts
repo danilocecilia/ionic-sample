@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { MomentPipe } from './moment/moment';
+import { LocaleDatePipe } from './localeDate/localeDate';
 import * as moment from 'moment';
 @NgModule({
-	declarations: [MomentPipe],
+	declarations: [LocaleDatePipe],
 	imports: [],
-	exports: [MomentPipe]
+	exports: [LocaleDatePipe]
 })
 export class PipesModule {}
