@@ -54,7 +54,8 @@
     "MyCurriculum": "Meu Curriculum",
     "ProfileSettings": "Configuração do Perfil",
     "JobRole": "Cargo",
-    "Library": "Biblioteca"
+    "Library": "Biblioteca",
+    "NotificationDetail": "Detalhes da Notificação"
   },
   "TabsTitle": {
     "Notification": "Notificação",
