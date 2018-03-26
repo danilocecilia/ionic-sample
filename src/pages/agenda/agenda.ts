@@ -26,7 +26,7 @@ export class AgendaPage implements OnInit {
   param: any;
   subtitle: string;
   description: string;
-  hide: boolean = false;
+  hideButtons: boolean = false;
   loggedUser: any = {};
 
   @ViewChild("btnClose") btnClose: any;
@@ -87,53 +87,55 @@ export class AgendaPage implements OnInit {
     }
   };
 
-  reloadData(){
-    this.loadingProvider.presentLoadingDefault();
-    this.loadEvents();
+  loadData() {
+    // If Instructor clicks on the Calendar on the TabsMenu
+    if (this.param.loadType === "general") {
+      this.loadEvents();
+
+      this.translate("ConfirmEventSummary");
+
+      this.btnCloseHide(!this.hideButtons);
+    } else {
+      //It comes from the list of trainings (VCT/Presential) on the Curriculums Page
+      this.getEvents(this.param.id);
+
+      this.translate("ConfirmEnrollment");
+
+      this.btnCloseHide(this.hideButtons);
+    }
+
     this.today();
-    this.loadingProvider.dismissLoading();
   }
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
-    
+
     this.loadLocaleData(this.loggedUser.Language.Culture);
-    
+
     this.loadingProvider.presentLoadingDefault();
 
-    if (this.param.loadType === "general") {
-      this.loadEvents();
-      
-      this.translateProvider.translateMessage("ConfirmEventSummary").then((res) => {
-        this.description = `<span cssClass="description">${res}</span>`;
-        this.btnCloseHide(!this.hide);
-      });
-    } else {
-      this.getEvents(1);
+    this.loadData();
+  }
 
-      this.translateProvider.translateMessage("ConfirmEnrollment").then((res) => {
-        this.description = `<span cssClass="description">${res}</span>`;
-        this.btnCloseHide(!this.hide);
-      });
-
-      this.btnCloseHide(this.hide);
-    }
+  translate(text) {
+    this.translateProvider.translateMessage("ConfirmEventSummary").then(res => {
+      this.description = `<span cssClass="description">${res}</span>`;
+    });
   }
 
   bindSubTitle(event) {
     let start = moment(event.startTime).format("LT");
     let end = moment(event.endTime).format("LT");
-
     return (
-      `<b>${start}</b> - <b>${end}</b>`          + 
+      `<b>${start}</b> - <b>${end}</b>` +
       `<br>
         Session: <b> ${event.Class} </b>` +
       `<br>
         Seats Status: <b>${event.QtdyEnrolledUsers}/${event.Seats}</b>` +
       `<br>
-        Instructor: <b>${event.Instructor}</b>`  +
+        Instructor: <b>${event.Instructor}</b>` +
       `<br>
-        Location: <b>${event.Location.Location}</b>`      +
+        Location: <b>${event.Location ? event.Location.Location : " - "}</b>` +
       `<br>`
     );
   }
@@ -152,24 +154,26 @@ export class AgendaPage implements OnInit {
   }
 
   loadEvents() {
-    // this.agendaProvider.loadAllEvents("", "").subscribe(res => {
-    //   this.loadingProvider.dismissLoading();
-    //   this.bindElements(res);
-    // });
-    this.agendaProvider.loadAllEvents("1", "2").then(res => {
+    let firstDayMonth = moment().format("YYYY-MM-01");
+    let lastDayMonth = moment().format("YYYY-MM-") + moment().daysInMonth();
+
+    this.agendaProvider
+      .loadAllEvents(firstDayMonth, lastDayMonth)
+      .then(res => {
         this.loadingProvider.dismissLoading();
         this.bindElements(res);
       })
-      .catch((err) => {   
-          console.error(err);
-      })
+      .catch(err => {
+        this.loadingProvider.dismissLoading();
+        console.error(err);
+      });
   }
 
   getEvents(trainingId) {
-    // this.agendaProvider.getEvents(trainingId).subscribe(res => {
-    //   this.loadingProvider.dismissLoading();
-    //   this.bindElements(res);
-    // });
+    this.agendaProvider.getEvents(trainingId).subscribe(res => {
+      this.loadingProvider.dismissLoading();
+      this.bindElements(res);
+    });
   }
 
   onViewTitleChanged(title) {
@@ -178,10 +182,10 @@ export class AgendaPage implements OnInit {
 
   doConfirm(event) {
     let alert = this.alertCtrl.create({
-      title: "" + event.title,
+      title: event.title,
       subTitle: this.bindSubTitle(event),
       message: this.description,
-      cssClass: 'description',
+      cssClass: "description",
       buttons: [
         {
           text: "No",
@@ -193,9 +197,9 @@ export class AgendaPage implements OnInit {
           text: "Yes",
           handler: () => {
             if (this.param.loadType === "general") {
-              this.navController.push(EventSummaryComponent, {});
+              this.navController.push(EventSummaryComponent, { event: event });
             } else {
-              this.navController.push(CourseStepsComponent, {});
+              this.navController.push(CourseStepsComponent, { event: event });
               console.log("Yes");
             }
           }
@@ -243,7 +247,7 @@ export class AgendaPage implements OnInit {
   }
 
   btnCloseHide(value) {
-    this.hide = !value;
+    this.hideButtons = !value;
   }
 
   onCurrentDateChanged(event: Date) {
@@ -253,78 +257,11 @@ export class AgendaPage implements OnInit {
     this.isToday = today.getTime() === event.getTime();
   }
 
-  // createRandomEvents() {
-  //   var events = [];
-  //   for (var i = 0; i < 50; i += 1) {
-  //     var date = new Date();
-  //     var eventType = Math.floor(Math.random() * 2);
-  //     var startDay = Math.floor(Math.random() * 90) - 45;
-  //     var endDay = Math.floor(Math.random() * 2) + startDay;
-  //     var startTime;
-  //     var endTime;
-  //     if (eventType === 0) {
-  //       startTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + startDay
-  //         )
-  //       );
-  //       if (endDay === startDay) {
-  //         endDay += 1;
-  //       }
-  //       endTime = new Date(
-  //         Date.UTC(
-  //           date.getUTCFullYear(),
-  //           date.getUTCMonth(),
-  //           date.getUTCDate() + endDay
-  //         )
-  //       );
-  //       events.push({
-  //         title: "All Day -Teste" + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: true
-  //       });
-  //     } else {
-  //       var startMinute = Math.floor(Math.random() * 24 * 60);
-  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
-  //       startTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + startDay,
-  //         0,
-  //         date.getMinutes() + startMinute
-  //       );
-  //       endTime = new Date(
-  //         date.getFullYear(),
-  //         date.getMonth(),
-  //         date.getDate() + endDay,
-  //         0,
-  //         date.getMinutes() + endMinute
-  //       );
-  //       events.push({
-  //         title: "Event - " + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: false
-  //       });
-  //     }
-  //   }
-  //   return events;
-  // }
-
   onRangeChanged(ev) {
     console.log(
       "range changed: startTime: " + ev.startTime + ", endTime: " + ev.endTime
     );
   }
-
-  // markDisabled = (date: Date) => {
-  //   var current = new Date();
-  //   current.setHours(0, 0, 0);
-  //   return date < current;
-  // };
 
   dismiss() {
     this.viewCtrl.dismiss();

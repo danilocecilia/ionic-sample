@@ -2,17 +2,14 @@
     <ion-navbar>
         <ion-title>{{ viewTitle }}
             <p class="subtitle">{{'TabsTitle.Calendar' | translate}}</p>
-
         </ion-title>
         <ion-buttons end>
-            <button ion-button style="font-size:20px" trasnparent (click)="reloadData()"><ion-icon name="refresh"></ion-icon></button>
+            <button ion-button style="font-size:20px" trasnparent (click)="loadData()"><ion-icon name="refresh"></ion-icon></button>
             <button ion-button [disabled]="isToday" (click)="today()">{{'Today' | translate}}</button>
             <button ion-button (click)="changeMode('month')">M</button>
             <button ion-button (click)="changeMode('day')">D</button>
         </ion-buttons>
-        <ion-buttons end *ngIf="hide">
-            <button ion-button (click)="changeMode('month')">M</button>
-            <button ion-button (click)="changeMode('day')">D</button>
+        <ion-buttons end *ngIf="hideButtons">
             <button ion-button (click)="onCloseModal()">
                 <ion-icon name="close"></ion-icon>
             </button>
