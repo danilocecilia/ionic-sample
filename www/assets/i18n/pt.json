@@ -8,7 +8,8 @@
   "ConfirmEventSummary": "Confirma em ver o sumario de eventos para data e turma selecionada?",
   "ConfirmEnrollment" : "Confirma a inscrição para esta data?",
   "Today": "Hoje",
-  "NoEvents": "Nenhum evento",
+  "NoEvents": "Nenhum evento para o dia selecionado.",
+  "Yes": "Sim",
   "ValidatorMessage": {
     "Required": "O campo {{value}} é obrigatório.",
     "Pattern": "Somente letras minúsculas e maiúsculas são aceitas.",
@@ -55,8 +56,9 @@
     "ProfileSettings": "Configuração do Perfil",
     "JobRole": "Cargo",
     "Library": "Biblioteca",
-    "NotificationDetail": "Detalhes da Notificação"
-  },
+    "NotificationDetail": "Detalhes da Notificação",
+    "EventSummary": "Sumário de Eventos"
+},
   "TabsTitle": {
     "Notification": "Notificação",
     "Media": "Media",

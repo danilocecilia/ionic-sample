@@ -8,7 +8,8 @@
   "ConfirmEventSummary": "Confirm to see the Event Summary for this date and class?",
   "ConfirmEnrollment" : "Do you confirm your enrollment for this date event?",
   "Today": "Today",
-  "NoEvents": "No Events",
+  "NoEvents": "No Events on the selected day.",
+  "Yes": "Yes",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
@@ -55,7 +56,8 @@
     "ProfileSettings": "Profile Settings",
     "JobRole": "Job Role",
     "Library": "Library",
-    "NotificationDetail": "Notification Detail"
+    "NotificationDetail": "Notification Detail",
+    "EventSummary": "Event Summary"
   },
   "TabsTitle": {
     "Notification": "Notification",
