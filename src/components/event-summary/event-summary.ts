@@ -4,18 +4,18 @@ import { EsEnrollmentsComponent } from "../es-enrollments/es-enrollments";
 import { AccordionListComponent } from "../accordion-list/accordion-list";
 import { EsGradesComponent } from "../es-grades/es-grades";
 import { EsBillingsComponent } from "../es-billings/es-billings";
-/**
- * Generated class for the EventSummaryComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { NavParams } from "ionic-angular/navigation/nav-params";
+
 @Component({
   selector: "event-summary",
   templateUrl: "event-summary.html"
 })
 export class EventSummaryComponent {
-  constructor(private navCtrl: NavController) {}
+  event: any;
+
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
+    this.event = this.navParams.get("event");
+  }
 
   onClickGrades() {
     this.navCtrl.push(EsGradesComponent, {});
