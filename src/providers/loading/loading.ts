@@ -46,6 +46,6 @@ export class LoadingProvider {
   }
 
   dismissLoading() {
-    this.loading.dismiss();
+    return this.loading.dismiss();
   }
 }
