@@ -1,20 +1,7 @@
 import { Component } from "@angular/core";
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  ViewController
-} from "ionic-angular";
-import { getNonHydratedSegmentIfLinkAndUrlMatch } from "ionic-angular/navigation/url-serializer";
+import { IonicPage,NavController,NavParams,ViewController } from "ionic-angular";
 import { NotificationProvider } from "../../providers/notification/notification";
-
-/**
- * Generated class for the ModalNotificationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
+import { AuthProvider } from "../../providers/auth/auth";
 @IonicPage()
 @Component({
   selector: "page-modal-notification",
@@ -22,14 +9,18 @@ import { NotificationProvider } from "../../providers/notification/notification"
 })
 export class ModalNotificationPage {
   notification: any;
+  currentCulture: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private notificationProvider: NotificationProvider
+    private notificationProvider: NotificationProvider,
+    private authProvider: AuthProvider
   ) {
     this.notification = this.navParams.get("notification");
+
+    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
   }
 
   onCloseModal() {

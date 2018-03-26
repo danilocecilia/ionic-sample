@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Notification Detail</ion-title>
+    <ion-title>{{'PagesTitle.NotificationDetail' | translate}}</ion-title>
     <ion-buttons end>
       <button ion-button (click)="onCloseModal()">
         <ion-icon name="close"></ion-icon>
@@ -12,8 +12,8 @@
 <ion-content>
   <ul class="notification-detail">
     <li>
-      <div class="byline">
-        <span>publicado em {{notification.Date}}</span>
+      <div>
+        <span>{{notification.Date | localeDate:currentCulture}}</span>
       </div>
     </li>
     <li>
