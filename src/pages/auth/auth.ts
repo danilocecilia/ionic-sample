@@ -16,7 +16,6 @@ import { Response } from "@angular/http";
 import { TranslateService } from "@ngx-translate/core";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { ToastProvider } from "../../providers/toast/toast";
-import * as APPConfig from "../../app/config";
 
 @IonicPage()
 @Component({
@@ -42,7 +41,6 @@ export class AuthPage {
     public authProvider: AuthProvider,
     public menu: MenuController,
     public events: Events,
-    // private toastCtrl: ToastController,
     private loadingProvider: LoadingProvider,
     private translate: TranslateService,
     private translateProvider: TranslateProvider,
