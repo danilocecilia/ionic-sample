@@ -8,7 +8,8 @@ export let cfg = {
   //apiUrl: "http://198.180.251.216:10002/API/", // EXTERNAL IP
   tokenName: "token",
   agenda: {
-    agenda: "Class/GetClassesByDate"
+    getClassesByDate: "Class/GetClassesByDate",
+    getClassesByTraining: "Class/GetClassesByTraining"
   },
   user: {
     register: "",
