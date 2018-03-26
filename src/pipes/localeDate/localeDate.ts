@@ -1,13 +1,23 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment';
+import { Pipe, PipeTransform } from "@angular/core";
+import * as moment from "moment";
 
 @Pipe({
-  name: 'localeDate',
+  name: "localeDate"
 })
 export class LocaleDatePipe implements PipeTransform {
-
-  transform(date, format: any, locale?: string) {
-    moment.locale(locale);
-    return moment(date).format(format);
+  transform(date, culture: string) {
+    if (culture) {
+      switch (culture) {
+        case "pt-BR":
+          moment.locale("pt");
+          return moment(date).format("DD/MM/YYYY");
+        case "es-ES":
+          moment.locale("es");
+          return moment(date).format("DD/MM/YYYY");
+        default:
+          moment.locale("en");
+          return moment(date).format("MM/DD/YYYY");
+      }
+    }
   }
 }
