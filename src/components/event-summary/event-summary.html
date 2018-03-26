@@ -1,15 +1,15 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Event Summary</ion-title>
+    <ion-title>{{'PagesTitle.EventSummary' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-item text-center>
-    <b>FF2137_CL0001</b>
+  <ion-item text-center class="title">
+    <b>{{event.Class}}</b>
   </ion-item>
 
-  <accordion-list title="Downloads" textColor="#000000" hasMargin="false" headerColor="#f0f0f0" [expanded]="index === 0">
+  <accordion-list title="Downloads" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
     <ion-col col-12 text-center>
       <button full ion-button small class="font-sm">Presence List</button>
     </ion-col>
@@ -22,11 +22,11 @@
   </accordion-list>
 
 
-  <accordion-list title="Actions" hasMargin="false" headerColor="#f0f0f0" [expanded]="index === 0">
+  <accordion-list title="Actions" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
     <ion-col col-12>
       <ion-item>
-        <ion-label>Status</ion-label>
-        <ion-select [(ngModel)]="status" interface="popover">
+        <ion-label color="secondary">Status</ion-label>
+        <ion-select [(ngModel)]="event.Status" interface="popover">
           <ion-option value="IN_PROGRESS">IN_PROGRESS</ion-option>
           <ion-option value="ENROLLED">ENROLLED</ion-option>
           <ion-option value="PASS">PASS</ion-option>
@@ -36,8 +36,8 @@
     </ion-col>
     <ion-col col-12 text-center>
       <ion-item>
-        <ion-label>Step</ion-label>
-        <ion-select [(ngModel)]="step" interface="popover">
+        <ion-label color="secondary">Step</ion-label>
+        <ion-select [(ngModel)]="event.Step" interface="popover">
           <ion-option value="PRE_TEST">PRE_TEST</ion-option>
           <ion-option value="POST_TEST">POST_TEST</ion-option>
           <ion-option value="TRAINING">TRAINING</ion-option>
@@ -49,25 +49,25 @@
   <ion-grid>
     <ion-row class="border-bottom" (click)="onClickEnrollment()">
       <ion-col col-12>
-        <ion-icon name="people"></ion-icon> Enrollments</ion-col>
+        <ion-icon class="icon" color="secondary" name="people"></ion-icon> Enrollments</ion-col>
       <ion-col col-6 class="font-sm">Seats:</ion-col>
-      <ion-col col-6 class="font-sm" text-right>14 of 14 (Overbook)</ion-col>
+      <ion-col col-6 class="font-sm" text-right>{{event.QtdyEnrolledUsers}} of {{event.Seats}}</ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickGrades()">
       <ion-col col-12>
-        <ion-icon name="star"></ion-icon> Grades</ion-col>
+        <ion-icon class="icon" color="secondary" name="star"></ion-icon> Grades</ion-col>
       <ion-col col-6 class="font-sm">Average:</ion-col>
       <ion-col col-6 class="font-sm" text-right>80.00</ion-col>
     </ion-row>
     <ion-row class="border-bottom">
       <ion-col col-12>
-        <ion-icon name="car"></ion-icon> Logistics</ion-col>
+        <ion-icon class="icon" color="secondary" name="car"></ion-icon> Logistics</ion-col>
       <ion-col col-6 class="font-sm">Expenses:</ion-col>
       <ion-col col-6 class="font-sm" text-right>$750.00</ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickBilling()">
       <ion-col col-12>
-        <ion-icon name="cash"></ion-icon> Billings</ion-col>
+        <ion-icon class="icon" color="secondary" name="cash"></ion-icon> Billings</ion-col>
       <ion-col col-6 class="font-sm">Revenues:</ion-col>
       <ion-col col-6 class="font-sm" text-right>$ 2500.00</ion-col>
     </ion-row>
