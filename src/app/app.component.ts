@@ -1,16 +1,13 @@
 import { Component, ViewChild } from "@angular/core";
 import { Platform, ModalController, NavController } from "ionic-angular";
-// import { Storage } from "@ionic/storage";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Events } from "ionic-angular";
-
 import { AuthProvider } from "../providers/auth/auth";
 import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
-// import * as APPConfig from "../app/config";
 
 @Component({
   templateUrl: "app.html"
@@ -24,7 +21,6 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public events: Events,
-    // private storage: Storage,
     public modalController: ModalController,
     public authProvider: AuthProvider,
     private translate: TranslateService,
@@ -57,14 +53,6 @@ export class MyApp {
 
       this.events.publish('currentUser', this.currentUser);
     });
-
-    // return this.storage.get("currentUser").then(user => {
-    //   if(user)
-    //     this.currentUser = this.authProvider.loggedUser = user;
-        
-        
-    //     //console.log('logged user: ' + JSON.stringify(this.authProvider.loggedUser));
-    // });
   }
 
   bindCulture(user) {
