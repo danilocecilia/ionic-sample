@@ -8,7 +8,7 @@ export class LoadingProvider {
   constructor(
     public loadingController: LoadingController,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   translateMessage() {
     return this.translate.get("LoadingMessage").toPromise();
@@ -43,5 +43,9 @@ export class LoadingProvider {
     });
 
     loading.present();
+  }
+
+  dismissLoading() {
+    this.loading.dismiss();
   }
 }

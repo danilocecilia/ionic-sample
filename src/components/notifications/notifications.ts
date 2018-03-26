@@ -34,14 +34,14 @@ export class NotificationsComponent implements OnInit {
     this.notificationProvider
       .loadNotifications()
       .then(res => {
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
         this.notifications = res;
       })
       .catch(err => {
         if (AppConfig.hasFoundAPIStatus(err.error)) this.authProvider.logout(err.error);
 
         // this.toastProvider.presentToast("Erro ao carregar as notificações.");
-        //this.loadingProvider.loading.dismiss();
+        //this.loadingProvider.dismissLoading();
       });
   }
 

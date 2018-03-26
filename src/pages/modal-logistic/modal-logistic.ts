@@ -95,14 +95,14 @@ export class ModalLogisticPage {
       )
       .then(
         data => {
-          this.loadingProvider.loading.dismiss();
+          this.loadingProvider.dismissLoading();
           console.log(data + " Uploaded Successfully");
           //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
           // loader.dismiss();
           this.presentToast("Receipt uploaded successfully");
         },
         err => {
-          this.loadingProvider.loading.dismiss();
+          this.loadingProvider.dismissLoading();
           console.log(err);
           // loader.dismiss();
           this.presentToast(

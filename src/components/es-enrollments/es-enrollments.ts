@@ -32,7 +32,7 @@ export class EsEnrollmentsComponent implements OnInit {
     this.enrollmentProvider
       .loadEnrollments()
       .subscribe(res => {
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
         this.enrollments = res[0];
       });
   }

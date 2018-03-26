@@ -1,9 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { Events } from "ionic-angular";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { LibraryProvider } from "../../providers/library/library";
-// import { Loading } from "ionic-angular/components/loading/loading";
-// import { LoadingProvider } from "../../providers/loading/loading";
+import { LoadingProvider } from "../../providers/loading/loading";
 import { AuthProvider } from "../../providers/auth/auth";
 
 @Component({
@@ -20,7 +19,7 @@ export class LibraryPage implements OnInit {
     public events: Events,
     public libProvider: LibraryProvider,
     private authProvider: AuthProvider,
-    // private loadingProvider: LoadingProvider,
+    private loadingProvider: LoadingProvider,
 
   ) { }
 
@@ -50,10 +49,10 @@ export class LibraryPage implements OnInit {
   }
 
   loadLibrary() {
-    // this.loadingProvider.presentLoadingDefault();
+    this.loadingProvider.presentLoadingDefault();
 
     this.libProvider.loadLibrary().then(res => {
-      // this.loadingProvider.loading.dismiss();
+      this.loadingProvider.dismissLoading();
       this.libs = res;
       this.libsArray = res;
     });

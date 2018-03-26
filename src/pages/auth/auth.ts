@@ -86,7 +86,7 @@ export class AuthPage {
       this.authProvider
         .getAuthenticate(this.authForm.value)
         .then(() => {
-          return this.loadingProvider.loading.dismiss().then(res => {
+          return this.loadingProvider.dismissLoading().then(res => {
             if (this.authProvider.loggedUser) {
               this.loggedUser = this.authProvider.loggedUser;
             }
@@ -96,7 +96,7 @@ export class AuthPage {
           });
         })
         .catch((err: Response) => {
-          return this.loadingProvider.loading.dismiss().then(() => {
+          return this.loadingProvider.dismissLoading().then(() => {
             console.error(err);
             let errMsg = err.json();
 

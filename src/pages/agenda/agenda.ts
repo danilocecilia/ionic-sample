@@ -91,7 +91,7 @@ export class AgendaPage implements OnInit {
     this.loadingProvider.presentLoadingDefault();
     this.loadEvents();
     this.today();
-    this.loadingProvider.loading.dismiss();
+    this.loadingProvider.dismissLoading();
   }
 
   ngOnInit() {
@@ -153,11 +153,11 @@ export class AgendaPage implements OnInit {
 
   loadEvents() {
     // this.agendaProvider.loadAllEvents("", "").subscribe(res => {
-    //   this.loadingProvider.loading.dismiss();
+    //   this.loadingProvider.dismissLoading();
     //   this.bindElements(res);
     // });
     this.agendaProvider.loadAllEvents("1", "2").then(res => {
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
         this.bindElements(res);
       })
       .catch((err) => {   
@@ -167,7 +167,7 @@ export class AgendaPage implements OnInit {
 
   getEvents(trainingId) {
     // this.agendaProvider.getEvents(trainingId).subscribe(res => {
-    //   this.loadingProvider.loading.dismiss();
+    //   this.loadingProvider.dismissLoading();
     //   this.bindElements(res);
     // });
   }

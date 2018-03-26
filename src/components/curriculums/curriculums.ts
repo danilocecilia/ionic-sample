@@ -60,10 +60,10 @@ export class CurriculumsComponent implements OnInit {
         
         this.history = this.competency.Competency[0].History;
         this.progress = this.competency.Competency[0].Percentage;
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
       })
       .catch((err) => {
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
 
         if (AppConfig.hasFoundAPIStatus(err.error)){
           if(AppConfig.APIStatus[err.error] === "INVALID_TOKEN"){

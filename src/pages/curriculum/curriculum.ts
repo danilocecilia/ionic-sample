@@ -30,11 +30,11 @@ export class CurriculumPage implements OnInit {
     this.curriculum = this.curriculumProvider
       .loadCurriculum()
       .then(res => {
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
         this.curriculum = res;
       })
       .catch(err => {
-        this.loadingProvider.loading.dismiss();
+        this.loadingProvider.dismissLoading();
         this.toast.presentToast("Erro ao carregar os curriculums.")
       });
   }
