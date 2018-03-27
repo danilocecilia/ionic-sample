@@ -29,17 +29,18 @@ export class MyApp {
     platform.ready().then(() => {
       statusBar.backgroundColorByHexString("#003a8b");
       splashScreen.hide();
-      this.authProvider.startupTokenRefresh();
-
+      
       translate.addLangs(["en", "pt"]);
+
+      this.getLocalStorageUser()
+        .then(() => this.bindCulture())
+        .then(() => this.checkIfUserIsLogged());
     });
 
-    this.getLocalStorageUser()
-      .then(() => this.bindCulture(this.currentUser))
-      .then(() => this.checkLoggedUser());
+    this.authProvider.startupTokenRefresh();
   }
 
-  checkLoggedUser() {
+  checkIfUserIsLogged() {
     if (!this.currentUser) this.nav.setRoot(AuthPage);
     else {
       this.nav.setRoot(TabsPage);
@@ -47,15 +48,16 @@ export class MyApp {
   }
 
   getLocalStorageUser() {
-    return this.authProvider.getLoggedUser().then((res) => {
-      
+    return this.authProvider.getLoggedUser().then(res => {
       this.currentUser = res;
 
-      this.events.publish('currentUser', this.currentUser);
+      this.events.publish("currentUser", this.currentUser);
     });
   }
 
-  bindCulture(user) {
+  bindCulture() {
+    let user = this.currentUser;
+
     if (user) {
       if (user.Language && user.Language.Culture) {
         let culture = user.Language.Culture.substring(0, 2);

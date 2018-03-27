@@ -61,6 +61,7 @@ export class AuthProvider {
       console.log("will start refresh after :", delay / 1000 / 60) + "minutes";
 
       if (delay - 1000 <= 0) delay = 1;
+      
       return Observable.interval(delay);
     });
 
@@ -113,10 +114,6 @@ export class AuthProvider {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
     this.storage.get("currentUser").then(user => {
-      let senddata: { Token: string } = {
-        Token: user.Token
-      };
-
       this.http
         .get(this.cfg.apiUrl + this.cfg.user.refresh + "?token=" + user.Token)
         .map(res => res.json())
@@ -166,9 +163,9 @@ export class AuthProvider {
   }
 
   saveData(data: any) {
-    let rs = data.json();
-    this.storage.set("currentUser", rs);
-    this.loggedUser = rs;
+    let userData = data.json();
+    this.storage.set("currentUser", userData);
+    this.loggedUser = userData;
   }
 
   getLoggedUser() {
