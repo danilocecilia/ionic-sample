@@ -16,7 +16,7 @@ export class NotificationProvider {
     return this.http
       .get(
         `${this.cfg.apiUrl + this.cfg.notification.all}?token=${
-          this.auth.token
+          this.auth.loggedUser.Token
         }`
       )
       .toPromise();
