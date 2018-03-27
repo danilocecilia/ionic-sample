@@ -5,10 +5,9 @@ import { ModalController } from "ionic-angular/components/modal/modal-controller
 import { AgendaPage } from "../../pages/agenda/agenda";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { LoadingProvider } from "../../providers/loading/loading";
-import * as AppConfig from '../../app/config';
-import { TranslateService } from "@ngx-translate/core";
-import { TranslateProvider } from '../../providers/translate/translate';
-import { ToastProvider  } from "../../providers/toast/toast";
+import * as AppConfig from "../../app/config";
+import { TranslateProvider } from "../../providers/translate/translate";
+import { ToastProvider } from "../../providers/toast/toast";
 import { AuthProvider } from "../../providers/auth/auth";
 
 @Component({
@@ -27,14 +26,13 @@ export class CurriculumsComponent implements OnInit {
 
   @Input("progress") progress;
   constructor(
-    public navCtrl: NavController,
-    public events: Events,
+    private navCtrl: NavController,
+    private events: Events,
     private competencyProvider: CompetencyProvider,
     private modalController: ModalController,
-    public navParams: NavParams,
+    private navParams: NavParams,
     private loadingProvider: LoadingProvider,
-    private translate: TranslateService,
-    private translateProvider : TranslateProvider,
+    private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
     private authProvider: AuthProvider
   ) {
@@ -48,8 +46,11 @@ export class CurriculumsComponent implements OnInit {
 
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
-    this.history = this.competency.Competency[currentIndex].History;
-    this.progress = this.competency.Competency[currentIndex].Percentage;
+
+    if (this.competency.Competency[currentIndex]) {
+      this.history = this.competency.Competency[currentIndex].History;
+      this.progress = this.competency.Competency[currentIndex].Percentage;
+    }
   }
 
   getCompetency() {
@@ -57,22 +58,24 @@ export class CurriculumsComponent implements OnInit {
       .getCompetency(this.idCompetency)
       .then(comp => {
         this.competency = comp;
-        
+
         this.history = this.competency.Competency[0].History;
         this.progress = this.competency.Competency[0].Percentage;
+
         this.loadingProvider.dismissLoading();
       })
-      .catch((err) => {
+      .catch(err => {
         this.loadingProvider.dismissLoading();
 
-        if (AppConfig.hasFoundAPIStatus(err.error)){
-          if(AppConfig.APIStatus[err.error] === "INVALID_TOKEN"){
-            this.translateProvider.translateMessage("ApiStatus." + err.error).then((text) => {
-              this.authProvider.logout(text);
-            })
-          } 
-        } 
-        else this.toastProvider.presentToast(err.error.Message);
+        if (AppConfig.hasFoundAPIStatus(err.error)) {
+          if (AppConfig.APIStatus[err.error] === "INVALID_TOKEN") {
+            this.translateProvider
+              .translateMessage("ApiStatus." + err.error)
+              .then(text => {
+                this.authProvider.logout(text);
+              });
+          }
+        } else this.toastProvider.presentToast(err.error.Message);
       });
   }
 
@@ -80,7 +83,9 @@ export class CurriculumsComponent implements OnInit {
     if (status == "PASS" || status == "ENROLLED")
       return this.onClickStartCourse();
 
-    let calendarModal = this.modalController.create(AgendaPage, {id : training_id});
+    let calendarModal = this.modalController.create(AgendaPage, {
+      id: training_id
+    });
     calendarModal.present();
   }
 

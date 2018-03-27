@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalNotificationPage } from "../../pages/modal-notification/modal-notification";
 import { ModalController } from "ionic-angular";
-
 import { NotificationProvider } from "../../providers/notification/notification";
-
 import { LoadingProvider } from "../../providers/loading/loading";
 import { ToastProvider } from "../../providers/toast/toast";
 import * as AppConfig from "../../app/config";
@@ -35,7 +33,8 @@ export class NotificationsComponent implements OnInit {
       .loadNotifications()
       .then(res => {
         this.loadingProvider.dismissLoading();
-        this.notifications = res;
+        this.notifications = this.notificationProvider.notification = res;
+        console.log(res);
       })
       .catch(err => {
         if (AppConfig.hasFoundAPIStatus(err.error)) this.authProvider.logout(err.error);

@@ -87,6 +87,7 @@ export class AuthPage {
           return this.loadingProvider.dismissLoading().then(res => {
             if (this.authProvider.loggedUser) {
               this.loggedUser = this.authProvider.loggedUser;
+              console.log(this.loggedUser);
             }
 
             this.setCurrentCulture();

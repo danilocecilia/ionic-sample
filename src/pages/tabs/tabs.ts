@@ -1,28 +1,11 @@
 import { Component } from "@angular/core";
-import { App } from "ionic-angular";
-
 import { HomePage } from "../home/home";
 import { CurriculumPage } from "../curriculum/curriculum";
 import { Events } from "ionic-angular";
 import { AgendaPage } from "../../pages/agenda/agenda";
 import { LibraryPage } from "../../pages/library/library";
 import { MediaPage } from "../../pages/media/media";
-
-// import { DashboardComponent } from "../../components/dashboard/dashboard";
-// import { CourseStepsComponent } from "../../components/course-steps/course-steps";
-// import { AssessmentComponent } from "../../components/assessment/assessment";
-// import { EventSummaryComponent } from "../../components/event-summary/event-summary";
-// import { EsEnrollmentsComponent } from "../../components/es-enrollments/es-enrollments";
-// import { EsEnrollComponent } from "../../components/es-enroll/es-enroll";
-// import { EsGradesComponent } from "../../components/es-grades/es-grades";
-// import { EsBillingsComponent } from "../../components/es-billings/es-billings";
-// import { EsLogisticsComponent } from "../../components/es-logistics/es-logistics";
-// import { PrePostTestComponent } from "../../components/pre-post-test/pre-post-test";
-// import { TrainingContentFileComponent } from "../../components/training-content-file/training-content-file";
-// import { UserProfilePage } from "../user-profile/user-profile";
-// import { ChangePasswordPage } from "../change-password/change-password";
-// import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
-
+import { NotificationProvider } from "../../providers/notification/notification";
 
 @Component({
   templateUrl: "tabs.html"
@@ -35,11 +18,15 @@ export class TabsPage {
   tab3Root: any = AgendaPage;
   tab4Root: any = LibraryPage;
   tab5Root: any = MediaPage;
+  notificationBadge: Number = 0;
 
   constructor(
-    public appCtrl: App,
-    public events: Events,
-  ) {}
+    private notificationProvider: NotificationProvider
+  ) {
+    this.notificationBadge = this.notificationProvider.notification
+      ? this.notificationProvider.notification.QtyUnread
+      : 0;
+  }
 
   resetHeader() {
     // this.events.publish('hideHeader', { isHidden: false });
