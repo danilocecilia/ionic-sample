@@ -3,36 +3,22 @@ import { NavController } from "ionic-angular";
 import { DashboardComponent } from "../dashboard/dashboard";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { Toast } from "@ionic-native/toast";
-import { AuthProvider } from "../../providers/auth/auth";
-import * as APPConfig from "../../app/config";
-
+/**
+ * Generated class for the HeaderCommomComponent component.
+ *
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
+ */
 @Component({
   selector: "header-commom",
   templateUrl: "header-commom.html"
 })
 export class HeaderCommomComponent {
-  isHidden: boolean = true;
-
   constructor(
     private navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
-    private authProvider: AuthProvider,
     private toast: Toast
-  ) {
-    this.userHasPermission();
-  }
-
-  userHasPermission() {
-    let user = this.authProvider.loggedUser;
-    
-    user.Permissions.find(element => {
-      let permission = APPConfig.APIPermission[element];
-
-      if (permission === "GPS" || permission === "DASHBOARD") {
-        this.isHidden = false;
-      }
-    });
-  }
+  ) {}
 
   openDashboard() {
     this.navCtrl.push(DashboardComponent);
