@@ -28,6 +28,19 @@ export let cfg = {
   }
 };
 
+export enum APIPermission {
+  CURRICULUM,
+  DASHBOARD,
+  DIARY,
+  GPS,
+  LIBRARY,
+  MEDIA,
+  NOTIFICATION,
+  PROFILE,
+  CHANGE_PASSWORD,
+  QR_CODE
+}
+
 export enum APIStatus {
   SUCCESS,
   FAILURE,
