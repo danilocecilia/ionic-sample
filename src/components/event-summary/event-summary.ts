@@ -22,7 +22,7 @@ export class EventSummaryComponent {
   }
 
   onClickEnrollment() {
-    this.navCtrl.push(EsEnrollmentsComponent, {});
+    this.navCtrl.push(EsEnrollmentsComponent, { event: this.event });
   }
 
   onClickBilling() {

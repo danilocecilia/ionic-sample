@@ -6,7 +6,7 @@
 
 <ion-content no-bounce>
   <ng-container>
-    <ion-searchbar (ionInput)="getItems($event)" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'Search' | translate}}" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
 
     <ion-card *ngFor="let lib of libs.Libraries">
       <ion-item color="secondary">

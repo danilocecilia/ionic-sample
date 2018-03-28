@@ -22,25 +22,25 @@
   </accordion-list>
 
 
-  <accordion-list title="Actions" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
+  <accordion-list title="{{'Actions' | translate}}" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
     <ion-col col-12>
       <ion-item>
         <ion-label color="secondary">Status</ion-label>
         <ion-select [(ngModel)]="event.Status" interface="popover">
-          <ion-option value="IN_PROGRESS">IN_PROGRESS</ion-option>
-          <ion-option value="ENROLLED">ENROLLED</ion-option>
-          <ion-option value="PASS">PASS</ion-option>
-          <ion-option value="FAIL">FAIL</ion-option>
+          <ion-option value="IN_PROGRESS">{{'HistoryStatus.IN_PROGRESS' | translate}}</ion-option>
+          <ion-option value="ENROLLED">{{'HistoryStatus.ENROLLED' | translate}}</ion-option>
+          <ion-option value="PASS">{{'HistoryStatus.PASS' | translate}}</ion-option>
+          <ion-option value="FAIL">{{'HistoryStatus.FAIL' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-col>
     <ion-col col-12 text-center>
       <ion-item>
-        <ion-label color="secondary">Step</ion-label>
+        <ion-label color="secondary">{{'Step' | translate}}</ion-label>
         <ion-select [(ngModel)]="event.Step" interface="popover">
-          <ion-option value="PRE_TEST">PRE_TEST</ion-option>
-          <ion-option value="POST_TEST">POST_TEST</ion-option>
-          <ion-option value="TRAINING">TRAINING</ion-option>
+          <ion-option value="PRE_TEST">{{'PRE_TEST' | translate}}</ion-option>
+          <ion-option value="POST_TEST">{{'POST_TEST' | translate}}</ion-option>
+          <ion-option value="TRAINING">{{'Training' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-col>
@@ -49,27 +49,27 @@
   <ion-grid>
     <ion-row class="border-bottom" (click)="onClickEnrollment()">
       <ion-col col-12>
-        <ion-icon class="icon" color="secondary" name="people"></ion-icon> Enrollments</ion-col>
-      <ion-col col-6 class="font-sm">Seats:</ion-col>
-      <ion-col col-6 class="font-sm" text-right>{{event.QtdyEnrolledUsers}} of {{event.Seats}}</ion-col>
+        <ion-icon class="icon" color="secondary" name="people"></ion-icon> {{'Enrollments' | translate}}</ion-col>
+      <ion-col col-6 class="font-sm">{{'Seats' | translate}}:</ion-col>
+      <ion-col col-6 class="font-sm" text-right><b>{{event.QtdyEnrolledUsers}} {{'of' | translate}} {{event.Seats}}</b></ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickGrades()">
       <ion-col col-12>
-        <ion-icon class="icon" color="secondary" name="star"></ion-icon> Grades</ion-col>
-      <ion-col col-6 class="font-sm">Average:</ion-col>
-      <ion-col col-6 class="font-sm" text-right>80.00</ion-col>
+        <ion-icon class="icon" color="secondary" name="star"></ion-icon> {{'Grades' | translate}}</ion-col>
+      <ion-col col-6 class="font-sm">{{'Average' | translate}}:</ion-col>
+      <ion-col col-6 class="font-sm" text-right><b>80.00</b></ion-col>
     </ion-row>
     <ion-row class="border-bottom">
       <ion-col col-12>
-        <ion-icon class="icon" color="secondary" name="car"></ion-icon> Logistics</ion-col>
-      <ion-col col-6 class="font-sm">Expenses:</ion-col>
-      <ion-col col-6 class="font-sm" text-right>$750.00</ion-col>
+        <ion-icon class="icon" color="secondary" name="car"></ion-icon> {{'Logistics' | translate}}</ion-col>
+      <ion-col col-6 class="font-sm">{{'Expenses' | translate}}:</ion-col>
+      <ion-col col-6 class="font-sm" text-right><b>$750.00</b></ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickBilling()">
       <ion-col col-12>
-        <ion-icon class="icon" color="secondary" name="cash"></ion-icon> Billings</ion-col>
-      <ion-col col-6 class="font-sm">Revenues:</ion-col>
-      <ion-col col-6 class="font-sm" text-right>$ 2500.00</ion-col>
+        <ion-icon class="icon" color="secondary" name="cash"></ion-icon> {{'Billings' | translate}}</ion-col>
+      <ion-col col-6 class="font-sm">{{'Revenues' | translate}}:</ion-col>
+      <ion-col col-6 class="font-sm" text-right><b>$ 2500.00</b></ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

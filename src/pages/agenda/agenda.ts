@@ -19,6 +19,8 @@ import { TranslateProvider } from "../../providers/translate/translate";
   templateUrl: "agenda.html"
 })
 export class AgendaPage implements OnInit {
+  no: string;
+  yes: string;
   events: any;
   eventSource: any;
   viewTitle: string;
@@ -28,7 +30,7 @@ export class AgendaPage implements OnInit {
   description: string;
   hideButtons: boolean = false;
   loggedUser: any = {};
-
+  translatedText: string;
   @ViewChild("btnClose") btnClose: any;
 
   constructor(
@@ -88,22 +90,23 @@ export class AgendaPage implements OnInit {
   };
 
   loadData() {
+    this.translateYesAndNo();
+
     // If Instructor clicks on the Calendar on the TabsMenu
     if (this.param.loadType === "general") {
       this.loadEvents();
 
-      this.translate("ConfirmEventSummary");
+      this.translateDescription("ConfirmEventSummary");
 
       this.btnCloseHide(!this.hideButtons);
     } else {
       //It comes from the list of trainings (VCT/Presential) on the Curriculums Page
       this.getEvents(this.param.id);
 
-      this.translate("ConfirmEnrollment");
+      this.translateDescription("ConfirmEnrollment");
 
       this.btnCloseHide(this.hideButtons);
     }
-
     this.today();
   }
 
@@ -117,9 +120,19 @@ export class AgendaPage implements OnInit {
     this.loadData();
   }
 
-  translate(text) {
-    this.translateProvider.translateMessage("ConfirmEventSummary").then(res => {
+  translateDescription(text) {
+    this.translateProvider.translateMessage(text).then(res => {
       this.description = `<span cssClass="description">${res}</span>`;
+    });
+  }
+
+  translateYesAndNo() {
+    this.translateProvider.translateMessage("Yes").then(translation => {
+      this.yes = translation;
+    });
+
+    this.translateProvider.translateMessage("No").then(translation => {
+      this.no = translation;
     });
   }
 
@@ -188,13 +201,13 @@ export class AgendaPage implements OnInit {
       cssClass: "description",
       buttons: [
         {
-          text: "No",
+          text: this.no,
           handler: () => {
             console.log("No");
           }
         },
         {
-          text: "Yes",
+          text: this.yes,
           handler: () => {
             if (this.param.loadType === "general") {
               this.navController.push(EventSummaryComponent, { event: event });

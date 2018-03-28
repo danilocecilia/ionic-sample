@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Enroll Users
+      {{'PagesTitle.EnrollUsers' | translate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,15 +9,15 @@
   <ion-grid>
     <ion-row class="border-bottom" class="border-bottom">
       <ion-col col-12 padding-vertical>
-        <b>FF2137_CL0001</b>
+        <b>{{event.Class}}</b>
       </ion-col>
       <ion-col col-12>
-        Seats: 14 of 14 (overbook) / Seats by Organization: 2
+        {{'Seats' | translate}}: 14 {{'of' | translate}} 14 / {{'SeatsByOrganization' | translate}}: 2
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-searchbar (ionInput)="getItems($event)" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'Search' | translate}}" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
 
   <ion-grid>
     <ion-row class="border-bottom" *ngFor="let e of enrollments.Histories">
@@ -41,7 +41,7 @@
             <ion-item-options side="right">
               <button ion-button color="secondary" (click)="unread(item)">
                 <ion-icon name="person-add"></ion-icon>
-                Enroll
+                {{'Enroll' | translate}}
               </button>
             </ion-item-options>
           </ion-item-sliding>

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Enrollments
+      {{'Enrollments' | translate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,10 +9,10 @@
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-9 padding-vertical>
-        <b>FF2137_CL0001</b>
+        <b>{{event.Class}}</b>
       </ion-col>
       <ion-col col-3 text-right>
-        <button ion-button small float-right (click)="onClickEnrollUsers()"> Enroll</button>
+        <button ion-button small float-right (click)="onClickEnrollUsers()"> {{'Enroll' | translate}}</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -38,11 +38,11 @@
             <ion-item-options side="right">
               <button ion-button (click)="unread(item)">
                   <ion-icon name="notifications"></ion-icon>
-                Notify
+                {{'Notify' | translate}}
               </button>
               <button ion-button color="danger" (click)="delete(item)">
                 <ion-icon name="trash"></ion-icon>
-                Remove
+                {{'Remove' | translate}}
               </button>
             </ion-item-options>
           </ion-item-sliding>
