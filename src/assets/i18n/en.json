@@ -11,6 +11,21 @@
   "NoEvents": "No Events on the selected day.",
   "Yes": "Yes",
   "No": "No",
+  "Actions:": "Actions",
+  "Step": "Step,",
+  "Seats": "Seats",
+  "Enrollments": "Enrollments",
+  "of": "of",
+  "Grades" : "Grades",
+  "Average": "Average",
+  "Expenses": "Expenses",
+  "Billings": "Billinigs",
+  "Revenues": "Revenues",
+  "Enroll": "Enroll",
+  "Notify": "Notify",
+  "Remove": "Remove",
+  "Search": "Search",
+  "SeatsByOrganization": "Seats by Organization",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
@@ -58,7 +73,8 @@
     "JobRole": "Job Role",
     "Library": "Library",
     "NotificationDetail": "Notification Detail",
-    "EventSummary": "Event Summary"
+    "EventSummary": "Event Summary",
+    "EnrollUsers": "Enroll Users"
   },
   "TabsTitle": {
     "Notification": "Notification",
