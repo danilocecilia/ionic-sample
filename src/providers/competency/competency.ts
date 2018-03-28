@@ -10,9 +10,6 @@ export class CompetencyProvider {
     private auth: AuthProvider) {}
 
   getCompetency(idCompetency: number) {
-    return this.auth.getToken()
-    .then(token => {
-      return this.http.get(`${AppConfig.cfg.apiUrl + AppConfig.cfg.curriculum.getByJobRole}?token=${token}&id=${idCompetency}`).toPromise();
-    });
+      return this.http.get(`${AppConfig.cfg.apiUrl + AppConfig.cfg.curriculum.getByJobRole}?token=${this.auth.loggedUser.Token}&id=${idCompetency}`).toPromise();
   }
 }

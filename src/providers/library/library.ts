@@ -8,6 +8,6 @@ export class LibraryProvider {
   constructor(public http: HttpClient, private auth: AuthProvider) {}
 
   loadLibrary() {
-    return this.http.get(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.library.all}?token=${this.auth.token}`).toPromise();
+    return this.http.get(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.library.all}?token=${this.auth.loggedUser.Token}`).toPromise();
   }
 }

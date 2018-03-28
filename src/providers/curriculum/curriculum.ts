@@ -13,7 +13,7 @@ export class CurriculumProvider {
 
   loadCurriculum() {
     return this.http
-        .get(`${this.cfg.apiUrl + this.cfg.curriculum.all}?token=${this.auth.token}`)
+        .get(`${this.cfg.apiUrl + this.cfg.curriculum.all}?token=${this.auth.loggedUser.Token}`)
         .toPromise();
   }
 }
