@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{'PagesTitle.EventSummary' | translate}}</ion-title>
+    <ion-title>{{'TitlePage.EventSummary' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,13 +11,13 @@
 
   <accordion-list title="Downloads" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
     <ion-col col-12 text-center>
-      <button full ion-button small class="font-sm">Presence List</button>
+      <button full ion-button small round class="font-sm">{{'PresenceList' | translate}}</button>
     </ion-col>
     <ion-col col-12 text-center>
-      <button full ion-button small class="font-sm">Pre test</button>
+      <button full ion-button small round class="font-sm">{{'PreTest' | translate}}</button>
     </ion-col>
     <ion-col col-12 text-center>
-      <button full ion-button small class="font-sm">Post Test</button>
+      <button full ion-button small round class="font-sm">{{'PostTest' | translate}}</button>
     </ion-col>
   </accordion-list>
 
@@ -51,25 +51,33 @@
       <ion-col col-12>
         <ion-icon class="icon" color="secondary" name="people"></ion-icon> {{'Enrollments' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Seats' | translate}}:</ion-col>
-      <ion-col col-6 class="font-sm" text-right><b>{{event.QtdyEnrolledUsers}} {{'of' | translate}} {{event.Seats}}</b></ion-col>
+      <ion-col col-6 class="font-sm" text-right>
+        <b>{{event.QtdyEnrolledUsers}} {{'of' | translate}} {{event.Seats}}</b>
+      </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickGrades()">
       <ion-col col-12>
         <ion-icon class="icon" color="secondary" name="star"></ion-icon> {{'Grades' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Average' | translate}}:</ion-col>
-      <ion-col col-6 class="font-sm" text-right><b>80.00</b></ion-col>
+      <ion-col col-6 class="font-sm" text-right>
+        <b>80.00</b>
+      </ion-col>
     </ion-row>
-    <ion-row class="border-bottom">
+    <ion-row class="border-bottom" (click)="onClickLogistics()">
       <ion-col col-12>
         <ion-icon class="icon" color="secondary" name="car"></ion-icon> {{'Logistics' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Expenses' | translate}}:</ion-col>
-      <ion-col col-6 class="font-sm" text-right><b>$750.00</b></ion-col>
+      <ion-col col-6 class="font-sm" text-right>
+        <b>$750.00</b>
+      </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickBilling()">
       <ion-col col-12>
         <ion-icon class="icon" color="secondary" name="cash"></ion-icon> {{'Billings' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Revenues' | translate}}:</ion-col>
-      <ion-col col-6 class="font-sm" text-right><b>$ 2500.00</b></ion-col>
+      <ion-col col-6 class="font-sm" text-right>
+        <b>$ 2500.00</b>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

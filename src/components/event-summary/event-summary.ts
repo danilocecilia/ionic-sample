@@ -5,6 +5,7 @@ import { AccordionListComponent } from "../accordion-list/accordion-list";
 import { EsGradesComponent } from "../es-grades/es-grades";
 import { EsBillingsComponent } from "../es-billings/es-billings";
 import { NavParams } from "ionic-angular/navigation/nav-params";
+import { EsLogisticsComponent } from "../es-logistics/es-logistics";
 
 @Component({
   selector: "event-summary",
@@ -18,14 +19,18 @@ export class EventSummaryComponent {
   }
 
   onClickGrades() {
-    this.navCtrl.push(EsGradesComponent, {});
+    this.navCtrl.push(EsGradesComponent, { event: this.event });
   }
 
   onClickEnrollment() {
     this.navCtrl.push(EsEnrollmentsComponent, { event: this.event });
   }
 
+  onClickLogistics() {
+    this.navCtrl.push(EsLogisticsComponent, { event: this.event });
+  }
+
   onClickBilling() {
-    this.navCtrl.push(EsBillingsComponent, {});
+    this.navCtrl.push(EsBillingsComponent, { event: this.event });
   }
 }
