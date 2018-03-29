@@ -10,14 +10,11 @@ export class AgendaProvider {
   }
 
   loadAllEvents(start, end){
-    return this.authProvider.getToken()
-    .then(token => {
-      return this.http.get(`${APPConfig.cfg.apiUrl + APPConfig.cfg.agenda.getClassesByDate}?token=${token}&start=${start}&end=${end}`).toPromise();
-    });
+      return this.http.get(`${APPConfig.cfg.apiUrl + APPConfig.cfg.agenda.getClassesByDate}?token=${this.authProvider.loggedUser.Token}&start=${start}&end=${end}`).toPromise();
   }
 
   getEvents(trainingId){
-    return this.http.get(`${APPConfig.cfg.apiUrl + APPConfig.cfg.agenda.getClassesByTraining}?token=${this.authProvider.token}&training=${trainingId}`);
+    return this.http.get(`${APPConfig.cfg.apiUrl + APPConfig.cfg.agenda.getClassesByTraining}?token=${this.authProvider.loggedUser.Token}&training=${trainingId}`);
   }
 
 }
