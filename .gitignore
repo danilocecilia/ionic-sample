@@ -26,11 +26,12 @@ temp/
 hooks/
 platforms/
 plugins/
-plugins/android.json
+www/
 www/assets/lms/
 www/assets/fonts/
 www/assets/js/
 www/build/
+plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
 
