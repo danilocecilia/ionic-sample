@@ -25,7 +25,17 @@
   "Notify": "Notify",
   "Remove": "Remove",
   "Search": "Search",
+  "TotalCost": "Total Cost",
+  "Type": "Type",
+  "UnitCost": "Unit Cost",
+  "PresenceList": "Presence List",
   "SeatsByOrganization": "Seats by Organization",
+  "PostTest": "Post Test",
+  "PreTest": "Pre Test",
+  "TrainingMaterial": "Training Material",
+  "Date": "Date",
+  "EquipmentRental": "Equipment Rental",
+  "Quantity": "Quantity",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
@@ -66,7 +76,7 @@
     "USER_PASSWORD_NOT_MATCH": "User password not match"
   },
   "Free": "Free",
-  "PagesTitle": {
+  "TitlePage": {
     "PasswordRecovery": "Password Recovery",
     "MyCurriculum": "My Curriculum",
     "ProfileSettings": "Profile Settings",

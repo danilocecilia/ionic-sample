@@ -28,7 +28,17 @@
   "Notify": "Notificar",
   "Remove": "Remover",
   "Search": "Buscar",
+  "TotalCost": "Custo Total",
+  "Type": "Tipo",
+  "UnitCost": "Custo Unitário",
+  "PresenceList": "Lista de Presença",
   "SeatsByOrganization": "Lugares por Organização",
+  "PostTest": "Pós Test",
+  "PreTest": "Pré Test",
+  "TrainingMaterial": "Material de Treinamento",
+  "Date": "Data",
+  "EquipmentRental": "Aluguel de Equipamento",
+  "Quantity": "Quantidade",
   "ValidatorMessage": {
     "Required": "O campo {{value}} é obrigatório.",
     "Pattern": "Somente letras minúsculas e maiúsculas são aceitas.",
@@ -69,7 +79,7 @@
     "USER_PASSWORD_NOT_MATCH": "User password not match"
   },
   "Free": "Grátis",
-  "PagesTitle": {
+  "TitlePage": {
     "PasswordRecovery": "Recuração de Senha",
     "MyCurriculum": "Meu Curriculum",
     "ProfileSettings": "Configuração do Perfil",
