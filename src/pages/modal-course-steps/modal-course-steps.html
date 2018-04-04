@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>Course Steps</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)="onCloseModal()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+      <ion-row>
+          <ion-col col-11>GORE-TEX Membrane</ion-col>
+          <ion-col col-1 right>
+              <ion-icon name="globe"></ion-icon>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+              <b>Steps</b>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+
+  <div id="wizard_verticle" class="form_wizard wizard_verticle">
+      <ul class="list-unstyled wizard_steps anchor">
+          <li>
+              <!-- Steps -->
+              <a href="#step-11" class="selected">
+                  <span class="step_no">1</span>
+              </a>
+          </li>
+          <li>
+              <a href="#step-22" class="disabled">
+                  <span class="step_no">2</span>
+              </a>
+          </li>
+          <li>
+              <a href="#step-33" class="disabled">
+                  <span class="step_no">3</span>
+              </a>
+          </li>
+          <li>
+              <a href="#step-44" class="disabled">
+                  <span class="step_no">4</span>
+              </a>
+          </li>
+      </ul>
+
+      <div>
+          <ion-grid style="display: block; height: 150px;">
+              <ion-row>
+                  <ion-col>
+                      <h6>Pre Test</h6>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 style="font-size:12px;">
+                      <span class="section">You must answer a pre test assessment for this training.</span>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                      <button ion-button small (click)="startAssessment()">Pre Test</button>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+          <ion-grid style="display: block; height: 150px;">
+              <ion-row>
+                  <ion-col>
+                      <h6>Training Content</h6>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 style="font-size:12px;">
+                      <span class="section">You can access the training content by click here!</span>
+                  </ion-col>
+              </ion-row>
+              <ion-row (click)="onCLickStartTraining()">
+                  <ion-col>
+                      <button ion-button small>Training Content</button>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+          <ion-grid style="display: block; height: 150px;">
+              <ion-row>
+                  <ion-col>
+                      <h6>Post Test</h6>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 style="font-size:12px;">
+                      <span class="section">You must answer a pre test assessment for this training.</span>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                      <button ion-button small>Post Test</button>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+          <ion-grid style="display: block; height: 150px;">
+              <ion-row>
+                  <ion-col>
+                      <h6>Certificate</h6>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 style="font-size:12px;">
+                      <span class="section">You must answer a pre test assessment for this training.</span>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                      <button ion-button small>Certificate</button>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+
+      </div>
+  </div>
+</ion-content>

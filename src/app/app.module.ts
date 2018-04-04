@@ -35,6 +35,7 @@ import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
 import { LibraryPage } from "../pages/library/library";
 import { AgendaPage } from "../pages/agenda/agenda";
 import { MediaPage } from "../pages/media/media";
+import { ModalCourseStepsComponent  } from "../pages/modal-course-steps/modal-course-steps";
 
 /***********************/
 //Components
@@ -130,6 +131,7 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
+    ModalCourseStepsComponent
   ],
   imports: [
     BrowserModule,
@@ -181,6 +183,7 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
+    ModalCourseStepsComponent
   ],
   providers: [
     StatusBar,
