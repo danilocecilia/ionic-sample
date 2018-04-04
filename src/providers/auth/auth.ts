@@ -41,26 +41,26 @@ export class AuthProvider {
   public scheduleRefresh() {
     // If the user is authenticated, use the token stream
     // provided by angular2-jwt and flatMap the token
-    let source = Observable.of(this.loggedUser.Token).flatMap(token => {
+   let source = Observable.of(this.loggedUser.Token).flatMap(token => {
       // The delay to generate in this case is the difference
       // between the expiry time and the issued at time
-      let jwtIssuedAt = this.jwtHelper.decodeToken(token).iat;
-      let jwtExpirationTime = this.jwtHelper.decodeToken(token).exp;
-      let issuedAt = new Date(0);
-      let expiration = new Date(0);
+      //let jwtIssuedAt = this.jwtHelper.decodeToken(token).iat;
+      // let jwtExpirationTime = this.jwtHelper.decodeToken(token).exp;
+      // let issuedAt = new Date(0);
+      // let expiration = new Date(0);
 
-      let delay = expiration.setUTCSeconds(jwtExpirationTime) - issuedAt.setUTCSeconds(jwtIssuedAt);
+      // let delay = (expiration.setUTCSeconds(jwtExpirationTime) - issuedAt.setUTCSeconds(jwtIssuedAt)) - 15000;
 
-      console.info("delay: " + delay);
-      console.info("will start refresh after :", delay / 1000 / 60) + "minutes";
+      // console.info("delay: " + delay);
+      // console.info("will start refresh after :", delay / 1000 / 60) + "minutes";
 
-      if (delay - 1000 <= 0) delay = 1;
+      // if (delay - 1000 <= 0) delay = 1;
 
-      return Observable.interval(delay);
+      return Observable.interval(60000);
     });
 
     this.refreshSubscription = source.subscribe(() => {
-      this.getNewJwt();
+      this.refreshUserInfo();
     });
   }
 
@@ -70,27 +70,26 @@ export class AuthProvider {
     if (this.loggedUser) {
       if (this.loggedUser.Token) {
         let source = Observable.of(this.loggedUser.Token).flatMap(token => {
-          // Get the expiry time to generate
-          // a delay in milliseconds
-          let now: number = new Date().valueOf();
-          let jwtExpirarionTime: number = this.jwtHelper.decodeToken(token).exp;
-          let expiration: Date = new Date(0);
-          expiration.setUTCSeconds(jwtExpirarionTime);
-          let delay: number = expiration.valueOf() - now;
+          // Get the expiry time to generate a delay in milliseconds
+          // let now: number = new Date().valueOf();
+          // let jwtExpirarionTime: number = this.jwtHelper.decodeToken(token).exp;
+          // let expiration: Date = new Date(0);
+          // expiration.setUTCSeconds(jwtExpirarionTime);
+          // let delay: number = expiration.valueOf() - now;
 
-          if (delay <= 0) {
-            delay = 1;
-          }
+          // if (delay <= 0) {
+          //   delay = 1;
+          // }
           // Use the delay in a timer to
           // run the refresh at the proper time
-          return Observable.timer(delay);
+          return Observable.timer(60000);
         });
 
         // Once the delay time from above is
         // reached, get a new JWT and schedule
         // additional refreshes
         source.subscribe(() => {
-          this.getNewJwt();
+          this.refreshUserInfo();
           this.scheduleRefresh();
         });
       } else {
@@ -101,26 +100,30 @@ export class AuthProvider {
     }
   }
 
-  public getNewJwt() {
+  public refreshUserInfo() {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
     if(this.loggedUser){
       this.http
         .get(this.cfg.apiUrl + this.cfg.user.refresh + "?token=" + this.loggedUser.Token)
-        .map(res => res.json())
+        .map(response => response.json())
         .subscribe(
-          res => {
-            if (res.refreshToken) {
-                this.loggedUser.Token = res.refreshToken;
+          userData => {
+            if (userData) {
+
+                this.loggedUser = userData;
+
                 this.saveToLocalStorage(this.loggedUser);
-                console.log(this.loggedUser)
+                
+                console.log('User Data Refreshed')
+
             } else {
               console.log("The Token Black Listed");
               this.logout();
             }
           },
           err => {
-            console.error("ERROR", err);
+            console.error("refreshUserInfo ERROR", err);
             this.logout();
           }
         );
