@@ -1,4 +1,4 @@
-import { NavController } from "ionic-angular/index";
+import { NavController, ModalController } from "ionic-angular/index";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import * as moment from "moment";
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
@@ -13,6 +13,7 @@ import localePt from "@angular/common/locales/pt";
 import localeEs from "@angular/common/locales/es";
 import { registerLocaleData } from "@angular/common";
 import { TranslateProvider } from "../../providers/translate/translate";
+import { ModalCourseStepsComponent } from "../modal-course-steps/modal-course-steps";
 
 @Component({
   selector: "agenda",
@@ -41,7 +42,8 @@ export class AgendaPage implements OnInit {
     private navParams: NavParams,
     private loadingProvider: LoadingProvider,
     private authProvider: AuthProvider,
-    private translateProvider: TranslateProvider
+    private translateProvider: TranslateProvider,
+    private modalCtrl : ModalController
   ) {
     this.param = this.navParams.data;
   }
@@ -212,7 +214,16 @@ export class AgendaPage implements OnInit {
             if (this.param.loadType === "general") {
               this.navController.push(EventSummaryComponent, { event: event });
             } else {
-              this.navController.push(CourseStepsComponent, { event: event });
+              
+              let courseStepsModal = this.modalCtrl.create(ModalCourseStepsComponent, {event : event});
+              
+              courseStepsModal.onDidDismiss(() => {
+                this.viewCtrl.dismiss();
+              });
+
+              courseStepsModal.present();
+
+              // this.navController.push(CourseStepsComponent, { event: event });
               console.log("Yes");
             }
           }
