@@ -34,10 +34,9 @@ export class MyApp {
 
       this.getLocalStorageUser()
         .then(() => this.bindCulture())
-        .then(() => this.checkIfUserIsLogged());
+        .then(() => this.checkIfUserIsLogged())
+        .then(() => this.authProvider.startupTokenRefresh())
     });
-
-    this.authProvider.startupTokenRefresh();
   }
 
   checkIfUserIsLogged() {
