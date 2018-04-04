@@ -12,7 +12,7 @@ import * as APPConfig from "../../app/config";
 })
 export class HeaderCommomComponent {
   isHidden: boolean = true;
-  
+
   constructor(
     private navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
@@ -25,13 +25,15 @@ export class HeaderCommomComponent {
   userHasPermission() {
     let user = this.authProvider.loggedUser;
 
-    user.Permissions.find(element => {
-      let permission = APPConfig.APIPermission[element];
+    if (user.Permissions) {
+      user.Permissions.find(element => {
+        let permission = APPConfig.APIPermission[element];
 
-      if (permission === "GPS" || permission === "DASHBOARD") {
-        this.isHidden = false;
-      }
-    });
+        if (permission === "GPS" || permission === "DASHBOARD") {
+          this.isHidden = false;
+        }
+      });
+    }
   }
 
   openDashboard() {
