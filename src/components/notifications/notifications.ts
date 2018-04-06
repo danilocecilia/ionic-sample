@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalNotificationPage } from "../../pages/modal-notification/modal-notification";
-import { ModalController, Refresher, Content } from "ionic-angular";
+import { ModalController, Refresher, Content, Events } from "ionic-angular";
 import { NotificationProvider } from "../../providers/notification/notification";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { ToastProvider } from "../../providers/toast/toast";
@@ -14,14 +14,14 @@ import { AuthProvider } from "../../providers/auth/auth";
 export class NotificationsComponent implements OnInit {
   @ViewChild(Content) content: Content;
   notifications: any = [];
-  //private apiStatus: any;
-  //private cfg: any;
+
   constructor(
     public modalCtrl: ModalController,
     private notificationProvider: NotificationProvider,
     private loadingProvider: LoadingProvider,
     private toastProvider: ToastProvider,
-    private authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private events: Events
   ) {}
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class NotificationsComponent implements OnInit {
       .then(res => {
         this.loadingProvider.dismissLoading();
         this.notifications = this.notificationProvider.notification = res;
-        console.log(res);
+        this.events.publish("updateBadge", this.notifications.QtyUnread);
         refresher.complete();
       })
       .catch(err => {
@@ -56,9 +56,20 @@ export class NotificationsComponent implements OnInit {
       });
   }
 
-  openNotification(value) {
+  openNotification(notificationItem) {
+    this.notificationProvider
+      .setNotificationRead(notificationItem.ID)
+      .then(() => {
+        this.openModal(notificationItem);
+      })
+      .catch(error => {
+        console.log("Error when updating read notification: " + error);
+      });
+  }
+
+  openModal(notificationItem) {
     let modal = this.modalCtrl.create(ModalNotificationPage, {
-      notification: value
+      notification: notificationItem
     });
     modal.present();
   }

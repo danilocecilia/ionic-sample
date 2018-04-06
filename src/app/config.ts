@@ -17,7 +17,8 @@ export let cfg = {
     refresh: "Authentication/RefreshToken"
   },
   notification: {
-    all: "notification/GetNotifications"
+    all: "notification/GetNotifications",
+    notifyRead: "notification/ReadNotification"
   },
   curriculum: {
     all: "curriculum/GetCurriculumSummary",
