@@ -18,12 +18,6 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { Globalization } from "@ionic-native/globalization";
-// import { LOCALE_ID } from "@angular/core";
-// import { registerLocaleData } from "@angular/common";
-// import localePt from "@angular/common/locales/pt";
-// import localeEs from "@angular/common/locales/es";
-// import { NavController } from "ionic-angular";
-//import { ComponentsModule  } from "../components/components.module";
 
 /***********************/
 //Pages
@@ -35,7 +29,7 @@ import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
 import { LibraryPage } from "../pages/library/library";
 import { AgendaPage } from "../pages/agenda/agenda";
 import { MediaPage } from "../pages/media/media";
-import { ModalCourseStepsComponent  } from "../pages/modal-course-steps/modal-course-steps";
+import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-course-steps";
 
 /***********************/
 //Components
@@ -56,6 +50,11 @@ import { EsBillingsComponent } from "../components/es-billings/es-billings";
 import { EsLogisticsComponent } from "../components/es-logistics/es-logistics";
 import { PrePostTestComponent } from "../components/pre-post-test/pre-post-test";
 import { TrainingContentFileComponent } from "../components/training-content-file/training-content-file";
+import {
+  TimelineComponent,
+  TimelineItemComponent,
+  TimelineTimeComponent
+} from "../components/timeline/timeline";
 
 /***********************/
 //Providers
@@ -82,8 +81,7 @@ import { AuthPageModule } from "../pages/auth/auth.module";
 import { LoadingProvider } from "../providers/loading/loading";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
 import { ToastProvider } from "../providers/toast/toast";
-import { PipesModule  } from "../pipes/pipes.module";
-
+import { PipesModule } from "../pipes/pipes.module";
 
 let storage = new Storage({});
 
@@ -131,7 +129,10 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
-    ModalCourseStepsComponent
+    ModalCourseStepsComponent,
+    TimelineComponent,
+    TimelineItemComponent,
+    TimelineTimeComponent
   ],
   imports: [
     BrowserModule,
@@ -156,7 +157,7 @@ export function getAuthHttp(http: Http) {
     ChangePasswordPageModule,
     PipesModule,
     TabsPageModule,
-    AuthPageModule,
+    AuthPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -183,7 +184,10 @@ export function getAuthHttp(http: Http) {
     EsLogisticsComponent,
     PrePostTestComponent,
     TrainingContentFileComponent,
-    ModalCourseStepsComponent
+    ModalCourseStepsComponent,
+    TimelineComponent,
+    TimelineItemComponent,
+    TimelineTimeComponent
   ],
   providers: [
     StatusBar,
