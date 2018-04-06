@@ -31,6 +31,8 @@
   "TotalCost": "Custo Total",
   "Type": "Tipo",
   "UnitCost": "Custo Unitário",
+  "PullToRefresh": "Puxe para atualizar",
+  "Refreshing": "Atualizando",
   "PresenceList": "Lista de Presença",
   "SeatsByOrganization": "Lugares por Organização",
   "PostTest": "Pós Test",

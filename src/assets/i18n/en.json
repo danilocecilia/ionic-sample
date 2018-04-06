@@ -28,6 +28,8 @@
   "TotalCost": "Total Cost",
   "Type": "Type",
   "UnitCost": "Unit Cost",
+  "PullToRefresh": "Pull To Refresh",
+  "Refreshing": "Refreshing",
   "PresenceList": "Presence List",
   "SeatsByOrganization": "Seats by Organization",
   "PostTest": "Post Test",
