@@ -6,6 +6,7 @@ import { AgendaPage } from "../../pages/agenda/agenda";
 import { LibraryPage } from "../../pages/library/library";
 import { MediaPage } from "../../pages/media/media";
 import { NotificationProvider } from "../../providers/notification/notification";
+import { CourseStepsComponent } from "../../components/course-steps/course-steps";
 
 @Component({
   templateUrl: "tabs.html"
@@ -19,16 +20,14 @@ export class TabsPage {
   tab4Root: any = LibraryPage;
   tab5Root: any = MediaPage;
   notificationBadge: Number = 0;
+  
 
   constructor(
-    private notificationProvider: NotificationProvider
+    private notificationProvider: NotificationProvider,
+    private events : Events
   ) {
-    this.notificationBadge = this.notificationProvider.notification
-      ? this.notificationProvider.notification.QtyUnread
-      : 0;
-  }
-
-  resetHeader() {
-    // this.events.publish('hideHeader', { isHidden: false });
+    this.events.subscribe("updateBadge", qtyUnread => {
+      this.notificationBadge = qtyUnread ? qtyUnread : 0;
+    });
   }
 }
