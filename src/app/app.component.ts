@@ -8,14 +8,14 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { AuthPage } from "../pages/auth/auth";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
-
+import { timer  } from "rxjs/observable/timer";
 @Component({
   templateUrl: "app.html"
 })
 export class MyApp {
   currentUser: any;
   @ViewChild("content") nav: NavController;
-
+  showSplash = true;
   constructor(
     platform: Platform,
     statusBar: StatusBar,
@@ -37,6 +37,8 @@ export class MyApp {
         .then(() => this.checkIfUserIsLogged())
         .then(() => this.authProvider.startupTokenRefresh())
     });
+
+    timer(3000).subscribe(() => this.showSplash = false);
   }
 
   checkIfUserIsLogged() {
