@@ -6,11 +6,8 @@ import {
   Events,
   ModalController
 } from "ionic-angular";
-
 import { Storage } from "@ionic/storage";
 import { NavParams } from "ionic-angular/navigation/nav-params";
-
-import { FooterProvider } from "../../providers/footer/footer";
 
 import { ProtectedPage } from "../protected/protected";
 import { ModalNotificationPage } from "../modal-notification/modal-notification";
@@ -26,7 +23,6 @@ export class HomePage extends ProtectedPage {
 
   constructor(
     public navCtrl: NavController,
-    public footerProvider: FooterProvider,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public storage: Storage,
