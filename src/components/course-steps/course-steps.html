@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Course Steps</ion-title>
+        <ion-title>{{'TitlePage.CourseSteps' | translate}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -9,7 +9,7 @@
         <timeline-item *ngFor="let item of items; let i = index">
             <timeline-time [time]="item.time"></timeline-time>
             <ion-icon *ngIf="item.enable">{{i + 1}}</ion-icon>
-            <ion-icon *ngIf="!item.enable" style="background:#46a4da82">{{i + 1}}</ion-icon>
+            <ion-icon *ngIf="!item.enable" class="disabled-icon">{{i + 1}}</ion-icon>
             <ion-card>
                 <ion-card-header>
                     <button *ngIf="item.enable" ion-button small (click)="startAssessment()">{{item.title}}</button>
@@ -18,7 +18,7 @@
                 <ion-card-content *ngIf="item.enable">
                     {{item.content}}
                 </ion-card-content>
-                <ion-card-content *ngIf="!item.enable" style="color:lightgray">
+                <ion-card-content *ngIf="!item.enable" class="disabled-card-content">
                     {{item.content}}
                 </ion-card-content>
             </ion-card>
