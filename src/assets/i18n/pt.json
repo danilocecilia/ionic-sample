@@ -41,6 +41,9 @@
   "Date": "Data",
   "EquipmentRental": "Aluguel de Equipamento",
   "Quantity": "Quantidade",
+  "Start": "Iniciar",
+  "PreOrPostTest": "Pré ou Pós Teste",
+  "Submit": "Submeter",
   "ValidatorMessage": {
     "Required": "O campo {{value}} é obrigatório.",
     "Pattern": "Somente letras minúsculas e maiúsculas são aceitas.",
@@ -89,7 +92,9 @@
     "Library": "Biblioteca",
     "NotificationDetail": "Detalhes da Notificação",
     "EventSummary": "Sumário de Eventos",
-    "EnrollUsers": "Inscrever usuários"
+    "EnrollUsers": "Inscrever usuários",
+    "CourseSteps" : "Passos do Curso",
+    "Assessment": "Avaliação"
 },
   "TabsTitle": {
     "Notification": "Notificação",

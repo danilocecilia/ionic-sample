@@ -38,6 +38,9 @@
   "Date": "Date",
   "EquipmentRental": "Equipment Rental",
   "Quantity": "Quantity",
+  "Start": "Start",
+  "PreOrPostTest": "Pre or Post Test",
+  "Submit": "Submit",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
@@ -86,7 +89,9 @@
     "Library": "Library",
     "NotificationDetail": "Notification Detail",
     "EventSummary": "Event Summary",
-    "EnrollUsers": "Enroll Users"
+    "EnrollUsers": "Enroll Users",
+    "CourseSteps" : "Course Steps",
+    "Assessment": "Assessment"
   },
   "TabsTitle": {
     "Notification": "Notification",
