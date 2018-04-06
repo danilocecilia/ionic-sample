@@ -1,18 +1,44 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, Platform } from "ionic-angular";
 import { AssessmentComponent } from "../assessment/assessment";
+import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent  } from "../../components/timeline/timeline";
 
-/**
- * Generated class for the CourseStepsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: "course-steps",
   templateUrl: "course-steps.html"
 })
 export class CourseStepsComponent {
+  items = [
+    {
+      title: 'Pre-Test',
+      content: `You must answer a pre test assessment for this training.`,
+      icon: 'calendar',
+      time: { title: 'PRE-TEST' },
+      enable: true
+    },
+    {
+      title: 'Training Content',
+      content: `You can access the training content by clicking here!`,
+      icon: 'calendar',
+      time: { title: 'TRAINING CONTENT' },
+      enable: false
+    },
+    {
+      title: 'Post-Test',
+      content: `You must answer a pre test assessment for this training.`,
+      icon: 'calendar',
+      time: { title: 'POST-TEST' },
+      enable: false
+    },
+    {
+      title: 'Certificate',
+      content: `Get your certificate for the course.`,
+      icon: 'calendar',
+      time: { title: 'CERTIFICATE' },
+      enable: false
+    }
+  ];
+
   constructor(private navCtrl: NavController) {}
 
   startAssessment() {
