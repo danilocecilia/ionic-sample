@@ -22,7 +22,7 @@ export class NotificationsComponent implements OnInit {
     private toastProvider: ToastProvider,
     private authProvider: AuthProvider,
     private events: Events
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadingProvider.presentLoadingDefault();
@@ -71,6 +71,11 @@ export class NotificationsComponent implements OnInit {
     let modal = this.modalCtrl.create(ModalNotificationPage, {
       notification: notificationItem
     });
+
+    modal.onDidDismiss(() => {
+      this.loadNotifications(null);
+    })
+
     modal.present();
   }
 }
