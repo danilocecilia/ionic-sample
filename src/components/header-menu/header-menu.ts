@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { App, Nav, MenuController, Events } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
+import { Camera, CameraOptions } from "@ionic-native/camera";
 
 @Component({
   selector: "header-menu",
@@ -13,10 +14,11 @@ export class HeaderMenuComponent implements OnInit {
   pages: Array<{ title: string; component: any; method?: any; icon?: any }>;
 
   constructor(
-    public authProvider: AuthProvider,
-    public app: App,
-    public menuCtrl: MenuController,
-    public events: Events
+    private authProvider: AuthProvider,
+    private app: App,
+    private menuCtrl: MenuController,
+    private events: Events,
+    private camera: Camera
   ) {
     this.pages = [
       {
@@ -43,7 +45,7 @@ export class HeaderMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.getCurrentUser();
   }
 
@@ -54,6 +56,41 @@ export class HeaderMenuComponent implements OnInit {
         //console.log("getCurrentUser: " + this.currentUser);
       }
     });
+  }
+
+ getImage() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        this.currentUser.Thumbnail = imageData;
+        console.log('imageData '+imageData);
+      },
+      err => {
+        console.log(err);
+        //this.presentToast(err);
+      }
+    );
+  }
+
+
+  updateProfileImage() {
+    this.getImage();
+    // this.camera.getPicture({
+    //   quality: 50,
+    //   allowEdit: true,
+    //   cameraDirection: this.camera.Direction.FRONT,
+    //   destinationType: this.camera.DestinationType.DATA_URL
+    // }).then((imageData) => {
+    //   this.currentUser.Thumbnail = imageData;
+    // }, (err) => {
+
+    //   //this.toastCtrl.create('Error: ' + err);
+    // });
   }
 
   openPage(page) {
