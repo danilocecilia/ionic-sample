@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons start>
-      <button *ngIf="!isHidden" ion-button (click)="openDashboard()" icon-only>
+      <button *ngIf="!isButtonsHidden" ion-button (click)="openDashboard()" icon-only>
         <ion-icon name="stats"></ion-icon>
       </button>
       <button ion-button icon-only color="dark">
         <ion-icon name="navigate"></ion-icon>
       </button>
-      <button *ngIf="!isHidden" ion-button (click)="openQRCode()" icon-only>
+      <button *ngIf="!isButtonsHidden" ion-button (click)="openQRCode()" icon-only>
         <ion-icon name="qr-scanner"></ion-icon>
       </button>
     </ion-buttons>

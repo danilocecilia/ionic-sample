@@ -40,12 +40,12 @@ export class HeaderMenuComponent implements OnInit {
     ];
 
     this.events.subscribe("currentUser", user => {
-      if (user) this.currentUser = user.currentUser;
+      debugger;
+      if (user) this.currentUser = user;
     });
   }
 
   ngOnInit() {
-
     this.getCurrentUser();
   }
 
@@ -56,41 +56,6 @@ export class HeaderMenuComponent implements OnInit {
         //console.log("getCurrentUser: " + this.currentUser);
       }
     });
-  }
-
- getImage() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    };
-
-    this.camera.getPicture(options).then(
-      imageData => {
-        this.currentUser.Thumbnail = imageData;
-        console.log('imageData '+imageData);
-      },
-      err => {
-        console.log(err);
-        //this.presentToast(err);
-      }
-    );
-  }
-
-
-  updateProfileImage() {
-    this.getImage();
-    // this.camera.getPicture({
-    //   quality: 50,
-    //   allowEdit: true,
-    //   cameraDirection: this.camera.Direction.FRONT,
-    //   destinationType: this.camera.DestinationType.DATA_URL
-    // }).then((imageData) => {
-    //   this.currentUser.Thumbnail = imageData;
-    // }, (err) => {
-
-    //   //this.toastCtrl.create('Error: ' + err);
-    // });
   }
 
   openPage(page) {

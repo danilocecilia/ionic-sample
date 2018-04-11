@@ -11,8 +11,8 @@ import * as APPConfig from "../../app/config";
   templateUrl: "header-commom.html"
 })
 export class HeaderCommomComponent {
-  isHidden: boolean = true;
-
+  isButtonsHidden: boolean = true;
+  
   constructor(
     private navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
@@ -30,7 +30,7 @@ export class HeaderCommomComponent {
         let permission = APPConfig.APIPermission[element];
 
         if (permission === "GPS" || permission === "DASHBOARD") {
-          this.isHidden = false;
+          this.isButtonsHidden = false;
         }
       });
     }

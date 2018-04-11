@@ -1,9 +1,7 @@
 <ion-content>
   <div class="menu-header">
-    <!--material-design-background-->
-    <!-- <img class="user-avatar round" [src]="chosenPicture || placeholder" onerror="this.src='assets/img/thumbnail-terminator.png'"/> -->
     <ion-avatar item-start>
-      <img class="user-avatar round" (click)="updateProfileImage()" *ngIf="currentUser != null && currentUser.Thumbnail != undefined"
+      <img class="user-avatar round" *ngIf="currentUser != null && currentUser.Thumbnail != undefined"
         src="data:image/png;base64,{{currentUser.Thumbnail}}" onerror="this.src='assets/img/thumbnail.png'">
     </ion-avatar>
     <p class="name">{{currentUser != null ? currentUser.Name : ''}}</p>
