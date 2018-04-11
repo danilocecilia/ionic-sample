@@ -123,8 +123,6 @@ export class AuthPage {
   }
 
   setCurrentCulture() {
-    this.events.publish("currentUser", { currentUser: this.loggedUser });
-    
     if (this.loggedUser.Language && this.loggedUser.Language.Culture) {
       let culture = this.loggedUser.Language.Culture.substring(0, 2);
 
