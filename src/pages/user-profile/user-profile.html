@@ -5,78 +5,86 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      <ion-avatar item-start (click)="updateProfileImage()">
+  <div *ngIf="userProfile">
+    <ion-list>
+      <ion-list-header>
+        <!-- <ion-avatar item-start >
         <img src="data:image/png;base64,{{loggedUser.Thumbnail}}">
-      </ion-avatar>
-      <p class="username">{{loggedUser.Name}}</p>
-      <p>{{('Profile.' + loggedUser.Profile) | translate}}</p>
-    </ion-list-header>
-  </ion-list>
-  <ion-list no-border>
-    <ion-list-header color="secondary">
-      Personal Info
-    </ion-list-header>
-    <ion-item>
-      <ion-label>App Language</ion-label>
-      <ion-select [(ngModel)]="currentLanguage.code">
-        <ion-option *ngFor="let l of optionLanguages" [value]="l.code">{{l.name}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>First Name</ion-label>
-      <ion-input [(ngModel)]="loggedUser.Name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Last Name</ion-label>
-      <ion-input [(ngModel)]="loggedUser.LastName"></ion-input>
-    </ion-item>
+      </ion-avatar> -->
+        <ion-icon name="md-add-circle" class="profile-avatar-mask"></ion-icon>
+        <ion-avatar item-start (click)="updateProfileImage()">
+          <img class="user-avatar round" *ngIf="loggedUser != null && loggedUser.Thumbnail != undefined" src="data:image/png;base64,{{loggedUser.Thumbnail}}"
+            onerror="this.src='assets/img/thumbnail.png'">
+        </ion-avatar>
 
-  </ion-list>
-  <ion-list no-border>
-    <ion-list-header color="secondary">
-      Address Info
-    </ion-list-header>
-    <ion-item>
-      <ion-label stacked>Address Line 1</ion-label>
-      <ion-input placeholder="Address Line 1"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Address Line 2</ion-label>
-      <ion-input placeholder="Address Line 2"></ion-input>
-    </ion-item>
-    <ion-item>
+        <p class="username">{{loggedUser.Name}}</p>
+        <p>{{('Profile.' + loggedUser.Profile) | translate}}</p>
+      </ion-list-header>
+    </ion-list>
+    <ion-list no-border>
+      <ion-list-header color="secondary">
+        {{'PersonalInfo' | translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label>{{'AppLanguage' | translate}}</ion-label>
+        <ion-select [(ngModel)]="currentLanguage.id">
+          <ion-option *ngFor="let l of optionLanguages" [value]="l.id">{{l.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{'FirstName' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.FirstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{'LastName' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.LastName"></ion-input>
+      </ion-item>
 
-      <ion-label>Country</ion-label>
-      <ion-select [(ngModel)]="country">
-        <ion-option *ngFor="let country of countries" [value]="country">{{country}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label-size">State</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Postal Code</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-list-header color="secondary">
-      Phone Info
-    </ion-list-header>
-    <ion-item>
-      <ion-label class="label-size">Phone</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label-size">Fax</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-  </ion-list>
+    </ion-list>
+    <ion-list no-border>
+      <ion-list-header color="secondary">
+        {{'AddressInfo' | translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label stacked>{{'AddressLine1' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.Address.Address1" placeholder="Address Line 1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>{{'AddressLine2' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.Address.Address2" placeholder="Address Line 2"></ion-input>
+      </ion-item>
+      <ion-item>
 
-  <ion-item>
-    <button ion-button full (click)="onClickSave()">SAVE</button>
-  </ion-item>
+        <ion-label>{{'Country' | translate}}</ion-label>
+        <ion-select [(ngModel)]="currentCountry.name">
+          <ion-option *ngFor="let country of optionCountries" [value]="country.name">{{country.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label-size">{{'State' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.Address.State"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{'PostalCode' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.Address.PostalCode"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header color="secondary">
+        {{'PhoneInfo' | translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label class="label-size">{{'Phone' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.Address.Phone"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label-size">{{'Fax' | translate}}</ion-label>
+        <ion-input [(ngModel)]="userProfile.Address.Fax"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <button ion-button full (click)="onClickSave()">{{'Save' | translate}}</button>
+    </ion-item>
+  </div>
 </ion-content>

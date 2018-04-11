@@ -9,4 +9,19 @@ page-user-profile {
     // margin-top: 0px !important;
     // margin-bottom: 0px;
   }
+
+  .profile-avatar-mask {
+    position: absolute !important;
+    top: 59px !important;
+    left: 74px !important;
+    background: transparent !important;
+    color: map-get($colors, secondary) !important;
+  }
+
+  .user-avatar {
+    padding: 0.5em;
+    height: 12vh !important;
+    width: 12vh !important;
+    object-fit: cover;
+  }
 }
