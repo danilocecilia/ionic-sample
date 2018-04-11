@@ -16,6 +16,11 @@ export let cfg = {
     login: "Authentication/Authenticate",
     refresh: "Authentication/RefreshToken"
   },
+  user_profile:{
+    updateUserAvatar:"User/UpdateUserAvatar",
+    getUserProfile: "User/GetUserProfile",
+    updateUserProfile: "User/UpdateUserProfile"
+  },
   notification: {
     all: "notification/GetNotifications",
     notifyRead: "notification/ReadNotification"
