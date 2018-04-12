@@ -25,6 +25,7 @@ export class UserProfileProvider {
   }
 
   getUserProfile() {
+    debugger;
     return this.http
       .get(
         `${APPConfig.cfg.apiUrl}${APPConfig.cfg.user_profile.getUserProfile}?token=${this.authProvider.loggedUser.Token}`

@@ -11,7 +11,7 @@ import { TranslateService } from "@ngx-translate/core";
 export interface Language {
   name: string;
   code: string;
-  id: string;
+  id: number;
 }
 
 export interface Country {
@@ -24,7 +24,7 @@ export interface Country {
   templateUrl: "user-profile.html"
 })
 export class UserProfilePage implements OnInit {
-  currentLanguage: Language = { name: "Portuguese", code: "pt-BR", id: "2" };
+  currentLanguage: Language = { name: '', code: '', id: 2 };
   currentCountry: Country = { name: "BRAZIL" };
   loggedUser: any;
   userProfile: any;
@@ -36,19 +36,19 @@ export class UserProfilePage implements OnInit {
   ];
 
   optionLanguages: Language[] = [
-    { name: "English USA", code: "en-US", id: "1" },
-    { name: "Portuguese", code: "pt-BR", id: "2" },
-    { name: "Spanish", code: "es", id: "3" },
-    { name: "Italian", code: "it-IT", id: "4" },
-    { name: "German", code: "de-DE", id: "5" },
-    { name: "Japanese", code: "ja-JP", id: "6" },
-    { name: "Dutch", code: "nl-NL", id: "7" },
-    { name: "French", code: "fr-FR", id: "8" },
-    { name: "Swedish", code: "sv-SE", id: "9" },
-    { name: "Thai", code: "th-TH", id: "10" },
-    { name: "English UK", code: "en-GB", id: "11" },
-    { name: "Polish", code: "pl-PL", id: "12" },
-    { name: "Chinese", code: "zh-TW", id: "13" }
+    { name: "English USA", code: "en", id: 1 },
+    { name: "Portuguese", code: "pt", id: 2 },
+    { name: "Spanish", code: "es", id: 3 },
+    { name: "Italian", code: "it-IT", id: 4 },
+    { name: "German", code: "de-DE", id: 5 },
+    { name: "Japanese", code: "ja-JP", id: 6 },
+    { name: "Dutch", code: "nl-NL", id: 7 },
+    { name: "French", code: "fr-FR", id: 8 },
+    { name: "Swedish", code: "sv-SE", id: 9 },
+    { name: "Thai", code: "th-TH", id: 10 },
+    { name: "English UK", code: "en-GB", id: 11 },
+    { name: "Polish", code: "pl-PL", id: 12 },
+    { name: "Chinese", code: "zh-TW", id: 13 }
   ];
 
   placeholder = "assets/img/thumbnail.png";
@@ -59,9 +59,9 @@ export class UserProfilePage implements OnInit {
     private toastProvider: ToastProvider,
     private translateProvider: TranslateProvider,
     private userProfileProvider: UserProfileProvider,
-    private translate : TranslateService,
+    private translate: TranslateService,
     private loaderProvider: LoadingProvider
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
@@ -108,28 +108,33 @@ export class UserProfilePage implements OnInit {
         this.userProfile = response;
 
         this.currentCountry.name = this.userProfile.Address.Country;
-        this.currentLanguage.id = this.userProfile.Language.ID;
+
+        this.currentLanguage = this.getLanguageById(this.userProfile.Language.ID);
       }
     });
   }
 
+  private getLanguageById(id: number) {
+    return this.optionLanguages.find(lang => lang.id === id);
+  }
+
   onClickSave() {
     this.updateUserProfileObject();
-    
+
     this.userProfileProvider
       .updateUserProfile(this.userProfile)
       .then(response => {
         if (response.status) {
           return "ErrorMessage";
         } else {
-          
+
           this.updateLoggedUserObject();
 
           this.authProvider.saveToLocalStorage(this.loggedUser);
 
-          debugger;
-          this.translate.setDefaultLang(this.currentLanguage.code);
-          this.translate.use(this.currentLanguage.code);
+          let culture = this.currentLanguage.code.substring(0, 2);
+          this.translate.setDefaultLang(culture);
+          this.translate.use(culture);
 
           return "SuccessProfileMsg";
         }
@@ -143,9 +148,7 @@ export class UserProfilePage implements OnInit {
 
   private updateUserProfileObject() {
     this.userProfile.Address.Country = this.currentCountry.name;
-    this.userProfile.Language.ID = this.currentLanguage.id;
-    this.userProfile.Language.Culture = this.currentLanguage.code;
-    this.userProfile.Language.Language = this.currentLanguage.name;
+    this.userProfile.Language = this.getLanguageById(this.currentLanguage.id);
     this.userProfile.Token = this.loggedUser.Token;
   }
 
