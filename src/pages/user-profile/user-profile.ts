@@ -28,6 +28,7 @@ export class UserProfilePage implements OnInit {
   currentCountry: Country = { name: "BRAZIL" };
   loggedUser: any;
   userProfile: any;
+  shouldReload: boolean = false;
 
   optionCountries: Country[] = [
     { name: "BRAZIL" },
@@ -88,12 +89,14 @@ export class UserProfilePage implements OnInit {
             return "ErrorMessage";
           } else {
             this.loggedUser.Thumbnail = response;
+            
             this.authProvider.saveToLocalStorage(this.loggedUser);
             return "SuccessAvatarMsg";
           }
         })
         .then(response => {
-          this.translateProvider.translateMessage(response).then(translated => {
+          this.translateProvider.translateMessage(response)
+          .then(translated => {
             this.toastProvider.presentToast(translated);
           });
         });
@@ -118,6 +121,10 @@ export class UserProfilePage implements OnInit {
     });
   }
 
+  languageChanged(){
+    this.shouldReload = true;
+  }
+
   private getLanguageById(id: number) {
     let language = this.optionLanguages.find(lang => lang.ID === id);
     return JSON.parse(JSON.stringify(language));
@@ -137,8 +144,9 @@ export class UserProfilePage implements OnInit {
           this.authProvider.saveToLocalStorage(this.loggedUser);
 
           let culture = this.currentLanguage.Culture.substring(0, 2);
-          this.translate.setDefaultLang(culture);
+          
           this.translate.use(culture);
+          this.shouldReload ? window.location.reload() : false;
 
           return "SuccessProfileMsg";
         }

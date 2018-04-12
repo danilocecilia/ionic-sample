@@ -27,7 +27,7 @@
       </ion-list-header>
       <ion-item>
         <ion-label>{{'AppLanguage' | translate}}</ion-label>
-        <ion-select [(ngModel)]="currentLanguage.ID">
+        <ion-select [(ngModel)]="currentLanguage.ID" (ionChange)="languageChanged()">
           <ion-option *ngFor="let l of optionLanguages" [value]="l.ID">{{l.Language}}</ion-option>
         </ion-select>
       </ion-item>
@@ -83,8 +83,8 @@
       </ion-item>
     </ion-list>
 
-    <ion-item>
-      <button ion-button full (click)="onClickSave()">{{'Save' | translate}}</button>
-    </ion-item>
+    <div style="margin:15px">
+      <button ion-button full round (click)="onClickSave()">{{'Save' | translate}}</button>
+    </div>
   </div>
 </ion-content>
