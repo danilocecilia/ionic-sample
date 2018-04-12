@@ -40,7 +40,6 @@ export class HeaderMenuComponent implements OnInit {
     ];
 
     this.events.subscribe("currentUser", user => {
-      debugger;
       if (user) this.currentUser = user;
     });
   }
