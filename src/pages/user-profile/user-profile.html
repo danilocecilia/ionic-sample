@@ -27,8 +27,8 @@
       </ion-list-header>
       <ion-item>
         <ion-label>{{'AppLanguage' | translate}}</ion-label>
-        <ion-select [(ngModel)]="currentLanguage.id">
-          <ion-option *ngFor="let l of optionLanguages" [value]="l.id">{{l.name}}</ion-option>
+        <ion-select [(ngModel)]="currentLanguage.ID">
+          <ion-option *ngFor="let l of optionLanguages" [value]="l.ID">{{l.Language}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
