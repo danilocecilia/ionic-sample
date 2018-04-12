@@ -24,10 +24,11 @@ export interface Country {
   templateUrl: "user-profile.html"
 })
 export class UserProfilePage implements OnInit {
-  currentLanguage: Language = { name: '', code: '', id: 2 };
+  currentLanguage: Language;
   currentCountry: Country = { name: "BRAZIL" };
   loggedUser: any;
   userProfile: any;
+  
 
   optionCountries: Country[] = [
     { name: "BRAZIL" },
@@ -108,14 +109,21 @@ export class UserProfilePage implements OnInit {
         this.userProfile = response;
 
         this.currentCountry.name = this.userProfile.Address.Country;
-
         this.currentLanguage = this.getLanguageById(this.userProfile.Language.ID);
+        
       }
     });
   }
 
+  languageChanged(){
+    this.currentLanguage = this.getLanguageById(this.currentLanguage.id);
+  }
+
   private getLanguageById(id: number) {
-    return this.optionLanguages.find(lang => lang.id === id);
+    let test = this.optionLanguages.find(lang => lang.id === id);
+
+    return JSON.parse(JSON.stringify(test));
+
   }
 
   onClickSave() {
