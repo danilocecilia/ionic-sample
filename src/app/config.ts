@@ -14,7 +14,9 @@ export let cfg = {
   user: {
     register: "",
     login: "Authentication/Authenticate",
-    refresh: "Authentication/RefreshToken"
+    refresh: "Authentication/RefreshToken",
+    changePassword: "Authentication/ChangePassword",
+    recoveryPassowrd: "Authentication/RecoverPassword"
   },
   user_profile:{
     updateUserAvatar:"User/UpdateUserAvatar",
