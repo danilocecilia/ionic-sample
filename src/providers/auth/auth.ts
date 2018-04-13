@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { Http, Headers, Response, RequestOptions } from "@angular/http";
+import { Headers, Response, RequestOptions } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { AuthHttp, JwtHelper, tokenNotExpired } from "angular2-jwt";
-import { CredentialsModel } from "../../models/credentials";
+import { CredentialsModel, ChangePasswordModel } from "../../models/credentials";
 import "rxjs/add/operator/map";
 import * as AppConfig from "../../app/config";
 import { Observable } from "rxjs/Rx";
@@ -17,7 +18,7 @@ export class AuthProvider {
   refreshSubscription: any;
 
   constructor(
-    public http: Http,
+    public http: HttpClient,
     private authHttp: AuthHttp,
     private storage: Storage,
     private toastCtrl: ToastController,
@@ -27,14 +28,16 @@ export class AuthProvider {
   }
 
   getAuthenticate(credentials: CredentialsModel) {
-    return this.authHttp
+    return this.http
       .post(`${this.cfg.apiUrl + this.cfg.user.login}`, credentials)
       .toPromise()
       .then(data => {
-        data = data.json();
+        debugger;
         this.saveToLocalStorage(data);
         this.loggedUser = data;
         this.scheduleRefresh();
+      }).catch(err => {
+        debugger;
       });
   }
 
@@ -106,7 +109,7 @@ export class AuthProvider {
     if(this.loggedUser){
       this.http
         .get(this.cfg.apiUrl + this.cfg.user.refresh + "?token=" + this.loggedUser.Token)
-        .map(response => response.json())
+        // .map(response => response.json())
         .subscribe(
           userData => {
             if (userData) {
@@ -157,4 +160,18 @@ export class AuthProvider {
       }
     });
   }
+
+  changePassword(changePassword: ChangePasswordModel){
+   changePassword.token = this.loggedUser.Token;
+
+   return this.http.post(`${this.cfg.apiUrl}${this.cfg.user.changePassword}?token=${this.loggedUser.Token}`, changePassword)
+   .toPromise();  
+  }
+
+  // changePassword(changePassword: ChangePasswordModel){
+  //   changePassword.token = this.loggedUser.Token;
+ 
+  //   return this.http.post(`${this.cfg.apiUrl}${this.cfg.user.changePassword}?token=${this.loggedUser.Token}`, changePassword)
+  //   .toPromise();  
+  //  }
 }

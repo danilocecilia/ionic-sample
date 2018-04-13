@@ -87,7 +87,7 @@ export class AuthPage {
           return this.loadingProvider.dismissLoading().then(res => {
             if (this.authProvider.loggedUser) {
               this.loggedUser = this.authProvider.loggedUser;
-              console.log(this.loggedUser);
+              this.events.publish("currentUser", this.loggedUser);
             }
 
             this.setCurrentCulture();
@@ -95,17 +95,19 @@ export class AuthPage {
           });
         })
         .catch((err: Response) => {
-          return this.loadingProvider.dismissLoading().then(() => {
-            console.error(err);
-            let errMsg = err.json();
+          debugger;
+          console.log(err);
+          // return this.loadingProvider.dismissLoading().then(() => {
+          //   console.error(err);
+          //   let errMsg = err.json();
 
-            this.translateProvider.translateMessage(errMsg).then(value => {
-              if (value) {
-                this.toastProvider.presentToast(value);
-                console.log("translation found: " + value);
-              } else console.log("not found: " + value);
-            });
-          });
+          //   this.translateProvider.translateMessage(errMsg).then(value => {
+          //     if (value) {
+          //       this.toastProvider.presentToast(value);
+          //       console.log("translation found: " + value);
+          //     } else console.log("not found: " + value);
+          //   });
+          // });
         });
     }
   }
