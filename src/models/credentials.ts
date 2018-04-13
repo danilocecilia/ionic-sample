@@ -4,3 +4,9 @@ export interface CredentialsModel {
   device: string;
   deviceToken: string;
 }
+
+export interface ChangePasswordModel {
+  token: string;
+  currentPassword: string;
+  newPassword: string;
+}
