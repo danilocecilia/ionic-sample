@@ -32,12 +32,12 @@ export class AuthProvider {
       .post(`${this.cfg.apiUrl + this.cfg.user.login}`, credentials)
       .toPromise()
       .then(data => {
-        debugger;
         this.saveToLocalStorage(data);
         this.loggedUser = data;
         this.scheduleRefresh();
+        return data;
       }).catch(err => {
-        debugger;
+        throw err;
       });
   }
 

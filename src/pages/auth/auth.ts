@@ -83,31 +83,27 @@ export class AuthPage {
       this.loadingProvider.presentLoadingDefault();
       this.authProvider
         .getAuthenticate(this.authForm.value)
-        .then(() => {
-          return this.loadingProvider.dismissLoading().then(res => {
-            if (this.authProvider.loggedUser) {
-              this.loggedUser = this.authProvider.loggedUser;
-              this.events.publish("currentUser", this.loggedUser);
-            }
+        .then(response => {
+          if (response !== undefined) {
+            console.log("RESPOSNE: " + response);
+            return this.loadingProvider.dismissLoading().then(res => {
+              if (this.authProvider.loggedUser) {
+                this.loggedUser = this.authProvider.loggedUser;
+                this.events.publish("currentUser", this.loggedUser);
+              }
 
-            this.setCurrentCulture();
-            this.redirectToHome();
-          });
+              this.setCurrentCulture();
+              this.redirectToHome();
+            });
+          }
         })
-        .catch((err: Response) => {
-          debugger;
-          console.log(err);
-          // return this.loadingProvider.dismissLoading().then(() => {
-          //   console.error(err);
-          //   let errMsg = err.json();
-
-          //   this.translateProvider.translateMessage(errMsg).then(value => {
-          //     if (value) {
-          //       this.toastProvider.presentToast(value);
-          //       console.log("translation found: " + value);
-          //     } else console.log("not found: " + value);
-          //   });
-          // });
+        .catch(err => {
+          this.translateProvider.translateMessage(err.error).then(value => {
+            if (value) {
+              this.toastProvider.presentToast(value);
+              console.log("translation found: " + value);
+            } else console.log("not found: " + value);
+          });
         });
     }
   }

@@ -47,19 +47,14 @@ export class ChangePasswordPage {
     console.log("ionViewDidLoad ChangePasswordPage");
   }
 
-  showHide(input){
-    debugger;
-    let control = this.authForm.get(input);
-  }
-
   onSubmit(value: any): void {
     if (this.authForm.valid) {
       this.authProvider
         .changePassword(this.authForm.value)
         .then(() => {
-          this.authForm.reset()
-           return "SucessChangePassowrd"; 
-          })
+          this.authForm.reset();
+          return "SucessChangePassowrd";
+        })
         .catch(err => {
           return err.error;
         })
