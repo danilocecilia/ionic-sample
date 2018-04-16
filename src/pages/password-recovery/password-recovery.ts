@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from "@ngx-translate/core";
+import { AuthProvider } from '../../providers/auth/auth';
+import { ToastProvider } from '../../providers/toast/toast';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 @IonicPage()
 @Component({
@@ -15,11 +18,14 @@ export class PasswordRecoveryPage {
   authForm: FormGroup;
 
   constructor(
-    public navCtrl      : NavController,
-    public navParams    : NavParams,
-    public formBuilder  : FormBuilder,
-    private translate   : TranslateService,
-    public events       : Events) {
+    private navCtrl           : NavController,
+    private navParams         : NavParams,
+    private formBuilder       : FormBuilder,
+    private translate         : TranslateService,
+    private authProvider      : AuthProvider,
+    private toastProvider     : ToastProvider,
+    private translateProvider : TranslateProvider,
+    private events            : Events) {
 
     this.authForm = this.formBuilder.group({
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(8), Validators.maxLength(30)])]
@@ -28,8 +34,25 @@ export class PasswordRecoveryPage {
 
   onSubmit(value: any): void {
     if (this.authForm.valid) {
-      console.log("Ok");
+     this.passwordRecover();
     }
+  }
+
+  passwordRecover(){
+    this.authProvider.recoverPassword(this.authForm.value.username)
+    .then((response) => {
+      if(response == "SUCCESS"){
+        return "SuccessRecoverPassword";
+      }
+    })
+    .catch(err => {
+      return err.error;
+    })
+    .then(response => {
+      this.translateProvider.translateMessage(response).then(translated => {
+        this.toastProvider.presentToast(translated);
+      });
+    });
   }
 
   ionViewDidLoad() {

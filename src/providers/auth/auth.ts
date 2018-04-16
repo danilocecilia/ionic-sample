@@ -3,7 +3,10 @@ import { Storage } from "@ionic/storage";
 import { Headers, Response, RequestOptions } from "@angular/http";
 import { HttpClient } from "@angular/common/http";
 import { AuthHttp, JwtHelper, tokenNotExpired } from "angular2-jwt";
-import { CredentialsModel, ChangePasswordModel } from "../../models/credentials";
+import {
+  CredentialsModel,
+  ChangePasswordModel
+} from "../../models/credentials";
 import "rxjs/add/operator/map";
 import * as AppConfig from "../../app/config";
 import { Observable } from "rxjs/Rx";
@@ -36,7 +39,8 @@ export class AuthProvider {
         this.loggedUser = data;
         this.scheduleRefresh();
         return data;
-      }).catch(err => {
+      })
+      .catch(err => {
         throw err;
       });
   }
@@ -44,7 +48,7 @@ export class AuthProvider {
   public scheduleRefresh() {
     // If the user is authenticated, use the token stream
     // provided by angular2-jwt and flatMap the token
-   let source = Observable.of(this.loggedUser.Token).flatMap(token => {
+    let source = Observable.of(this.loggedUser.Token).flatMap(token => {
       // The delay to generate in this case is the difference
       // between the expiry time and the issued at time
       //let jwtIssuedAt = this.jwtHelper.decodeToken(token).iat;
@@ -106,20 +110,23 @@ export class AuthProvider {
   public refreshUserInfo() {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
-    if(this.loggedUser){
+    if (this.loggedUser) {
       this.http
-        .get(this.cfg.apiUrl + this.cfg.user.refresh + "?token=" + this.loggedUser.Token)
+        .get(
+          this.cfg.apiUrl +
+            this.cfg.user.refresh +
+            "?token=" +
+            this.loggedUser.Token
+        )
         // .map(response => response.json())
         .subscribe(
           userData => {
             if (userData) {
+              this.loggedUser = userData;
 
-                this.loggedUser = userData;
+              this.saveToLocalStorage(this.loggedUser);
 
-                this.saveToLocalStorage(this.loggedUser);
-                
-                console.log('User Data Refreshed')
-
+              console.log("User Data Refreshed");
             } else {
               console.log("The Token Black Listed");
               this.logout();
@@ -161,17 +168,20 @@ export class AuthProvider {
     });
   }
 
-  changePassword(changePassword: ChangePasswordModel){
-   changePassword.token = this.loggedUser.Token;
+  changePassword(changePassword: ChangePasswordModel) {
+    changePassword.token = this.loggedUser.Token;
 
-   return this.http.post(`${this.cfg.apiUrl}${this.cfg.user.changePassword}?token=${this.loggedUser.Token}`, changePassword)
-   .toPromise();  
+    return this.http
+      .post(
+        `${this.cfg.apiUrl}${this.cfg.user.changePassword}?token=${
+          this.loggedUser.Token
+        }`,
+        changePassword
+      )
+      .toPromise();
   }
 
-  // changePassword(changePassword: ChangePasswordModel){
-  //   changePassword.token = this.loggedUser.Token;
- 
-  //   return this.http.post(`${this.cfg.apiUrl}${this.cfg.user.changePassword}?token=${this.loggedUser.Token}`, changePassword)
-  //   .toPromise();  
-  //  }
+  recoverPassword(email: string) {
+    return this.http.get(`${this.cfg.apiUrl}${this.cfg.user.recoveryPassowrd}?login=${email}`).toPromise();
+  }
 }
