@@ -48,6 +48,7 @@
   "SuccessAvatarMsg": "Avatar atualizado com sucesso.",
   "SuccessProfileMsg": "Perfil atualizado com sucesso.",
   "SucessChangePassowrd": "Senha alterada com sucesso.",
+  "SuccessRecoverPassword": "Nova senha enviada por email.",
   "ErrorMessage": "Ocorreu um erro, tente novamente.",
   "PersonalInfo": "Informação Pessoal",
   "AppLanguage": "Linguagem do App",
