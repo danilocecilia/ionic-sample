@@ -111,9 +111,6 @@ export class UserProfilePage implements OnInit {
         this.userProfile = response;
 
         this.currentCountry.name = this.userProfile.Address.Country;
-
-        this.currentLanguage = this.getLanguageById(this.userProfile.Language.ID);
-         
         this.currentLanguage = this.getLanguageById(this.userProfile.Language.ID);
       }
     });
