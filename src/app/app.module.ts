@@ -84,6 +84,7 @@ import { ChangePasswordPageModule } from "../pages/change-password/change-passwo
 import { ToastProvider } from "../providers/toast/toast";
 import { PipesModule } from "../pipes/pipes.module";
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
+import { MediaProvider } from '../providers/media/media';
 
 let storage = new Storage({});
 
@@ -228,7 +229,8 @@ export function getAuthHttp(http: Http) {
     ToastProvider,
     TranslateProvider,
     UserProfileProvider,
-    DocumentViewer
+    DocumentViewer,
+    MediaProvider
   ]
 })
 export class AppModule {}
