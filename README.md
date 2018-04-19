@@ -1,7 +1,7 @@
-# ionic-sample
+# My-Ionic-Sample
 
 ****
-This Projectis  dedicated for my personal learning skills on this awesome framework.
+This Project is  dedicated for my personal learning skills on this awesome framework.
 
 This repository was made in order to help me and other people learn and speed up their development process.
 
