@@ -1,8 +1,8 @@
 {
-  "name": "lmsmsx",
+  "name": "msxlearn",
   "version": "0.0.1",
   "author": "Danilo Cecilia",
-  "homepage": "http://ionicframework.com/",
+  "homepage": "http://136.140.193.16:10002",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -23,8 +23,10 @@
     "@ionic-native/barcode-scanner": "^4.5.3",
     "@ionic-native/camera": "^4.5.3",
     "@ionic-native/core": "4.4.0",
+    "@ionic-native/document-viewer": "^4.7.0",
     "@ionic-native/file": "^4.5.3",
     "@ionic-native/file-chooser": "^4.5.3",
+    "@ionic-native/file-opener": "^4.7.0",
     "@ionic-native/file-transfer": "^4.5.3",
     "@ionic-native/globalization": "^4.5.3",
     "@ionic-native/in-app-browser": "^4.5.3",
@@ -43,6 +45,7 @@
     "cordova-android": "7.0.0",
     "cordova-plugin-camera": "^4.0.2",
     "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-document-viewer": "^0.9.9",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-filechooser": "^1.0.1",
@@ -66,8 +69,15 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
+    "@angular/cli": "^1.7.4",
     "@ionic/app-scripts": "3.1.6",
+    "@types/jasmine": "^2.8.6",
     "ionic": "3.20.0",
+    "jasmine-core": "^3.1.0",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.1",
     "typescript": "2.4.2"
   },
   "config": {
@@ -90,7 +100,8 @@
       "cordova-plugin-filechooser": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-globalization": {}
+      "cordova-plugin-globalization": {},
+      "cordova-plugin-document-viewer": {}
     },
     "platforms": [
       "android"
