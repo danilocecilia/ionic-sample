@@ -8,7 +8,7 @@
   <ng-container>
     <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'Search' | translate}}" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
 
-    <ion-card *ngFor="let lib of libs.Libraries">
+    <ion-card *ngFor="let lib of libs.Libraries" (click)="downloadFile(lib.File.Path, lib.File.FileName)">
       <ion-item color="secondary">
         <ion-avatar item-start>
           <ion-icon name="ios-document-outline"></ion-icon>

@@ -8,4 +8,8 @@ export class TranslateProvider {
   translateMessage(message) {
     return this.translate.get(message).toPromise();
   }
+
+  translateMessageWithParam(message, param) {
+    return this.translate.get(message, { value:param }).toPromise();
+  }
 }

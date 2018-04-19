@@ -61,6 +61,7 @@
   "Phone": "Phone",
   "Fax": "Fax",
   "Save": "SAVE",
+  "LibrarySuccess": "Downloaded {{value}}",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",

@@ -1,9 +1,14 @@
 import { Component } from "@angular/core";
-import { Events } from "ionic-angular";
+import { Events, Platform } from "ionic-angular";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { LibraryProvider } from "../../providers/library/library";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { AuthProvider } from "../../providers/auth/auth";
+import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
+import { File } from "@ionic-native/file";
+import { ToastProvider } from "../../providers/toast/toast";
+import * as AppConfig from "../../app/config";
+import { TranslateProvider } from "../../providers/translate/translate";
 
 @Component({
   selector: "library",
@@ -13,15 +18,19 @@ export class LibraryPage implements OnInit {
   loggedUser: any;
   libs: any = {};
   libsArray: any = {};
-  currentCulture:string;
+  currentCulture: string;
 
   constructor(
     public events: Events,
     public libProvider: LibraryProvider,
     private authProvider: AuthProvider,
     private loadingProvider: LoadingProvider,
-
-  ) { }
+    private transfer: FileTransfer,
+    private file: File,
+    private platform: Platform,
+    private toastProvider: ToastProvider,
+    private translateProvider: TranslateProvider
+  ) {}
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
@@ -63,7 +72,47 @@ export class LibraryPage implements OnInit {
     // } else this.loadLibrary();
   }
 
-  shouldLibCancel() { }
+  downloadFile(filePath, fileName) {
+    this.loadingProvider.presentLoadingDefault();
+    
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    const fullSourcePath = `${AppConfig.cfg.baseUrl}${filePath}` //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
+    debugger;
+    fileTransfer
+      .download(fullSourcePath, this.getDocumentPath() + `/${fileName}`)
+      .then(
+        entry => {
+          this.loadingProvider.dismissLoading();
+          
+          this.getToastMessage("LibrarySuccess", fileName);
+          
+          console.log("download complete: " + entry.toURL());
+        },
+        error => {
+          this.toastProvider.presentToast("Erro ao baixar o arquivo.");
+          console.log(error);
+          // handle error
+        }
+      );
+  }
+
+  getToastMessage(message:string, param:string){
+    this.translateProvider.translateMessageWithParam(message, param)
+    .then(tranlated => {
+      this.toastProvider.presentToast(tranlated);
+    })
+  }
+
+  getDocumentPath() {
+    if (this.platform.is("ios")) {
+      return this.file.documentsDirectory;
+    } else {
+      return this.file.externalRootDirectory + "Download";
+    }
+  }
+
+  shouldLibCancel() {}
 
   onCancel(event) {
     this.loadLibrary();
