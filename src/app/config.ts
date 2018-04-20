@@ -34,6 +34,9 @@ export let cfg = {
   },
   library: {
     all: "Library/GetLibraries"
+  },
+  media:{
+    all: "Media/GetMedias"
   }
 };
 
