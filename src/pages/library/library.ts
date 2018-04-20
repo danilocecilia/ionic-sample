@@ -30,7 +30,7 @@ export class LibraryPage implements OnInit {
     private platform: Platform,
     private toastProvider: ToastProvider,
     private translateProvider: TranslateProvider
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
@@ -72,21 +72,35 @@ export class LibraryPage implements OnInit {
     // } else this.loadLibrary();
   }
 
-  downloadFile(filePath, fileName) {
+  downloadOrOpenFile(filePath, fileName) {
     this.loadingProvider.presentLoadingDefault();
-    
+
+    this.file.checkFile(this.getDocumentPath(), fileName)
+      .then(foundIt => {
+        if (foundIt) {
+          //TODO: OPEN
+
+        }
+        else {
+          this.downloadFile(filePath, fileName);
+        }
+      });
+  }
+
+  downloadFile(filePath: string, fileName: string) {
+
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     const fullSourcePath = `${AppConfig.cfg.baseUrl}${filePath}` //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
-    debugger;
+
     fileTransfer
       .download(fullSourcePath, this.getDocumentPath() + `/${fileName}`)
       .then(
         entry => {
           this.loadingProvider.dismissLoading();
-          
-          this.getToastMessage("LibrarySuccess", fileName);
-          
+
+          this.showToastMessage("LibrarySuccess", fileName);
+
           console.log("download complete: " + entry.toURL());
         },
         error => {
@@ -97,11 +111,11 @@ export class LibraryPage implements OnInit {
       );
   }
 
-  getToastMessage(message:string, param:string){
+  showToastMessage(message: string, param: string) {
     this.translateProvider.translateMessageWithParam(message, param)
-    .then(tranlated => {
-      this.toastProvider.presentToast(tranlated);
-    })
+      .then(translated => {
+        this.toastProvider.presentToast(translated);
+      })
   }
 
   getDocumentPath() {
@@ -111,9 +125,7 @@ export class LibraryPage implements OnInit {
       return this.file.externalRootDirectory + "Download";
     }
   }
-
-  shouldLibCancel() {}
-
+  
   onCancel(event) {
     this.loadLibrary();
   }
