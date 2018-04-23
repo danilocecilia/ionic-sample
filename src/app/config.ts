@@ -5,8 +5,8 @@
 
 export let cfg = {
   baseUrl: "http://198.180.251.216:10002",
-  //apiUrl: "http://136.140.193.16:10002/API/", // INTERNAL IP
-  apiUrl: "http://198.180.251.216:10002/API/", // EXTERNAL IP 
+  //apiUrl: "http://136.140.193.16:10002/API/",  // INTERNAL IP
+  apiUrl: "http://198.180.251.216:10002/API/", // EXTERNAL IP
   tokenName: "token",
   agenda: {
     getClassesByDate: "Class/GetClassesByDate",
@@ -19,8 +19,8 @@ export let cfg = {
     changePassword: "Authentication/ChangePassword",
     recoveryPassowrd: "Authentication/RecoverPassword"
   },
-  user_profile:{
-    updateUserAvatar:"User/UpdateUserAvatar",
+  user_profile: {
+    updateUserAvatar: "User/UpdateUserAvatar",
     getUserProfile: "User/GetUserProfile",
     updateUserProfile: "User/UpdateUserProfile"
   },
@@ -35,7 +35,7 @@ export let cfg = {
   library: {
     all: "Library/GetLibraries"
   },
-  media:{
+  media: {
     all: "Media/GetMedias"
   }
 };
@@ -68,6 +68,22 @@ export enum APIStatus {
   USER_NOT_FOUND,
   USER_PASSWORD_NOT_MATCH
 }
+
+export let fileMimeTypes = [
+  { name : "PDF",  type: "application/pdf" }, 
+  { name : "DOC",  type: "application/msword"},
+  { name : "DOCX", type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+  { name : "XLS",  type: "application/vnd.ms-excel" },
+  { name : "XLSX", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+  { name : "PPT",  type: "application/vnd.ms-powerpoint"},
+  { name : "PPTX", type: "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
+  { name : "MP4A", type: "audio/mp4"},
+  { name : "MP4",  type: "application/mp4"},
+  { name : "AVI",  type: "video/x-msvideo"},
+  { name : "PNG",  type: "image/png"},
+  { name : "JPG",  type: "image/jpeg"},
+  { name : "JPEG", type: "image/jpeg"}
+];
 
 export let cultures = ["pt-BR", "en-US", "es"];
 

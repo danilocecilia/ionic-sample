@@ -8,7 +8,7 @@
   <ng-container>
     <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'Search' | translate}}" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
 
-    <ion-card *ngFor="let lib of libs.Libraries" (click)="downloadOrOpenFile(lib.File.Path, lib.File.FileName)">
+    <ion-card *ngFor="let lib of libs.Libraries" (click)="downloadOrOpenFile(lib.File.Path, lib.File.FileName, lib.File.Extension)">
       <ion-item color="secondary">
         <ion-avatar item-start>
           <ion-icon name="ios-document-outline"></ion-icon>
@@ -17,11 +17,14 @@
         <div class="category">
           <p>{{lib.Category.Category}}</p>
         </div>
-        <div>
+        <div style="float:left;width: 23%; margin-top: 10px">
           <b>{{lib.File.Size}}MB</b>
         </div>
+        <div style="margin-top:10px;">
+          <ion-icon name="md-download"></ion-icon>
+        </div>
         <div class="date">
-            {{lib.Date | localeDate:currentCulture}}
+          {{lib.Date | localeDate:currentCulture}}
         </div>
       </ion-item>
       <ion-row text-left class="summary" padding-left padding-right>

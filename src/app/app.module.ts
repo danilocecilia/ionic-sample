@@ -19,6 +19,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { Globalization } from "@ionic-native/globalization";
 import { DocumentViewer } from '@ionic-native/document-viewer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 /***********************/
 //Pages
@@ -230,7 +231,8 @@ export function getAuthHttp(http: Http) {
     TranslateProvider,
     UserProfileProvider,
     DocumentViewer,
-    MediaProvider
+    MediaProvider,
+    FileOpener
   ]
 })
 export class AppModule {}

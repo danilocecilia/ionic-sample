@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastController } from "ionic-angular";
+import { FileOpener } from "@ionic-native/file-opener";
 
 /*
   Generated class for the ToastProvider provider.
@@ -18,6 +19,22 @@ export class ToastProvider {
       duration: 3000,
       position: "bottom"
     });
+
+    return toast.present();
+  }
+
+  presentToastWithCallBack(text: string, callback:Function, fileOpener:FileOpener, objCheckFile:any, fileMimeTypes:any) : Promise<any> {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: "bottom",
+      showCloseButton: true, 
+      closeButtonText: 'open'
+    });
+
+    toast.onDidDismiss(() => {
+      callback(fileOpener, objCheckFile, fileMimeTypes);
+    })
 
     return toast.present();
   }

@@ -9,6 +9,7 @@ import { File } from "@ionic-native/file";
 import { ToastProvider } from "../../providers/toast/toast";
 import * as AppConfig from "../../app/config";
 import { TranslateProvider } from "../../providers/translate/translate";
+import { FileOpener } from "@ionic-native/file-opener";
 
 @Component({
   selector: "library",
@@ -19,18 +20,21 @@ export class LibraryPage implements OnInit {
   libs: any = {};
   libsArray: any = {};
   currentCulture: string;
+  filePath: string;
+  objCheckFile: any = {};
 
   constructor(
-    public events: Events,
-    public libProvider: LibraryProvider,
+    private events: Events,
+    private libProvider: LibraryProvider,
     private authProvider: AuthProvider,
     private loadingProvider: LoadingProvider,
     private transfer: FileTransfer,
     private file: File,
     private platform: Platform,
     private toastProvider: ToastProvider,
-    private translateProvider: TranslateProvider
-  ) { }
+    private translateProvider: TranslateProvider,
+    private fileOpener: FileOpener
+  ) {}
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
@@ -69,32 +73,39 @@ export class LibraryPage implements OnInit {
 
     if (this.libs.Libraries.length > 0) this.libs.Libraries = this.libsArray;
     else this.loadLibrary();
-    // } else this.loadLibrary();
   }
 
-  downloadOrOpenFile(filePath, fileName) {
+  downloadOrOpenFile(filePath: string, fileName: string, extension: string) {
     this.loadingProvider.presentLoadingDefault();
 
-    this.file.checkFile(this.getDocumentPath(), fileName)
-      .then(foundIt => {
-        if (foundIt) {
-          //TODO: OPEN
+    this.prepareObjectForCheckFile(fileName, extension);
 
+    this.file
+      .checkFile(this.objCheckFile.path, this.objCheckFile.fileName)
+      .then(found => {
+        if (found) {
+          this.openDocument(
+            this.fileOpener,
+            this.objCheckFile,
+            AppConfig.fileMimeTypes
+          );
         }
-        else {
-          this.downloadFile(filePath, fileName);
-        }
+      })
+      .catch(err => {
+        this.loadingProvider.dismissLoading();
+
+        this.downloadFile(filePath, fileName);
+        console.log(err);
       });
   }
 
   downloadFile(filePath: string, fileName: string) {
-
     const fileTransfer: FileTransferObject = this.transfer.create();
 
-    const fullSourcePath = `${AppConfig.cfg.baseUrl}${filePath}` //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
+    const fullSourcePath = `${AppConfig.cfg.baseUrl}${filePath}/${fileName}`; //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
 
     fileTransfer
-      .download(fullSourcePath, this.getDocumentPath() + `/${fileName}`)
+      .download(fullSourcePath, this.getDocumentPathFromDevice(fileName))
       .then(
         entry => {
           this.loadingProvider.dismissLoading();
@@ -104,28 +115,62 @@ export class LibraryPage implements OnInit {
           console.log("download complete: " + entry.toURL());
         },
         error => {
-          this.toastProvider.presentToast("Erro ao baixar o arquivo.");
+          this.loadingProvider.dismissLoading();
+
+          this.translateProvider.translateMessage("ErrorMessage")
+          .then(translated => {
+            this.toastProvider.presentToast(translated);
+          });
+
           console.log(error);
-          // handle error
         }
       );
   }
 
   showToastMessage(message: string, param: string) {
-    this.translateProvider.translateMessageWithParam(message, param)
+    this.translateProvider
+      .translateMessageWithParam(message, param)
       .then(translated => {
-        this.toastProvider.presentToast(translated);
-      })
+        this.toastProvider.presentToastWithCallBack(
+          translated,
+          this.openDocument,
+          this.fileOpener,
+          this.objCheckFile,
+          AppConfig.fileMimeTypes
+        );
+      });
   }
 
-  getDocumentPath() {
+  openDocument(fileOpener: FileOpener, objCheckFile: any, fileMimeTypes: any) {
+    let mimeType = fileMimeTypes.find(
+      type => type.name.toLowerCase() === objCheckFile.extension
+    );
+
+    fileOpener.open(objCheckFile.fullPath, mimeType.type);
+  }
+
+  getDocumentPathFromDevice(fileName: string) {
     if (this.platform.is("ios")) {
-      return this.file.documentsDirectory;
+      return `${this.file.documentsDirectory}/${fileName}`;
     } else {
-      return this.file.externalRootDirectory + "Download";
+      return `${this.file.externalRootDirectory}Download/${fileName}`;
     }
   }
-  
+
+  prepareObjectForCheckFile(fileName: string, extension: string) {
+    if (this.platform.is("ios")) {
+      this.objCheckFile.path = this.file.documentsDirectory;
+      this.objCheckFile.fileName = fileName;
+    } else {
+      this.objCheckFile.path = this.file.externalRootDirectory;
+      this.objCheckFile.fileName = `Download/${fileName}`;
+    }
+
+    this.objCheckFile.extension = extension.replace(".", "");
+    this.objCheckFile.fullPath =
+      this.objCheckFile.path + this.objCheckFile.fileName;
+  }
+
   onCancel(event) {
     this.loadLibrary();
   }
