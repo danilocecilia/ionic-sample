@@ -2,17 +2,25 @@
   <ion-navbar>
     <ion-title>{{'TitlePage.MediaGalery' | translate}}</ion-title>
     <ion-buttons end>
-        <button ion-button (click)="onCloseModal()">
-          <ion-icon name="close"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button (click)="onCloseModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-slides paginationType="bullets" loop="true" pager parallax>
-        <ion-slide  *ngFor="let file of media.Files">
-          <img *ngIf="file.FullPathMedia" src="{{file.FullPathMedia}}">
-        </ion-slide>
-      </ion-slides>
+  <ion-slides paginationType="bullets" pager parallax>
+    <ion-slide *ngFor="let file of media.Files">
+      <img *ngIf="file.FullPathMedia && media.Type === 0" src="{{file.FullPathMedia}}">
+<!-- 
+      <video *ngIf="media.Type === 1" width="320" height="240" autoplay>
+        <source src="http://136.140.193.16:10002/Files/Media/4/WhatsApp Video 2017-11-20 at 20.26.01.mp4" type="video/mp4">
+      </video> -->
+
+      <video *ngIf="media.Type === 1" width="320" height="240" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+          <source src="{{file.FullPathMedia}}" type="video/mp4">
+      </video>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
