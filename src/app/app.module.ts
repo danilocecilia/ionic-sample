@@ -32,6 +32,7 @@ import { LibraryPage } from "../pages/library/library";
 import { AgendaPage } from "../pages/agenda/agenda";
 import { MediaPage } from "../pages/media/media";
 import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-course-steps";
+import { ModalMediaGaleryPage } from "../pages/modal-media-galery/modal-media-galery";
 
 /***********************/
 //Components
@@ -136,7 +137,8 @@ export function getAuthHttp(http: Http) {
     ModalCourseStepsComponent,
     TimelineComponent,
     TimelineItemComponent,
-    TimelineTimeComponent
+    TimelineTimeComponent,
+    ModalMediaGaleryPage
   ],
   imports: [
     BrowserModule,
@@ -191,7 +193,8 @@ export function getAuthHttp(http: Http) {
     ModalCourseStepsComponent,
     TimelineComponent,
     TimelineItemComponent,
-    TimelineTimeComponent
+    TimelineTimeComponent,
+    ModalMediaGaleryPage
   ],
   providers: [
     StatusBar,

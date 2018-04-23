@@ -6,29 +6,26 @@
 
 <ion-content no-bounce *ngIf="media">
   <ion-searchbar></ion-searchbar>
-  <ion-card *ngFor="let m of media.Medias">
-    <img src="https://ionicframework.com/dist/preview-app/www/assets/img/advance-card-bttf.png">
+  <ion-card *ngFor="let m of media.Medias" (click)="openGalery(m)">
+    <img src="data:image/png;base64,{{m.Thumbnail}}">
     <ion-grid>
       <ion-row>
         <ion-col col-6>
           <div>{{m.Title}}</div>
         </ion-col>
         <ion-col col-6 text-right>
-          <p>{{m.Type}}</p>
+          <ion-icon *ngIf="m.Type == 0" name="ios-image-outline" style="font-size: 23px;"></ion-icon>
+          <ion-icon *ngIf="m.Type == 1" name="ios-videocam-outline" style="font-size: 23px;"></ion-icon>
         </ion-col>
       </ion-row>
       <ion-row no-margin align-items>
-        <ion-col col-10 style="font-size:70%;">
-          <b>published at 08/10/2017 by Admin</b>
-        </ion-col>
-        <ion-col text-right col-2 style="font-size:70%">
-          <b>1MB</b>
+        <ion-col col-10>
+          {{m.Category.Category}}
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          {{m.Description}}
         </ion-col>
       </ion-row>
     </ion-grid>

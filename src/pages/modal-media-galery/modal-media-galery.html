@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'TitlePage.MediaGalery' | translate}}</ion-title>
+    <ion-buttons end>
+        <button ion-button (click)="onCloseModal()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-slides paginationType="bullets" loop="true" pager parallax>
+        <ion-slide  *ngFor="let file of media.Files">
+          <img *ngIf="file.FullPathMedia" src="{{file.FullPathMedia}}">
+        </ion-slide>
+      </ion-slides>
+</ion-content>
