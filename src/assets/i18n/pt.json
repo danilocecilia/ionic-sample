@@ -64,6 +64,7 @@
   "Phone": "Telefone",
   "Fax": "Fax",
   "Save": "SALVAR",
+  "Open": "ABRIR",
   "LibrarySuccess": "Baixado {{value}}",
   "ValidatorMessage": {
     "Required": "O campo {{value}} é obrigatório.",

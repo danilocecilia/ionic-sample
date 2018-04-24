@@ -20,8 +20,7 @@ export class LibraryPage implements OnInit {
   libs: any = {};
   libsArray: any = {};
   currentCulture: string;
-  filePath: string;
-  objCheckFile: any = {};
+  open : string;
 
   constructor(
     private events: Events,
@@ -40,6 +39,7 @@ export class LibraryPage implements OnInit {
     this.loggedUser = this.authProvider.loggedUser;
     this.currentCulture = this.loggedUser.Language.Culture;
     this.loadLibrary();
+    this.getTranslatedOpenButton();
   }
 
   loadLibrary() {
@@ -75,69 +75,64 @@ export class LibraryPage implements OnInit {
     else this.loadLibrary();
   }
 
-  downloadOrOpenFile(filePath: string, fileName: string, extension: string) {
+  downloadOrOpenFile(sourceFilePath: string, sourceFileName: string, extension: string) {
     this.loadingProvider.presentLoadingDefault();
 
-    this.prepareObjectForCheckFile(fileName, extension);
+    let fileObject = this.getFileObject(sourceFilePath, sourceFileName, extension);
 
     this.file
-      .checkFile(this.objCheckFile.path, this.objCheckFile.fileName)
-      .then(found => {
-        if (found) {
-          this.openDocument(
-            this.fileOpener,
-            this.objCheckFile,
-            AppConfig.fileMimeTypes
-          );
-        }
+      .checkFile(fileObject.targetPath, fileObject.targetFileName)
+      .then(() => {
+        //promise will always resolve when it found the file
+        this.openDocument(this.fileOpener, fileObject, AppConfig.fileMimeTypes);
       })
       .catch(err => {
-        this.loadingProvider.dismissLoading();
-
-        this.downloadFile(filePath, fileName);
+        this.downloadFile(fileObject);
         console.log(err);
       });
   }
 
-  downloadFile(filePath: string, fileName: string) {
+  downloadFile(fileObject: any) {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
-    const fullSourcePath = `${AppConfig.cfg.baseUrl}${filePath}/${fileName}`; //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
+    const fullSourcePath = `${AppConfig.cfg.baseUrl}${fileObject.sourceFilePath}/${fileObject.sourceFileName}`; //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
 
     fileTransfer
-      .download(fullSourcePath, this.getDocumentPathFromDevice(fileName))
+      .download(fullSourcePath, this.getDocumentPathFromDevice(fileObject.sourceFileName))
       .then(
         entry => {
           this.loadingProvider.dismissLoading();
 
-          this.showToastMessage("LibrarySuccess", fileName);
+          this.showToastMessage("LibrarySuccess", fileObject);
 
           console.log("download complete: " + entry.toURL());
         },
         error => {
           this.loadingProvider.dismissLoading();
 
-          this.translateProvider.translateMessage("ErrorMessage")
-          .then(translated => {
-            this.toastProvider.presentToast(translated);
-          });
+          this.translateProvider
+            .translateMessage("ErrorMessage")
+            .then(translated => {
+              this.toastProvider.presentToast(translated);
+            });
 
           console.log(error);
         }
       );
   }
 
-  showToastMessage(message: string, param: string) {
+  showToastMessage(message: string, fileObject) {
     this.translateProvider
-      .translateMessageWithParam(message, param)
+      .translateMessageWithParam(message, fileObject.sourceFileName)
       .then(translated => {
-        this.toastProvider.presentToastWithCallBack(
-          translated,
-          this.openDocument,
-          this.fileOpener,
-          this.objCheckFile,
-          AppConfig.fileMimeTypes
-        );
+        this.toastProvider
+          .presentToastWithCallBack(translated, this.open)
+          .then(() => {
+            this.openDocument(this.fileOpener, fileObject, AppConfig.fileMimeTypes)
+          })
+          .catch(err => {
+            console.log(err);
+          });
       });
   }
 
@@ -146,7 +141,7 @@ export class LibraryPage implements OnInit {
       type => type.name.toLowerCase() === objCheckFile.extension
     );
 
-    fileOpener.open(objCheckFile.fullPath, mimeType.type);
+    fileOpener.open(objCheckFile.targetFullPath, mimeType.type);
   }
 
   getDocumentPathFromDevice(fileName: string) {
@@ -157,20 +152,32 @@ export class LibraryPage implements OnInit {
     }
   }
 
-  prepareObjectForCheckFile(fileName: string, extension: string) {
+  getFileObject(filePath: string, fileName: string, extension: string) {
+    let fileObject:any = {};
+
     if (this.platform.is("ios")) {
-      this.objCheckFile.path = this.file.documentsDirectory;
-      this.objCheckFile.fileName = fileName;
+      fileObject.targetPath = this.file.documentsDirectory;
+      fileObject.targeFileName = fileName;
     } else {
-      this.objCheckFile.path = this.file.externalRootDirectory;
-      this.objCheckFile.fileName = `Download/${fileName}`;
+      fileObject.targetPath = this.file.externalRootDirectory;
+      fileObject.targeFileName = `Download/${fileName}`;
     }
 
-    this.objCheckFile.extension = extension.replace(".", "");
-    this.objCheckFile.fullPath =
-      this.objCheckFile.path + this.objCheckFile.fileName;
+    fileObject.sourceFileName = fileName;
+    fileObject.sourceFilePath = filePath;
+    fileObject.extension = extension.replace(".", "");
+    fileObject.targetFullPath = fileObject.targetPath + fileObject.targeFileName;
+    
+    return fileObject;
   }
 
+  getTranslatedOpenButton(){
+    this.translateProvider.translateMessage("Open")
+    .then((translated) => {
+      this.open = translated;
+    })
+  }
+  
   onCancel(event) {
     this.loadLibrary();
   }

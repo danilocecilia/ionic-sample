@@ -10,6 +10,6 @@ export class TranslateProvider {
   }
 
   translateMessageWithParam(message, param) {
-    return this.translate.get(message, { value:param }).toPromise();
+    return this.translate.get(message, { value: param }).toPromise();
   }
 }
