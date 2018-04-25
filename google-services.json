@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "691007744829",
+    "firebase_url": "https://ionicpushbase.firebaseio.com",
+    "project_id": "ionicpushbase",
+    "storage_bucket": "ionicpushbase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691007744829:android:764d2cb7da3280eb",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691007744829-pg7c7vp4dqktcvqhc6mkd0selvfgr5h6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBabLOa7OmSzMLgkVWq7tIc6-tUugNpLR0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691007744829:android:ebd5635dca240f29",
+        "android_client_info": {
+          "package_name": "msx.learn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691007744829-pg7c7vp4dqktcvqhc6mkd0selvfgr5h6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBabLOa7OmSzMLgkVWq7tIc6-tUugNpLR0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
