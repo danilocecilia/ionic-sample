@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, ModalController, NavController } from "ionic-angular";
+import { Platform, ModalController, NavController, AlertController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Events } from "ionic-angular";
@@ -9,6 +9,8 @@ import { AuthPage } from "../pages/auth/auth";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { timer  } from "rxjs/observable/timer";
+import { PushOptions, PushObject, Push } from "@ionic-native/push";
+
 @Component({
   templateUrl: "app.html"
 })
@@ -20,16 +22,20 @@ export class MyApp {
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    public events: Events,
-    public modalController: ModalController,
-    public authProvider: AuthProvider,
+    private events: Events,
+    private modalController: ModalController,
+    private authProvider: AuthProvider,
     private translate: TranslateService,
-    private globalization: Globalization
+    private globalization: Globalization,
+    private push: Push,
+    private alertCtrl: AlertController
   ) {
     platform.ready().then(() => {
       statusBar.backgroundColorByHexString("#003a8b");
       splashScreen.hide();
       
+      this.pushsetup();
+
       translate.addLangs(["en", "pt"]);
 
       this.getLocalStorageUser()
@@ -39,6 +45,24 @@ export class MyApp {
     });
 
     timer(3000).subscribe(() => this.showSplash = false);
+  }
+
+  pushsetup() {
+    const options: PushOptions = {};
+
+    const pushObject: PushObject = this.push.init(options);
+
+    pushObject.on("registration").subscribe((registration: any) => {});
+
+    pushObject.on("notification").subscribe((notification: any) => {
+      if (notification.additionalData.foreground) {
+        let youralert = this.alertCtrl.create({
+          title: notification.label,
+          message: notification.message
+        });
+        youralert.present();
+      }
+    });
   }
 
   checkIfUserIsLogged() {

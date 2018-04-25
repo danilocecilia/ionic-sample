@@ -20,6 +20,7 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { Globalization } from "@ionic-native/globalization";
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
+import { Push } from '@ionic-native/push';
 
 /***********************/
 //Pages
@@ -31,7 +32,7 @@ import { ModalLogisticPage } from "../pages/modal-logistic/modal-logistic";
 import { LibraryPage } from "../pages/library/library";
 import { AgendaPage } from "../pages/agenda/agenda";
 import { MediaPage } from "../pages/media/media";
-import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-course-steps";
+
 import { ModalMediaGaleryPage } from "../pages/modal-media-galery/modal-media-galery";
 
 /***********************/
@@ -53,11 +54,8 @@ import { EsBillingsComponent } from "../components/es-billings/es-billings";
 import { EsLogisticsComponent } from "../components/es-logistics/es-logistics";
 import { PrePostTestComponent } from "../components/pre-post-test/pre-post-test";
 import { TrainingContentFileComponent } from "../components/training-content-file/training-content-file";
-import {
-  TimelineComponent,
-  TimelineItemComponent,
-  TimelineTimeComponent
-} from "../components/timeline/timeline";
+import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from "../components/timeline/timeline";
+import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-course-steps";
 
 /***********************/
 //Providers
@@ -87,6 +85,7 @@ import { ToastProvider } from "../providers/toast/toast";
 import { PipesModule } from "../pipes/pipes.module";
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 import { MediaProvider } from '../providers/media/media';
+import { EventSummaryProvider } from '../providers/event-summary/event-summary';
 
 let storage = new Storage({});
 
@@ -208,10 +207,6 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    // {
-    //   provide: LOCALE_ID,
-    //   useValue: "en-US"
-    // },
     TodosProvider,
     AuthProvider,
     FooterProvider,
@@ -235,7 +230,9 @@ export function getAuthHttp(http: Http) {
     UserProfileProvider,
     DocumentViewer,
     MediaProvider,
-    FileOpener
+    FileOpener,
+    Push,
+    EventSummaryProvider
   ]
 })
 export class AppModule {}
