@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, Platform } from "ionic-angular";
+import { NavController } from "ionic-angular";
 import { AssessmentComponent } from "../assessment/assessment";
-import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent  } from "../../components/timeline/timeline";
 
 @Component({
   selector: "course-steps",
