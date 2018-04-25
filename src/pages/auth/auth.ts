@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   MenuController,
-  Events
+  Events,
+  Platform
 } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
@@ -34,17 +35,18 @@ export class AuthPage {
   loggedUser: any;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public formBuilder: FormBuilder,
-    public storage: Storage,
-    public authProvider: AuthProvider,
-    public menu: MenuController,
-    public events: Events,
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private formBuilder: FormBuilder,
+    private storage: Storage,
+    private authProvider: AuthProvider,
+    private menu: MenuController,
+    private events: Events,
     private loadingProvider: LoadingProvider,
     private translate: TranslateService,
     private translateProvider: TranslateProvider,
-    private toastProvider: ToastProvider
+    private toastProvider: ToastProvider,
+    private platform: Platform
   ) {
     this.menu.enable(false);
 
@@ -53,21 +55,10 @@ export class AuthPage {
     this.toastMessage = navParams.get("message");
 
     this.authForm = this.formBuilder.group({
-      username: [
-        "",
-        Validators.compose([
-          Validators.required,
-          //Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"),
-          Validators.minLength(3),
-          Validators.maxLength(30)
-        ])
-      ],
-      password: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(3)])
-      ],
+      username: ["", Validators.compose([Validators.required])],
+      password: ["",Validators.compose([Validators.required, Validators.minLength(3)])],
       devideToken: "uiashdfiuahs79dfasdyf8asbdfugas0dfajs8",
-      device: "android"
+      device: this.platform.is('ios') ? 'ios' : 'android'
     });
 
     this.events.publish("hideHeader", { isHidden: true });

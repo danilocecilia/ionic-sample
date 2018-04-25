@@ -10,8 +10,6 @@ import { Storage } from "@ionic/storage";
 import { NavParams } from "ionic-angular/navigation/nav-params";
 
 import { ProtectedPage } from "../protected/protected";
-import { ModalNotificationPage } from "../modal-notification/modal-notification";
-import { StatusBar } from "@ionic-native/status-bar";
 
 @Component({
   selector: "page-home",
@@ -29,7 +27,6 @@ export class HomePage extends ProtectedPage {
     public events: Events,
     public modalCtrl: ModalController,
     public menu: MenuController,
-    private statusBar: StatusBar
   ) {
     super(navCtrl, navParams, storage);
 

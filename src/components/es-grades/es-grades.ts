@@ -1,12 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { AlertController } from "ionic-angular";
+import { Component } from "@angular/core";
 
-/**
- * Generated class for the EsGradesComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: "es-grades",
   templateUrl: "es-grades.html"
@@ -18,7 +11,7 @@ export class EsGradesComponent {
   presenceType: string;
   hide: boolean = true;
 
-  constructor(private alertCtrl: AlertController) {
+  constructor() {
     this.presence = true;
   }
 

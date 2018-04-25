@@ -1,16 +1,6 @@
 import { Component } from "@angular/core";
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  ToastController
-} from "ionic-angular";
-import {
-  FileTransfer,
-  FileUploadOptions,
-  FileTransferObject
-} from "@ionic-native/file-transfer";
-import { File } from "@ionic-native/file";
+import { NavController, NavParams, ToastController } from "ionic-angular";
+import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
 import { FileChooser } from "@ionic-native/file-chooser";
 import { LoadingProvider } from "../../providers/loading/loading";
 
@@ -25,7 +15,6 @@ export class ModalLogisticPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private file: File,
     private transfer: FileTransfer,
     public toastCtrl: ToastController,
     private fileChooser: FileChooser,

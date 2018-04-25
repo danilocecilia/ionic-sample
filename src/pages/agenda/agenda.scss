@@ -1,13 +1,8 @@
-agenda {
-  // ion-alert > .alert-wrapper > .alert-message {
-  //   color: red;
-  //   background: blue;
-  // }
-  // #alert-msg-0 {
-  //   color: red;
-  //   background: blue;
-  // }
-
+  .alert-title{
+    color: map-get($colors, primary) !important;
+    font-size: 20px !important;
+  }
+  
   .toolbar-title {
     overflow: visible;
     position: relative;
@@ -18,4 +13,3 @@ agenda {
       margin: 0;
     }
   }
-}

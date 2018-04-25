@@ -200,7 +200,7 @@ export class AgendaPage implements OnInit {
       title: event.title,
       subTitle: this.bindSubTitle(event),
       message: this.description,
-      cssClass: "description",
+      cssClass: "alertCustomCss",
       buttons: [
         {
           text: this.no,
@@ -223,7 +223,6 @@ export class AgendaPage implements OnInit {
 
               courseStepsModal.present();
 
-              // this.navController.push(CourseStepsComponent, { event: event });
               console.log("Yes");
             }
           }

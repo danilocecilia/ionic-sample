@@ -1,16 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { Headers, Response, RequestOptions } from "@angular/http";
 import { HttpClient } from "@angular/common/http";
-import { AuthHttp, JwtHelper, tokenNotExpired } from "angular2-jwt";
-import {
-  CredentialsModel,
-  ChangePasswordModel
-} from "../../models/credentials";
+import { JwtHelper } from "angular2-jwt";
+import { CredentialsModel, ChangePasswordModel } from "../../model/credentials";
 import "rxjs/add/operator/map";
 import * as AppConfig from "../../app/config";
 import { Observable } from "rxjs/Rx";
-import { ToastController, App } from "ionic-angular";
+import { App } from "ionic-angular";
 
 @Injectable()
 export class AuthProvider {
@@ -22,9 +18,7 @@ export class AuthProvider {
 
   constructor(
     public http: HttpClient,
-    private authHttp: AuthHttp,
     private storage: Storage,
-    private toastCtrl: ToastController,
     private app: App
   ) {
     this.cfg = AppConfig.cfg;
