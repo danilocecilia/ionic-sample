@@ -3,7 +3,7 @@
     <button ion-item detail-none [style.background]="headerColor" (click)="toggleAccordion()" class="accordion-header" [class.active]="expanded">
       <ion-icon item-left name="ios-arrow-forward">
       </ion-icon>
-      <span [style.color]="textColor">{{ title }}</span>
+      <span style="font-size: 20px;" [style.color]="textColor">{{ title }}</span>
     </button>
     <section #accordionContent [style.background]="contentColor" [class.active]="expanded" class="accordion-content">
       <ng-content></ng-content>

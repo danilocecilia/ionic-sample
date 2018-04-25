@@ -4,15 +4,17 @@
 //let baseUrl = "http://136.140.193.16:10002/API/Authentication/";
 
 export let cfg = {
-  
   // baseUrl: "http://136.140.193.16:10002",      // EXTERNAL IP
-  // apiUrl: "http://136.140.193.16:10002/API/",  // INTERNAL IP
-  baseUrl: "http://198.180.251.216:10002",
-  apiUrl: "http://198.180.251.216:10002/API/", 
+  // apiUrl: "http://136.140.193.16:10003/API/",  // INTERNAL IP
+  baseUrl: "http://198.180.251.216:10003",
+  apiUrl: "http://198.180.251.216:10003/API/", 
   tokenName: "token",
   agenda: {
     getClassesByDate: "Class/GetClassesByDate",
     getClassesByTraining: "Class/GetClassesByTraining"
+  },
+  event_summary: {
+    getEventSummary: "Class/GetEventSummary"
   },
   user: {
     register: "",
