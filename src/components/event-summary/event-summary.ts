@@ -1,18 +1,15 @@
 import { Component } from "@angular/core";
-import { NavController, Platform } from "ionic-angular";
+import { NavController } from "ionic-angular";
 import { EsEnrollmentsComponent } from "../es-enrollments/es-enrollments";
 import { EsGradesComponent } from "../es-grades/es-grades";
 import { EsBillingsComponent } from "../es-billings/es-billings";
 import { NavParams } from "ionic-angular/navigation/nav-params";
 import { EsLogisticsComponent } from "../es-logistics/es-logistics";
-import { File } from "@ionic-native/file";
 import { EventSummaryProvider } from "../../providers/event-summary/event-summary";
-import { FileTransferObject, FileTransfer } from "@ionic-native/file-transfer";
-import * as AppConfig from "../../app/config";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
-import { FileOpener } from "@ionic-native/file-opener";
+import { DonwloadProvider } from "../../providers/donwload/donwload";
 
 @Component({
   selector: "event-summary",
@@ -27,13 +24,10 @@ export class EventSummaryComponent {
     private navCtrl: NavController, 
     private navParams: NavParams,
     private eventSummaryProvider : EventSummaryProvider,
-    private transfer: FileTransfer,
-    private file: File,
-    private platform: Platform,
     private loadingProvider: LoadingProvider,
     private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
-    private fileOpener: FileOpener) {
+    private donwloadProvider: DonwloadProvider) {
       this.event = this.navParams.get("event");
       
       this.loadEventSummary();
@@ -51,86 +45,46 @@ export class EventSummaryComponent {
     });
   }
 
-  download(fileName, extension){
-    debugger;
-    const path = "/Temp/";
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    const fullSourcePath = `${AppConfig.cfg.baseUrl}${path}${fileName}`;
+  downloadFile(fileName, extension){
+    this.loadingProvider.presentLoadingDefault();
 
-    let fileObject = this.getFileObject(path, fileName, extension);
+    this.donwloadProvider.initializeFileObject("/Temp/", fileName, extension);
 
-    fileTransfer
-      .download(fullSourcePath, this.getDevicePath(fileName))
-      .then(
-        entry => {
-          this.loadingProvider.dismissLoading();
+    let checkIfFileIsOnDevice = false;
 
-          this.showToastMessage("LibrarySuccess", fileObject);
+    this.donwloadProvider
+      .openFile(checkIfFileIsOnDevice)
+      .then(status => {
+        this.loadingProvider.dismissLoading();
 
-          console.log("download complete: " + entry.toURL());
-        },
-        error => {
-          this.loadingProvider.dismissLoading();
-
-          this.translateProvider
-            .translateMessage("ErrorMessage")
-            .then(translated => {
-              this.toastProvider.presentToast(translated);
-            });
-
-          console.log(error);
+        if (status === "downloaded") {
+          this.showSuccessToast(fileName);
         }
-      );
+      })
+      .catch(err => {
+        this.loadingProvider.dismissLoading();
+
+        this.translateProvider
+          .translateMessage("ErrorMessage")
+          .then(translated => {
+            this.toastProvider.presentToast(translated);
+          });
+      });
   }
 
-  getFileObject(filePath: string, fileName: string, extension: string) {
-    let fileObject:any = {};
-
-    if (this.platform.is("ios")) {
-      fileObject.targetPath = this.file.documentsDirectory;
-      fileObject.targeFileName = fileName;
-    } else {
-      fileObject.targetPath = this.file.externalRootDirectory;
-      fileObject.targeFileName = `Download/${fileName}`;
-    }
-
-    fileObject.sourceFileName = fileName;
-    fileObject.sourceFilePath = filePath;
-    fileObject.extension = extension.replace(".", "");
-    fileObject.targetFullPath = fileObject.targetPath + fileObject.targeFileName;
-    
-    return fileObject;
-  }
-
-  showToastMessage(message: string, fileObject) {
+  showSuccessToast(sourceFileName) {
     this.translateProvider
-      .translateMessageWithParam(message, fileObject.sourceFileName)
+      .translateMessageWithParam("LibrarySuccess", sourceFileName)
       .then(translated => {
         this.toastProvider
           .presentToastWithCallBack(translated, this.open)
           .then(() => {
-            this.openDocument(this.fileOpener, fileObject, AppConfig.fileMimeTypes)
+            this.donwloadProvider.openDocument();
           })
           .catch(err => {
             console.log(err);
           });
       });
-  }
-
-  openDocument(fileOpener: FileOpener, objCheckFile: any, fileMimeTypes: any) {
-    let mimeType = fileMimeTypes.find(
-      type => type.name.toLowerCase() === objCheckFile.extension
-    );
-
-    fileOpener.open(objCheckFile.targetFullPath, mimeType.type);
-  }
-
-  getDevicePath(fileName: string) {
-    if (this.platform.is("ios")) {
-      return `${this.file.documentsDirectory}/${fileName}`;
-    } else {
-      return `${this.file.externalRootDirectory}Download/${fileName}`;
-    }
   }
 
   getTranslatedOpenButton(){
