@@ -7,8 +7,7 @@
 <ion-content no-bounce>
   <ng-container>
     <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'Search' | translate}}" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
-
-    <ion-card *ngFor="let lib of libs.Libraries" (click)="downloadOrOpenFile(lib.File.Path, lib.File.FileName, lib.File.Extension)">
+    <ion-card *ngFor="let lib of libs.Libraries" (click)="openFile(lib.File.Path, lib.File.FileName, lib.File.Extension)">
       <ion-item color="secondary">
         <ion-avatar item-start>
           <ion-icon name="ios-document-outline"></ion-icon>
@@ -17,7 +16,7 @@
         <div class="category">
           <p>{{lib.Category.Category}}</p>
         </div>
-        <div style="float:left;width: 23%; margin-top: 10px">
+        <div style="float:left;width: 29%; margin-top: 10px">
           <b>{{lib.File.Size}}MB</b>
         </div>
         <div style="margin-top:10px;">
