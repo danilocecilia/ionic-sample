@@ -41,7 +41,6 @@ import { ModalMediaGaleryPage } from "../pages/modal-media-galery/modal-media-ga
 /***********************/
 import { HeaderMenuComponent } from "../components/header-menu/header-menu";
 import { HeaderCommomComponent } from "../components/header-commom/header-commom";
-import { NotificationsComponent } from "../components/notifications/notifications";
 import { CurriculumsComponent } from "../components/curriculums/curriculums";
 import { CourseStepsComponent } from "../components/course-steps/course-steps";
 import { DashboardComponent } from "../components/dashboard/dashboard";
@@ -86,6 +85,7 @@ import { PipesModule } from "../pipes/pipes.module";
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 import { MediaProvider } from '../providers/media/media';
 import { EventSummaryProvider } from '../providers/event-summary/event-summary';
+import { DonwloadProvider } from '../providers/donwload/donwload';
 
 let storage = new Storage({});
 
@@ -116,7 +116,6 @@ export function getAuthHttp(http: Http) {
     ModalLogisticPage,
     HeaderCommomComponent,
     HeaderMenuComponent,
-    NotificationsComponent,
     DashboardComponent,
     MediaPage,
     LibraryPage,
@@ -173,7 +172,6 @@ export function getAuthHttp(http: Http) {
     HeaderCommomComponent,
     HeaderMenuComponent,
     MediaPage,
-    NotificationsComponent,
     DashboardComponent,
     LibraryPage,
     CurriculumsComponent,
@@ -232,7 +230,8 @@ export function getAuthHttp(http: Http) {
     FileOpener,
     Push,
     EventSummaryProvider,
-    AndroidPermissions
+    AndroidPermissions,
+    DonwloadProvider
   ]
 })
 export class AppModule {}

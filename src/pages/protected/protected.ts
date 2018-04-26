@@ -1,11 +1,9 @@
-import { NavController, NavParams } from "ionic-angular";
+import { NavController } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 
 export class ProtectedPage {
-
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     public storage: Storage
   ) {}
 
