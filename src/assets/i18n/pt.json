@@ -50,6 +50,7 @@
   "SucessChangePassowrd": "Senha alterada com sucesso.",
   "SuccessRecoverPassword": "Nova senha enviada por email.",
   "ErrorMessage": "Ocorreu um erro, tente novamente.",
+  "ErrorGetNotifications" : "Erro ao carregar as Notificações",
   "PersonalInfo": "Informação Pessoal",
   "AppLanguage": "Linguagem do App",
   "FirstName": "Nome",
