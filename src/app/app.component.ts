@@ -10,7 +10,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { timer  } from "rxjs/observable/timer";
 import { PushOptions, PushObject, Push } from "@ionic-native/push";
-import { AndroidPermissions } from "@ionic-native/android-permissions";
 
 @Component({
   templateUrl: "app.html"
@@ -28,8 +27,8 @@ export class MyApp {
     private translate: TranslateService,
     private globalization: Globalization,
     private push: Push,
-    private alertCtrl: AlertController,
-    private androidPermissions: AndroidPermissions
+    private alertCtrl: AlertController
+    
   ) {
     platform.ready().then(() => {
       statusBar.backgroundColorByHexString("#003a8b");
@@ -46,8 +45,6 @@ export class MyApp {
     });
 
     timer(3000).subscribe(() => this.showSplash = false);
-
-    this.checkPermission();
   }
 
   pushsetup() {
@@ -110,22 +107,7 @@ export class MyApp {
     }
   }
 
-  checkPermission(){
-    // debugger;
-    // this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_INTERNAL_STORAGE).then(
-    //   result => console.log('Has permission?',result.hasPermission),
-    //   err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_INTERNAL_STORAGE)
-    // );
-    
-    //this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_INTERNAL_STORAGE, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
-
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
-      result => console.log('Has permission?',result.hasPermission),
-      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
-    );
-    
-    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
-  }
+  
 
   setDefaultCulture(culture: string) {
     this.translate.setDefaultLang(culture);
