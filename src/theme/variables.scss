@@ -43,7 +43,11 @@ $colors: (
   read:       lightgray
 );
 
-$toolbar-background:#0063bc;
+$toolbar-background: map-get($colors, primary);
+
+$refresher-text-color: map-get($colors, primary);
+
+$refresher-icon-color: map-get($colors, primary);
 
 // App iOS Variables
 // --------------------------------------------------
