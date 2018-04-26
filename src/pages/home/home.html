@@ -1,3 +1,20 @@
-<header-commom *ngIf="!isHidden"></header-commom>
+<ion-header>
+    <header-commom></header-commom>
+  </ion-header>
+  
 
-<notifications></notifications>
+  <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{'PullToRefresh' | translate}}" refreshingSpinner="crescent" refreshingText="{{'Refreshing' | translate}}...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+      <ion-item class="{{nt.Status == 'READ' ? 'read item item-block item-md' : 'unread item item-block item-md'}}" no-line (click)="openNotification(nt)"
+        *ngFor="let nt of notifications?.Notifications">
+        <ion-icon name="mail{{nt.Status == 'READ' ? '-open' : ''}}" color="{{nt.Status == 'READ' ? 'read' : 'primary'}}" item-start></ion-icon>
+        <p color="secundary" class="title">{{nt.Notification}}</p>
+        <p text-wrap class="summary subtitle">{{nt.Summary}}</p>
+      </ion-item>
+    </ion-list>
+</ion-content>
