@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, ModalController, NavController, AlertController } from "ionic-angular";
+import { Platform, NavController, AlertController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Events } from "ionic-angular";
@@ -10,6 +10,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { timer  } from "rxjs/observable/timer";
 import { PushOptions, PushObject, Push } from "@ionic-native/push";
+import { AndroidPermissions } from "@ionic-native/android-permissions";
 
 @Component({
   templateUrl: "app.html"
@@ -23,12 +24,12 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     private events: Events,
-    private modalController: ModalController,
     private authProvider: AuthProvider,
     private translate: TranslateService,
     private globalization: Globalization,
     private push: Push,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private androidPermissions: AndroidPermissions
   ) {
     platform.ready().then(() => {
       statusBar.backgroundColorByHexString("#003a8b");
@@ -45,6 +46,8 @@ export class MyApp {
     });
 
     timer(3000).subscribe(() => this.showSplash = false);
+
+    this.checkPermission();
   }
 
   pushsetup() {
@@ -105,6 +108,23 @@ export class MyApp {
           console.error(e);
         });
     }
+  }
+
+  checkPermission(){
+    // debugger;
+    // this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_INTERNAL_STORAGE).then(
+    //   result => console.log('Has permission?',result.hasPermission),
+    //   err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_INTERNAL_STORAGE)
+    // );
+    
+    //this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_INTERNAL_STORAGE, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
+
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
+      result => console.log('Has permission?',result.hasPermission),
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
+    );
+    
+    this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
   }
 
   setDefaultCulture(culture: string) {
