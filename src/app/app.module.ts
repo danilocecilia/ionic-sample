@@ -21,6 +21,7 @@ import { Globalization } from "@ionic-native/globalization";
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Push } from '@ionic-native/push';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 /***********************/
 //Pages
@@ -60,7 +61,6 @@ import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-cou
 /***********************/
 //Providers
 /***********************/
-import { TodosProvider } from "../providers/todos/todos";
 import { AuthProvider } from "../providers/auth/auth";
 import { FooterProvider } from "../providers/footer/footer";
 import { CurriculumProvider } from "../providers/curriculum/curriculum";
@@ -207,7 +207,6 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    TodosProvider,
     AuthProvider,
     FooterProvider,
     CurriculumProvider,
@@ -232,7 +231,8 @@ export function getAuthHttp(http: Http) {
     MediaProvider,
     FileOpener,
     Push,
-    EventSummaryProvider
+    EventSummaryProvider,
+    AndroidPermissions
   ]
 })
 export class AppModule {}

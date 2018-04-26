@@ -25,6 +25,7 @@ export class AuthProvider {
   }
 
   getAuthenticate(credentials: CredentialsModel) {
+    debugger;
     return this.http
       .post(`${this.cfg.apiUrl + this.cfg.user.login}`, credentials)
       .toPromise()

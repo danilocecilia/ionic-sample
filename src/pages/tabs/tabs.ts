@@ -5,8 +5,6 @@ import { Events } from "ionic-angular";
 import { AgendaPage } from "../../pages/agenda/agenda";
 import { LibraryPage } from "../../pages/library/library";
 import { MediaPage } from "../../pages/media/media";
-import { NotificationProvider } from "../../providers/notification/notification";
-import { CourseStepsComponent } from "../../components/course-steps/course-steps";
 
 @Component({
   templateUrl: "tabs.html"
@@ -23,7 +21,6 @@ export class TabsPage {
   
 
   constructor(
-    private notificationProvider: NotificationProvider,
     private events : Events
   ) {
     this.events.subscribe("updateBadge", qtyUnread => {

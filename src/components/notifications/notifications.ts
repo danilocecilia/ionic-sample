@@ -3,7 +3,6 @@ import { ModalNotificationPage } from "../../pages/modal-notification/modal-noti
 import { ModalController, Refresher, Content, Events } from "ionic-angular";
 import { NotificationProvider } from "../../providers/notification/notification";
 import { LoadingProvider } from "../../providers/loading/loading";
-import { ToastProvider } from "../../providers/toast/toast";
 import * as AppConfig from "../../app/config";
 import { AuthProvider } from "../../providers/auth/auth";
 
@@ -19,7 +18,6 @@ export class NotificationsComponent implements OnInit {
     public modalCtrl: ModalController,
     private notificationProvider: NotificationProvider,
     private loadingProvider: LoadingProvider,
-    private toastProvider: ToastProvider,
     private authProvider: AuthProvider,
     private events: Events
   ) { }

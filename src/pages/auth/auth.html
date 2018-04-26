@@ -14,7 +14,7 @@
             <ion-row>
                 <ion-col col-12>
                     <ion-item class="input-text">
-                        <ion-input type="text" placeholder="Login" formControlName="username" clearInput></ion-input>
+                        <ion-input type="text" value="siteadmin" placeholder="Login" formControlName="username" clearInput></ion-input>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.username.hasError('required') && authForm.controls.username.touched">
                         <p>{{'ValidatorMessage.Required' | translate:username}}</p>
@@ -33,7 +33,7 @@
             <ion-row>
                 <ion-col>
                     <ion-item class="input-text">
-                        <ion-input formControlName="password" placeholder="{{'Password' | translate}}" type="password"></ion-input>
+                        <ion-input value="@hyundai" formControlName="password" placeholder="{{'Password' | translate}}" type="password"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="authForm.controls.password.hasError('required') && authForm.controls.password.touched">
                         <p>{{'ValidatorMessage.Required' | translate:password}}</p>

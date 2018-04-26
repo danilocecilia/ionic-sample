@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthProvider } from "../../providers/auth/auth";
 import { MediaProvider  } from "../../providers/media/media";
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ModalController } from 'ionic-angular';
@@ -13,7 +12,6 @@ export class MediaPage implements OnInit{
   media: any;
 
   constructor(
-    private authProvider: AuthProvider, 
     private mediaProvider: MediaProvider,
     private loadingProvider: LoadingProvider,
     private modalCtrl: ModalController) {}

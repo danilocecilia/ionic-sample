@@ -8,12 +8,10 @@ import {
   Platform
 } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Storage } from "@ionic/storage";
 import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
 import { AuthProvider } from "../../providers/auth/auth";
 import { TabsPage } from "../tabs/tabs";
 import { LoadingProvider } from "../../providers/loading/loading";
-import { Response } from "@angular/http";
 import { TranslateService } from "@ngx-translate/core";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { ToastProvider } from "../../providers/toast/toast";
@@ -38,7 +36,6 @@ export class AuthPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private formBuilder: FormBuilder,
-    private storage: Storage,
     private authProvider: AuthProvider,
     private menu: MenuController,
     private events: Events,
@@ -52,7 +49,7 @@ export class AuthPage {
 
     this.navCtrl = navCtrl;
 
-    this.toastMessage = navParams.get("message");
+    this.toastMessage = this.navParams.get("message");
 
     this.authForm = this.formBuilder.group({
       username: ["", Validators.compose([Validators.required])],
@@ -70,6 +67,7 @@ export class AuthPage {
   }
 
   onSubmit(value: any): void {
+    debugger;
     if (this.authForm.valid) {
       this.loadingProvider.presentLoadingDefault();
       this.authProvider

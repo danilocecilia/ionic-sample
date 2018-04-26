@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { ToastController } from "ionic-angular";
-import { FileOpener } from "@ionic-native/file-opener";
 
 @Injectable()
 export class ToastProvider {

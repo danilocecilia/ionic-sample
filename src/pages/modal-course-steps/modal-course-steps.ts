@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, Platform } from "ionic-angular";
+import { NavController } from "ionic-angular";
 import { AssessmentComponent } from "../../components/assessment/assessment";
 
 @Component({

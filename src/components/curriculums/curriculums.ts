@@ -6,7 +6,6 @@ import { AgendaPage } from "../../pages/agenda/agenda";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { LoadingProvider } from "../../providers/loading/loading";
 import * as AppConfig from "../../app/config";
-import { TranslateService } from "@ngx-translate/core";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { ToastProvider } from "../../providers/toast/toast";
 import { AuthProvider } from "../../providers/auth/auth";
@@ -33,7 +32,6 @@ export class CurriculumsComponent implements OnInit {
     private modalController: ModalController,
     public navParams: NavParams,
     private loadingProvider: LoadingProvider,
-    private translate: TranslateService,
     private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
     private authProvider: AuthProvider

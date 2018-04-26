@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from "@ngx-translate/core";
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast/toast';
 import { TranslateProvider } from '../../providers/translate/translate';
@@ -18,10 +17,7 @@ export class PasswordRecoveryPage {
   authForm: FormGroup;
 
   constructor(
-    private navCtrl           : NavController,
-    private navParams         : NavParams,
     private formBuilder       : FormBuilder,
-    private translate         : TranslateService,
     private authProvider      : AuthProvider,
     private toastProvider     : ToastProvider,
     private translateProvider : TranslateProvider,

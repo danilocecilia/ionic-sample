@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { App, Nav, MenuController, Events } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
-import { Camera, CameraOptions } from "@ionic-native/camera";
 
 @Component({
   selector: "header-menu",
@@ -18,7 +17,6 @@ export class HeaderMenuComponent implements OnInit {
     private app: App,
     private menuCtrl: MenuController,
     private events: Events,
-    private camera: Camera
   ) {
     this.pages = [
       {

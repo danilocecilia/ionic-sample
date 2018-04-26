@@ -5,7 +5,6 @@ import { AlertController } from "ionic-angular/components/alert/alert-controller
 import { AgendaProvider } from "../../providers/agenda/agenda";
 import { ViewController } from "ionic-angular/navigation/view-controller";
 import { NavParams } from "ionic-angular/navigation/nav-params";
-import { CourseStepsComponent } from "../../components/course-steps/course-steps";
 import { EventSummaryComponent } from "../../components/event-summary/event-summary";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { AuthProvider } from "../../providers/auth/auth";

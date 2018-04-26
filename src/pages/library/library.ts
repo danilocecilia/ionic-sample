@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Events, Platform } from "ionic-angular";
+import { Platform } from "ionic-angular";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { LibraryProvider } from "../../providers/library/library";
 import { LoadingProvider } from "../../providers/loading/loading";
@@ -23,7 +23,6 @@ export class LibraryPage implements OnInit {
   open : string;
 
   constructor(
-    private events: Events,
     private libProvider: LibraryProvider,
     private authProvider: AuthProvider,
     private loadingProvider: LoadingProvider,
