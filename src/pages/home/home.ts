@@ -1,24 +1,20 @@
 import { Component, OnInit } from "@angular/core";
 import {
   NavController,
-  AlertController,
   MenuController,
   Events,
   ModalController,
   Refresher
 } from "ionic-angular";
 import { Storage } from "@ionic/storage";
-import { NavParams } from "ionic-angular/navigation/nav-params";
-
 import { ProtectedPage } from "../protected/protected";
-import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { AuthProvider } from "../../providers/auth/auth";
-import { Toast } from "@ionic-native/toast";
-import { DashboardComponent } from "../../components/dashboard/dashboard";
 import * as APPConfig from "../../app/config";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { NotificationProvider } from "../../providers/notification/notification";
 import { ModalNotificationPage } from "../modal-notification/modal-notification";
+import { ToastProvider } from "../../providers/toast/toast";
+import { TranslateProvider } from "../../providers/translate/translate";
 
 @Component({
   selector: "page-home",
@@ -32,21 +28,17 @@ export class HomePage extends ProtectedPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public alertCtrl: AlertController,
     public storage: Storage,
-    public events: Events,
-    public modalCtrl: ModalController,
-    public menu: MenuController,
-    
-    private barcodeScanner: BarcodeScanner,
+    private events: Events,
+    private modalCtrl: ModalController,
+    private menu: MenuController,
     private authProvider: AuthProvider,
-    private toast: Toast,
+    private toastProvider: ToastProvider,
     private notificationProvider: NotificationProvider,
     private loadingProvider: LoadingProvider,
-
+    private translateProvider: TranslateProvider
   ) {
-    super(navCtrl, navParams, storage);
+    super(navCtrl, storage);
 
     this.menu.enable(true);
     this.navCtrl = navCtrl;
@@ -56,7 +48,6 @@ export class HomePage extends ProtectedPage implements OnInit {
     this.loadingProvider.presentLoadingDefault();
     this.loadNotifications(null);
   }
-
 
   ionViewWillEnter() {
     this.events.publish("hideHeader", { isHidden: false });
@@ -101,11 +92,14 @@ export class HomePage extends ProtectedPage implements OnInit {
         refresher.complete();
       })
       .catch(err => {
-        if (APPConfig.hasFoundAPIStatus(err.error))
-          this.authProvider.logout(err.error);
-
-        // this.toastProvider.presentToast("Erro ao carregar as notificações.");
-        //this.loadingProvider.dismissLoading();
+        if (APPConfig.hasFoundAPIStatus(err.error)) {
+          this.translateProvider
+            .translateMessage("ErrorGetNotifications")
+            .then(translatedMsg => {
+              this.toastProvider.presentToast(translatedMsg);
+            });
+        }
+        this.loadingProvider.dismissLoading();
       });
   }
 
@@ -116,7 +110,7 @@ export class HomePage extends ProtectedPage implements OnInit {
         this.openModal(notificationItem);
       })
       .catch(error => {
-        console.log("Error when updating read notification: " + error);
+        console.log("Error when update read notification: " + error);
       });
   }
 
@@ -127,9 +121,8 @@ export class HomePage extends ProtectedPage implements OnInit {
 
     modal.onDidDismiss(() => {
       this.loadNotifications(null);
-    })
+    });
 
     modal.present();
   }
-
 }
