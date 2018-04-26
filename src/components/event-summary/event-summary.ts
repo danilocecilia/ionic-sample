@@ -34,9 +34,10 @@ export class EventSummaryComponent {
     private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
     private fileOpener: FileOpener) {
-    this.event = this.navParams.get("event");
-    
+      this.event = this.navParams.get("event");
+      
       this.loadEventSummary();
+      this.getTranslatedOpenButton();
   }
 
   loadEventSummary(){
