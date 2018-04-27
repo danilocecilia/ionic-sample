@@ -13,13 +13,7 @@ export class NotificationProvider {
   }
 
   loadNotifications() {
-    return this.http
-      .get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=${this.authProvider.loggedUser.Token}`)
-      .toPromise();
-      // .then(result => {
-      //   debugger;
-      //   this.notification = result;
-      // });
+    return this.http.get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=${this.authProvider.loggedUser.Token}`).toPromise();
   }
 
   setNotificationRead(id){
