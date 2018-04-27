@@ -1,9 +1,17 @@
 import { Injectable } from "@angular/core";
 import { ToastController } from "ionic-angular";
+import { TranslateProvider } from "../../providers/translate/translate";
 
 @Injectable()
 export class ToastProvider {
-  constructor(private toastCtrl: ToastController) {
+  constructor(private toastCtrl: ToastController, private translateProvider : TranslateProvider) {
+  }
+
+  presentTranslatedToast(text:string){
+    this.translateProvider.translateMessage(text)
+    .then(translated => {
+      this.presentToast(translated);
+    })
   }
 
   presentToast(text: string): Promise<any> {
