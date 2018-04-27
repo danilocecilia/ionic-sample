@@ -5,8 +5,9 @@
   "Recover": "Recuperar",
   "LoadingMessage": "Aguarde, carregando...",
   "SelectJobRole": "Selecione um cargo",
-  "ConfirmEventSummary":
-    "Confirma em ver o sumario de eventos para data e turma selecionada?",
+  "ConfirmEventSummary": "Confirma em ver o sumario de eventos para data e turma selecionada?",
+  "ActionStatusSuccess": "Status atualizado com sucesso.",
+  "ActionStepSuccess": "Passo atualizado com sucesso",
   "ConfirmEnrollment": "Confirma a inscrição para esta data?",
   "Today": "Hoje",
   "NoEvents": "Nenhum evento para o dia selecionado.",
@@ -136,6 +137,7 @@
     "ENROLLED": "INSCRITO",
     "WAITING": "AGUARDANDO",
     "INTEND": "INTEND",
-    "CANCELLED": "CANCELADO"
+    "CANCELLED": "CANCELADO",
+    "FINISHED": "FINALIZADO"
   }
 }

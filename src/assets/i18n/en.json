@@ -5,15 +5,16 @@
   "Recover": "Recover",
   "LoadingMessage": "Please Wait...",
   "SelectJobRole": "Select a Job Role",
-  "ConfirmEventSummary":
-    "Confirm to see the Event Summary for this date and class?",
+  "ConfirmEventSummary": "Confirm to see the Event Summary for this date and class?",
+  "ActionStatusSuccess": "Status updated with success.",
+  "ActionStepSuccess": "Step updated with success.",
   "ConfirmEnrollment": "Do you confirm your enrollment for this date event?",
   "Today": "Today",
   "NoEvents": "No Events on the selected day.",
   "Yes": "Yes",
   "No": "No",
   "Actions:": "Actions",
-  "Step": "Step,",
+  "Step": "Step",
   "Seats": "Seats",
   "Enrollments": "Enrollments",
   "of": "of",
@@ -133,6 +134,7 @@
     "ENROLLED": "ENROLLED",
     "WAITING": "WAITING",
     "INTEND": "INTEND",
-    "CANCELLED": "CANCELLED"
+    "CANCELLED": "CANCELLED",
+    "FINISHED": "FINISHED"
   }
 }
