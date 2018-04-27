@@ -10,28 +10,22 @@ import { LoadingProvider } from "../../providers/loading/loading";
 })
 export class EsEnrollmentsComponent implements OnInit {
   enrollments: any = {};
-  event: any;
+  
   constructor(
     private navCtrl: NavController,
     private enrollmentProvider: EnrollmentProvider,
     private loadingProvider: LoadingProvider,
     private navParams: NavParams
   ) {
-    this.event = this.navParams.get("event");
+    this.enrollments = this.navParams.get("enrollments");
+    debugger;
   }
 
   ngOnInit() {
     this.loadingProvider.presentLoadingDefault();
-    this.loadEnrollments();
-  }
-  loadEnrollments() {
-    this.enrollmentProvider.loadEnrollments().subscribe(result => {
-      this.loadingProvider.dismissLoading();
-      this.enrollments = result[0];
-    });
   }
 
   onClickEnrollUsers() {
-    this.navCtrl.push(EsEnrollComponent, { event : this.event});
+    this.navCtrl.push(EsEnrollComponent, { event : this.enrollments});
   }
 }

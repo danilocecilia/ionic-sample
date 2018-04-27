@@ -1,22 +1,18 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import * as APPConfig from "../../app/config";
+import { AuthProvider } from '../auth/auth';
 
-/*
-  Generated class for the EnrollmentProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class EnrollmentProvider {
-  private baseUrl: string;
-
-  constructor(public http: HttpClient) {
-    this.baseUrl = "https://5a79a9137fbfbb0012625721.mockapi.io/api/";
-    //this.dataStore = { competencies: [] };
+  constructor(public http: HttpClient, private authProvider : AuthProvider) {
   }
 
-  loadEnrollments() {
-    return this.http.get(`${this.baseUrl}/enrollments/`);
+  // loadEnrollments() {
+  //   return this.http.get(`${this.baseUrl}/enrollments/`);
+  // }
+
+  loadEnrollmentsByClass(idClass:number){
+    return this.http.get(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.event_summary.enrollmentsByClass}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}`).toPromise();
   }
 }
