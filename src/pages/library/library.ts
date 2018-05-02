@@ -5,7 +5,7 @@ import { LoadingProvider } from "../../providers/loading/loading";
 import { AuthProvider } from "../../providers/auth/auth";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
-import { DonwloadProvider } from "../../providers/donwload/donwload";
+import { DownloadProvider } from "../../providers/download/download";
 
 @Component({
   selector: "library",
@@ -24,7 +24,7 @@ export class LibraryPage implements OnInit {
     private loadingProvider: LoadingProvider,
     private toastProvider: ToastProvider,
     private translateProvider: TranslateProvider,
-    private donwloadProvider: DonwloadProvider
+    private downloadProvider: DownloadProvider
   ) {}
 
   ngOnInit() {
@@ -70,16 +70,16 @@ export class LibraryPage implements OnInit {
   openFile(sourceFilePath: string, sourceFileName: string, extension: string) {
     this.loadingProvider.presentLoadingDefault();
 
-    this.donwloadProvider.initializeFileObject(
+    this.downloadProvider.initializeFileObject(
       sourceFilePath,
       sourceFileName,
       extension
     );
 
-    let fileIsAlreadyOnDevice = true;
+    let checkIfFileIsOnDevice = true;
 
-    this.donwloadProvider
-      .openFile(fileIsAlreadyOnDevice)
+    this.downloadProvider
+      .openOrDownloadFile(checkIfFileIsOnDevice)
       .then(status => {
         this.loadingProvider.dismissLoading();
 
@@ -105,7 +105,7 @@ export class LibraryPage implements OnInit {
         this.toastProvider
           .presentToastWithCallBack(translated, this.open)
           .then(() => {
-            this.donwloadProvider.openDocument();
+            this.downloadProvider.openDocument();
           })
           .catch(err => {
             console.log(err);

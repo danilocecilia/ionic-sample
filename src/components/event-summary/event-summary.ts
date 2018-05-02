@@ -9,7 +9,7 @@ import { EventSummaryProvider } from "../../providers/event-summary/event-summar
 import { LoadingProvider } from "../../providers/loading/loading";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
-import { DonwloadProvider } from "../../providers/donwload/donwload";
+import { DownloadProvider } from "../../providers/download/download";
 
 @Component({
   selector: "event-summary",
@@ -27,7 +27,7 @@ export class EventSummaryComponent {
     private loadingProvider: LoadingProvider,
     private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
-    private donwloadProvider: DonwloadProvider) {
+    private downloadProvider: DownloadProvider) {
       this.event = this.navParams.get("event");
       
       this.loadEventSummary();
@@ -48,12 +48,12 @@ export class EventSummaryComponent {
   downloadFile(fileName, extension){
     this.loadingProvider.presentLoadingDefault();
 
-    this.donwloadProvider.initializeFileObject("/Temp/", fileName, extension);
+    this.downloadProvider.initializeFileObject("/Temp/", fileName, extension);
 
     let checkIfFileIsOnDevice = false;
 
-    this.donwloadProvider
-      .openFile(checkIfFileIsOnDevice)
+    this.downloadProvider
+      .openOrDownloadFile(checkIfFileIsOnDevice)
       .then(status => {
         this.loadingProvider.dismissLoading();
 
@@ -79,7 +79,7 @@ export class EventSummaryComponent {
         this.toastProvider
           .presentToastWithCallBack(translated, this.open)
           .then(() => {
-            this.donwloadProvider.openDocument();
+            this.downloadProvider.openDocument();
           })
           .catch(err => {
             console.log(err);
