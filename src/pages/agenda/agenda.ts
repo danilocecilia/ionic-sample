@@ -92,7 +92,6 @@ export class AgendaPage implements OnInit {
 
   loadData() {
     this.translateYesAndNo();
-
     // If Instructor clicks on the Calendar on the TabsMenu
     if (this.param.loadType === "general") {
       this.loadEvents();
@@ -213,7 +212,6 @@ export class AgendaPage implements OnInit {
             if (this.param.loadType === "general") {
               this.navController.push(EventSummaryComponent, { event: event });
             } else {
-              
               let courseStepsModal = this.modalCtrl.create(ModalCourseStepsComponent, {event : event});
               
               courseStepsModal.onDidDismiss(() => {

@@ -67,7 +67,6 @@ export class AuthPage {
   }
 
   onSubmit(value: any): void {
-    debugger;
     if (this.authForm.valid) {
       this.loadingProvider.presentLoadingDefault();
       this.authProvider

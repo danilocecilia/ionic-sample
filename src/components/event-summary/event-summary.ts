@@ -10,7 +10,7 @@ import { LoadingProvider } from "../../providers/loading/loading";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { DownloadProvider } from "../../providers/download/download";
-
+import { EnrollmentProvider  } from "../../providers/enrollment/enrollment";
 @Component({
   selector: "event-summary",
   templateUrl: "event-summary.html"
@@ -19,6 +19,7 @@ export class EventSummaryComponent {
   event: any;
   eventSummary: any;
   open : string;
+  action: any;
 
   constructor(
     private navCtrl: NavController, 
@@ -27,9 +28,9 @@ export class EventSummaryComponent {
     private loadingProvider: LoadingProvider,
     private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
-    private downloadProvider: DownloadProvider) {
+    private downloadProvider: DownloadProvider, 
+    private enrollmentProvider: EnrollmentProvider) {
       this.event = this.navParams.get("event");
-      
       this.loadEventSummary();
       this.getTranslatedOpenButton();
   }
@@ -37,11 +38,43 @@ export class EventSummaryComponent {
   loadEventSummary(){
     this.loadingProvider.presentLoadingDefault();
 
-    this.eventSummaryProvider.getEventSummary(7)
+    this.eventSummaryProvider.getEventSummaryByClass(this.event.ID)
     .then((response) => {
       this.loadingProvider.dismissLoading();
       this.eventSummary = response;
       console.log(this.eventSummary);
+    });
+  }
+
+  onChangeStatus(actionType){
+    this.action = {
+      IdClass: this.event.ID,
+      Status: actionType,
+    }
+
+    this.eventSummaryProvider.updateActionStatus(this.action) 
+    .then(status => {
+      if(status == "SUCCESS"){
+        this.toastProvider.presentTranslatedToast("ActionStatusSuccess");
+      }
+    }).catch(err => {
+      this.toastProvider.presentTranslatedToast("ErrorMessage");
+    });;
+  }
+
+  onChangeStep(actionType){
+    this.action = {
+      IdClass: this.event.ID,
+      Step: actionType,
+    }
+
+    this.eventSummaryProvider.updateActionStep(this.action)
+    .then(status => {
+      if(status == "SUCCESS"){
+        this.toastProvider.presentTranslatedToast("ActionStepSuccess");
+      }
+    }).catch(err => {
+      this.toastProvider.presentTranslatedToast("ErrorMessage");
     });
   }
 
@@ -99,7 +132,13 @@ export class EventSummaryComponent {
   }
 
   onClickEnrollment() {
-    this.navCtrl.push(EsEnrollmentsComponent, { event: this.event });
+    this.enrollmentProvider.loadEnrollmentsByClass(this.event.ID)
+    .then(response => {
+      this.navCtrl.push(EsEnrollmentsComponent, { enrollments: response });  
+    }).catch(err => {
+      this.toastProvider.presentTranslatedToast("ErrorMessage");
+      console.log(err)
+    });
   }
 
   onClickLogistics() {

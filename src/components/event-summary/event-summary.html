@@ -26,21 +26,21 @@
     <ion-col col-12>
       <ion-item>
         <ion-label color="secondary">Status</ion-label>
-        <ion-select [(ngModel)]="event.Status" interface="popover">
-          <ion-option value="IN_PROGRESS">{{'HistoryStatus.IN_PROGRESS' | translate}}</ion-option>
-          <ion-option value="ENROLLED">{{'HistoryStatus.ENROLLED' | translate}}</ion-option>
-          <ion-option value="PASS">{{'HistoryStatus.PASS' | translate}}</ion-option>
-          <ion-option value="FAIL">{{'HistoryStatus.FAIL' | translate}}</ion-option>
+        <ion-select [(ngModel)]="event.Status" interface="popover" (ionChange)="onChangeStatus($event)">
+          <ion-option value="0">{{'HistoryStatus.NOT_STARTED' | translate}}</ion-option>
+          <ion-option value="1">{{'HistoryStatus.IN_PROGRESS' | translate}}</ion-option>
+          <ion-option value="2">{{'HistoryStatus.FINISHED' | translate}}</ion-option>
+          <ion-option value="3">{{'HistoryStatus.CANCELLED' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-col>
     <ion-col col-12 text-center>
       <ion-item>
         <ion-label color="secondary">{{'Step' | translate}}</ion-label>
-        <ion-select [(ngModel)]="event.Step" interface="popover">
-          <ion-option value="PRE_TEST">{{'PRE_TEST' | translate}}</ion-option>
-          <ion-option value="POST_TEST">{{'POST_TEST' | translate}}</ion-option>
-          <ion-option value="TRAINING">{{'Training' | translate}}</ion-option>
+        <ion-select [(ngModel)]="event.Step" interface="popover" (ionChange)="onChangeStep($event)">
+          <ion-option value="0">{{'PRE_TEST' | translate}}</ion-option>
+          <ion-option value="1">{{'Training' | translate}}</ion-option>
+          <ion-option value="2">{{'POST_TEST' | translate}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-col>

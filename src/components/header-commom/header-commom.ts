@@ -5,6 +5,7 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { Toast } from "@ionic-native/toast";
 import { AuthProvider } from "../../providers/auth/auth";
 import * as APPConfig from "../../app/config";
+import { PrePostTestComponent } from "../pre-post-test/pre-post-test";
 
 @Component({
   selector: "header-commom",
@@ -43,6 +44,7 @@ export class HeaderCommomComponent {
   openQRCode() {
     this.barcodeScanner.scan().then(
       barcodeData => {
+        this.navCtrl.push(PrePostTestComponent, { idClass : 7});
         // this.selectedProduct = this.products.find(
         //   product => product.plu === barcodeData.text
         // );
