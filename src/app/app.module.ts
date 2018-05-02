@@ -85,7 +85,7 @@ import { PipesModule } from "../pipes/pipes.module";
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 import { MediaProvider } from '../providers/media/media';
 import { EventSummaryProvider } from '../providers/event-summary/event-summary';
-import { DonwloadProvider } from '../providers/donwload/donwload';
+import { DownloadProvider } from '../providers/download/download';
 
 let storage = new Storage({});
 
@@ -231,7 +231,7 @@ export function getAuthHttp(http: Http) {
     Push,
     EventSummaryProvider,
     AndroidPermissions,
-    DonwloadProvider
+    DownloadProvider
   ]
 })
 export class AppModule {}
