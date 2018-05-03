@@ -60,7 +60,7 @@
         <ion-icon class="icon" color="secondary" name="star"></ion-icon> {{'Grades' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Average' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>80.00</b>
+        <b>{{event.AverageScore}}</b>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickLogistics()">
@@ -68,7 +68,7 @@
         <ion-icon class="icon" color="secondary" name="car"></ion-icon> {{'Logistics' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Expenses' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>$750.00</b>
+        <b>{{event.QtyLogistic}}</b>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickBilling()">
@@ -76,7 +76,7 @@
         <ion-icon class="icon" color="secondary" name="cash"></ion-icon> {{'Billings' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Revenues' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>$ 2500.00</b>
+        <b>{{event.QtyBilling}}</b>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -128,14 +128,28 @@ export class EventSummaryComponent {
   }
 
   onClickGrades() {
-    this.navCtrl.push(EsGradesComponent, { event: this.event });
+    this.loadingProvider.presentLoadingDefault();
+
+    this.enrollmentProvider.loadEnrollmentsByClass(this.event.ID)
+    .then(response => {
+      this.loadingProvider.dismissLoading();
+      this.navCtrl.push(EsGradesComponent, { enrollments: response });  
+    }).catch(err => {
+      this.loadingProvider.dismissLoading();
+      this.toastProvider.presentTranslatedToast("ErrorMessage");
+      console.log(err)
+    });
   }
 
   onClickEnrollment() {
+    this.loadingProvider.presentLoadingDefault();
+
     this.enrollmentProvider.loadEnrollmentsByClass(this.event.ID)
     .then(response => {
+      this.loadingProvider.dismissLoading();
       this.navCtrl.push(EsEnrollmentsComponent, { enrollments: response });  
     }).catch(err => {
+      this.loadingProvider.dismissLoading();
       this.toastProvider.presentTranslatedToast("ErrorMessage");
       console.log(err)
     });
