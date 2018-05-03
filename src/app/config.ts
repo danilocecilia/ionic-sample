@@ -16,8 +16,12 @@ export let cfg = {
   event_summary: {
     getEventSummary: "Class/GetEventSummary",
     putActionStep: "Class/ActionStep",
-    putActionStatus: "Class/ActionStatus",
-    enrollmentsByClass: "History/GetEnrollmentsByClass"
+    putActionStatus: "Class/ActionStatus"
+  },
+  history:{
+    enrollmentsByClass: "History/GetEnrollmentsByClass",
+    removeEnrollment:"History/RemoveEnrollment",
+    updateGrade: "History/UpdateGrade"
   },
   user: {
     register: "",
@@ -47,7 +51,7 @@ export let cfg = {
   }
 };
 
-export enum HistoryStatus {
+export enum HistoryStatus { 
   NOT_STARTED,
   IN_PROGRESS,
   FINISHED,
@@ -87,6 +91,11 @@ export enum APIStatus {
   PASSWORD_NOT_MATCH,
   USER_NOT_FOUND,
   USER_PASSWORD_NOT_MATCH
+}
+
+export enum GradeScale{
+  GRADE_0_10,            
+  GRADE_0_100
 }
 
 export let fileMimeTypes = [
