@@ -21,7 +21,7 @@
     <ion-row class="border-bottom" *ngFor="let e of enrollments.Histories">
       <ion-col col-3>
         <ion-avatar item-start>
-          <img src="{{e.User.Thumbnail}}">
+          <img src="{{baseUrl}}/{{e.User.Thumbnail}}">
         </ion-avatar>
       </ion-col>
       <ion-col col-9 class="font-sm">
@@ -40,7 +40,7 @@
                   <ion-icon name="notifications"></ion-icon>
                 {{'Notify' | translate}}
               </button>
-              <button ion-button color="danger" (click)="delete(item)">
+              <button ion-button color="danger" (click)="remove(e)">
                 <ion-icon name="trash"></ion-icon>
                 {{'Remove' | translate}}
               </button>
