@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-item text-center class="title">
-    <b>{{event.Class}}</b>
+    <b>{{event.ClassCode}}</b>
   </ion-item>
 
   <accordion-list title="Downloads" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
@@ -68,7 +68,7 @@
         <ion-icon class="icon" color="secondary" name="car"></ion-icon> {{'Logistics' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Expenses' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>{{event.QtyLogistic}}</b>
+        <b class="outgoing">{{event.QtyLogistic}}</b>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickBilling()">
@@ -76,7 +76,7 @@
         <ion-icon class="icon" color="secondary" name="cash"></ion-icon> {{'Billings' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Revenues' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>{{event.QtyBilling}}</b>
+        <b class="incoming">{{event.QtyBilling}}</b>
       </ion-col>
     </ion-row>
   </ion-grid>

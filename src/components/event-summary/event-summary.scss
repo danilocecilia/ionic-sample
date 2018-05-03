@@ -7,4 +7,16 @@ event-summary {
     .title{
         font-size: 15px;
     }
+
+    .incoming{
+        color: green;
+    }
+
+    .outgoing{
+        color: red;
+    }
+
+    b{
+        font-size:13px;
+    }
 }

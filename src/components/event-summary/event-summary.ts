@@ -37,7 +37,6 @@ export class EventSummaryComponent {
 
   loadEventSummary(){
     this.loadingProvider.presentLoadingDefault();
-
     this.eventSummaryProvider.getEventSummaryByClass(this.event.ID)
     .then((response) => {
       this.loadingProvider.dismissLoading();
