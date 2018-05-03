@@ -4,9 +4,9 @@ import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class LoadingProvider {
-  loading: any;
+  private loading: any;
   constructor(
-    public loadingController: LoadingController,
+    private loadingController: LoadingController,
     private translate: TranslateService
   ) { }
 
