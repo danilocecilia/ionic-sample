@@ -1,19 +1,23 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
-import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
+import * as AppConfig from "../../app/config";
+import { UserProfileProvider } from "../../providers/user-profile/user-profile";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 @Component({
   selector: "es-enroll",
   templateUrl: "es-enroll.html"
 })
 export class EsEnrollComponent {
-  enrollments: any = {};
-  event:any;
+  users: any;
+  event: any;
+  baseUrl = AppConfig.cfg.baseUrl;
 
   constructor(
     private navCtrl: NavController,
-    private enrollmentProvider: EnrollmentProvider,
-    private navParams: NavParams
+    private userProvider: UserProfileProvider,
+    private navParams: NavParams,
+    private loadingProvider: LoadingProvider
   ) {
     this.event = this.navParams.get("event");
   }
@@ -22,10 +26,16 @@ export class EsEnrollComponent {
     this.loadEnrollments();
   }
   loadEnrollments() {
-    this.enrollmentProvider
-      .loadEnrollments()
-      .subscribe(result => {
-        this.enrollments = result[0];
+    this.loadingProvider.presentLoadingDefault();
+    this.userProvider
+      .loadUsersByClass(this.event.ClassAPI.ID)
+      .then(response => {
+        this.loadingProvider.dismissLoading();
+        this.users = response;
+      })
+      .catch(err => {
+        this.loadingProvider.dismissLoading();
+        console.log(err);
       });
   }
 

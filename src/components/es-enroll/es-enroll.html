@@ -9,7 +9,7 @@
   <ion-grid>
     <ion-row class="border-bottom" class="border-bottom">
       <ion-col col-12 padding-vertical>
-        <b>{{event.Class}}</b>
+        <b>{{event.ClassAPI.ClassCode}}</b>
       </ion-col>
       <ion-col col-12>
         {{'Seats' | translate}}: 14 {{'of' | translate}} 14 / {{'SeatsByOrganization' | translate}}: 2
@@ -20,10 +20,10 @@
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'Search' | translate}}" showCancelButton (ionCancel)="onCancel($event)"></ion-searchbar>
 
   <ion-grid>
-    <ion-row class="border-bottom" *ngFor="let e of enrollments.Histories">
+    <ion-row class="border-bottom" *ngFor="let u of users">
       <ion-col col-3>
         <ion-avatar item-start>
-          <img src="{{e.User.Thumbnail}}">
+          <img src="{{baseUrl}}/{{u.Thumbnail}}">
         </ion-avatar>
         
       </ion-col>
@@ -31,12 +31,12 @@
         <ion-list no-margin>
           <ion-item-sliding #item>
             <ion-item>
-              <b>{{e.User.Name}}</b>
-              <p>{{e.User.Email}}</p>
-              <p>{{e.User.Phone}}</p>
-              <p>{{e.User.JobRolesStringfied}}</p>
-              <p>{{e.User.Organization.Organization}}</p>
-              <p>{{e.User.Organization.Country}}</p>
+              <b>{{u.Name}}</b>
+              <p>{{u.Email}}</p>
+              <p>{{u.Phone}}</p>
+              <p>{{u.JobRolesStringfied}}</p>
+              <p>{{u.Organization.Organization}}</p>
+              <p>{{u.Organization.Country}}</p>
             </ion-item>
             <ion-item-options side="right">
               <button ion-button color="secondary" (click)="unread(item)">
