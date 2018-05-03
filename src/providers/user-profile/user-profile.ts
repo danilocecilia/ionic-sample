@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import * as APPConfig from "../../app/config";
+import * as AppConfig from "../../app/config";
 import { AuthProvider } from "../auth/auth";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class UserProfileProvider {
 
     return this.http
       .post(
-        `${APPConfig.cfg.apiUrl}${APPConfig.cfg.user_profile.updateUserAvatar}`,
+        `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateUserAvatar}`,
         apiUser
       )
       .toPromise()
@@ -27,7 +27,7 @@ export class UserProfileProvider {
   getUserProfile() {
     return this.http
       .get(
-        `${APPConfig.cfg.apiUrl}${APPConfig.cfg.user_profile.getUserProfile}?token=${this.authProvider.loggedUser.Token}`
+        `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.getUserProfile}?token=${this.authProvider.loggedUser.Token}`
       )
       .toPromise()
       .catch(err => {
@@ -38,12 +38,16 @@ export class UserProfileProvider {
   updateUserProfile(userProfile){
     return this.http
     .post(
-      `${APPConfig.cfg.apiUrl}${APPConfig.cfg.user_profile.updateUserProfile}`,
+      `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateUserProfile}`,
       userProfile
     )
     .toPromise()
     .catch(err => {
       return err;
     });
+  }
+
+  loadUsersByClass(idClass){
+    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.allUsers}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}`).toPromise();
   }
 }

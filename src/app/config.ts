@@ -16,7 +16,8 @@ export let cfg = {
   event_summary: {
     getEventSummary: "Class/GetEventSummary",
     putActionStep: "Class/ActionStep",
-    putActionStatus: "Class/ActionStatus"
+    putActionStatus: "Class/ActionStatus",
+    classes:"Class/GetClasses"
   },
   history:{
     enrollmentsByClass: "History/GetEnrollmentsByClass",
@@ -28,12 +29,13 @@ export let cfg = {
     login: "Authentication/Authenticate",
     refresh: "Authentication/RefreshToken",
     changePassword: "Authentication/ChangePassword",
-    recoveryPassowrd: "Authentication/RecoverPassword"
+    recoveryPassowrd: "Authentication/RecoverPassword",
   },
   user_profile: {
     updateUserAvatar: "User/UpdateUserAvatar",
     getUserProfile: "User/GetUserProfile",
-    updateUserProfile: "User/UpdateUserProfile"
+    updateUserProfile: "User/UpdateUserProfile",
+    allUsers: "User/GetUsersByClass"
   },
   notification: {
     all: "notification/GetNotifications",
