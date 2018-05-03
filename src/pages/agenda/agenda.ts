@@ -142,7 +142,7 @@ export class AgendaPage implements OnInit {
     return (
       `<b>${start}</b> - <b>${end}</b>` +
       `<br>
-        Session: <b> ${event.Class} </b>` +
+        Session: <b> ${event.ClassCode} </b>` +
       `<br>
         Seats Status: <b>${event.QtdyEnrolledUsers}/${event.Seats}</b>` +
       `<br>
@@ -166,20 +166,25 @@ export class AgendaPage implements OnInit {
     }
   }
 
+  getEventsByDate(start, end){
+    this.agendaProvider
+    .getEventsByDates(start, end)
+    .then(response => {
+      this.loadingProvider.dismissLoading();
+      this.bindElements(response);
+    })
+    .catch(err => {
+      this.loadingProvider.dismissLoading();
+      console.error(err);
+    });
+  }
+
+
   loadEvents() {
     let firstDayMonth = moment().format("YYYY-MM-01");
     let lastDayMonth = moment().format("YYYY-MM-") + moment().daysInMonth();
 
-    this.agendaProvider
-      .loadAllEvents(firstDayMonth, lastDayMonth)
-      .then(res => {
-        this.loadingProvider.dismissLoading();
-        this.bindElements(res);
-      })
-      .catch(err => {
-        this.loadingProvider.dismissLoading();
-        console.error(err);
-      });
+    this.getEventsByDate(firstDayMonth, lastDayMonth);
   }
 
   getEvents(trainingId) {
@@ -252,14 +257,14 @@ export class AgendaPage implements OnInit {
   }
 
   onTimeSelected(ev) {
-    console.log(
-      "Selected time: " +
-        ev.selectedTime +
-        ", hasEvents: " +
-        (ev.events !== undefined && ev.events.length !== 0) +
-        ", disabled: " +
-        ev.disabled
-    );
+    // console.log(
+    //   "Selected time: " +
+    //     ev.selectedTime +
+    //     ", hasEvents: " +
+    //     (ev.events !== undefined && ev.events.length !== 0) +
+    //     ", disabled: " +
+    //     ev.disabled
+    // );
   }
 
   onCloseModal() {
@@ -271,16 +276,29 @@ export class AgendaPage implements OnInit {
   }
 
   onCurrentDateChanged(event: Date) {
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    event.setHours(0, 0, 0, 0);
-    this.isToday = today.getTime() === event.getTime();
+    let dateRange = this.getStartAndEndDate(event.getFullYear(), event.getMonth()+1);
+    
+    this.getEventsByDate(dateRange.start, dateRange.end);
   }
 
+  getStartAndEndDate(year, month) {
+    // month in moment is 0 based, so 9 is actually october, subtract 1 to compensate
+    // array is 'year', 'month', 'day', etc
+    var startDate = moment([year, month - 1]).format("YYYY-MM-DD");
+
+    // Clone the value before .endOf()
+    var endDate = moment(startDate).endOf('month').format("YYYY-MM-DD");
+
+    // // just for demonstration:
+    console.log(startDate);
+    console.log(endDate);
+    
+    // make sure to call toDate() for plain JavaScript date type
+    return { start: startDate, end: endDate };
+}
+
+
   onRangeChanged(ev) {
-    console.log(
-      "range changed: startTime: " + ev.startTime + ", endTime: " + ev.endTime
-    );
   }
 
   dismiss() {

@@ -9,7 +9,7 @@ export class AgendaProvider {
   constructor(public http: HttpClient, private authProvider: AuthProvider) {
   }
 
-  loadAllEvents(start, end){
+  getEventsByDates(start, end){
       return this.http.get(`${APPConfig.cfg.apiUrl + APPConfig.cfg.agenda.getClassesByDate}?token=${this.authProvider.loggedUser.Token}&start=${start}&end=${end}`).toPromise();
   }
 
