@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Grades
+      {{'Grades' | translate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,396 +9,52 @@
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-9 padding-vertical>
-        <b>FF2137_CL0001</b>
+        <b>{{enrollments.ClassAPI.ClassCode}}</b>
       </ion-col>
       <ion-col col-3>
-        <button ion-button small (click)="showWhenNotPresent()">UPDATE</button>
+        <button ion-button small (click)="updateGradeHistory()">{{'Update' | translate}}</button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-content>
-    <ion-card>
+    <ion-card *ngFor="let e of enrollments.Histories">
       <div class="status">
-        <button ion-button small outline color="secondary">Pass</button>
+        <button ion-button small outline color="secondary">{{('HistoryStatus.' + e.Status) | translate}}</button>
       </div>
       <ion-item class="card-head">
         <ion-avatar item-start>
-          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+          <img src="{{baseUrl}}/{{e.User.Thumbnail}}">
         </ion-avatar>
-        <b>Angelo Martins da Silva Medeiros</b>
+        <b>{{e.User.Name}}</b>
         <p>Triumph Flagshipstore NL Frankfurt</p>
-        <p>Cargos</p>
+        <p>{{e.User.JobRolesStringfied}}</p>
       </ion-item>
       <ion-item>
-        <ion-label>Presence</ion-label>
-        <ion-select [(ngModel)]="presence" interface="popover" (ionChange)="showWhenNotPresent($event)">
-          <ion-option [value]="true">YES</ion-option>
-          <ion-option [value]="false">NO</ion-option>
+        <ion-label>{{'Presence' | translate}}</ion-label>
+        <ion-select [(ngModel)]="e.Presence" interface="popover">
+          <ion-option [value]="true">{{'Yes' | translate}}</ion-option>
+          <ion-option [value]="false">{{'No' | translate}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="!presence">
-        <ion-label>Justify</ion-label>
-        <ion-select [(ngModel)]="justify" interface="popover">
-          <ion-option [value]="noshow">No Show</ion-option>
-          <ion-option [value]="justified">Justified</ion-option>
+      <ion-item *ngIf="!e.Presence">
+        <ion-label>{{'Justify' | translate}}</ion-label>
+        <ion-select [(ngModel)]="e.Justified" interface="popover">
+          <ion-option [value]="0">{{'NoShow' | translate}}</ion-option>
+          <ion-option [value]="1">{{'Justified' | translate}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="presence">
-        <ion-label>Pre</ion-label>
-        <ion-select [(ngModel)]="pre" interface="popover">
-          <ion-option value="00">00</ion-option>
-          <ion-option value="10">10</ion-option>
-          <ion-option value="20">20</ion-option>
-          <ion-option value="30">30</ion-option>
-          <ion-option value="40">40</ion-option>
-          <ion-option value="50">50</ion-option>
-          <ion-option value="60">60</ion-option>
-          <ion-option value="70">70</ion-option>
-          <ion-option value="80">80</ion-option>
-          <ion-option value="90">90</ion-option>
-          <ion-option value="100">100</ion-option>
+      <ion-item *ngIf="e.Presence">
+        <ion-label>{{'PreTest' | translate}}</ion-label>
+        <ion-select [(ngModel)]="e.PreTest" interface="popover">
+            <ion-option *ngFor="let g of grades" [value]="g">{{g}}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="presence">
-        <ion-label>Post</ion-label>
-        <ion-select [(ngModel)]="post" interface="popover">
-          <ion-option value="00">00</ion-option>
-          <ion-option value="10">10</ion-option>
-          <ion-option value="20">20</ion-option>
-          <ion-option value="30">30</ion-option>
-          <ion-option value="40">40</ion-option>
-          <ion-option value="50">50</ion-option>
-          <ion-option value="60">60</ion-option>
-          <ion-option value="70">70</ion-option>
-          <ion-option value="80">80</ion-option>
-          <ion-option value="90">90</ion-option>
-          <ion-option value="100">100</ion-option>
+      <ion-item *ngIf="e.Presence">
+        <ion-label>{{'PostTest' | translate}}</ion-label>
+        <ion-select [(ngModel)]="e.PostTest" interface="popover">
+            <ion-option *ngFor="let g of grades" [value]="g">{{g}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-card>
-
-    <ion-card>
-      <div class="status">
-        <button ion-button small outline color="primary">Absent</button>
-      </div>
-      <ion-item class="card-head">
-        <ion-avatar item-start>
-          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-        </ion-avatar>
-        <b>Angelo Martins da Silva Medeiros</b>
-        <p>Triumph Flagshipstore NL Frankfurt</p>
-        <p>Cargos</p>
-      </ion-item>
-      <ion-item>
-        <ion-label>Presence</ion-label>
-        <ion-select [(ngModel)]="presence" interface="popover" (ionChange)="showWhenNotPresent($event)">
-          <ion-option [value]="true">YES</ion-option>
-          <ion-option [value]="false">NO</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="!presence">
-        <ion-label>Justify</ion-label>
-        <ion-select [(ngModel)]="justify" interface="popover">
-          <ion-option [value]="noshow">No Show</ion-option>
-          <ion-option [value]="justified">Justified</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="presence">
-        <ion-label>Pre</ion-label>
-        <ion-select [(ngModel)]="pre" interface="popover">
-          <ion-option value="00">00</ion-option>
-          <ion-option value="10">10</ion-option>
-          <ion-option value="20">20</ion-option>
-          <ion-option value="30">30</ion-option>
-          <ion-option value="40">40</ion-option>
-          <ion-option value="50">50</ion-option>
-          <ion-option value="60">60</ion-option>
-          <ion-option value="70">70</ion-option>
-          <ion-option value="80">80</ion-option>
-          <ion-option value="90">90</ion-option>
-          <ion-option value="100">100</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="presence">
-        <ion-label>Post</ion-label>
-        <ion-select [(ngModel)]="post" interface="popover">
-          <ion-option value="00">00</ion-option>
-          <ion-option value="10">10</ion-option>
-          <ion-option value="20">20</ion-option>
-          <ion-option value="30">30</ion-option>
-          <ion-option value="40">40</ion-option>
-          <ion-option value="50">50</ion-option>
-          <ion-option value="60">60</ion-option>
-          <ion-option value="70">70</ion-option>
-          <ion-option value="80">80</ion-option>
-          <ion-option value="90">90</ion-option>
-          <ion-option value="100">100</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-card>
-
-    <ion-card>
-      <div class="status">
-        <button ion-button small outline color="danger">FAIL</button>
-      </div>
-      <ion-item class="card-head">
-        <ion-avatar item-start>
-          <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-        </ion-avatar>
-        <b>Angelo Martins da Silva Medeiros</b>
-        <p>Triumph Flagshipstore NL Frankfurt</p>
-        <p>Cargos</p>
-      </ion-item>
-      <ion-item>
-        <ion-label>Presence</ion-label>
-        <ion-select [(ngModel)]="presence" interface="popover" (ionChange)="showWhenNotPresent($event)">
-          <ion-option [value]="true">YES</ion-option>
-          <ion-option [value]="false">NO</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="!presence">
-        <ion-label>Justify</ion-label>
-        <ion-select [(ngModel)]="justify" interface="popover">
-          <ion-option [value]="noshow">No Show</ion-option>
-          <ion-option [value]="justified">Justified</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="presence">
-        <ion-label>Pre</ion-label>
-        <ion-select [(ngModel)]="pre" interface="popover">
-          <ion-option value="00">00</ion-option>
-          <ion-option value="10">10</ion-option>
-          <ion-option value="20">20</ion-option>
-          <ion-option value="30">30</ion-option>
-          <ion-option value="40">40</ion-option>
-          <ion-option value="50">50</ion-option>
-          <ion-option value="60">60</ion-option>
-          <ion-option value="70">70</ion-option>
-          <ion-option value="80">80</ion-option>
-          <ion-option value="90">90</ion-option>
-          <ion-option value="100">100</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="presence">
-        <ion-label>Post</ion-label>
-        <ion-select [(ngModel)]="post" interface="popover">
-          <ion-option value="00">00</ion-option>
-          <ion-option value="10">10</ion-option>
-          <ion-option value="20">20</ion-option>
-          <ion-option value="30">30</ion-option>
-          <ion-option value="40">40</ion-option>
-          <ion-option value="50">50</ion-option>
-          <ion-option value="60">60</ion-option>
-          <ion-option value="70">70</ion-option>
-          <ion-option value="80">80</ion-option>
-          <ion-option value="90">90</ion-option>
-          <ion-option value="100">100</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-card>
-
-    <!-- <ion-grid>
-      <ion-row class="border-bottom">
-        <ion-col col-3 style="height:84px">
-          <ion-avatar item-start>
-            <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col col-6 class="font-sm" style="height:84px">
-          <b class="title">Angelo Martins</b>
-          <p>Triumph Flagshipstore NL Frankfurt</p>
-          <p>Cargos</p>
-        </ion-col>
-        <ion-col col-3 text-right style="height:84px">
-          <button ion-button small outline color="secondary">Pass</button>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label>Presence</ion-label>
-            <ion-select [(ngModel)]="presence" interface="popover" (ionChange)="showWhenNotPresent($event)">
-              <ion-option [value]="true">YES</ion-option>
-              <ion-option [value]="false">NO</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6 *ngIf="!presence">
-          <ion-item>
-            <ion-label>Justify</ion-label>
-            <ion-select [(ngModel)]="justify" interface="popover">
-              <ion-option [value]="noshow">No Show</ion-option>
-              <ion-option [value]="justified">Justified</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6 *ngIf="presence">
-          <ion-item>
-            <ion-label>Pre</ion-label>
-            <ion-select [(ngModel)]="pre" interface="popover">
-              <ion-option value="00">00</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="20">20</ion-option>
-              <ion-option value="30">30</ion-option>
-              <ion-option value="40">40</ion-option>
-              <ion-option value="50">50</ion-option>
-              <ion-option value="60">60</ion-option>
-              <ion-option value="70">70</ion-option>
-              <ion-option value="80">80</ion-option>
-              <ion-option value="90">90</ion-option>
-              <ion-option value="100">100</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>Post</ion-label>
-            <ion-select [(ngModel)]="post" interface="popover">
-              <ion-option value="00">00</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="20">20</ion-option>
-              <ion-option value="30">30</ion-option>
-              <ion-option value="40">40</ion-option>
-              <ion-option value="50">50</ion-option>
-              <ion-option value="60">60</ion-option>
-              <ion-option value="70">70</ion-option>
-              <ion-option value="80">80</ion-option>
-              <ion-option value="90">90</ion-option>
-              <ion-option value="100">100</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="border-bottom">
-        <ion-col col-3 style="height:84px">
-          <ion-avatar item-start>
-            <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col col-6 class="font-sm" style="height:84px">
-          <b class="title">Angelo Martins</b>
-          <p>Triumph Flagshipstore NL Frankfurt</p>
-          <p>Cargos</p>
-        </ion-col>
-        <ion-col col-3 text-right style="height:84px">
-          <button ion-button small outline color="primary">Absent</button>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label>Presence</ion-label>
-            <ion-select [(ngModel)]="presence" interface="popover">
-              <ion-option [value]="true">YES</ion-option>
-              <ion-option [value]="false">NO</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6 *ngIf="!presence">
-          <ion-item>
-            <ion-label>Justify</ion-label>
-            <ion-select [(ngModel)]="justify" interface="popover">
-              <ion-option [value]="noshow">No Show</ion-option>
-              <ion-option [value]="justified">Justified</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6 *ngIf="presence">
-          <ion-item>
-            <ion-label>Pre</ion-label>
-            <ion-select [(ngModel)]="pre" interface="popover">
-              <ion-option value="00">00</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="20">20</ion-option>
-              <ion-option value="30">30</ion-option>
-              <ion-option value="40">40</ion-option>
-              <ion-option value="50">50</ion-option>
-              <ion-option value="60">60</ion-option>
-              <ion-option value="70">70</ion-option>
-              <ion-option value="80">80</ion-option>
-              <ion-option value="90">90</ion-option>
-              <ion-option value="100">100</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>Post</ion-label>
-            <ion-select [(ngModel)]="post" interface="popover">
-              <ion-option value="00">00</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="20">20</ion-option>
-              <ion-option value="30">30</ion-option>
-              <ion-option value="40">40</ion-option>
-              <ion-option value="50">50</ion-option>
-              <ion-option value="60">60</ion-option>
-              <ion-option value="70">70</ion-option>
-              <ion-option value="80">80</ion-option>
-              <ion-option value="90">90</ion-option>
-              <ion-option value="100">100</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="border-bottom">
-        <ion-col col-3 style="height:84px">
-          <ion-avatar item-start>
-            <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-          </ion-avatar>
-        </ion-col>
-        <ion-col col-6 class="font-sm" style="height:84px">
-          <b class="title">Angelo Martins</b>
-          <p>Triumph Flagshipstore NL Frankfurt</p>
-          <p>Cargos</p>
-        </ion-col>
-        <ion-col col-3 text-right style="height:84px">
-          <button ion-button small outline color="danger">Fail</button>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label>Presence</ion-label>
-            <ion-select [(ngModel)]="presence" interface="popover">
-              <ion-option [value]="true">YES</ion-option>
-              <ion-option [value]="false">NO</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6 *ngIf="!presence">
-          <ion-item>
-            <ion-label>Justify</ion-label>
-            <ion-select [(ngModel)]="justify01" interface="popover">
-              <ion-option [value]="noshow">No Show</ion-option>
-              <ion-option [value]="justified">Justified</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6 *ngIf="presence">
-          <ion-item>
-            <ion-label>Pre</ion-label>
-            <ion-select [(ngModel)]="pre01" interface="popover">
-              <ion-option value="00">00</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="20">20</ion-option>
-              <ion-option value="30">30</ion-option>
-              <ion-option value="40">40</ion-option>
-              <ion-option value="50">50</ion-option>
-              <ion-option value="60">60</ion-option>
-              <ion-option value="70">70</ion-option>
-              <ion-option value="80">80</ion-option>
-              <ion-option value="90">90</ion-option>
-              <ion-option value="100">100</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>Post</ion-label>
-            <ion-select [(ngModel)]="post" interface="popover">
-              <ion-option value="00">00</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="20">20</ion-option>
-              <ion-option value="30">30</ion-option>
-              <ion-option value="40">40</ion-option>
-              <ion-option value="50">50</ion-option>
-              <ion-option value="60">60</ion-option>
-              <ion-option value="70">70</ion-option>
-              <ion-option value="80">80</ion-option>
-              <ion-option value="90">90</ion-option>
-              <ion-option value="100">100</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid> -->
   </ion-content>

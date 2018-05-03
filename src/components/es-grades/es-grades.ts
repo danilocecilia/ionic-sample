@@ -1,54 +1,57 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { NavParams } from "ionic-angular";
+import * as AppConfig from "../../app/config";
+import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
+import { ToastProvider } from "../../providers/toast/toast";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 @Component({
   selector: "es-grades",
   templateUrl: "es-grades.html"
 })
-export class EsGradesComponent {
-  presence: boolean;
-  testRadioOpen = false;
-  testRadioResult: any;
-  presenceType: string;
-  hide: boolean = true;
+export class EsGradesComponent implements OnInit {
+  enrollments: any = {};
+  baseUrl = AppConfig.cfg.baseUrl;
+  grades: number[];
+  gradeHistories: any[];
 
-  constructor() {
-    this.presence = true;
+  constructor(
+    private navParams: NavParams,
+    private enrollmentProvider: EnrollmentProvider,
+    private toastProvider: ToastProvider,
+    private loadingProvider: LoadingProvider
+  ) {}
+
+  ngOnInit() {
+    this.enrollments = this.navParams.get("enrollments");
+
+    this.getGradeList();
   }
 
-  showWhenNotPresent(selectedValue: any) {
-    this.hide = !this.hide;
+  updateGradeHistory() {
+    this.loadingProvider.presentLoadingDefault();
+    this.enrollmentProvider
+      .updateGrades(this.enrollments.Histories)
+      .then(histories => {
+        this.loadingProvider.dismissLoading();
+        this.enrollments = histories;
+        this.toastProvider.presentTranslatedToast("SuccessUpdateGradeHistory");
+      })
+      .catch(err => {
+        this.loadingProvider.dismissLoading();
+        console.log(err);
+        this.toastProvider.presentTranslatedToast("ErrorMessage");
+        
+      });
+  }
 
-    // if (!selectedValue) {
-    //   let alert = this.alertCtrl.create();
-
-    //   alert.setTitle("Justify fault");
-
-    //   alert.addInput({
-    //     type: "radio",
-    //     label: "No Show",
-    //     value: "noshow",
-    //     checked: false
-    //   });
-
-    //   alert.addInput({
-    //     type: "radio",
-    //     label: "Justify",
-    //     value: "Justify"
-    //   });
-
-    //   alert.addButton("Cancel");
-    //   alert.addButton({
-    //     text: "Ok",
-    //     handler: (data: any) => {
-    //       //console.log("Radio data:", data);
-    //       this.hide = true;
-    //       this.testRadioOpen = false;
-    //       if (data === "noshow") this.presenceType = "No Show";
-    //       else this.presenceType = "Justify";
-    //     }
-    //   });
-
-    //   alert.present();
-    // }
+  getGradeList() {
+    if (AppConfig.GradeScale.GRADE_0_100 === this.enrollments.GradingScale) {
+      this.grades = Array.from(Array(101).keys());
+    } else if (
+      AppConfig.GradeScale.GRADE_0_10 === this.enrollments.GradingScale
+    ) {
+      this.grades = Array.from(Array(11).keys());
+    }
   }
 }
