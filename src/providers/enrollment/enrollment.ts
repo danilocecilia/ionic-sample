@@ -1,23 +1,27 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import * as APPConfig from "../../app/config";
+import * as AppConfig from "../../app/config";
 import { AuthProvider } from '../auth/auth';
 import { GradeHistory } from "../../model/enrollments";
-
+import { History } from "../../model/enrollments";
 @Injectable()
 export class EnrollmentProvider {
-  constructor(public http: HttpClient, private authProvider : AuthProvider) {
+  constructor(private http: HttpClient, private authProvider : AuthProvider) {
   }
 
   loadEnrollmentsByClass(idClass:number){
-    return this.http.get(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.history.enrollmentsByClass}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}`).toPromise();
+    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.history.enrollmentsByClass}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}`).toPromise();
   }
 
   removeEnrollment(enrollment: GradeHistory){
-    return this.http.post(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.history.removeEnrollment}?token=${this.authProvider.loggedUser.Token}`, enrollment).toPromise();
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.history.removeEnrollment}?token=${this.authProvider.loggedUser.Token}`, enrollment).toPromise();
   }
   
   updateGrades(gradeHistory : GradeHistory){
-    return this.http.post(`${APPConfig.cfg.apiUrl}${APPConfig.cfg.history.updateGrade}?token=${this.authProvider.loggedUser.Token}`, gradeHistory).toPromise();
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.history.updateGrade}?token=${this.authProvider.loggedUser.Token}`, gradeHistory).toPromise();
+  }
+
+  enrollUser(history: History){
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.history.enrollUser}?token=${this.authProvider.loggedUser.Token}`, history).toPromise();
   }
 }
