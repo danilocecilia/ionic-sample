@@ -3,11 +3,8 @@ import { NavController, NavParams } from "ionic-angular";
 import { EsEnrollComponent } from "../es-enroll/es-enroll";
 import { LoadingProvider } from "../../providers/loading/loading";
 import * as AppConfig from "../../app/config";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
-import { GradeHistory } from "../../model/enrollments";
 import { ToastProvider } from "../../providers/toast/toast";
-
 
 @Component({
   selector: "es-enrollments",
@@ -31,6 +28,8 @@ export class EsEnrollmentsComponent implements OnInit {
   ngOnInit() {}
 
   remove(event) {
+    this.loadingProvider.presentLoadingDefault();
+
     this.enrollment = {
       ID_History: event.ID
     };
@@ -38,12 +37,15 @@ export class EsEnrollmentsComponent implements OnInit {
     this.enrollmentProvider
       .removeEnrollment(this.enrollment)
       .then(status => {
+        this.loadingProvider.dismissLoading();
         if(status === "SUCCESS"){
           this.enrollments.Histories = this.enrollments.Histories.filter(element => element.ID !== event.ID);
           this.toastProvider.presentTranslatedToast("SuccessRemovalEnrollment");
         }
       })
       .catch(err => {
+        console.log(err);
+        this.loadingProvider.dismissLoading();
         this.toastProvider.presentTranslatedToast("ErrorMessage");
       });
   }
