@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { EsEnrollmentsComponent } from "../es-enrollments/es-enrollments";
 import { EsGradesComponent } from "../es-grades/es-grades";
@@ -15,8 +15,8 @@ import { EnrollmentProvider  } from "../../providers/enrollment/enrollment";
   selector: "event-summary",
   templateUrl: "event-summary.html"
 })
-export class EventSummaryComponent {
-  event: any;
+export class EventSummaryComponent implements OnInit{
+  currentClass: any;
   eventSummary: any;
   open : string;
   action: any;
@@ -30,14 +30,18 @@ export class EventSummaryComponent {
     private toastProvider: ToastProvider,
     private downloadProvider: DownloadProvider, 
     private enrollmentProvider: EnrollmentProvider) {
-      this.event = this.navParams.get("event");
-      this.loadEventSummary();
-      this.getTranslatedOpenButton();
+      debugger;
+      this.currentClass = this.navParams.get("event");
+  }
+
+  ngOnInit(){
+    this.loadEventSummary();
+    this.getTranslatedOpenButton();
   }
 
   loadEventSummary(){
     this.loadingProvider.presentLoadingDefault();
-    this.eventSummaryProvider.getEventSummaryByClass(this.event.ID)
+    this.eventSummaryProvider.getEventSummaryByClass(this.currentClass.ID)
     .then((response) => {
       this.loadingProvider.dismissLoading();
       this.eventSummary = response;
@@ -47,7 +51,7 @@ export class EventSummaryComponent {
 
   onChangeStatus(actionType){
     this.action = {
-      IdClass: this.event.ID,
+      IdClass: this.currentClass.ID,
       Status: actionType,
     }
 
@@ -63,7 +67,7 @@ export class EventSummaryComponent {
 
   onChangeStep(actionType){
     this.action = {
-      IdClass: this.event.ID,
+      IdClass: this.currentClass.ID,
       Step: actionType,
     }
 
@@ -129,7 +133,7 @@ export class EventSummaryComponent {
   onClickGrades() {
     this.loadingProvider.presentLoadingDefault();
 
-    this.enrollmentProvider.loadEnrollmentsByClass(this.event.ID)
+    this.enrollmentProvider.loadEnrollmentsByClass(this.currentClass.ID)
     .then(response => {
       this.loadingProvider.dismissLoading();
       this.navCtrl.push(EsGradesComponent, { enrollments: response });  
@@ -143,7 +147,7 @@ export class EventSummaryComponent {
   onClickEnrollment() {
     this.loadingProvider.presentLoadingDefault();
 
-    this.enrollmentProvider.loadEnrollmentsByClass(this.event.ID)
+    this.enrollmentProvider.loadEnrollmentsByClass(this.currentClass.ID)
     .then(response => {
       this.loadingProvider.dismissLoading();
       this.navCtrl.push(EsEnrollmentsComponent, { enrollments: response });  
@@ -155,10 +159,19 @@ export class EventSummaryComponent {
   }
 
   onClickLogistics() {
-    this.navCtrl.push(EsLogisticsComponent, { event: this.event });
+    this.navCtrl.push(EsLogisticsComponent, { event: this.currentClass });
   }
 
   onClickBilling() {
-    this.navCtrl.push(EsBillingsComponent, { event: this.event });
+    this.navCtrl.push(EsBillingsComponent, { event: this.currentClass });
+  }
+  
+  ionViewDidEnter(){
+    this.eventSummaryProvider.getClassById(this.currentClass.ID)
+    .then(cClass => {
+      this.currentClass = cClass;
+    }).catch(err => {
+      console.log(err);
+    });    
   }
 }

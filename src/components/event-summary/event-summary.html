@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-item text-center class="title">
-    <b>{{event.ClassCode}}</b>
+    <b>{{currentClass.ClassCode}}</b>
   </ion-item>
 
   <accordion-list title="Downloads" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
@@ -26,7 +26,7 @@
     <ion-col col-12>
       <ion-item>
         <ion-label color="secondary">Status</ion-label>
-        <ion-select [(ngModel)]="event.Status" interface="popover" (ionChange)="onChangeStatus($event)">
+        <ion-select [(ngModel)]="currentClass.Status" interface="popover" (ionChange)="onChangeStatus($event)">
           <ion-option value="0">{{'HistoryStatus.NOT_STARTED' | translate}}</ion-option>
           <ion-option value="1">{{'HistoryStatus.IN_PROGRESS' | translate}}</ion-option>
           <ion-option value="2">{{'HistoryStatus.FINISHED' | translate}}</ion-option>
@@ -37,7 +37,7 @@
     <ion-col col-12 text-center>
       <ion-item>
         <ion-label color="secondary">{{'Step' | translate}}</ion-label>
-        <ion-select [(ngModel)]="event.Step" interface="popover" (ionChange)="onChangeStep($event)">
+        <ion-select [(ngModel)]="currentClass.Step" interface="popover" (ionChange)="onChangeStep($event)">
           <ion-option value="0">{{'PRE_TEST' | translate}}</ion-option>
           <ion-option value="1">{{'Training' | translate}}</ion-option>
           <ion-option value="2">{{'POST_TEST' | translate}}</ion-option>
@@ -52,7 +52,7 @@
         <ion-icon class="icon" color="secondary" name="people"></ion-icon> {{'Enrollments' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Seats' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>{{event.QtdyEnrolledUsers}} {{'of' | translate}} {{event.Seats}}</b>
+        <b>{{currentClass.QtdyEnrolledUsers}} {{'of' | translate}} {{currentClass.Seats}}</b>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickGrades()">
@@ -60,7 +60,7 @@
         <ion-icon class="icon" color="secondary" name="star"></ion-icon> {{'Grades' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Average' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b>{{event.AverageScore}}</b>
+        <b>{{currentClass.AverageScore}}</b>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickLogistics()">
@@ -68,7 +68,7 @@
         <ion-icon class="icon" color="secondary" name="car"></ion-icon> {{'Logistics' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Expenses' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b class="outgoing">{{event.QtyLogistic}}</b>
+        <b class="outgoing">{{currentClass.QtyLogistic}}</b>
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom" (click)="onClickBilling()">
@@ -76,7 +76,7 @@
         <ion-icon class="icon" color="secondary" name="cash"></ion-icon> {{'Billings' | translate}}</ion-col>
       <ion-col col-6 class="font-sm">{{'Revenues' | translate}}:</ion-col>
       <ion-col col-6 class="font-sm" text-right>
-        <b class="incoming">{{event.QtyBilling}}</b>
+        <b class="incoming">{{currentClass.QtyBilling}}</b>
       </ion-col>
     </ion-row>
   </ion-grid>
