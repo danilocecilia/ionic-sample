@@ -47,7 +47,7 @@ export class UserProfileProvider {
     });
   }
 
-  loadUsersByClass(idClass){
-    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.allUsers}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}`).toPromise();
+  loadUsersByClass(idClass, page){
+    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.allUsers}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}&page=${page}&results=`).toPromise();
   }
 }
