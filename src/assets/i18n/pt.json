@@ -9,6 +9,7 @@
   "ActionStatusSuccess": "Status atualizado com sucesso.",
   "ActionStepSuccess": "Passo atualizado com sucesso",
   "ConfirmEnrollment": "Confirma a inscrição para esta data?",
+  "SuccessEnrolledUser": "Inscrição efetuada com sucesso.",
   "Today": "Hoje",
   "NoEvents": "Nenhum evento para o dia selecionado.",
   "Yes": "Sim",
@@ -126,7 +127,8 @@
     "EnrollUsers": "Inscrever usuários",
     "CourseSteps": "Passos do Curso",
     "Assessment": "Avaliação",
-    "MediaGalery": "Galeria de Midias"
+    "MediaGalery": "Galeria de Midias",
+    "Logistics": "Logística"
   },
   "TabsTitle": {
     "Notification": "Notificação",

@@ -54,6 +54,7 @@
   "SuccessRecoverPassword": "A new password was sent to your email.",
   "SuccessRemovalEnrollment": "Enrollment removed with success.",
   "SuccessUpdateGradeHistory": "Grade History updated with success.",
+  "SuccessEnrolledUser": "Successful Enrollment.",
   "ErrorMessage": "There was an error, please try again.",
   "ErrorGetNotifications" : "Error to get Notifications.",
   "PersonalInfo": "Personal Info",
@@ -123,7 +124,8 @@
     "EnrollUsers": "Enroll Users",
     "CourseSteps": "Course Steps",
     "Assessment": "Assessment",
-    "MediaGalery": "Media Galery"
+    "MediaGalery": "Media Galery",
+    "Logistics": "Logistics"
   },
   "TabsTitle": {
     "Notification": "Notification",
