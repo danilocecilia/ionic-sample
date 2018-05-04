@@ -12,7 +12,7 @@
         <b>{{event.ClassAPI.ClassCode}}</b>
       </ion-col>
       <ion-col col-12>
-        {{'Seats' | translate}}: 14 {{'of' | translate}} 14 / {{'SeatsByOrganization' | translate}}: 2
+        {{'Seats' | translate}}: {{classObj?.QtdyEnrolledUsers}} {{'of' | translate}} {{classObj?.Seats}} / {{'SeatsByOrganization' | translate}}: {{classObj?.SeatsByOrganization}}
       </ion-col>
     </ion-row>
   </ion-grid>
