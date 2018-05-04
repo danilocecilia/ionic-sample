@@ -4,10 +4,10 @@
 //let baseUrl = "http://136.140.193.16:10002/API/Authentication/";
 
 export let cfg = {
-  // baseUrl: "http://136.140.193.16:10003", // EXTERNAL IP
-  // apiUrl: "http://136.140.193.16:10003/API/", // INTERNAL IP
-  baseUrl: "http://198.180.251.216:10003",
-  apiUrl: "http://198.180.251.216:10003/API/",
+  baseUrl: "http://136.140.193.16:10003", // EXTERNAL IP
+  apiUrl: "http://136.140.193.16:10003/API/", // INTERNAL IP
+  // baseUrl: "http://198.180.251.216:10003",
+  // apiUrl: "http://198.180.251.216:10003/API/",
   tokenName: "token",
   agenda: {
     getClassesByDate: "Class/GetClassesByDate",
@@ -22,7 +22,8 @@ export let cfg = {
   history:{
     enrollmentsByClass: "History/GetEnrollmentsByClass",
     removeEnrollment:"History/RemoveEnrollment",
-    updateGrade: "History/UpdateGrade"
+    updateGrade: "History/UpdateGrade",
+    enrollUser: "History/AddEnrollment"
   },
   user: {
     register: "",
