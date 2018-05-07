@@ -1,25 +1,58 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, ToastController } from "ionic-angular";
-import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
+import {
+  FileTransfer,
+  FileUploadOptions,
+  FileTransferObject
+} from "@ionic-native/file-transfer";
 import { FileChooser } from "@ionic-native/file-chooser";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { LogisticProvider } from "../../providers/logistic/logistic";
+import { AuthProvider } from "../../providers/auth/auth";
+
+export class MonetarySymbol {
+  Currency: string;
+  ID: number;
+}
 
 @Component({
   selector: "page-modal-logistic",
   templateUrl: "modal-logistic.html"
 })
 export class ModalLogisticPage {
+  classAPI: any;
+  logistic: any;
   fileURI: any;
   imageFileName: any;
+  logisticTypes: any;
+  logisticItems: any;
+  currentCulture: string;
+
+  monetarySymbol: MonetarySymbol[] = [
+    { Currency: "NONE", ID: 1 },
+    { Currency: "USD", ID: 2 },
+    { Currency: "EUR", ID: 3 },
+    { Currency: "BRL", ID: 4 },
+    { Currency: "JPY", ID: 5 },
+    { Currency: "TWD", ID: 6 }
+  ];
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    private navCtrl: NavController,
+    private navParam: NavParams,
     private transfer: FileTransfer,
-    public toastCtrl: ToastController,
+    private toastCtrl: ToastController,
     private fileChooser: FileChooser,
-    private loadingProvider: LoadingProvider
-  ) {}
+    private loadingProvider: LoadingProvider,
+    private logisticProvider: LogisticProvider,
+    private authProvider : AuthProvider
+  ) {
+    this.logistic = this.navParam.get("logistic");
+    this.classAPI = this.navParam.get("class");
+    debugger;
+    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
+    this.loadLogisticTypes();
+  }
 
   fileTransfer: FileTransferObject = this.transfer.create();
 
@@ -46,6 +79,32 @@ export class ModalLogisticPage {
       .catch(err => {
         console.log(err);
         this.presentToast(err);
+      });
+  }
+
+  loadLogisticTypes() {
+    this.logisticProvider
+      .getLogisticTypes()
+      .then(types => {
+        this.logisticTypes = types;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  ionChangeLogType(logType) {
+    this.loadLogisticItems(logType);
+  }
+
+  loadLogisticItems(type) {
+    this.logisticProvider
+      .getLogisticItems(type)
+      .then(response => {
+        this.logisticItems = response;
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 

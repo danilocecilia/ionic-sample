@@ -11,4 +11,13 @@ page-modal-logistic {
   .text-input {
     text-align: right;
   }
+
+  .logisticItemSelect{
+    max-width: 100% !important;
+  }
+
+  .logisticDate{
+   flex:1 !important;
+   max-width: 223px !important;
+  }
 }

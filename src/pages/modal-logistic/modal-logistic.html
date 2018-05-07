@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Logistic</ion-title>
+    <ion-title> {{'TitlePage.Logistics' | translate}}</ion-title>
     <ion-buttons end>
       <button ion-button (click)="onCloseModal()">
         <ion-icon name="close"></ion-icon>
@@ -10,46 +10,55 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-grid> -->
-  <ion-row text-center>
-    <ion-col col-12>
-      <b>FF2137_CL0001</b>
-    </ion-col>
-  </ion-row>
-  <!-- </ion-grid> -->
+  <ion-grid>
+    <ion-row text-center>
+      <ion-col col-12>
+        <b>{{classAPI.ClassCode}}</b>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-item>
-    <ion-label>Type</ion-label>
-    <ion-select interface="popover">
-      <ion-option [value]="noshow">Location</ion-option>
-      <ion-option [value]="justified">Justified</ion-option>
+    <ion-label>
+      <b>{{'Type' | translate}}</b>
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="logistic.Type.ID" (ionChange)="ionChangeLogType($event)">
+      <ion-option [value]="ltype.ID" *ngFor="let ltype of logisticTypes">{{ltype.Type}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label>Item</ion-label>
-    <ion-select interface="popover">
-      <ion-option [value]="noshow">Accomodation</ion-option>
-      <ion-option [value]="justified">Justified</ion-option>
+    <ion-label>
+      <b>Item</b>
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="logistic.Item.ID" class="logisticItemSelect">
+      <ion-option [value]="logItem.ID" *ngFor="let logItem of logisticItems">{{logItem.Item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label fixed>Quantity</ion-label>
-    <ion-input type="text" placeholder="Quantity of items"></ion-input>
+    <ion-label fixed>
+      <b>{{'Quantity' | translate}}</b>
+    </ion-label>
+    <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label>Monetary</ion-label>
-    <ion-select interface="popover">
-      <ion-option [value]="noshow">US$</ion-option>
-      <ion-option [value]="justified">BR</ion-option>
+   <ion-item>
+    <ion-label>
+      <b>{{'Currency' | translate}}</b>
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="logistic.Item.MonetarySymbol">
+      <ion-option [value]="monetary.ID" *ngFor="let monetary of monetarySymbol">{{monetary.Currency}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-item>
-    <ion-label fixed>Total Cost</ion-label>
-    <ion-input type="text" placeholder="Total Cost"></ion-input>
+ <ion-item>
+    <ion-label fixed>
+      <b>{{'TotalCost' | translate}}</b>
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="logistic.Cost" placeholder="Total Cost"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label fixed>Date</ion-label>
-    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate"></ion-datetime>
+    <ion-label fixed class="logisticDate">
+      <b>{{'Date' | translate}}</b>
+    </ion-label>
+    <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logistic.Date"></ion-datetime>
   </ion-item>
 
   <ion-card>
