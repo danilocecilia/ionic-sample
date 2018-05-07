@@ -9,14 +9,14 @@
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-6 padding-vertical>
-        <b>{{event.Class}}</b>
+        <b>{{classCode}}</b>
         <p>
-          <b>{{'TotalCost' | translate}}:</b> $ 812,95</p>
+          <b>{{'TotalCost' | translate}}:</b> <span class="expense">{{logistics?.ClassAPI.QtyLogistic}}</span>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-card (click)="onClickOpenModalLogistics()">
+  <ion-card (click)="onClickOpenModalLogistics(logistic)" *ngFor="let logistic of logistics?.LogisticItemsXClass">
     <ion-grid>
       <ion-row class="border-bottom">
         <ion-col col-6>
@@ -26,10 +26,10 @@
           <b>{{'UnitCost' | translate}}</b>
         </ion-col>
         <ion-col col-6>
-          {{'TrainingMaterial' | translate}}
+          {{logistic.Type.Type}}
         </ion-col>
         <ion-col col-6 text-right>
-          $ 0,00
+          {{logistic.MonetarySymbol}} {{logistic.Item.UnitCost}}
         </ion-col>
       </ion-row>
       <ion-row class="border-bottom">
@@ -40,10 +40,10 @@
           <b>{{'Date' | translate}}</b>
         </ion-col>
         <ion-col>
-          {{'EquipmentRental' | translate}}
+          {{logistic.Item.Item}}
         </ion-col>
         <ion-col col-6 text-right>
-          29/01/2018 14:30h
+          {{logistic.Date | localeDate:currentCulture}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -53,95 +53,10 @@
         <ion-col col-6 text-right>
           <b>{{'TotalCost' | translate}}</b>
         </ion-col>
-        <ion-col col-6>1</ion-col>
-        <ion-col col-6 text-right>$ 750,00</ion-col>
+        <ion-col col-6>{{logistic.Qty}}</ion-col>
+        <ion-col col-6 text-right>{{logistic.TotalCostMonetary}}</ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
 
-  <ion-card>
-    <ion-grid>
-      <ion-row class="border-bottom">
-        <ion-col col-6>
-          <b>{{'Type' | translate}}</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <b>{{'UnitCost' | translate}}</b>
-        </ion-col>
-        <ion-col col-6>
-          {{'TrainingMaterial' | translate}}
-        </ion-col>
-        <ion-col col-6 text-right>
-          $ 0,00
-        </ion-col>
-      </ion-row>
-      <ion-row class="border-bottom">
-        <ion-col col-6>
-          <b>Item</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <b>{{'Date' | translate}}</b>
-        </ion-col>
-        <ion-col>
-          {{'EquipmentRental' | translate}}
-        </ion-col>
-        <ion-col col-6 text-right>
-          29/01/2018 14:30h
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <b>{{'Quantity' | translate}}</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <b>{{'TotalCost' | translate}}</b>
-        </ion-col>
-        <ion-col col-6>1</ion-col>
-        <ion-col col-6 text-right>$ 750,00</ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-
-  <ion-card>
-    <ion-grid>
-      <ion-row class="border-bottom">
-        <ion-col col-6>
-          <b>{{'Type' | translate}}</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <b>{{'UnitCost' | translate}}</b>
-        </ion-col>
-        <ion-col col-6>
-          {{'TrainingMaterial' | translate}}
-        </ion-col>
-        <ion-col col-6 text-right>
-          $ 0,00
-        </ion-col>
-      </ion-row>
-      <ion-row class="border-bottom">
-        <ion-col col-6>
-          <b>Item</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <b>{{'Date' | translate}}</b>
-        </ion-col>
-        <ion-col>
-          {{'EquipmentRental' | translate}}
-        </ion-col>
-        <ion-col col-6 text-right>
-          29/01/2018 14:30h
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <b>{{'Quantity' | translate}}</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <b>{{'TotalCost' | translate}}</b>
-        </ion-col>
-        <ion-col col-6>1</ion-col>
-        <ion-col col-6 text-right>$ 750,00</ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
 </ion-content>
