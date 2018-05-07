@@ -5,7 +5,6 @@ import { LoadingProvider } from "../../providers/loading/loading";
 import * as AppConfig from "../../app/config";
 import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
 import { ToastProvider } from "../../providers/toast/toast";
-import { EventSummaryComponent } from "../event-summary/event-summary";
 import { EventSummaryProvider } from "../../providers/event-summary/event-summary";
 
 @Component({
@@ -17,6 +16,7 @@ export class EsEnrollmentsComponent implements OnInit {
   enrollments: any = {};
   baseUrl = AppConfig.cfg.baseUrl;
   enrollment: any;
+  idClass : number;
 
   constructor(
     private navCtrl: NavController,
@@ -26,7 +26,7 @@ export class EsEnrollmentsComponent implements OnInit {
     private toastProvider: ToastProvider,
     private eventSummaryProvider : EventSummaryProvider
   ) {
-    this.enrollments = this.navParams.get("enrollments");
+    this.idClass = this.navParams.get("idClass");
   }
 
   ngOnInit() {}
@@ -61,7 +61,7 @@ export class EsEnrollmentsComponent implements OnInit {
 
   updateAvailableSeats() {
     this.eventSummaryProvider
-      .getClassById(this.enrollments.ClassAPI.ID)
+      .getClassById(this.idClass)
       .then(response => {
         this.enrollments.ClassAPI = response;
       })
@@ -77,7 +77,7 @@ export class EsEnrollmentsComponent implements OnInit {
   }
 
   ionViewDidEnter(){
-    this.enrollmentProvider.loadEnrollmentsByClass(this.enrollments.ClassAPI.ID)
+    this.enrollmentProvider.loadEnrollmentsByClass(this.idClass)
     .then(response => {
       this.enrollments = response;
     }).catch(err => {console.log(err)});

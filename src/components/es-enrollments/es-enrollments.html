@@ -9,14 +9,14 @@
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-9 padding-vertical>
-        <b>{{enrollments.ClassAPI.ClassCode}}</b>
+        <b>{{enrollments.ClassAPI?.ClassCode}}</b>
       </ion-col>
       <ion-col col-3 text-right>
         <button ion-button small float-right (click)="onClickEnrollUsers()"> {{'Enroll' | translate}}</button>
       </ion-col>
     </ion-row>
   </ion-grid>
-
+ 
   <ion-grid>
     <ion-row class="border-bottom" class="border-bottom">
       <ion-col col-12>
