@@ -30,7 +30,6 @@ export class EventSummaryComponent implements OnInit{
     private toastProvider: ToastProvider,
     private downloadProvider: DownloadProvider, 
     private enrollmentProvider: EnrollmentProvider) {
-      debugger;
       this.currentClass = this.navParams.get("event");
   }
 
@@ -145,21 +144,11 @@ export class EventSummaryComponent implements OnInit{
   }
 
   onClickEnrollment() {
-    this.loadingProvider.presentLoadingDefault();
-
-    this.enrollmentProvider.loadEnrollmentsByClass(this.currentClass.ID)
-    .then(response => {
-      this.loadingProvider.dismissLoading();
-      this.navCtrl.push(EsEnrollmentsComponent, { enrollments: response });  
-    }).catch(err => {
-      this.loadingProvider.dismissLoading();
-      this.toastProvider.presentTranslatedToast("ErrorMessage");
-      console.log(err)
-    });
+    this.navCtrl.push(EsEnrollmentsComponent, { idClass : this.currentClass.ID });  
   }
 
   onClickLogistics() {
-    this.navCtrl.push(EsLogisticsComponent, { event: this.currentClass });
+    this.navCtrl.push(EsLogisticsComponent, { idClass : this.currentClass.ID, classCode : this.currentClass.ClassCode });
   }
 
   onClickBilling() {
