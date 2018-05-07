@@ -17,11 +17,11 @@ export let cfg = {
     getEventSummary: "Class/GetEventSummary",
     putActionStep: "Class/ActionStep",
     putActionStatus: "Class/ActionStatus",
-    getClass:"Class/GetClass"
+    getClass: "Class/GetClass"
   },
-  history:{
+  history: {
     enrollmentsByClass: "History/GetEnrollmentsByClass",
-    removeEnrollment:"History/RemoveEnrollment",
+    removeEnrollment: "History/RemoveEnrollment",
     updateGrade: "History/UpdateGrade",
     enrollUser: "History/AddEnrollment"
   },
@@ -30,7 +30,7 @@ export let cfg = {
     login: "Authentication/Authenticate",
     refresh: "Authentication/RefreshToken",
     changePassword: "Authentication/ChangePassword",
-    recoveryPassowrd: "Authentication/RecoverPassword",
+    recoveryPassowrd: "Authentication/RecoverPassword"
   },
   user_profile: {
     updateUserAvatar: "User/UpdateUserAvatar",
@@ -51,20 +51,25 @@ export let cfg = {
   },
   media: {
     all: "Media/GetMedias"
+  },
+  logistic: {
+    getTypes: "Logistic/GetLogisticType",
+    logistics: "Logistic/GetLogisticItemXClassByClass",
+    getItemsByType: "Logistic/GetLogisticItemByType"
   }
 };
 
-export enum HistoryStatus { 
+export enum HistoryStatus {
   NOT_STARTED,
   IN_PROGRESS,
   FINISHED,
   CANCELLED
 }
 
-export enum TrainingSteps{
-  PRE_TEST, 
-  TRAINING, 
-  POST_TEST,
+export enum TrainingSteps {
+  PRE_TEST,
+  TRAINING,
+  POST_TEST
 }
 
 export enum APIPermission {
@@ -96,9 +101,18 @@ export enum APIStatus {
   USER_PASSWORD_NOT_MATCH
 }
 
-export enum GradeScale{
-  GRADE_0_10,            
+export enum GradeScale {
+  GRADE_0_10,
   GRADE_0_100
+}
+
+export enum APIMonetarySymbol {
+  NONE, // None
+  USD, // UNited Stated Dollar
+  EUR, // Euro
+  BRL, // Brazilian Real
+  JPY, // Japanese Yen
+  TWD // Taiwan Dollar
 }
 
 export let fileMimeTypes = [
