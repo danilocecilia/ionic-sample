@@ -69,7 +69,7 @@ export class DownloadProvider {
 
       const fullSourcePath = `${AppConfig.cfg.baseUrl}${this.fileObject.sourceFilePath}/${this.fileObject.sourceFileName}`; //"http://198.180.251.216:10002/Temp/Library/Bobber_DSG_EN.pdf";
 
-      let fileEntry = fileTransfer.download(
+      fileTransfer.download(
         fullSourcePath,
         this.getDocumentPathFromDevice(this.fileObject.sourceFileName)
       ).then(() => {
