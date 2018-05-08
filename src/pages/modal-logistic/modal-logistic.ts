@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, ToastController } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import {
   FileTransfer,
   FileUploadOptions,
@@ -9,6 +9,8 @@ import { FileChooser } from "@ionic-native/file-chooser";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { LogisticProvider } from "../../providers/logistic/logistic";
 import { AuthProvider } from "../../providers/auth/auth";
+import { ToastProvider } from "../../providers/toast/toast";
+import * as AppConfig from "../../app/config";
 
 export class MonetarySymbol {
   Currency: string;
@@ -41,7 +43,7 @@ export class ModalLogisticPage {
     private navCtrl: NavController,
     private navParam: NavParams,
     private transfer: FileTransfer,
-    private toastCtrl: ToastController,
+    private toastProvider: ToastProvider,
     private fileChooser: FileChooser,
     private loadingProvider: LoadingProvider,
     private logisticProvider: LogisticProvider,
@@ -49,28 +51,16 @@ export class ModalLogisticPage {
   ) {
     this.logistic = this.navParam.get("logistic");
     this.classAPI = this.navParam.get("class");
-    debugger;
     this.currentCulture = this.authProvider.loggedUser.Language.Culture;
+    this.loadingProvider.presentLoadingDefault();
+    
     this.loadLogisticTypes();
+    this.loadLogisticItems(this.logistic.Type.ID);
   }
 
   fileTransfer: FileTransferObject = this.transfer.create();
 
-  presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: "bottom"
-    });
-
-    toast.onDidDismiss(() => {
-      console.log("Dismissed toast");
-    });
-
-    toast.present();
-  }
-
-  getFile() {
+  getDocument() {
     this.fileChooser
       .open()
       .then(uri => {
@@ -78,7 +68,7 @@ export class ModalLogisticPage {
       })
       .catch(err => {
         console.log(err);
-        this.presentToast(err);
+        this.toastProvider.presentTranslatedToast("ErrorMessage");
       });
   }
 
@@ -86,9 +76,11 @@ export class ModalLogisticPage {
     this.logisticProvider
       .getLogisticTypes()
       .then(types => {
+        this.loadingProvider.dismissLoading();
         this.logisticTypes = types;
       })
       .catch(err => {
+        this.loadingProvider.dismissLoading();
         console.log(err);
       });
   }
@@ -101,30 +93,14 @@ export class ModalLogisticPage {
     this.logisticProvider
       .getLogisticItems(type)
       .then(response => {
+        this.loadingProvider.dismissLoading();
         this.logisticItems = response;
       })
       .catch(err => {
+        this.loadingProvider.dismissLoading();
         console.log(err);
       });
   }
-
-  // getImage() {
-  //   const options: CameraOptions = {
-  //     quality: 100,
-  //     destinationType: this.camera.DestinationType.FILE_URI,
-  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-  //   };
-
-  //   this.camera.getPicture(options).then(
-  //     imageData => {
-  //       this.imageURI = imageData;
-  //     },
-  //     err => {
-  //       console.log(err);
-  //       this.presentToast(err);
-  //     }
-  //   );
-  // }
 
   uploadFile() {
     this.loadingProvider.presentLoadingDefault();
@@ -132,30 +108,24 @@ export class ModalLogisticPage {
 
     let options: FileUploadOptions = {
       fileKey: "receiptLogistic",
-      params: { classID: 1, token: "AUhaUhAuhAuAHUA" }
+      params: { ID_LogisticItemXClass: this.logistic.ID, token: this.authProvider.loggedUser.Token }
     };
-
+    debugger;
     fileTransfer
-      .upload(
-        this.fileURI,
-        "http://198.180.251.216:10005/fileupload/api/test/files",
-        options
-      )
-      .then(
-        data => {
+      .upload(this.fileURI, `${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.postFile}`, options)
+      .then(obj => {
           this.loadingProvider.dismissLoading();
-          console.log(data + " Uploaded Successfully");
+          if(obj){
+              this.logistic.Files = obj;
+              this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
+              console.log(obj.response + " Uploaded Successfully");
+          }
           //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
-          // loader.dismiss();
-          this.presentToast("Receipt uploaded successfully");
         },
         err => {
           this.loadingProvider.dismissLoading();
           console.log(err);
-          // loader.dismiss();
-          this.presentToast(
-            "There was an error trying to upload your receipt, please contact the App Administrator."
-          );
+          this.toastProvider.presentTranslatedToast("ErrorMessage");
         }
       );
   }
@@ -163,6 +133,7 @@ export class ModalLogisticPage {
   ionViewDidLoad() {
     //console.log("ionViewDidLoad ModalLogisticPage");
   }
+
   onCloseModal() {
     this.navCtrl.pop();
   }

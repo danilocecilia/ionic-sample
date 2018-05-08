@@ -40,7 +40,7 @@
     </ion-label>
     <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items"></ion-input>
   </ion-item>
-   <ion-item>
+  <ion-item>
     <ion-label>
       <b>{{'Currency' | translate}}</b>
     </ion-label>
@@ -48,7 +48,7 @@
       <ion-option [value]="monetary.ID" *ngFor="let monetary of monetarySymbol">{{monetary.Currency}}</ion-option>
     </ion-select>
   </ion-item>
- <ion-item>
+  <ion-item>
     <ion-label fixed>
       <b>{{'TotalCost' | translate}}</b>
     </ion-label>
@@ -62,20 +62,47 @@
   </ion-item>
 
   <ion-card>
+    <ion-card-header>
+      Uploaded Docs
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item-sliding #item *ngFor="let file of logistic.Files">
+        <ion-item>
+          <ion-row align-items-center>
+            <ion-col col-9>
+              <ion-icon name="document"></ion-icon>
+              {{file.FileName}}
+            </ion-col>
+            <ion-col col-3>
+              <button ion-button color="danger" (click)="removeFile(logistic)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <button ion-button color="danger" (click)="remove(logistic)">
+          <ion-icon name="trash"></ion-icon>
+          {{'Remove' | translate}}
+        </button>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
     <ion-grid>
       <ion-row>
         <ion-col col-6>
-          <b>Receipt</b>
+          <b>{{'Receipt' | translate}}</b>
         </ion-col>
-
         <ion-col col-6 text-right>
           <ion-icon name="add-circle"></ion-icon>
         </ion-col>
         <ion-col col-12>
-          <button full ion-button color="secondary" small (click)="getFile()">Get Image</button>
+          <button full ion-button color="secondary" small (click)="getDocument()">{{'SearchFile' | translate}}</button>
         </ion-col>
         <ion-col col-12>
-          <button full ion-button (click)="uploadFile()" small>Upload</button>
+          <button full ion-button (click)="uploadFile()" small>{{'UploadDocument' | translate}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>
