@@ -3,6 +3,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { ModalLogisticPage } from "../../pages/modal-logistic/modal-logistic";
 import { LogisticProvider } from "../../providers/logistic/logistic";
 import { AuthProvider } from "../../providers/auth/auth";
+import { ToastProvider } from "../../providers/toast/toast";
 
 @Component({
   selector: "es-logistics",
@@ -19,7 +20,8 @@ export class EsLogisticsComponent implements OnInit {
     private navCtrl: NavController,
     private navParam: NavParams,
     private logisticProvider: LogisticProvider,
-    private authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private toastProvider: ToastProvider
   ) {
     this.idClass = this.navParam.get("idClass");
     this.classCode = this.navParam.get("classCode");
@@ -31,7 +33,25 @@ export class EsLogisticsComponent implements OnInit {
   }
 
   onClickOpenModalLogistics(item) {
-    this.navCtrl.push(ModalLogisticPage, { logistic: item, class : this.logistics.ClassAPI });
+    this.navCtrl.push(ModalLogisticPage, {
+      logistic: item,
+      class: this.logistics.ClassAPI
+    });
+  }
+
+  remove(item) {
+    this.logisticProvider
+      .removeLogistic(item.ID)
+      .then(response => {
+        if(response === "SUCCESS"){
+          this.logistics.LogisticItemsXClass = this.logistics.LogisticItemsXClass.filter(logistic => logistic.ID !== item.ID);
+          this.toastProvider.presentTranslatedToast("SuccessRemovalLogistic");
+        }
+      })
+      .catch(err => {
+        this.toastProvider.presentTranslatedToast("ErrorMessage");
+        console.log(err);
+      });
   }
 
   ionViewDidEnter() {
