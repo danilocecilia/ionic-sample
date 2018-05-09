@@ -52,6 +52,7 @@
   "Start": "Start",
   "PreOrPostTest": "Pre or Post Test",
   "Submit": "Submit",
+  "SuccessLogistic": "Logistic saved with success.",
   "SuccessAvatarMsg": "Avatar changed with success.",
   "SuccessProfileMsg": "Profile updated with success.",
   "SucessChangePassowrd": "Password changed with success.",
@@ -80,7 +81,7 @@
   "Fax": "Fax",
   "Save": "SAVE",
   "Open": "OPEN",
-  "LibrarySuccess": "Downloaded {{value}}",
+  "SuccessDownloaded": "Downloaded {{value}}",
   "ValidatorMessage": {
     "Required": "Field {{value}} is required.",
     "Pattern": "Only small and capital letters are allowed.",
