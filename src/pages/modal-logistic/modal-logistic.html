@@ -2,8 +2,11 @@
   <ion-navbar>
     <ion-title> {{'TitlePage.Logistics' | translate}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="onCloseModal()">
+      <!-- <button ion-button (click)="onCloseModal()">
         <ion-icon name="close"></ion-icon>
+      </button> -->
+      <button ion-button (click)="updateLogistic()">
+        {{'Save' | translate}}
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -38,7 +41,7 @@
     <ion-label fixed>
       <b>{{'Quantity' | translate}}</b>
     </ion-label>
-    <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items"></ion-input>
+    <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items" (change)="calcTotalCost()"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>
@@ -52,7 +55,7 @@
     <ion-label fixed>
       <b>{{'TotalCost' | translate}}</b>
     </ion-label>
-    <ion-input type="text" [(ngModel)]="logistic.Cost" placeholder="Total Cost"></ion-input>
+    <ion-input type="text" [(ngModel)]="logistic.Cost" placeholder="Total Cost" [readonly]="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label fixed class="logisticDate">
@@ -61,30 +64,30 @@
     <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logistic.Date"></ion-datetime>
   </ion-item>
 
-  <ion-card>
+  <ion-card *ngIf="logistic.Files">
     <ion-card-header>
-      Uploaded Docs
+      <b>Uploaded Docs</b>
     </ion-card-header>
 
-    <ion-list>
+    <ion-list >
       <ion-item-sliding #item *ngFor="let file of logistic.Files">
-        <ion-item>
-          <ion-row align-items-center>
-            <ion-col col-9>
-              <ion-icon name="document"></ion-icon>
-              {{file.FileName}}
+        <ion-item class="fileLabel">
+          <ion-row align-items-center text-left>
+            <ion-col col-8 style="padding-left:0px !important;">
+              <ion-item style="padding-left:0px !important;"><ion-icon name="document"></ion-icon>&nbsp;{{file.FileName}}</ion-item>
             </ion-col>
-            <ion-col col-3>
-              <button ion-button color="danger" (click)="removeFile(logistic)">
+            <ion-col col-2 text-right>
+              <button ion-button color="danger" (click)="removeFile(file.ID)">
                 <ion-icon name="trash"></ion-icon>
               </button>
             </ion-col>
+            <ion-col col-2 text-right>
+                <button ion-button color="primary" (click)="openFile(file)">
+                    <ion-icon name="open"></ion-icon>
+                  </button>
+            </ion-col>
           </ion-row>
         </ion-item>
-        <button ion-button color="danger" (click)="remove(logistic)">
-          <ion-icon name="trash"></ion-icon>
-          {{'Remove' | translate}}
-        </button>
       </ion-item-sliding>
     </ion-list>
   </ion-card>

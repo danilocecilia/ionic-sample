@@ -11,7 +11,9 @@ import { LogisticProvider } from "../../providers/logistic/logistic";
 import { AuthProvider } from "../../providers/auth/auth";
 import { ToastProvider } from "../../providers/toast/toast";
 import * as AppConfig from "../../app/config";
-
+import { DownloadProvider } from "../../providers/download/download";
+import { TranslateProvider } from "../../providers/translate/translate";
+import { Logistic, LogisticItem } from "../../model/logistic";
 export class MonetarySymbol {
   Currency: string;
   ID: number;
@@ -29,6 +31,7 @@ export class ModalLogisticPage {
   logisticTypes: any;
   logisticItems: any;
   currentCulture: string;
+  open: string;
 
   monetarySymbol: MonetarySymbol[] = [
     { Currency: "NONE", ID: 1 },
@@ -47,13 +50,15 @@ export class ModalLogisticPage {
     private fileChooser: FileChooser,
     private loadingProvider: LoadingProvider,
     private logisticProvider: LogisticProvider,
-    private authProvider : AuthProvider
+    private authProvider: AuthProvider,
+    private downloadProvider: DownloadProvider,
+    private translateProvider: TranslateProvider
   ) {
+    this.getTranslatedOpenButton();
     this.logistic = this.navParam.get("logistic");
     this.classAPI = this.navParam.get("class");
     this.currentCulture = this.authProvider.loggedUser.Language.Culture;
-    this.loadingProvider.presentLoadingDefault();
-    
+
     this.loadLogisticTypes();
     this.loadLogisticItems(this.logistic.Type.ID);
   }
@@ -76,11 +81,9 @@ export class ModalLogisticPage {
     this.logisticProvider
       .getLogisticTypes()
       .then(types => {
-        this.loadingProvider.dismissLoading();
         this.logisticTypes = types;
       })
       .catch(err => {
-        this.loadingProvider.dismissLoading();
         console.log(err);
       });
   }
@@ -93,13 +96,32 @@ export class ModalLogisticPage {
     this.logisticProvider
       .getLogisticItems(type)
       .then(response => {
-        this.loadingProvider.dismissLoading();
         this.logisticItems = response;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  removeFile(idFile) {
+    this.loadingProvider.presentLoadingDefault();
+
+    this.logisticProvider
+      .removeFile(idFile, this.logistic.ID)
+      .then(files => {
+        this.loadingProvider.dismissLoading();
+
+        this.logistic.Files = files;
       })
       .catch(err => {
         this.loadingProvider.dismissLoading();
         console.log(err);
+        this.toastProvider.presentTranslatedToast("ErrorMessage");
       });
+  }
+
+  calcTotalCost(){
+    this.logistic.Cost = this.logistic.Qty * this.logistic.Item.UnitCost;
   }
 
   uploadFile() {
@@ -108,19 +130,25 @@ export class ModalLogisticPage {
 
     let options: FileUploadOptions = {
       fileKey: "receiptLogistic",
-      params: { ID_LogisticItemXClass: this.logistic.ID, token: this.authProvider.loggedUser.Token }
+      params: {
+        ID_LogisticItemXClass: this.logistic.ID,
+        token: this.authProvider.loggedUser.Token
+      }
     };
-    debugger;
     fileTransfer
-      .upload(this.fileURI, `${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.postFile}`, options)
-      .then(obj => {
+      .upload(
+        this.fileURI,
+        `${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.postFile}`,
+        options
+      )
+      .then(
+        obj => {
           this.loadingProvider.dismissLoading();
-          if(obj){
-              this.logistic.Files = obj;
-              this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
-              console.log(obj.response + " Uploaded Successfully");
+          if (obj) {
+            this.logistic.Files = JSON.parse(obj.response);
+            this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
+            console.log(obj.response + " Uploaded Successfully");
           }
-          //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
         },
         err => {
           this.loadingProvider.dismissLoading();
@@ -128,6 +156,86 @@ export class ModalLogisticPage {
           this.toastProvider.presentTranslatedToast("ErrorMessage");
         }
       );
+  }
+
+  openFile(file) {
+    let sourceFilePath = file.Path;
+    let sourceFileName = file.FileName;
+    let extension = file.Extension;
+
+    this.loadingProvider.presentLoadingDefault();
+
+    this.downloadProvider.initializeFileObject(
+      sourceFilePath,
+      sourceFileName,
+      extension
+    );
+
+    let checkIfFileIsOnDevice = false;
+
+    this.downloadProvider
+      .openOrDownloadFile(checkIfFileIsOnDevice)
+      .then(status => {
+        this.loadingProvider.dismissLoading();
+
+        if (status === "downloaded") {
+          this.showSuccessToast(sourceFileName);
+        }
+      })
+      .catch(err => {
+        this.loadingProvider.dismissLoading();
+
+        this.translateProvider
+          .translateMessage("ErrorMessage")
+          .then(translated => {
+            this.toastProvider.presentToast(translated);
+          });
+
+        console.log(err);
+      });
+  }
+
+  showSuccessToast(sourceFileName) {
+    this.translateProvider
+      .translateMessageWithParam("SuccessDownloaded", sourceFileName)
+      .then(translated => {
+        this.toastProvider
+          .presentToastWithCallBack(translated, this.open)
+          .then(() => {
+            this.downloadProvider.openDocument();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+  }
+
+  getTranslatedOpenButton() {
+    this.translateProvider.translateMessage("Open").then(translated => {
+      this.open = translated;
+    });
+  }
+
+  updateLogistic() {
+    let logistic = new Logistic(new LogisticItem);
+    logistic.ID = this.logistic.ID;
+    logistic.Cost = this.logistic.Cost;
+    logistic.Date = this.logistic.Date;
+    logistic.MonetarySymbol = this.logistic.MonetarySymbol;
+    logistic.Qty = this.logistic.Qty;
+    logistic.Description = this.logistic.Description;
+    logistic.logisticItem.ID = this.logistic.Item.ID;
+
+    this.logisticProvider.updateLogistic(logistic)
+    .then(response => {
+      if(response === "SUCCESS"){
+        this.toastProvider.presentTranslatedToast("SuccessLogistic")
+      }
+    })
+    .catch(err => {
+      this.toastProvider.presentTranslatedToast("ErrorMessage")
+      console.log(err);
+    });
   }
 
   ionViewDidLoad() {
