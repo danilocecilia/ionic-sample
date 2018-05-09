@@ -4,6 +4,7 @@ import { ModalLogisticPage } from "../../pages/modal-logistic/modal-logistic";
 import { LogisticProvider } from "../../providers/logistic/logistic";
 import { AuthProvider } from "../../providers/auth/auth";
 import { ToastProvider } from "../../providers/toast/toast";
+import { LoadingProvider } from "../../providers/loading/loading";
 
 @Component({
   selector: "es-logistics",
@@ -21,7 +22,8 @@ export class EsLogisticsComponent implements OnInit {
     private navParam: NavParams,
     private logisticProvider: LogisticProvider,
     private authProvider: AuthProvider,
-    private toastProvider: ToastProvider
+    private toastProvider: ToastProvider,
+    private loadingProvider: LoadingProvider
   ) {
     this.idClass = this.navParam.get("idClass");
     this.classCode = this.navParam.get("classCode");
@@ -55,13 +57,16 @@ export class EsLogisticsComponent implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.loadingProvider.presentLoadingDefault();
     this.logisticProvider
       .getLogisticsByClass(this.idClass)
       .then(response => {
+        this.loadingProvider.dismissLoading();
         this.logistics = response;
         console.log(this.logistics);
       })
       .catch(err => {
+        this.loadingProvider.dismissLoading();
         console.log(err);
       });
   }
