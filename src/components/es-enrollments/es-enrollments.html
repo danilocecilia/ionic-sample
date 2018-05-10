@@ -9,10 +9,19 @@
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-9 padding-vertical>
-        <b>{{enrollments.ClassAPI.ClassCode}}</b>
+        <b>{{enrollments.ClassAPI?.ClassCode}}</b>
       </ion-col>
       <ion-col col-3 text-right>
         <button ion-button small float-right (click)="onClickEnrollUsers()"> {{'Enroll' | translate}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+  <ion-grid>
+    <ion-row class="border-bottom" class="border-bottom">
+      <ion-col col-12>
+        {{'Seats' | translate}}: {{enrollments.ClassAPI?.QtdyEnrolledUsers}} {{'of' | translate}} {{enrollments.ClassAPI?.Seats}}
+        / {{'SeatsByOrganization' | translate}}: {{enrollments.ClassAPI?.SeatsByOrganization}}
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -37,7 +46,7 @@
             </ion-item>
             <ion-item-options side="right">
               <button ion-button (click)="unread(item)">
-                  <ion-icon name="notifications"></ion-icon>
+                <ion-icon name="notifications"></ion-icon>
                 {{'Notify' | translate}}
               </button>
               <button ion-button color="danger" (click)="remove(e)">

@@ -15,7 +15,8 @@ export class LoadingProvider {
   }
 
   presentLoadingDefault() {
-    this.translateMessage().then(message => {
+    this.translateMessage()
+    .then(message => {
       this.loading = this.loadingController.create({
         content: message
       });

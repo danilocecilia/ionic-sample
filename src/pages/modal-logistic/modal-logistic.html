@@ -1,72 +1,111 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Logistic</ion-title>
+    <ion-title> {{'TitlePage.Logistics' | translate}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="onCloseModal()">
+      <!-- <button ion-button (click)="onCloseModal()">
         <ion-icon name="close"></ion-icon>
+      </button> -->
+      <button ion-button (click)="updateLogistic()">
+        {{'Save' | translate}}
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <!-- <ion-grid> -->
-  <ion-row text-center>
-    <ion-col col-12>
-      <b>FF2137_CL0001</b>
-    </ion-col>
-  </ion-row>
-  <!-- </ion-grid> -->
+  <ion-grid>
+    <ion-row text-center>
+      <ion-col col-12>
+        <b>{{classAPI.ClassCode}}</b>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-item>
-    <ion-label>Type</ion-label>
-    <ion-select interface="popover">
-      <ion-option [value]="noshow">Location</ion-option>
-      <ion-option [value]="justified">Justified</ion-option>
+    <ion-label>
+      <b>{{'Type' | translate}}</b>
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="logistic.Type.ID" (ionChange)="ionChangeLogType($event)">
+      <ion-option [value]="ltype.ID" *ngFor="let ltype of logisticTypes">{{ltype.Type}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label>Item</ion-label>
-    <ion-select interface="popover">
-      <ion-option [value]="noshow">Accomodation</ion-option>
-      <ion-option [value]="justified">Justified</ion-option>
+    <ion-label>
+      <b>Item</b>
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="logistic.Item.ID" class="logisticItemSelect">
+      <ion-option [value]="logItem.ID" *ngFor="let logItem of logisticItems">{{logItem.Item}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label fixed>Quantity</ion-label>
-    <ion-input type="text" placeholder="Quantity of items"></ion-input>
+    <ion-label fixed>
+      <b>{{'Quantity' | translate}}</b>
+    </ion-label>
+    <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items" (change)="calcTotalCost()"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Monetary</ion-label>
-    <ion-select interface="popover">
-      <ion-option [value]="noshow">US$</ion-option>
-      <ion-option [value]="justified">BR</ion-option>
+    <ion-label>
+      <b>{{'Currency' | translate}}</b>
+    </ion-label>
+    <ion-select interface="popover" [(ngModel)]="logistic.Item.MonetarySymbol">
+      <ion-option [value]="monetary.ID" *ngFor="let monetary of monetarySymbol">{{monetary.Currency}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label fixed>Total Cost</ion-label>
-    <ion-input type="text" placeholder="Total Cost"></ion-input>
+    <ion-label fixed>
+      <b>{{'TotalCost' | translate}}</b>
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="logistic.Cost" placeholder="Total Cost" [readonly]="true"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label fixed>Date</ion-label>
-    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate"></ion-datetime>
+    <ion-label fixed class="logisticDate">
+      <b>{{'Date' | translate}}</b>
+    </ion-label>
+    <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logistic.Date"></ion-datetime>
   </ion-item>
+
+  <ion-card *ngIf="logistic.Files">
+    <ion-card-header>
+      <b>Uploaded Docs</b>
+    </ion-card-header>
+
+    <ion-list >
+      <ion-item-sliding #item *ngFor="let file of logistic.Files">
+        <ion-item class="fileLabel">
+          <ion-row align-items-center text-left>
+            <ion-col col-8 style="padding-left:0px !important;">
+              <ion-item style="padding-left:0px !important;"><ion-icon name="document"></ion-icon>&nbsp;{{file.FileName}}</ion-item>
+            </ion-col>
+            <ion-col col-2 text-right>
+              <button ion-button color="danger" (click)="removeFile(file.ID)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col col-2 text-right>
+                <button ion-button color="primary" (click)="openFile(file)">
+                    <ion-icon name="open"></ion-icon>
+                  </button>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
   <ion-card>
     <ion-grid>
       <ion-row>
         <ion-col col-6>
-          <b>Receipt</b>
+          <b>{{'Receipt' | translate}}</b>
         </ion-col>
-
         <ion-col col-6 text-right>
           <ion-icon name="add-circle"></ion-icon>
         </ion-col>
         <ion-col col-12>
-          <button full ion-button color="secondary" small (click)="getFile()">Get Image</button>
+          <button full ion-button color="secondary" small (click)="getDocument()">{{'SearchFile' | translate}}</button>
         </ion-col>
         <ion-col col-12>
-          <button full ion-button (click)="uploadFile()" small>Upload</button>
+          <button full ion-button (click)="uploadFile()" small>{{'UploadDocument' | translate}}</button>
         </ion-col>
       </ion-row>
     </ion-grid>

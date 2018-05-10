@@ -4,10 +4,10 @@
 //let baseUrl = "http://136.140.193.16:10002/API/Authentication/";
 
 export let cfg = {
-  // baseUrl: "http://136.140.193.16:10003", // EXTERNAL IP
-  // apiUrl: "http://136.140.193.16:10003/API/", // INTERNAL IP
-  baseUrl: "http://198.180.251.216:10003",
-  apiUrl: "http://198.180.251.216:10003/API/",
+  baseUrl: "http://136.140.193.16:10003", // EXTERNAL IP
+  apiUrl: "http://136.140.193.16:10003/API/", // INTERNAL IP
+  // baseUrl: "http://198.180.251.216:10003",
+  // apiUrl: "http://198.180.251.216:10003/API/",
   tokenName: "token",
   agenda: {
     getClassesByDate: "Class/GetClassesByDate",
@@ -17,19 +17,20 @@ export let cfg = {
     getEventSummary: "Class/GetEventSummary",
     putActionStep: "Class/ActionStep",
     putActionStatus: "Class/ActionStatus",
-    getClass:"Class/GetClass"
+    getClass: "Class/GetClass"
   },
-  history:{
+  history: {
     enrollmentsByClass: "History/GetEnrollmentsByClass",
-    removeEnrollment:"History/RemoveEnrollment",
-    updateGrade: "History/UpdateGrade"
+    removeEnrollment: "History/RemoveEnrollment",
+    updateGrade: "History/UpdateGrade",
+    enrollUser: "History/AddEnrollment"
   },
   user: {
     register: "",
     login: "Authentication/Authenticate",
     refresh: "Authentication/RefreshToken",
     changePassword: "Authentication/ChangePassword",
-    recoveryPassowrd: "Authentication/RecoverPassword",
+    recoveryPassowrd: "Authentication/RecoverPassword"
   },
   user_profile: {
     updateUserAvatar: "User/UpdateUserAvatar",
@@ -50,20 +51,30 @@ export let cfg = {
   },
   media: {
     all: "Media/GetMedias"
+  },
+  logistic: {
+    getTypes: "Logistic/GetLogisticType",
+    logistics: "Logistic/GetLogisticItemXClassByClass",
+    getItemsByType: "Logistic/GetLogisticItemByType",
+    postFile: "Logistic/PostFileLogistict",
+    remove: "Logistic/DeleteLogistic",
+    getFiles: "Logistic/GetFilesByLogistic",
+    removeFile: "Logistic/DeleteFileLogisticItem",
+    update: "Logistic/UpdateLogistic"
   }
 };
 
-export enum HistoryStatus { 
+export enum HistoryStatus {
   NOT_STARTED,
   IN_PROGRESS,
   FINISHED,
   CANCELLED
 }
 
-export enum TrainingSteps{
-  PRE_TEST, 
-  TRAINING, 
-  POST_TEST,
+export enum TrainingSteps {
+  PRE_TEST,
+  TRAINING,
+  POST_TEST
 }
 
 export enum APIPermission {
@@ -95,9 +106,18 @@ export enum APIStatus {
   USER_PASSWORD_NOT_MATCH
 }
 
-export enum GradeScale{
-  GRADE_0_10,            
+export enum GradeScale {
+  GRADE_0_10,
   GRADE_0_100
+}
+
+export enum APIMonetarySymbol {
+  NONE, // None
+  USD, // UNited Stated Dollar
+  EUR, // Euro
+  BRL, // Brazilian Real
+  JPY, // Japanese Yen
+  TWD // Taiwan Dollar
 }
 
 export let fileMimeTypes = [

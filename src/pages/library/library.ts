@@ -120,7 +120,7 @@ export class LibraryPage implements OnInit {
     }
 
     this.translateProvider
-      .translateMessageWithParam("LibrarySuccess", sourceFileName)
+      .translateMessageWithParam("SuccessDownloaded", sourceFileName)
       .then(translated => {
         this.toastProvider.presentToastWithDismissCallback(translated, this.open, (success) => {
           if (success)
