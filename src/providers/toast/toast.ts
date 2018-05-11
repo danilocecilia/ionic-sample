@@ -4,14 +4,14 @@ import { TranslateProvider } from "../../providers/translate/translate";
 
 @Injectable()
 export class ToastProvider {
-  constructor(private toastCtrl: ToastController, private translateProvider : TranslateProvider) {
+  constructor(private toastCtrl: ToastController, private translateProvider: TranslateProvider) {
   }
 
-  presentTranslatedToast(text:string){
+  presentTranslatedToast(text: string) {
     this.translateProvider.translateMessage(text)
-    .then(translated => {
-      this.presentToast(translated);
-    })
+      .then(translated => {
+        this.presentToast(translated);
+      })
   }
 
   presentToast(text: string): Promise<any> {
@@ -24,21 +24,21 @@ export class ToastProvider {
     return toast.present();
   }
 
-  presentToastWithCallBack(text: string, open:string) : Promise<any> {
+  presentToastWithCallBack(text: string, open: string): Promise<any> {
     const promise = new Promise((resolve, reject) => {
       let toast = this.toastCtrl.create({
         message: text,
         duration: 5000,
         position: "bottom",
-        showCloseButton: true, 
+        showCloseButton: true,
         closeButtonText: open
       });
-  
+
       toast.onDidDismiss((data, role) => {
-        if(role === "close"){
+        if (role === "close") {
           resolve();
         }
-        else{
+        else {
           reject()
         }
       })
@@ -46,5 +46,26 @@ export class ToastProvider {
       toast.present();
     })
     return promise;
+  }
+
+  presentToastWithDismissCallback(text: string, open: string, callback: Function): void {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 5000,
+      position: "bottom",
+      showCloseButton: true,
+      closeButtonText: open
+    });
+
+    toast.onDidDismiss((data, role) => {
+      if (role === "close") {
+        callback(true)
+      }
+      else {
+        callback(false)
+      }
+    })
+
+    toast.present();
   }
 }

@@ -25,7 +25,7 @@ export class LibraryPage implements OnInit {
     private toastProvider: ToastProvider,
     private translateProvider: TranslateProvider,
     private downloadProvider: DownloadProvider
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
@@ -98,18 +98,34 @@ export class LibraryPage implements OnInit {
       });
   }
 
+  // showSuccessToast(sourceFileName) {
+  //   this.translateProvider
+  //     .translateMessageWithParam("LibrarySuccess", sourceFileName)
+  //     .then(translated => {
+  //       this.toastProvider
+  //         .presentToastWithCallBack(translated, this.open)
+  //         .then(() => {
+  //           this.downloadProvider.openDocument();
+  //         })
+  //         .catch(err => {
+  //           console.log(err);
+  //         });
+  //     });
+  // }
+
   showSuccessToast(sourceFileName) {
+    const callback = (success) => {
+      if (success)
+        this.downloadProvider.openDocument();
+    }
+
     this.translateProvider
       .translateMessageWithParam("SuccessDownloaded", sourceFileName)
       .then(translated => {
-        this.toastProvider
-          .presentToastWithCallBack(translated, this.open)
-          .then(() => {
+        this.toastProvider.presentToastWithDismissCallback(translated, this.open, (success) => {
+          if (success)
             this.downloadProvider.openDocument();
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        })
       });
   }
 
