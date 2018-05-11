@@ -29,6 +29,10 @@ export class EsLogisticsComponent implements OnInit {
     this.classCode = this.navParam.get("classCode");
   }
 
+  addLogistic(){
+    this.navCtrl.push(ModalLogisticPage, { class: this.logistics.ClassAPI });
+  }
+
   ngOnInit() {
     this.loggedUser = this.authProvider.loggedUser;
     this.currentCulture = this.loggedUser.Language.Culture;

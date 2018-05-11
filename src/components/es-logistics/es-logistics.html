@@ -14,7 +14,7 @@
           <span class="expense">{{logistics?.ClassAPI.QtyLogistic}}</span></p>
       </ion-col>
       <ion-col col-4 text-right>
-          <button ion-button color="primary" (click)="add()">
+          <button ion-button color="primary" (click)="addLogistic()">
               {{'Add' | translate}}
             </button>
       </ion-col>
@@ -47,7 +47,7 @@
               <ion-col col-6 text-right>
                 <b>{{'Date' | translate}}</b>
               </ion-col>
-              <ion-col>
+              <ion-col col-6>
                 {{logistic.Item.Item}}
               </ion-col>
               <ion-col col-6 text-right>
