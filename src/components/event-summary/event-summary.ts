@@ -152,7 +152,7 @@ export class EventSummaryComponent implements OnInit{
   }
 
   onClickBilling() {
-    this.navCtrl.push(EsBillingsComponent, { event: this.currentClass });
+    this.navCtrl.push(EsBillingsComponent, { currentClass: this.currentClass });
   }
   
   ionViewDidEnter(){
