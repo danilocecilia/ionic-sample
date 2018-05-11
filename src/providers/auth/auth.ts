@@ -17,7 +17,7 @@ export class AuthProvider {
   refreshSubscription: any;
 
   constructor(
-    public http: HttpClient,
+    private http: HttpClient,
     private storage: Storage,
     private app: App
   ) {
