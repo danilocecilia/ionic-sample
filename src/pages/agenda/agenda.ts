@@ -208,7 +208,6 @@ export class AgendaPage implements OnInit {
         {
           text: this.no,
           handler: () => {
-            console.log("No");
           }
         },
         {
@@ -224,8 +223,6 @@ export class AgendaPage implements OnInit {
               });
 
               courseStepsModal.present();
-
-              console.log("Yes");
             }
           }
         }

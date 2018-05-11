@@ -61,6 +61,10 @@ export let cfg = {
     getFiles: "Logistic/GetFilesByLogistic",
     removeFile: "Logistic/DeleteFileLogisticItem",
     update: "Logistic/UpdateLogistic"
+  },
+  billing:{
+    getBills:"Billing/GetBillsByClass",
+    add:"Billing/AddBilling"
   }
 };
 
