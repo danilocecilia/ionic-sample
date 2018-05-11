@@ -13,7 +13,7 @@ import { ToastProvider } from "../../providers/toast/toast";
 import * as AppConfig from "../../app/config";
 import { DownloadProvider } from "../../providers/download/download";
 import { TranslateProvider } from "../../providers/translate/translate";
-import { Logistic, LogisticItem } from "../../model/logistic";
+import { Logistic, LogisticItem, LogisticType } from "../../model/logistic";
 export class MonetarySymbol {
   Currency: string;
   ID: number;
@@ -34,12 +34,12 @@ export class ModalLogisticPage {
   open: string;
 
   monetarySymbol: MonetarySymbol[] = [
-    { Currency: "NONE", ID: 1 },
-    { Currency: "USD", ID: 2 },
-    { Currency: "EUR", ID: 3 },
-    { Currency: "BRL", ID: 4 },
-    { Currency: "JPY", ID: 5 },
-    { Currency: "TWD", ID: 6 }
+    { Currency: "NONE", ID: 0 },
+    { Currency: "USD", ID: 1 },
+    { Currency: "EUR", ID: 2 },
+    { Currency: "BRL", ID: 3 },
+    { Currency: "JPY", ID: 4 },
+    { Currency: "TWD", ID: 5 }
   ];
 
   constructor(
@@ -55,12 +55,15 @@ export class ModalLogisticPage {
     private translateProvider: TranslateProvider
   ) {
     this.getTranslatedOpenButton();
+    
     this.logistic = this.navParam.get("logistic");
     this.classAPI = this.navParam.get("class");
     this.currentCulture = this.authProvider.loggedUser.Language.Culture;
 
     this.loadLogisticTypes();
-    this.loadLogisticItems(this.logistic.Type.ID);
+    
+    if(this.logistic)
+      this.loadLogisticItems(this.logistic.Type.ID);
   }
 
   fileTransfer: FileTransferObject = this.transfer.create();
@@ -217,15 +220,16 @@ export class ModalLogisticPage {
   }
 
   updateLogistic() {
-    let logistic = new Logistic(new LogisticItem);
+    let logistic = new Logistic();
     logistic.ID = this.logistic.ID;
     logistic.Cost = this.logistic.Cost;
     logistic.Date = this.logistic.Date;
-    logistic.MonetarySymbol = this.logistic.MonetarySymbol;
+    logistic.MonetarySymbol = this.logistic.Item.MonetarySymbol;
     logistic.Qty = this.logistic.Qty;
     logistic.Description = this.logistic.Description;
-    logistic.logisticItem.ID = this.logistic.Item.ID;
-
+    logistic.Item = new LogisticItem();
+    logistic.Item.ID = this.logistic.Item.ID;
+    
     this.logisticProvider.updateLogistic(logistic)
     .then(response => {
       if(response === "SUCCESS"){

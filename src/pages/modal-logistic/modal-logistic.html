@@ -2,9 +2,6 @@
   <ion-navbar>
     <ion-title> {{'TitlePage.Logistics' | translate}}</ion-title>
     <ion-buttons end>
-      <!-- <button ion-button (click)="onCloseModal()">
-        <ion-icon name="close"></ion-icon>
-      </button> -->
       <button ion-button (click)="updateLogistic()">
         {{'Save' | translate}}
       </button>
@@ -16,7 +13,7 @@
   <ion-grid>
     <ion-row text-center>
       <ion-col col-12>
-        <b>{{classAPI.ClassCode}}</b>
+        <b>{{classAPI?.ClassCode}}</b>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -25,7 +22,7 @@
     <ion-label>
       <b>{{'Type' | translate}}</b>
     </ion-label>
-    <ion-select interface="popover" [(ngModel)]="logistic.Type.ID" (ionChange)="ionChangeLogType($event)">
+    <ion-select interface="popover" [(ngModel)]="logistic?.Type.ID" (ionChange)="ionChangeLogType($event)">
       <ion-option [value]="ltype.ID" *ngFor="let ltype of logisticTypes">{{ltype.Type}}</ion-option>
     </ion-select>
   </ion-item>
@@ -33,7 +30,7 @@
     <ion-label>
       <b>Item</b>
     </ion-label>
-    <ion-select interface="popover" [(ngModel)]="logistic.Item.ID" class="logisticItemSelect">
+    <ion-select interface="popover" [(ngModel)]="logistic?.Item.ID" class="logisticItemSelect">
       <ion-option [value]="logItem.ID" *ngFor="let logItem of logisticItems">{{logItem.Item}}</ion-option>
     </ion-select>
   </ion-item>
@@ -41,13 +38,13 @@
     <ion-label fixed>
       <b>{{'Quantity' | translate}}</b>
     </ion-label>
-    <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items" (change)="calcTotalCost()"></ion-input>
+    <ion-input type="number" [(ngModel)]="logistic === undefined ? 0 : logistic.Qty" placeholder="Quantity of items" (change)="calcTotalCost()"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>
       <b>{{'Currency' | translate}}</b>
     </ion-label>
-    <ion-select interface="popover" [(ngModel)]="logistic.Item.MonetarySymbol">
+    <ion-select interface="popover" [(ngModel)]="logistic?.Item.MonetarySymbol">
       <ion-option [value]="monetary.ID" *ngFor="let monetary of monetarySymbol">{{monetary.Currency}}</ion-option>
     </ion-select>
   </ion-item>
@@ -55,42 +52,45 @@
     <ion-label fixed>
       <b>{{'TotalCost' | translate}}</b>
     </ion-label>
-    <ion-input type="text" [(ngModel)]="logistic.Cost" placeholder="Total Cost" [readonly]="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="logistic === undefined ? 0 : logistic.Cost" placeholder="Total Cost" [readonly]="true"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label fixed class="logisticDate">
       <b>{{'Date' | translate}}</b>
     </ion-label>
-    <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logistic.Date"></ion-datetime>
+    <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logistic === undefined ? '' : logistic.Date"></ion-datetime>
   </ion-item>
 
-  <ion-card *ngIf="logistic.Files">
-    <ion-card-header>
-      <b>Uploaded Docs</b>
-    </ion-card-header>
+  <div *ngIf="logistic !== undefined">
+    <ion-card *ngIf="logistic.Files">
+      <ion-card-header>
+        <b>Uploaded Docs</b>
+      </ion-card-header>
 
-    <ion-list >
-      <ion-item-sliding #item *ngFor="let file of logistic.Files">
-        <ion-item class="fileLabel">
-          <ion-row align-items-center text-left>
-            <ion-col col-8 style="padding-left:0px !important;">
-              <ion-item style="padding-left:0px !important;"><ion-icon name="document"></ion-icon>&nbsp;{{file.FileName}}</ion-item>
-            </ion-col>
-            <ion-col col-2 text-right>
-              <button ion-button color="danger" (click)="removeFile(file.ID)">
-                <ion-icon name="trash"></ion-icon>
-              </button>
-            </ion-col>
-            <ion-col col-2 text-right>
+      <ion-list>
+        <ion-item-sliding #item *ngFor="let file of logistic.Files">
+          <ion-item class="fileLabel">
+            <ion-row align-items-center text-left>
+              <ion-col col-8 style="padding-left:0px !important;">
+                <ion-item style="padding-left:0px !important;">
+                  <ion-icon name="document"></ion-icon>&nbsp;{{file.FileName}}</ion-item>
+              </ion-col>
+              <ion-col col-2 text-right>
+                <button ion-button color="danger" (click)="removeFile(file.ID)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+              </ion-col>
+              <ion-col col-2 text-right>
                 <button ion-button color="primary" (click)="openFile(file)">
-                    <ion-icon name="open"></ion-icon>
-                  </button>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
-  </ion-card>
+                  <ion-icon name="open"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-card>
+  </div>
 
   <ion-card>
     <ion-grid>
@@ -110,4 +110,5 @@
       </ion-row>
     </ion-grid>
   </ion-card>
+
 </ion-content>
