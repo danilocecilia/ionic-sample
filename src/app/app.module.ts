@@ -87,6 +87,7 @@ import { MediaProvider } from '../providers/media/media';
 import { EventSummaryProvider } from '../providers/event-summary/event-summary';
 import { DownloadProvider } from '../providers/download/download';
 import { LogisticProvider } from '../providers/logistic/logistic';
+import { BillingProvider } from '../providers/billing/billing';
 
 let storage = new Storage({});
 
@@ -233,7 +234,8 @@ export function getAuthHttp(http: Http) {
     EventSummaryProvider,
     AndroidPermissions,
     DownloadProvider,
-    LogisticProvider
+    LogisticProvider,
+    BillingProvider
   ]
 })
 export class AppModule {}

@@ -1,26 +1,53 @@
-import { Component } from '@angular/core';
-
-/**
- * Generated class for the EsBillingsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { Component, OnInit } from "@angular/core";
+import { BillingProvider } from "../../providers/billing/billing";
+import * as AppConfig from "../../app/config";
+import { AuthProvider } from "../../providers/auth/auth";
+import { NavParams } from "ionic-angular";
+import { ToastProvider } from "../../providers/toast/toast";
+import { LoadingProvider } from "../../providers/loading/loading";
 @Component({
-  selector: 'es-billings',
-  templateUrl: 'es-billings.html'
+  selector: "es-billings",
+  templateUrl: "es-billings.html"
 })
-export class EsBillingsComponent {
+export class EsBillingsComponent implements OnInit{
+  billings: any;
+  baseUrl = AppConfig.cfg.baseUrl;
+  currentCulture: string;
+  currentClass: any;
 
-  text: string;
+  constructor(
+    private billingProvider: BillingProvider,
+    private authProvider: AuthProvider,
+    private navParam: NavParams,
+    private toastProvider: ToastProvider,
+    private loadingProvider: LoadingProvider
+  ) {
+    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
 
-  constructor() {
-    console.log('Hello EsBillingsComponent Component');
-    this.text = 'Hello World';
+    this.currentClass = this.navParam.get("currentClass");
   }
 
-  onClickUpdate(){
-    console.log('teste');
+  ngOnInit(){
+    this.billingProvider.billingData.subscribe(response => {
+      this.billings = response;
+      console.log(this.billings);
+    });
+    
+    this.billingProvider.getBillsByClass(this.currentClass.ID);
   }
 
+  update(item) {
+    this.loadingProvider.presentLoadingDefault();
+
+    this.billingProvider.addBilling(item).then(response => {
+      if(response === "SUCCESS"){
+        this.loadingProvider.dismissLoading();
+        this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
+      }
+    }).catch(err => {
+      this.loadingProvider.dismissLoading();
+      this.toastProvider.presentTranslatedToast("ErrorMessage");
+      console.log(err)
+    });
+  }
 }

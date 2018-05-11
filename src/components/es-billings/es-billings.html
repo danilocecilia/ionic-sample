@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Billing
+      {{'Billings' | translate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,95 +10,50 @@
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-12 padding-vertical text-center>
-        <b>FF2137_CL0001</b>
+        <b>{{currentClass.ClassCode}}</b>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-card>
+  <ion-card *ngFor="let b of billings">
     <div class="status">
-      <button ion-button small>UPDATE</button>
+      <button ion-button small (click)="update(b)">{{'Update' | translate}}</button>
     </div>
     <ion-item>
       <ion-avatar item-start>
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+        <img src="{{baseUrl}}{{b.User.Thumbnail}}">
       </ion-avatar>
-      <b>Angelo Martins da Silva Medeiros</b>
-      <p>Triumph Flagshipstore NL Frankfurt</p>
-      <p>Cargos</p>
+      <b>{{b.User.Name}}</b>
+      <p>{{b.User.Organization.Organization}}</p>
+      <p>{{b.User.JobRolesStringfied}}</p>
     </ion-item>
     <ion-item style="padding-left:20px; padding-right:150px;">
       <ion-label>
-        <b>Billed</b>
+        <b>{{'Billed' | translate}}</b>
       </ion-label>
-      <ion-select interface="popover">
-        <ion-option [value]="true">YES</ion-option>
-        <ion-option selected [value]="false">NO</ion-option>
+      <ion-select [(ngModel)]="b.Billed" interface="popover">
+        <ion-option [value]="true">{{'Yes' | translate}}</ion-option>
+        <ion-option [value]="false">{{'No' | translate}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-card-content>
       <ion-row>
         <ion-col col-4>
-          <b>Billing Date</b>
+          <b>{{'BillingDate' | translate}}</b>
         </ion-col>
         <ion-col col-4>
-          <b>Billing By</b>
+          <b>{{'BillingBy' | translate}}</b>
         </ion-col>
         <ion-col col-4 text-right>
-          <b>Value</b>
+          <b>{{'Value' | translate}}</b>
         </ion-col>
         <ion-col>
-          29-01/2018
+          {{b.BillingDate | localeDate:currentCulture}}
         </ion-col>
         <ion-col>
-          Danilo Cecilia
+          {{b.BillingBy}}
         </ion-col>
         <ion-col text-right>
-          125.00
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <div class="status">
-      <!-- <div (click)="onClickUpdate()">UPDATE</div> -->
-      <button ion-button small>UPDATE</button>
-    </div>
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
-      </ion-avatar>
-      <b>Angelo Martins da Silva Medeiros</b>
-      <p>Triumph Flagshipstore NL Frankfurt</p>
-      <p>Cargos</p>
-    </ion-item>
-    <ion-item style="padding-left:20px; padding-right:150px;">
-      <ion-label>
-        <b>Billed</b>
-      </ion-label>
-      <ion-select interface="popover">
-        <ion-option [value]="true">YES</ion-option>
-        <ion-option selected [value]="false">NO</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-card-content>
-      <ion-row>
-        <ion-col col-4>
-          <b>Billing Date</b>
-        </ion-col>
-        <ion-col col-4>
-          <b>Billing By</b>
-        </ion-col>
-        <ion-col col-4 text-right>
-          <b>Value</b>
-        </ion-col>
-        <ion-col>
-          29-01/2018
-        </ion-col>
-        <ion-col>
-          Danilo Cecilia
-        </ion-col>
-        <ion-col text-right>
-          125.00
+          {{b.Value}}
         </ion-col>
       </ion-row>
     </ion-card-content>
