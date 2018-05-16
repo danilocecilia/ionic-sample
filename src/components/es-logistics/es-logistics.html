@@ -5,13 +5,13 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content *mobxAutorun>
   <ion-grid>
     <ion-row class="border-bottom">
       <ion-col col-8 padding-vertical>
         <b>{{classCode}}</b>
         <p><b>{{'TotalCost' | translate}}:</b>
-          <span class="expense">{{logistics?.ClassAPI.QtyLogistic}}</span></p>
+          <span class="expense">{{logisticStore.logistic?.ClassAPI.QtyLogistic}}</span></p>
       </ion-col>
       <ion-col col-4 text-right>
           <button ion-button color="primary" (click)="addLogistic()">
@@ -21,7 +21,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card *ngFor="let logistic of logistics?.LogisticItemsXClass">
+  <ion-card *ngFor="let logistic of logisticStore.logistic?.LogisticItemsXClass">
     <ion-list>
       <ion-item-sliding #item>
         <ion-item>
@@ -67,7 +67,7 @@
           </ion-grid>
         </ion-item>
         <ion-item-options side="left">
-          <button ion-button color="danger" (click)="remove(logistic)">
+          <button ion-button color="danger" (click)="remove(logistic.ID)">
             <ion-icon name="trash"></ion-icon>
             {{'Remove' | translate}}
           </button>

@@ -14,6 +14,8 @@ import * as AppConfig from "../../app/config";
 import { DownloadProvider } from "../../providers/download/download";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { Logistic, LogisticItem, LogisticType } from "../../model/logistic";
+import { LogisticStore } from "../../stores/logistic.store";
+import { Class } from "../../model/class";
 export class MonetarySymbol {
   Currency: string;
   ID: number;
@@ -25,13 +27,14 @@ export class MonetarySymbol {
 })
 export class ModalLogisticPage {
   classAPI: any;
-  logistic: any;
+  logistic: Logistic = new Logistic();
   fileURI: any;
   imageFileName: any;
   logisticTypes: any;
   logisticItems: any;
   currentCulture: string;
   open: string;
+  isNew: boolean;
 
   monetarySymbol: MonetarySymbol[] = [
     { Currency: "NONE", ID: 0 },
@@ -52,19 +55,9 @@ export class ModalLogisticPage {
     private logisticProvider: LogisticProvider,
     private authProvider: AuthProvider,
     private downloadProvider: DownloadProvider,
-    private translateProvider: TranslateProvider
-  ) {
-    this.getTranslatedOpenButton();
-    
-    this.logistic = this.navParam.get("logistic");
-    this.classAPI = this.navParam.get("class");
-    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
-
-    this.loadLogisticTypes();
-    
-    if(this.logistic)
-      this.loadLogisticItems(this.logistic.Type.ID);
-  }
+    private translateProvider: TranslateProvider,
+    public logisticStore: LogisticStore
+  ) {}
 
   fileTransfer: FileTransferObject = this.transfer.create();
 
@@ -111,10 +104,10 @@ export class ModalLogisticPage {
 
     this.logisticProvider
       .removeFile(idFile, this.logistic.ID)
-      .then(files => {
+      .then((files: File[]) => {
         this.loadingProvider.dismissLoading();
-
-        this.logistic.Files = files;
+        // this.logistic.Files = new Files()[];
+        // this.logistic.Files = files;
       })
       .catch(err => {
         this.loadingProvider.dismissLoading();
@@ -123,8 +116,12 @@ export class ModalLogisticPage {
       });
   }
 
-  calcTotalCost(){
-    this.logistic.Cost = this.logistic.Qty * this.logistic.Item.UnitCost;
+  calcTotalCost() {
+    let lgItem = this.logisticItems.find(
+      item => item.ID === this.logistic.Item.ID
+    );
+
+    this.logistic.Cost = this.logistic.Qty * lgItem.UnitCost;
   }
 
   uploadFile() {
@@ -219,31 +216,64 @@ export class ModalLogisticPage {
     });
   }
 
-  updateLogistic() {
-    let logistic = new Logistic();
-    logistic.ID = this.logistic.ID;
-    logistic.Cost = this.logistic.Cost;
-    logistic.Date = this.logistic.Date;
-    logistic.MonetarySymbol = this.logistic.Item.MonetarySymbol;
-    logistic.Qty = this.logistic.Qty;
-    logistic.Description = this.logistic.Description;
-    logistic.Item = new LogisticItem();
-    logistic.Item.ID = this.logistic.Item.ID;
-    
-    this.logisticProvider.updateLogistic(logistic)
-    .then(response => {
-      if(response === "SUCCESS"){
-        this.toastProvider.presentTranslatedToast("SuccessLogistic")
-      }
-    })
-    .catch(err => {
-      this.toastProvider.presentTranslatedToast("ErrorMessage")
-      console.log(err);
-    });
+  editOrAddLogistic() {
+    if (this.isNew) {
+      this.isNew = false;
+      this.logistic.Class.ID = this.classAPI.idClass;
+      this.logisticProvider
+        .addLogistic(this.logistic)
+        .then(() => {
+          this.toastProvider.presentTranslatedToast("SuccessLogistic");
+        })
+        .catch(err => {
+          this.toastProvider.presentTranslatedToast("ErrorMessage");
+          console.log(err);
+        });
+      // this.logisticStore
+      //   .addLogistic(this.logistic)
+      //   .then(() => {
+      //     this.toastProvider.presentTranslatedToast("SuccessLogistic");
+      //   })
+      //   .catch(err => {
+      //     this.toastProvider.presentTranslatedToast("ErrorMessage");
+      //     console.log(err);
+      //   });
+    } else {
+      debugger;
+      this.logisticProvider
+        .updateLogistic(this.logistic)
+        .then(() => {
+          this.toastProvider.presentTranslatedToast("SuccessLogistic");
+        })
+        .catch(err => {
+          this.toastProvider.presentTranslatedToast("ErrorMessage");
+          console.log(err);
+        });
+    }
   }
 
   ionViewDidLoad() {
-    //console.log("ionViewDidLoad ModalLogisticPage");
+    this.getTranslatedOpenButton();
+    this.loadLogisticTypes();
+    debugger;
+    let selectedLogistic = this.navParam.get("logistic");
+
+    this.classAPI = this.navParam.get("classAPI");
+
+    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
+
+    if (selectedLogistic) {
+      this.logistic = Object.assign(new Logistic(), selectedLogistic);
+      this.isNew = false;
+      this.loadLogisticItems(this.logistic.Type.ID);
+    } else {
+      this.logistic.Type = new LogisticType();
+      this.logistic.Item = new LogisticItem();
+      this.logistic.Class = new Class();
+      this.isNew = true;
+    }
+
+    console.log(this.logistic);
   }
 
   onCloseModal() {
