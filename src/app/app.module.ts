@@ -69,6 +69,15 @@ import { LibraryProvider } from "../providers/library/library";
 import { NotificationProvider } from "../providers/notification/notification";
 import { EnrollmentProvider } from "../providers/enrollment/enrollment";
 import { TranslateProvider } from "../providers/translate/translate";
+import { UserProfileProvider } from '../providers/user-profile/user-profile';
+import { MediaProvider } from '../providers/media/media';
+import { EventSummaryProvider } from '../providers/event-summary/event-summary';
+import { DownloadProvider } from '../providers/download/download';
+import { LogisticProvider } from '../providers/logistic/logistic';
+import { BillingProvider } from '../providers/billing/billing';
+import { LoadingProvider } from "../providers/loading/loading";
+import { ToastProvider } from "../providers/toast/toast";
+import { LogisticStore  } from "../stores/logistic.store";
 
 /***********************/
 //Modules
@@ -78,16 +87,9 @@ import { ModalNotificationPageModule } from "../pages/modal-notification/modal-n
 import { PasswordRecoveryPageModule } from "../pages/password-recovery/password-recovery.module";
 import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
-import { LoadingProvider } from "../providers/loading/loading";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
-import { ToastProvider } from "../providers/toast/toast";
 import { PipesModule } from "../pipes/pipes.module";
-import { UserProfileProvider } from '../providers/user-profile/user-profile';
-import { MediaProvider } from '../providers/media/media';
-import { EventSummaryProvider } from '../providers/event-summary/event-summary';
-import { DownloadProvider } from '../providers/download/download';
-import { LogisticProvider } from '../providers/logistic/logistic';
-import { BillingProvider } from '../providers/billing/billing';
+import { MobxAngularModule } from 'mobx-angular';
 
 let storage = new Storage({});
 
@@ -163,7 +165,8 @@ export function getAuthHttp(http: Http) {
     ChangePasswordPageModule,
     PipesModule,
     TabsPageModule,
-    AuthPageModule
+    AuthPageModule,
+    MobxAngularModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -235,7 +238,8 @@ export function getAuthHttp(http: Http) {
     AndroidPermissions,
     DownloadProvider,
     LogisticProvider,
-    BillingProvider
+    BillingProvider,
+    LogisticStore
   ]
 })
 export class AppModule {}
