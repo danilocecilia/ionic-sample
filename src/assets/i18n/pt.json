@@ -51,6 +51,7 @@
   "PostTest": "Pós-Teste",
   "PreTest": "Pré-Teste",
   "TrainingMaterial": "Material de Treinamento",
+  "Trainings": "Treinamentos",
   "Date": "Data",
   "Currency": "Monetário",
   "EquipmentRental": "Aluguel de Equipamento",
@@ -81,6 +82,7 @@
   "Edit" : "Editar",
   "Country": "País",
   "Billed": "Cobrado",
+  "Unbilled": "Não faturado",
   "State": "Estado",
   "PostalCode": "Código Postal",
   "PhoneInfo": "Informação de Contato",
@@ -88,6 +90,10 @@
   "Fax": "Fax",
   "Save": "SALVAR",
   "Open": "ABRIR",
+  "Users": "Usuários",
+  "Online": "Online",
+  "Tickets": "Chamados",
+  "Opened": "Aberto",
   "SuccessDownloaded": "Baixado {{value}}",
   "Value": "Valor",
   "ValidatorMessage": {
@@ -128,7 +134,9 @@
   "PASSWORD_NOT_MATCH": "",
   "USER_NOT_FOUND": "Uusário não encontrado.",
   "USER_PASSWORD_NOT_MATCH": "User password not match",
-
+  "DailyAccess": "Daily Access",
+  "BillingSummary": "Billing Summary",
+  "InvestmentsByType": "Investiments By Type",
   "Free": "Grátis",
   "TitlePage": {
     "PasswordRecovery": "Recuração de Senha",
@@ -142,7 +150,8 @@
     "CourseSteps": "Passos do Curso",
     "Assessment": "Avaliação",
     "MediaGalery": "Galeria de Midias",
-    "Logistics": "Logística"
+    "Logistics": "Logística",
+    "Dashboard": "Dashboard"
   },
   "TabsTitle": {
     "Notification": "Notificação",
