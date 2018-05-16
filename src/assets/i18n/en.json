@@ -28,6 +28,7 @@
   "Average": "Average",
   "Expenses": "Expenses",
   "Billings": "Billinig",
+  "Unbilled": "Unbilled",
   "Revenues": "Revenues",
   "Enroll": "Enroll",
   "Notify": "Notify",
@@ -47,6 +48,7 @@
   "PostTest": "Post Test",
   "PreTest": "Pre Test",
   "TrainingMaterial": "Training Material",
+  "Trainings": "Trainings",
   "Date": "Date",
   "Currency": "Monetary",
   "EquipmentRental": "Equipment Rental",
@@ -85,6 +87,10 @@
   "Fax": "Fax",
   "Save": "SAVE",
   "Open": "OPEN",
+  "Users": "Users",
+  "Online": "Online",
+  "Tickets": "Tickets",
+  "Opened": "Opened",
   "SuccessDownloaded": "Downloaded {{value}}",
   "Value": "Value",
   "ValidatorMessage": {
@@ -125,7 +131,9 @@
   "PASSWORD_NOT_MATCH": "",
   "USER_NOT_FOUND": "User not found",
   "USER_PASSWORD_NOT_MATCH": "User password not match",
-
+  "DailyAccess": "Acesso Diário",
+  "BillingSummary": "Resumo de Cobrança",
+  "InvestmentsByType": "Investimentos por Tipo",
   "Free": "Free",
   "TitlePage": {
     "PasswordRecovery": "Password Recovery",
@@ -139,7 +147,8 @@
     "CourseSteps": "Course Steps",
     "Assessment": "Assessment",
     "MediaGalery": "Media Galery",
-    "Logistics": "Logistics"
+    "Logistics": "Logistics",
+    "Dashboard": "Dashboard"
   },
   "TabsTitle": {
     "Notification": "Notification",
