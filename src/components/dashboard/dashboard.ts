@@ -1,18 +1,13 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
 import chartJs from 'chart.js';
 import datalabels from 'chartjs-plugin-datalabels'
+import { DashboardProvider } from "../../providers/dashboard/dashboard";
 
-/**
- * Generated class for the DashboardComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: "dashboard",
   templateUrl: "dashboard.html"
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
   @ViewChild("lineCanvas") lineCanvas;
   @ViewChild("barCanvas") barCanvas;
   @ViewChild('pieCanvas') pieCanvas;
@@ -21,29 +16,39 @@ export class DashboardComponent {
   barChart: any;
   pieChart: any;
 
-  constructor() { }
+  dashboard:any;
+
+  constructor(private dashboardProvider: DashboardProvider) { }
+
+  ngOnInit(){
+    this.dashboardProvider.loadDashboard()
+    .then((response) => {
+      this.dashboard = response;
+      console.log(this.dashboard);
+    }).catch(err => console.log(err));
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.barChart = this.getBarChart();
       // this.doughnutChart = this.getDoughnutChart();
       // this.halfDoughnutChart = this.getHalfDoughnutChart();
-    }, 150);
+    }, 400);
     setTimeout(() => {
       this.lineChart = this.getLineChart();
       // this.radarChart = this.getRadarChart();
       // this.polarAreaChart = this.getPolarAreaChart();
-    }, 250);
+    }, 800);
     setTimeout(() => {
       // this.bubbleChart = this.getBubbleChart();
       // this.mixedChart = this.getMixedChart();
       this.pieChart = this.getPieChart();
-    }, 350);
+    }, 1200);
   }
 
   getLineChart() {
     const data = {
-      labels: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+      labels: this.dashboard.DailyAccess.Hours,
       datasets: [
         {
           label: "Qty Access",
@@ -65,7 +70,7 @@ export class DashboardComponent {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [0, 2, 20, 6, 15, 55, 35, 2, 8, 1, 1],
+          data: this.dashboard.DailyAccess.Logs,
           spanGaps: false
         }
       ]
@@ -88,28 +93,12 @@ export class DashboardComponent {
 
   getBarChart() {
     const data = {
-      labels: ['Air', 'Food', 'Gifts', 'Location', 'Other', 'Training', 'Transport'],
+      labels: this.dashboard.BillingSummary.Types,
       datasets: [{
         //label: '# of Votes',
-        data: [825.00, 308.70, 100.00, 499.00, 339.00, 45.00, 64.25],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 220, 60, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 220, 60, 1)'
-        ],
+        data: this.dashboard.BillingSummary.Values,
+        backgroundColor: this.dashboard.BillingSummary.BackgroundColor,
+        borderColor: this.dashboard.BillingSummary.BorderColor,
         borderWidth: 1,
         fill: false
       }]
@@ -140,13 +129,13 @@ export class DashboardComponent {
 
   getPieChart() {
     const data = {
-      labels: ['Enrolled', 'Fail', 'In Progress', 'Pass'],
+      labels: this.dashboard.TrainingStatus.Status,
       labelFontSize : '6',
       datasets: [
         {
-          data: [226, 2467, 2787, 6000],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#64f28a'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#64f28a']
+          data: this.dashboard.TrainingStatus.Values,
+          backgroundColor: this.dashboard.TrainingStatus.BackgroundColor,
+          hoverBackgroundColor: this.dashboard.TrainingStatus.HoverBackgroundColor
         }]
     };
 

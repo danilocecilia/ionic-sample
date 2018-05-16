@@ -1,47 +1,47 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Dashboard</ion-title>
+    <ion-title>{{'TitlePage.Dashboard' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content no-bounce>
-  <ion-card>
+  <ion-card *ngIf="dashboard">
     <ion-grid>
       <ion-row text-center>
         <ion-col>
-          Users
+          <b>{{'Users' | translate}}</b>
         </ion-col>
         <ion-col>
-          Online
+          <b>{{'Online' | translate}}</b>
         </ion-col>
         <ion-col>
-          Tickets
+          <b>{{'Tickets' | translate}}</b>
         </ion-col>
         <ion-col>
-          Opened
+          <b>{{'Opened' | translate}}</b>
         </ion-col>
       </ion-row>
       <ion-row text-center>
         <ion-col>
-          6057
+          {{dashboard.UsersActive}}
         </ion-col>
         <ion-col>
-          19
+          {{dashboard.UsersOnline}}
         </ion-col>
         <ion-col>
-          49
+          {{dashboard.Tickets}}
         </ion-col>
         <ion-col>
-          7
+          {{dashboard.TicketsOpened}}
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
-  <ion-card>
+  <ion-card *ngIf="dashboard">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <b>Daily Access</b>
+          <b>{{'DailyAccess' | translate}}</b>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -50,38 +50,38 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="dashboard">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <b>Billings Summary</b>
+          <b>{{'BillingSummary' | translate}}</b>
         </ion-col>
       </ion-row>
       <ion-row text-center>
         <ion-col>
-          Revenues
+          <b>{{'Revenues' | translate}}</b>
         </ion-col>
         <ion-col>
-          Expenses
+          <b>{{'Expenses' | translate}}</b>
         </ion-col>
         <ion-col>
-          Unbilled
-        </ion-col>
-      </ion-row>
-      <ion-row text-center>
-        <ion-col>
-          $3,450.00
-        </ion-col>
-        <ion-col>
-          $1,691.98
-        </ion-col>
-        <ion-col>
-          $6,300.00
+          <b>{{'Unbilled' | translate}}</b>
         </ion-col>
       </ion-row>
       <ion-row text-center>
         <ion-col>
-          Investments by Type
+          {{dashboard.BillingSummary.Revenues}}
+        </ion-col>
+        <ion-col>
+          {{dashboard.BillingSummary.Expenses}}
+        </ion-col>
+        <ion-col>
+          {{dashboard.BillingSummary.Unbilled}}
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          {{'InvestmentsByType' | translate}}
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -90,39 +90,81 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="dashboard">
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <b>{{'Trainings' | translate}}</b>
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.PASS' | translate}}
+        </ion-col>
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[0]}}
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.FAIL' | translate}}
+        </ion-col>
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[1]}}
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.IN_PROGRESS' | translate}}
+        </ion-col>
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[2]}}
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.ENROLLED' | translate}}
+        </ion-col>
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[3]}}
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <b>Trainings</b>
+          <b>{{'Trainings' | translate}}</b>
         </ion-col>
       </ion-row>
       <ion-row text-center>
-        <ion-col>
-          Pass
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.PASS' | translate}}
         </ion-col>
-        <ion-col>
-          Fail
+
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.FAIL' | translate}}
         </ion-col>
-        <ion-col>
-          In Progress
+
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.IN_PROGRESS' | translate}}
         </ion-col>
-        <ion-col>
-          Enrolled
+
+        <ion-col col-6 text-left>
+          {{'HistoryStatus.ENROLLED' | translate}}
         </ion-col>
       </ion-row>
-      <ion-row text-center>
-        <ion-col>
-          126940
+      <ion-row>
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[0]}}
         </ion-col>
-        <ion-col>
-          2467
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[1]}}
         </ion-col>
-        <ion-col>
-          2787
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[2]}}
         </ion-col>
-        <ion-col>
-          226
+        <ion-col col-6 text-left>
+          {{dashboard.TrainingStatus.Values[3]}}
         </ion-col>
       </ion-row>
     </ion-grid>
