@@ -66,6 +66,9 @@ export let cfg = {
   billing:{
     getBills:"Billing/GetBillsByClass",
     add:"Billing/AddBilling"
+  },
+  dashboard:{
+    load:"Dashboard/GetDashboard"
   }
 };
 
