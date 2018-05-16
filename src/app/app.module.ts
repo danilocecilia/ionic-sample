@@ -90,6 +90,7 @@ import { AuthPageModule } from "../pages/auth/auth.module";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
 import { PipesModule } from "../pipes/pipes.module";
 import { MobxAngularModule } from 'mobx-angular';
+import { DashboardProvider } from '../providers/dashboard/dashboard';
 
 let storage = new Storage({});
 
@@ -239,7 +240,8 @@ export function getAuthHttp(http: Http) {
     DownloadProvider,
     LogisticProvider,
     BillingProvider,
-    LogisticStore
+    LogisticStore,
+    DashboardProvider
   ]
 })
 export class AppModule {}
