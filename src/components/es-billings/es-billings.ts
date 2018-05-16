@@ -9,7 +9,7 @@ import { LoadingProvider } from "../../providers/loading/loading";
   selector: "es-billings",
   templateUrl: "es-billings.html"
 })
-export class EsBillingsComponent implements OnInit{
+export class EsBillingsComponent implements OnInit {
   billings: any;
   baseUrl = AppConfig.cfg.baseUrl;
   currentCulture: string;
@@ -27,27 +27,44 @@ export class EsBillingsComponent implements OnInit{
     this.currentClass = this.navParam.get("currentClass");
   }
 
-  ngOnInit(){
-    this.billingProvider.billingData.subscribe(response => {
-      this.billings = response;
-      console.log(this.billings);
-    });
-    
-    this.billingProvider.getBillsByClass(this.currentClass.ID);
+  ngOnInit() {
+    this.loadingProvider.presentLoadingDefault();
+
+    this.billingProvider
+      .getBillsByClass(this.currentClass.ID)
+      .then(billings => {
+        this.loadingProvider.dismissLoading();
+        this.billings = billings;
+        console.log(this.billings);
+      })
+      .catch(err => {
+        console.log(err);
+        this.loadingProvider.dismissLoading();
+      });
+    // this.billingProvider.billingData.subscribe(response => {
+    //   this.loadingProvider.dismissLoading();
+    //   this.billings = response;
+    //   console.log(this.billings);
+    // });
+
+    // this.billingProvider.getBillsByClass(this.currentClass.ID);
   }
 
   update(item) {
     this.loadingProvider.presentLoadingDefault();
 
-    this.billingProvider.addBilling(item).then(response => {
-      if(response === "SUCCESS"){
+    this.billingProvider
+      .addBilling(item)
+      .then(response => {
+        if (response === "SUCCESS") {
+          this.loadingProvider.dismissLoading();
+          this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
+        }
+      })
+      .catch(err => {
         this.loadingProvider.dismissLoading();
-        this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
-      }
-    }).catch(err => {
-      this.loadingProvider.dismissLoading();
-      this.toastProvider.presentTranslatedToast("ErrorMessage");
-      console.log(err)
-    });
+        this.toastProvider.presentTranslatedToast("ErrorMessage");
+        console.log(err);
+      });
   }
 }
