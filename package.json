@@ -66,6 +66,8 @@
     "ionic-plugin-keyboard": "^2.2.1",
     "ionic2-calendar": "^0.4.2",
     "ionicons": "3.0.0",
+    "mobx": "^4.2.1",
+    "mobx-angular": "^3.0.1",
     "moment": "^2.20.1",
     "phonegap-plugin-barcodescanner": "^7.0.2",
     "phonegap-plugin-push": "^2.1.3",
