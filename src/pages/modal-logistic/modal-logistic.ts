@@ -229,17 +229,7 @@ export class ModalLogisticPage {
           this.toastProvider.presentTranslatedToast("ErrorMessage");
           console.log(err);
         });
-      // this.logisticStore
-      //   .addLogistic(this.logistic)
-      //   .then(() => {
-      //     this.toastProvider.presentTranslatedToast("SuccessLogistic");
-      //   })
-      //   .catch(err => {
-      //     this.toastProvider.presentTranslatedToast("ErrorMessage");
-      //     console.log(err);
-      //   });
     } else {
-      debugger;
       this.logisticProvider
         .updateLogistic(this.logistic)
         .then(() => {
@@ -255,7 +245,6 @@ export class ModalLogisticPage {
   ionViewDidLoad() {
     this.getTranslatedOpenButton();
     this.loadLogisticTypes();
-    debugger;
     let selectedLogistic = this.navParam.get("logistic");
 
     this.classAPI = this.navParam.get("classAPI");
