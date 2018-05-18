@@ -13,6 +13,10 @@ export let cfg = {
     getClassesByDate: "Class/GetClassesByDate",
     getClassesByTraining: "Class/GetClassesByTraining"
   },
+  assessment: {
+    get: "Assessment/GetAssessment",
+    add: "Assessment/Add"
+  },
   event_summary: {
     getEventSummary: "Class/GetEventSummary",
     putActionStep: "Class/ActionStep",
@@ -23,7 +27,8 @@ export let cfg = {
     enrollmentsByClass: "History/GetEnrollmentsByClass",
     removeEnrollment: "History/RemoveEnrollment",
     updateGrade: "History/UpdateGrade",
-    enrollUser: "History/AddEnrollment"
+    enrollUser: "History/AddEnrollment",
+    addForWebBased: "History/AddEnrollmentInWebTraining"
   },
   user: {
     register: "",
@@ -63,12 +68,15 @@ export let cfg = {
     update: "Logistic/UpdateLogistic",
     add: "Logistic/AddLogistic"
   },
-  billing:{
-    getBills:"Billing/GetBillsByClass",
-    add:"Billing/AddBilling"
+  billing: {
+    getBills: "Billing/GetBillsByClass",
+    add: "Billing/AddBilling"
   },
-  dashboard:{
-    load:"Dashboard/GetDashboard"
+  dashboard: {
+    load: "Dashboard/GetDashboard"
+  },
+  trainingSteps: {
+    load: "TrainingProgress/GetTrainingProgress"
   }
 };
 
@@ -126,6 +134,13 @@ export enum APIMonetarySymbol {
   BRL, // Brazilian Real
   JPY, // Japanese Yen
   TWD // Taiwan Dollar
+}
+
+export enum StepType {
+  PRE_TEST = 0,
+  POST_TEST = 1,
+  TRAINING = 2,
+  SATISFACTION = 3
 }
 
 export let fileMimeTypes = [
