@@ -24,4 +24,8 @@ export class EnrollmentProvider {
   enrollUser(history: History){
     return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.history.enrollUser}?token=${this.authProvider.loggedUser.Token}`, history).toPromise();
   }
+
+  enrollForWebBasedTraining(obj: History){
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.history.addForWebBased}?token=${this.authProvider.loggedUser.Token}`, obj).toPromise();
+  }
 }
