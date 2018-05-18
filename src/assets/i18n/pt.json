@@ -28,6 +28,7 @@
   "Update": "Atualiza",
   "UploadDocument": "Submeter Documento",
   "of": "de",
+  "Description": "Descrição",
   "Grades": "Notas",
   "Average": "Média",
   "Expenses": "Despesas",
@@ -46,6 +47,7 @@
   "UnitCost": "Custo Unitário",
   "PullToRefresh": "Puxe para atualizar",
   "Refreshing": "Atualizando",
+  "MessageStartTraining":"clicando no botão Iniciar você estará aceitando os termos e iniciará o curso.",
   "PresenceList": "Lista de Presença",
   "SeatsByOrganization": "Lugares por Organização",
   "PostTest": "Pós-Teste",
@@ -94,6 +96,7 @@
   "Online": "Online",
   "Tickets": "Chamados",
   "Opened": "Aberto",
+  "OpenEnrollment": "Inscrição Aberta",
   "SuccessDownloaded": "Baixado {{value}}",
   "Value": "Valor",
   "ValidatorMessage": {
@@ -120,7 +123,11 @@
     "REGION_MANAGER": "Administrator Regional",
     "ORGANIZATION_MANAGER": "Administrator da Organização"
   },
-
+  "AssessmentMsg1": "O {{value}} é requerido para este treinamento. Gostariamos de saber o que você já sabe sobre este assunto.",
+  "AssessmentMsg2": "O status do treinamento não irá mudar com o resultado desta avaliação.",
+  "AssessmentMsg3": "Clique no botão abaixo para iniciar a avaliação:",
+  "PreTestAssessment": "Avaliação de Pré Teste",
+  "PostTestAssessment": "Avaliação de Pós Teste",
   "SUCCESS": "Success",
   "FAILURE": "Falha na requisição, tente novamente.",
   "BLOCKED_USER": "Usuário bloqueado.",

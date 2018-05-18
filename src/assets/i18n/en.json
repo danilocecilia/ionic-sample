@@ -16,6 +16,9 @@
   "NoShow": "No Show",
   "Justified": "Justified",
   "Actions:": "Actions",
+  "AssessmentMsg1": "A {{value}} is required for this training. We would like to know what you already know about this subject.",
+  "AssessmentMsg2": "Training status will not change with the result of this assessment.",
+  "AssessmentMsg3": "Click in the button below to start the assessment:",
   "Step": "Step",
   "Seats": "Seats",
   "SearchFile": "Search Document",
@@ -24,6 +27,7 @@
   "Update": "Update",
   "UploadDocument": "Upload Document",
   "of": "of",
+  "Description": "Description",
   "Grades": "Grades",
   "Average": "Average",
   "Expenses": "Expenses",
@@ -43,6 +47,7 @@
   "UnitCost": "Unit Cost",
   "PullToRefresh": "Pull To Refresh",
   "Refreshing": "Refreshing",
+  "MessageStartTraining":"by clicking at Start button you are accepting the terms and starting the course.",
   "PresenceList": "Presence List",
   "SeatsByOrganization": "Seats by Organization",
   "PostTest": "Post Test",
@@ -91,6 +96,7 @@
   "Online": "Online",
   "Tickets": "Tickets",
   "Opened": "Opened",
+  "OpenEnrollment": "Open Enrollment",
   "SuccessDownloaded": "Downloaded {{value}}",
   "Value": "Value",
   "ValidatorMessage": {
@@ -117,7 +123,8 @@
     "REGION_MANAGER": "Region Manager",
     "ORGANIZATION_MANAGER": "Organization Manager"
   },
-
+  "PreTestAssessment": "Pre Test Assessment",
+  "PostTestAssessment": "Post Test Assessment",
   "SUCCESS": "Success",
   "FAILURE": "Request failure, please try again",
   "BLOCKED_USER": "This user is blocked",
