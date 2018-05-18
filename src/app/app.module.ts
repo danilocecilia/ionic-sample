@@ -18,10 +18,10 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { Globalization } from "@ionic-native/globalization";
-import { DocumentViewer } from '@ionic-native/document-viewer';
-import { FileOpener } from '@ionic-native/file-opener';
-import { Push } from '@ionic-native/push';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { DocumentViewer } from "@ionic-native/document-viewer";
+import { FileOpener } from "@ionic-native/file-opener";
+import { Push } from "@ionic-native/push";
+import { AndroidPermissions } from "@ionic-native/android-permissions";
 
 /***********************/
 //Pages
@@ -54,7 +54,11 @@ import { EsBillingsComponent } from "../components/es-billings/es-billings";
 import { EsLogisticsComponent } from "../components/es-logistics/es-logistics";
 import { PrePostTestComponent } from "../components/pre-post-test/pre-post-test";
 import { TrainingContentFileComponent } from "../components/training-content-file/training-content-file";
-import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from "../components/timeline/timeline";
+import {
+  TimelineComponent,
+  TimelineItemComponent,
+  TimelineTimeComponent
+} from "../components/timeline/timeline";
 import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-course-steps";
 
 /***********************/
@@ -69,15 +73,17 @@ import { LibraryProvider } from "../providers/library/library";
 import { NotificationProvider } from "../providers/notification/notification";
 import { EnrollmentProvider } from "../providers/enrollment/enrollment";
 import { TranslateProvider } from "../providers/translate/translate";
-import { UserProfileProvider } from '../providers/user-profile/user-profile';
-import { MediaProvider } from '../providers/media/media';
-import { EventSummaryProvider } from '../providers/event-summary/event-summary';
-import { DownloadProvider } from '../providers/download/download';
-import { LogisticProvider } from '../providers/logistic/logistic';
-import { BillingProvider } from '../providers/billing/billing';
+import { UserProfileProvider } from "../providers/user-profile/user-profile";
+import { MediaProvider } from "../providers/media/media";
+import { EventSummaryProvider } from "../providers/event-summary/event-summary";
+import { DownloadProvider } from "../providers/download/download";
+import { LogisticProvider } from "../providers/logistic/logistic";
+import { BillingProvider } from "../providers/billing/billing";
 import { LoadingProvider } from "../providers/loading/loading";
 import { ToastProvider } from "../providers/toast/toast";
-import { LogisticStore  } from "../stores/logistic.store";
+import { LogisticStore } from "../stores/logistic.store";
+import { AssessmentStore } from "../stores/assessment.store";
+import { CompetencyStore } from "../stores/competency.store";
 
 /***********************/
 //Modules
@@ -89,8 +95,10 @@ import { TabsPageModule } from "../pages/tabs/tabs.module";
 import { AuthPageModule } from "../pages/auth/auth.module";
 import { ChangePasswordPageModule } from "../pages/change-password/change-password.module";
 import { PipesModule } from "../pipes/pipes.module";
-import { MobxAngularModule } from 'mobx-angular';
-import { DashboardProvider } from '../providers/dashboard/dashboard';
+import { MobxAngularModule } from "mobx-angular";
+import { DashboardProvider } from "../providers/dashboard/dashboard";
+import { AssessmentProvider } from "../providers/assessment/assessment";
+import { TrainingStepsProvider } from "../providers/training-steps/training-steps";
 
 let storage = new Storage({});
 
@@ -241,7 +249,11 @@ export function getAuthHttp(http: Http) {
     LogisticProvider,
     BillingProvider,
     LogisticStore,
-    DashboardProvider
+    AssessmentStore,
+    CompetencyStore,
+    DashboardProvider,
+    AssessmentProvider,
+    TrainingStepsProvider
   ]
 })
 export class AppModule {}
