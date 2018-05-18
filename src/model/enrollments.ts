@@ -10,4 +10,5 @@ export class GradeHistory {
 export class History {
   ID_Class: number;
   ID_User: number;
+  ID_Training: number;
 }

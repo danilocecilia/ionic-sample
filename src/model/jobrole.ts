@@ -1,7 +1,8 @@
 import { Section } from "./section";
+import { observable } from "mobx-angular";
 
 export class JobRole{
     ID: number;
-    JobRole: string;
-    Section: Section
+    @observable JobRole: string;
+    @observable Section: Section
 }
