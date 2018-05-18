@@ -5,21 +5,21 @@
 </ion-header>
 
 <ion-content padding>
-    <timeline endIcon="call">
-        <timeline-item *ngFor="let item of items; let i = index">
-            <timeline-time [time]="item.time"></timeline-time>
-            <ion-icon *ngIf="item.enable">{{i + 1}}</ion-icon>
-            <ion-icon *ngIf="!item.enable" class="disabled-icon">{{i + 1}}</ion-icon>
+    <timeline endIcon="call" *ngIf="tSteps">
+        <timeline-item *ngFor="let step of tSteps.Steps; let i = index">
+            <timeline-time [time]="step.Subject"></timeline-time>
+            <ion-icon *ngIf="step.Enable">{{i + 1}}</ion-icon>
+            <ion-icon *ngIf="!step.Enable" class="disabled-icon">{{i + 1}}</ion-icon>
             <ion-card>
                 <ion-card-header>
-                    <button *ngIf="item.enable" ion-button small (click)="startAssessment()">{{item.title}}</button>
-                    <button *ngIf="!item.enable" disabled ion-button small (click)="startAssessment()">{{item.title}}</button>
+                    <button *ngIf="step.Enable" ion-button small (click)="startAssessment(step)">{{step.Subject}}</button>
+                    <button *ngIf="!step.Enable" disabled ion-button small (click)="startAssessment()">{{step.Subject}}</button>
                 </ion-card-header>
-                <ion-card-content *ngIf="item.enable">
-                    {{item.content}}
+                <ion-card-content *ngIf="step.Enable">
+                    {{step.Message}}
                 </ion-card-content>
-                <ion-card-content *ngIf="!item.enable" class="disabled-card-content">
-                    {{item.content}}
+                <ion-card-content *ngIf="!step.Enable" class="disabled-card-content">
+                    {{step.Message}}
                 </ion-card-content>
             </ion-card>
         </timeline-item>

@@ -1,24 +1,48 @@
-import { Component } from '@angular/core';
-import { PrePostTestComponent  } from "../../components/pre-post-test/pre-post-test";
-import { NavController } from 'ionic-angular';
-/**
- * Generated class for the AssessmentComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { Component, OnInit } from "@angular/core";
+import { PrePostTestComponent } from "../../components/pre-post-test/pre-post-test";
+import { NavController, NavParams, App } from "ionic-angular";
+import * as AppConfig from "../../app/config";
+import { TranslateProvider } from "../../providers/translate/translate";
 @Component({
-  selector: 'assessment',
-  templateUrl: 'assessment.html'
+  selector: "assessment",
+  templateUrl: "assessment.html"
 })
-export class AssessmentComponent {
-
-  constructor(private navCtrl : NavController) {
+export class AssessmentComponent implements OnInit {
+  stepType: any;
+  trainingName: number;
+  assessmentType: string;
+  msg1:string;
   
+  constructor(private navCtrl: NavController, private navParam: NavParams, private translateProvider: TranslateProvider) {}
+
+  ngOnInit() {
+    this.trainingName = this.navParam.get("trainingName");
+    this.stepType = this.navParam.get("Type");
+    this.getStepType(this.stepType);
   }
 
+  getStepType(stepType) {
+    debugger;
+    switch (stepType) {
+      case AppConfig.StepType.PRE_TEST:
+        this.assessmentType = "PreTestAssessment";
+        this.translateProvider.translateMessage(this.assessmentType)
+        .then(translatedMSG => {
+          console.log(translatedMSG);
+          this.translateProvider.translateMessageWithParam("AssessmentMsg1", translatedMSG)
+          .then(t => {
+            this.msg1 = t;
+            console.log(t);
+          });
+        })
+        break;
+      case AppConfig.StepType.POST_TEST:
+        this.assessmentType = "PostTestAssessment";
+        break;
+    }
+  }
 
-  onClickOpenAssessment(){
+  onClickOpenAssessment() {
     this.navCtrl.push(PrePostTestComponent, {});
   }
 }

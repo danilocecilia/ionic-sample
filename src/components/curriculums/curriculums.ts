@@ -5,10 +5,9 @@ import { ModalController } from "ionic-angular/components/modal/modal-controller
 import { AgendaPage } from "../../pages/agenda/agenda";
 import { CourseStepsComponent } from "../course-steps/course-steps";
 import { LoadingProvider } from "../../providers/loading/loading";
-import * as AppConfig from "../../app/config";
-import { TranslateProvider } from "../../providers/translate/translate";
-import { ToastProvider } from "../../providers/toast/toast";
 import { AuthProvider } from "../../providers/auth/auth";
+import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
+import { CompetencyStore } from "../../stores/competency.store";
 
 @Component({
   selector: "curriculums",
@@ -17,70 +16,45 @@ import { AuthProvider } from "../../providers/auth/auth";
 export class CurriculumsComponent implements OnInit {
   @ViewChild(Slides) slides: Slides;
 
-  competency: any = {};
-  history: any;
+  selectedHistory: any;
   idCompetency: number;
-  text: string;
   isEnrollmentHidden: boolean = true;
-  training: any;
+  selectedTraining: any;
 
   @Input("progress") progress;
   constructor(
-    public navCtrl: NavController,
-    public events: Events,
+    private navCtrl: NavController,
+    private events: Events,
     private competencyProvider: CompetencyProvider,
     private modalController: ModalController,
-    public navParams: NavParams,
+    private navParams: NavParams,
     private loadingProvider: LoadingProvider,
-    private translateProvider: TranslateProvider,
-    private toastProvider: ToastProvider,
-    private authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private enrollmentProvider: EnrollmentProvider,
+    private competencyStore: CompetencyStore
   ) {
     this.idCompetency = navParams.get("idCompetency");
   }
 
   ngOnInit() {
-    this.loadingProvider.presentLoadingDefault();
     this.getCompetency();
   }
 
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
-
-    if (this.competency.Competency[currentIndex]) {
-      this.history = this.competency.Competency[currentIndex].History;
-      this.progress = this.competency.Competency[currentIndex].Percentage;
-    }
+    this.competencyStore.slideChanged(currentIndex);
   }
 
   getCompetency() {
-    this.competencyProvider
-      .getCompetency(this.idCompetency)
-      .then(comp => {
-        this.competency = comp;
-
-        this.history = this.competency.Competency[0].History;
-        this.progress = this.competency.Competency[0].Percentage;
-        this.loadingProvider.dismissLoading();
-      })
-      .catch(err => {
-        this.loadingProvider.dismissLoading();
-
-        if (AppConfig.hasFoundAPIStatus(err.error)) {
-          if (AppConfig.APIStatus[err.error] === "INVALID_TOKEN") {
-            this.translateProvider
-              .translateMessage("ApiStatus." + err.error)
-              .then(text => {
-                this.authProvider.logout(text);
-              });
-          }
-        } else this.toastProvider.presentToast(err.error.Message);
-      });
+    this.loadingProvider.presentLoadingDefault();
+    this.competencyProvider.getCompetency(this.idCompetency).then(() => {
+      this.loadingProvider.dismissLoading();
+    });
   }
 
   openCalendar(status, training_id) {
     if (status == "PASS" || status == "ENROLLED")
-      return this.onClickStartCourse();
+      return this.onClickStartCourse(training_id, null);
 
     let calendarModal = this.modalController.create(AgendaPage, {
       id: training_id
@@ -88,16 +62,45 @@ export class CurriculumsComponent implements OnInit {
     calendarModal.present();
   }
 
-  onClickStartCourse() {
-    this.navCtrl.push(CourseStepsComponent, {});
+  onClickStartCourse(training, status) {
+    let history = {
+      ID_Class: 0,
+      ID_User: this.authProvider.loggedUser.ID,
+      ID_Training: training.ID
+    };
+
+    if (!status) {
+      this.loadingProvider.presentLoadingDefault();
+      this.enrollmentProvider
+        .enrollForWebBasedTraining(history)
+        .then(response => {
+          this.loadingProvider.dismissLoading();
+          this.getCompetency();
+          this.isEnrollmentHidden = true;
+          this.navCtrl.push(CourseStepsComponent, {idTraining: training.ID,trainingName: training.Training});
+        })
+        .catch(err => console.log(err));
+    }
+    else{
+      this.navCtrl.push(CourseStepsComponent, {idTraining: training.ID,trainingName: training.Training});
+    }
   }
 
-  onClick(training, status) {
+  onClick(history, training, status) {
     if (status == "NOT_STARTED") {
-      this.isEnrollmentHidden = false;
-      this.training = training;
-    } else if (status == "PASS" || status == "ENROLLED") {
-      this.onClickStartCourse();
+      this.loadingProvider.presentLoadingDefault();
+      setTimeout(() => {
+        this.isEnrollmentHidden = false;
+        this.selectedTraining = training;
+        this.selectedHistory = history;
+        this.loadingProvider.dismissLoading();
+      }, 1400);
+    } else if (
+      status === "PASS" ||
+      status === "ENROLLED" ||
+      status === "IN_PROGRESS"
+    ) {
+      this.onClickStartCourse(training,status);
     }
   }
 }

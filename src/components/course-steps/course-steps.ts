@@ -1,47 +1,36 @@
-import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { Component, OnInit } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
 import { AssessmentComponent } from "../assessment/assessment";
+import { TrainingStepsProvider } from "../../providers/training-steps/training-steps";
 
 @Component({
   selector: "course-steps",
   templateUrl: "course-steps.html"
 })
-export class CourseStepsComponent {
-  items = [
-    {
-      title: 'Pre-Test',
-      content: `You must answer a pre test assessment for this training.`,
-      icon: 'calendar',
-      time: { title: 'PRE-TEST' },
-      enable: true
-    },
-    {
-      title: 'Training Content',
-      content: `You can access the training content by clicking here!`,
-      icon: 'calendar',
-      time: { title: 'TRAINING CONTENT' },
-      enable: false
-    },
-    {
-      title: 'Post-Test',
-      content: `You must answer a pre test assessment for this training.`,
-      icon: 'calendar',
-      time: { title: 'POST-TEST' },
-      enable: false
-    },
-    {
-      title: 'Certificate',
-      content: `Get your certificate for the course.`,
-      icon: 'calendar',
-      time: { title: 'CERTIFICATE' },
-      enable: false
-    }
-  ];
+export class CourseStepsComponent implements OnInit {
+  tSteps: any;
+  trainingName: string;
 
-  constructor(private navCtrl: NavController) {}
+  ngOnInit() {
+    let idTraining = this.navParam.get('idTraining');
+    this.trainingName = this.navParam.get('trainingName');
+    
+    this.trainingSteps
+      .loadSteps(idTraining)
+      .then(response => {
+        this.tSteps = response;
+      })
+      .catch(err => console.log(err));
+  }
 
-  startAssessment() {
-    this.navCtrl.push(AssessmentComponent, {});
+  constructor(
+    private navCtrl: NavController,
+    private trainingSteps: TrainingStepsProvider,
+    private navParam : NavParams
+  ) {}
+
+  startAssessment(step) {
+    this.navCtrl.push(AssessmentComponent, { trainingName : this.trainingName, Type: step.Type });
   }
 
   onCLickStartTraining() {

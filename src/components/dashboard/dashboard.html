@@ -136,34 +136,34 @@
           <b>{{'Trainings' | translate}}</b>
         </ion-col>
       </ion-row>
-      <ion-row text-center>
-        <ion-col col-6 text-left>
-          {{'HistoryStatus.PASS' | translate}}
+      <ion-row text-center style="font-size: 8px;">
+        <ion-col col-3>
+          <b>{{'HistoryStatus.ENROLLED' | translate}}</b>
         </ion-col>
 
-        <ion-col col-6 text-left>
-          {{'HistoryStatus.FAIL' | translate}}
+        <ion-col col-3>
+          <b>{{'HistoryStatus.FAIL' | translate}}</b>
         </ion-col>
 
-        <ion-col col-6 text-left>
-          {{'HistoryStatus.IN_PROGRESS' | translate}}
+        <ion-col col-3>
+          <b>{{'HistoryStatus.IN_PROGRESS' | translate}}</b>
         </ion-col>
 
-        <ion-col col-6 text-left>
-          {{'HistoryStatus.ENROLLED' | translate}}
+        <ion-col col-3>
+          <b>{{'HistoryStatus.PASS' | translate}}</b>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-6 text-left>
+      <ion-row text-center>
+        <ion-col col-3>
           {{dashboard.TrainingStatus.Values[0]}}
         </ion-col>
-        <ion-col col-6 text-left>
+        <ion-col col-3>
           {{dashboard.TrainingStatus.Values[1]}}
         </ion-col>
-        <ion-col col-6 text-left>
+        <ion-col col-3>
           {{dashboard.TrainingStatus.Values[2]}}
         </ion-col>
-        <ion-col col-6 text-left>
+        <ion-col col-3>
           {{dashboard.TrainingStatus.Values[3]}}
         </ion-col>
       </ion-row>
