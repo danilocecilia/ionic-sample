@@ -1,11 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{'TitlePage.MyCurriculum' | translate}}</ion-title>
+      <ion-title>
+          {{'TitlePage.MyCurriculum' | translate}}
+        </ion-title>
+      <ion-buttons end>
+          <button ion-button style="font-size:20px" trasnparent (click)="getCompetency();"><ion-icon name="refresh"></ion-icon></button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="isEnrollmentHidden">
+  <ng-container *ngIf="hasAlreadyEnrolled">
     <ion-list no-margin>
       <ion-slides pager [paginationType]="progress" class="swiper-pagination-black" [spaceBetween]=2 (ionSlideDidChange)="slideChanged()">
         <ion-slide *ngFor="let comp of competencyStore.competency?.Competency" class="text-center slider-item">
@@ -59,7 +64,7 @@
     </ion-card>
   </ng-container>
 
-  <ion-card *ngIf="!isEnrollmentHidden">
+  <ion-card *ngIf="!hasAlreadyEnrolled">
     <ion-item>
       <h2>{{selectedTraining.Training}}</h2>
     </ion-item>
@@ -88,7 +93,9 @@
     </ion-row>
     <ion-row col-12>
       <ion-col>
-        <ion-label><b>{{'OpenEnrollment' | translate}}</b></ion-label>
+        <ion-label>
+          <b>{{'OpenEnrollment' | translate}}</b>
+        </ion-label>
         <p>{{'MessageStartTraining' | translate}}</p>
         <button full ion-button color="dark" (click)="onClickStartCourse(selectedTraining)">{{'Start' | translate}}</button>
       </ion-col>

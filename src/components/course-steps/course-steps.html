@@ -12,8 +12,8 @@
             <ion-icon *ngIf="!step.Enable" class="disabled-icon">{{i + 1}}</ion-icon>
             <ion-card>
                 <ion-card-header>
-                    <button *ngIf="step.Enable" ion-button small (click)="startAssessment(step)">{{step.Subject}}</button>
-                    <button *ngIf="!step.Enable" disabled ion-button small (click)="startAssessment()">{{step.Subject}}</button>
+                    <button *ngIf="step.Enable" ion-button full (click)="startAssessment(step)">{{step.Subject}}</button>
+                    <button *ngIf="!step.Enable" disabled ion-button full (click)="startAssessment()">{{step.Subject}}</button>
                 </ion-card-header>
                 <ion-card-content *ngIf="step.Enable">
                     {{step.Message}}

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <ion-title>
       {{'PreOrPostTest' | translate}}
     </ion-title>
@@ -7,41 +7,38 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid *ngIf="!hide">
-      <ion-row padding class="border-bottom">
-        <ion-col col-6>
-          <b>{{assessmentStore.assessment?.Training.Training}}</b>
-        </ion-col>
-        <ion-col col-6 text-right>
-          <ion-icon name="star"></ion-icon>
-        </ion-col>
-      </ion-row>
-      <ion-row class="border-bottom">
-        <ion-list radio-group *ngFor="let q of assessmentStore.assessment?.Questions">
-          <p padding>
-            <b>{{q.Question}}</b>
-          </p>
-          <ion-item *ngFor="let a of q.Alternatives">
-            <ion-label>{{a.Alternative}}</ion-label>
-            <ion-radio (ionSelect)="bindValue(a)" value="{{a.ID}}"></ion-radio>
-          </ion-item>
-        </ion-list>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <button ion-button full round (click)="onClickSubmitEvaluation()">{{'Submit' | translate}}</button>
-        </ion-item>
-      </ion-row>
-    </ion-grid>
-  <ion-grid *ngIf="hide">
-    <ion-row>
+  <ion-grid *ngIf="!hide">
+    <ion-row padding class="border-bottom">
       <ion-col col-12>
-        Pre Test Assessment
-      </ion-col>
-      <ion-col>
-        <p>Congratulations! You have finished this step.</p>
-        <p>Click in the button below to return to the course summary:</p>
+        <b>{{assessmentStore.assessment?.Training.Training}}</b>
       </ion-col>
     </ion-row>
+    <ion-row class="border-bottom">
+      <ion-list radio-group style="width:100%" *ngFor="let q of assessmentStore.assessment?.Questions">
+        <p padding>
+          <b>{{q.Question}}</b>
+        </p>
+        <ion-item *ngFor="let a of q.Alternatives">
+          <ion-label>{{a.Alternative}}</ion-label>
+          <ion-radio (ionSelect)="bindAssessment(a)" value="{{a.ID}}"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row>
+      <button ion-button full (click)="onClickSubmitEvaluation()">{{'Submit' | translate}}</button>
+    </ion-row>
   </ion-grid>
+  <ion-grid *ngIf="hide">
+    <ion-row>
+      <ion-col col-12 text-center>
+        <h3>{{assessmentType | translate}}</h3>
+      </ion-col>
+      <ion-col>
+        <p>{{'PrePostTestMsg1' | translate}}</p>
+        <p>{{'PrePostTestMsg2' | translate}}</p>
+      </ion-col>
+    </ion-row>
+    <button ion-button full (click)="onClickCurriculumList()">{{'MyCurriculum' | translate}}</button>
+  </ion-grid>
+  
 </ion-content>

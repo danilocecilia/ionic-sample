@@ -8,6 +8,7 @@ import { TranslateProvider } from "../../providers/translate/translate";
   templateUrl: "assessment.html"
 })
 export class AssessmentComponent implements OnInit {
+  idCompetency: any;
   stepType: any;
   trainingName: number;
   assessmentType: string;
@@ -17,22 +18,20 @@ export class AssessmentComponent implements OnInit {
 
   ngOnInit() {
     this.trainingName = this.navParam.get("trainingName");
+    this.idCompetency = this.navParam.get('idCompetency');
     this.stepType = this.navParam.get("Type");
     this.getStepType(this.stepType);
   }
 
   getStepType(stepType) {
-    debugger;
     switch (stepType) {
       case AppConfig.StepType.PRE_TEST:
         this.assessmentType = "PreTestAssessment";
         this.translateProvider.translateMessage(this.assessmentType)
         .then(translatedMSG => {
-          console.log(translatedMSG);
           this.translateProvider.translateMessageWithParam("AssessmentMsg1", translatedMSG)
           .then(t => {
             this.msg1 = t;
-            console.log(t);
           });
         })
         break;
@@ -43,6 +42,6 @@ export class AssessmentComponent implements OnInit {
   }
 
   onClickOpenAssessment() {
-    this.navCtrl.push(PrePostTestComponent, {});
+    this.navCtrl.push(PrePostTestComponent, { assessmentType : this.assessmentType, idCompetency : this.idCompetency});
   }
 }

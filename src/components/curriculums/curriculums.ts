@@ -18,7 +18,7 @@ export class CurriculumsComponent implements OnInit {
 
   selectedHistory: any;
   idCompetency: number;
-  isEnrollmentHidden: boolean = true;
+  hasAlreadyEnrolled: boolean = true;
   selectedTraining: any;
 
   @Input("progress") progress;
@@ -52,12 +52,12 @@ export class CurriculumsComponent implements OnInit {
     });
   }
 
-  openCalendar(status, training_id) {
-    if (status == "PASS" || status == "ENROLLED")
-      return this.onClickStartCourse(training_id, null);
+  openCalendar(courseStatus, idTraining) {
+    if (courseStatus == "PASS" || courseStatus == "ENROLLED")
+      return this.onClickStartCourse(idTraining, null);
 
     let calendarModal = this.modalController.create(AgendaPage, {
-      id: training_id
+      id: idTraining
     });
     calendarModal.present();
   }
@@ -76,31 +76,31 @@ export class CurriculumsComponent implements OnInit {
         .then(response => {
           this.loadingProvider.dismissLoading();
           this.getCompetency();
-          this.isEnrollmentHidden = true;
-          this.navCtrl.push(CourseStepsComponent, {idTraining: training.ID,trainingName: training.Training});
+          this.hasAlreadyEnrolled = true;
+          this.navCtrl.push(CourseStepsComponent, {idTraining: training.ID,trainingName: training.Training, idCompetency: this.idCompetency});
         })
         .catch(err => console.log(err));
     }
     else{
-      this.navCtrl.push(CourseStepsComponent, {idTraining: training.ID,trainingName: training.Training});
+      this.navCtrl.push(CourseStepsComponent, {idTraining: training.ID,trainingName: training.Training, idCompetency: this.idCompetency});
     }
   }
 
-  onClick(history, training, status) {
-    if (status == "NOT_STARTED") {
+  onClick(history, training, courseStaus) {
+    if (courseStaus == "NOT_STARTED") {
       this.loadingProvider.presentLoadingDefault();
       setTimeout(() => {
-        this.isEnrollmentHidden = false;
+        this.hasAlreadyEnrolled = false;
         this.selectedTraining = training;
         this.selectedHistory = history;
         this.loadingProvider.dismissLoading();
       }, 1400);
     } else if (
-      status === "PASS" ||
-      status === "ENROLLED" ||
-      status === "IN_PROGRESS"
+      courseStaus === "PASS" ||
+      courseStaus === "ENROLLED" ||
+      courseStaus === "IN_PROGRESS"
     ) {
-      this.onClickStartCourse(training,status);
+      this.onClickStartCourse(training,courseStaus);
     }
   }
 }
