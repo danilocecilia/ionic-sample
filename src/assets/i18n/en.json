@@ -19,6 +19,7 @@
   "AssessmentMsg1": "A {{value}} is required for this training. We would like to know what you already know about this subject.",
   "AssessmentMsg2": "The Training status will not change with the result of this assessment.",
   "AssessmentMsg3": "Click on the button below to start the assessment:",
+  "AssessmentMsg4": "You are about to start the assessment. Read carefully all the questions and make sure before submiting it you have answered all of them.",
   "PrePostTestMsg1": "Congratulations! You have finished this step.",
   "PrePostTestMsg2": "Click in the button below to return to the course summary:",
   "MyCurriculum": "My Curriculum",

@@ -126,6 +126,7 @@
   "AssessmentMsg1": "O {{value}} é requerido para este treinamento. Gostariamos de saber o que você já sabe sobre este assunto.",
   "AssessmentMsg2": "O status do treinamento não irá mudar com o resultado desta avaliação.",
   "AssessmentMsg3": "Clique no botão abaixo para iniciar a avaliação:",
+  "AssessmentMsg4": "Você esta prestes a iniciar o treinamento, Leia atentamente todas as questões, antes de submeter a avaliação tenha certeza que não deixou de responder nenhuma questão.",
   "PrePostTestMsg1": "Parabens, você acabou de terminar este passo.",
   "PrePostTestMsg2": "Clique no botão abaixo para retornar a lista de treinamentos.",
   "MyCurriculum": "Meu Curriculum",
