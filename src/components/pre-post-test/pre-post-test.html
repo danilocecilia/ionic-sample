@@ -14,13 +14,13 @@
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom">
-      <ion-list radio-group style="width:100%" *ngFor="let q of assessmentStore.assessment?.Questions">
+      <ion-list radio-group style="width:100%" *ngFor="let q of assessmentStore.assessment?.Questions; let question_index = index">
         <p padding>
           <b>{{q.Question}}</b>
         </p>
-        <ion-item *ngFor="let a of q.Alternatives">
-          <ion-label>{{a.Alternative}}</ion-label>
-          <ion-radio (ionSelect)="bindAssessment(a)" value="{{a.ID}}"></ion-radio>
+        <ion-item *ngFor="let alternative of q.Alternatives; let alternative_index = index">
+          <ion-label>{{alternative.Alternative}}</ion-label>
+          <ion-radio  ng-required="true" (ionSelect)="saveAnswer(alternative)" value="{{alternative.ID}}"></ion-radio>
         </ion-item>
       </ion-list>
     </ion-row>

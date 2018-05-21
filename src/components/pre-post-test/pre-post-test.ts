@@ -37,29 +37,29 @@ export class PrePostTestComponent implements OnInit {
     this.idCompetency = this.navParam.get('idCompetency');
   }
 
-  bindAssessment(item) {
-    let resolvedQuestion: ResolvedQuestion = new ResolvedQuestion();
-    resolvedQuestion.ID_Question = item.ID_Question;
-    resolvedQuestion.ID_Alternative = item.ID;
+  test(){
+    this.authForm = this.formBuilder.group({
+      username: ["", Validators.compose([Validators.required])],
+      username: ["", Validators.compose([Validators.required])],
+      username: ["", Validators.compose([Validators.required])],
+    });
 
-    if (this.resolvedAssessment.Questions.length > 0) {
-      let hasAlreadyAnswered = this.resolvedAssessment.Questions.find(question => question.ID_Question === item.ID_Question);
-
-      if (hasAlreadyAnswered) {
-        this.removeResolvedQuestion(item);
-
-        this.resolvedAssessment.Questions.push(resolvedQuestion);
-      }
-      else {
-        this.resolvedAssessment.Questions.push(resolvedQuestion);
-      }
-    }
-    else {
-      this.resolvedAssessment.Questions.push(resolvedQuestion);
-    }
   }
 
-  removeResolvedQuestion(item: any) {
+  saveAnswer(answer) {
+    let resolvedQuestion: ResolvedQuestion = new ResolvedQuestion();
+    resolvedQuestion.ID_Question = answer.ID_Question;
+    resolvedQuestion.ID_Alternative = answer.ID;
+
+    let thereAreAlreadyAnswers = this.resolvedAssessment.Questions.length > 0;
+    let questionAlreadyAnswered = this.resolvedAssessment.Questions.find(question => question.ID_Question === answer.ID_Question);
+    if (thereAreAlreadyAnswers && questionAlreadyAnswered) {
+      this.removePreviousAnswer(answer);
+    }
+    this.resolvedAssessment.Questions.push(resolvedQuestion);
+  }
+
+  removePreviousAnswer(item: any) {
     let index = this.resolvedAssessment.Questions.findIndex(ra => ra.ID_Question === item.ID_Question && ra.ID_Alternative === item.ID);
     this.resolvedAssessment.Questions.splice(index, 1);
   }
@@ -68,7 +68,16 @@ export class PrePostTestComponent implements OnInit {
     this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length()-4));
   }
 
+  allQuestionsAreAnswered(){
+    return this.resolvedAssessment.Questions.length == this.assessmentStore.assessment.Questions.length
+  }
+
+  showUncompleteAnswersToast(){
+    // TODO
+  }
+
   onClickSubmitEvaluation() {
+    if(this.allQuestionsAreAnswered()){
     this.loadingProvider.presentLoadingDefault();
     this.assessmentProvider.addResolvedAssessment(this.resolvedAssessment)
       .then(response => {
@@ -78,5 +87,8 @@ export class PrePostTestComponent implements OnInit {
         this.loadingProvider.dismissLoading();
         console.log(err);
       });
+    } else {
+      this.showUncompleteAnswersToast()
+    }
   }
 }
