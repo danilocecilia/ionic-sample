@@ -12,12 +12,14 @@ export class AssessmentComponent implements OnInit {
   stepType: any;
   trainingName: number;
   assessmentType: string;
+  idTraining: number;
   msg1:string;
   
   constructor(private navCtrl: NavController, private navParam: NavParams, private translateProvider: TranslateProvider) {}
 
   ngOnInit() {
     this.trainingName = this.navParam.get("trainingName");
+    this.idTraining = this.navParam.get('idTraining');
     this.idCompetency = this.navParam.get('idCompetency');
     this.stepType = this.navParam.get("Type");
     this.getStepType(this.stepType);
@@ -42,6 +44,6 @@ export class AssessmentComponent implements OnInit {
   }
 
   onClickOpenAssessment() {
-    this.navCtrl.push(PrePostTestComponent, { assessmentType : this.assessmentType, idCompetency : this.idCompetency});
+    this.navCtrl.push(PrePostTestComponent, { assessmentType : this.assessmentType, idCompetency : this.idCompetency, idTraining: this.idTraining});
   }
 }

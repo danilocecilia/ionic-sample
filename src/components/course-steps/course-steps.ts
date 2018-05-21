@@ -11,14 +11,14 @@ export class CourseStepsComponent implements OnInit {
   idCompetency: any;
   tSteps: any;
   trainingName: string;
-
+  idTraining : number;
   ngOnInit() {
-    let idTraining = this.navParam.get('idTraining');
+    this.idTraining = this.navParam.get('idTraining');
     this.trainingName = this.navParam.get('trainingName');
     this.idCompetency = this.navParam.get('idCompetency');
     
     this.trainingSteps
-      .loadSteps(idTraining)
+      .loadSteps(this.idTraining)
       .then(response => {
         this.tSteps = response;
       })
@@ -32,7 +32,7 @@ export class CourseStepsComponent implements OnInit {
   ) {}
 
   startAssessment(step) {
-    this.navCtrl.push(AssessmentComponent, { trainingName : this.trainingName, Type: step.Type, idCompetency: this.idCompetency });
+    this.navCtrl.push(AssessmentComponent, { trainingName : this.trainingName, idTraining: this.idTraining, Type: step.Type, idCompetency: this.idCompetency });
   }
 
   onCLickStartTraining() {

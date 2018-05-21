@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { AssessmentStore } from "../../stores/assessment.store";
 import { AssessmentProvider } from "../../providers/assessment/assessment";
 import { Assessment } from "../../model/assessment";
@@ -17,33 +17,36 @@ export class PrePostTestComponent implements OnInit {
   resolvedAssessment: ResolvedAssessment = new ResolvedAssessment();
   arrayResolvedQuestion: ResolvedQuestion[] = [];
   assessmentType: string;
+  idTraining: number;
 
   constructor(
     private assessmentStore: AssessmentStore,
     private assessmentProvider: AssessmentProvider,
     private loadingProvider: LoadingProvider,
     private navParam: NavParams,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+  ) {
     this.resolvedAssessment.Questions = this.arrayResolvedQuestion;
+    this.idTraining = this.navParam.get("idTraining");
   }
 
   ngOnInit() {
-    this.assessmentProvider.getAssessment(7);
-    this.resolvedAssessment.ID_Assessment = 7;
-    this.resolvedAssessment.ID_Class = 11;
-    console.log(this.assessmentStore);
+    this.assessmentProvider.getAssessment(this.idTraining)
+    .then(assessment => {
+      debugger;
+      this.resolvedAssessment.ID_Assessment = this.assessmentStore.assessment.ID;
+      this.resolvedAssessment.ID_Training = this.idTraining;
 
-    this.assessmentType = this.navParam.get('assessmentType');
-    this.idCompetency = this.navParam.get('idCompetency');
-  }
+      let idClass = this.navParam.get('idClass');
 
-  test(){
-    this.authForm = this.formBuilder.group({
-      username: ["", Validators.compose([Validators.required])],
-      username: ["", Validators.compose([Validators.required])],
-      username: ["", Validators.compose([Validators.required])],
+      this.resolvedAssessment.ID_Class = idClass === undefined ? null : idClass;
     });
 
+    //this.resolvedAssessment.ID_Class = 11;
+    console.log(this.assessmentStore);
+
+    this.assessmentType = this.navParam.get("assessmentType");
+    this.idCompetency = this.navParam.get("idCompetency");
   }
 
   saveAnswer(answer) {
@@ -53,6 +56,7 @@ export class PrePostTestComponent implements OnInit {
 
     let thereAreAlreadyAnswers = this.resolvedAssessment.Questions.length > 0;
     let questionAlreadyAnswered = this.resolvedAssessment.Questions.find(question => question.ID_Question === answer.ID_Question);
+
     if (thereAreAlreadyAnswers && questionAlreadyAnswered) {
       this.removePreviousAnswer(answer);
     }
@@ -65,30 +69,21 @@ export class PrePostTestComponent implements OnInit {
   }
 
   onClickCurriculumList() {
-    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length()-4));
-  }
-
-  allQuestionsAreAnswered(){
-    return this.resolvedAssessment.Questions.length == this.assessmentStore.assessment.Questions.length
-  }
-
-  showUncompleteAnswersToast(){
-    // TODO
+    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 4));
   }
 
   onClickSubmitEvaluation() {
-    if(this.allQuestionsAreAnswered()){
-    this.loadingProvider.presentLoadingDefault();
-    this.assessmentProvider.addResolvedAssessment(this.resolvedAssessment)
-      .then(response => {
-        this.loadingProvider.dismissLoading();
-        this.hide = true;
-      }).catch(err => {
-        this.loadingProvider.dismissLoading();
-        console.log(err);
-      });
-    } else {
-      this.showUncompleteAnswersToast()
-    }
+    debugger;
+      this.loadingProvider.presentLoadingDefault();
+      this.assessmentProvider
+        .addResolvedAssessment(this.resolvedAssessment)
+        .then(response => {
+          this.loadingProvider.dismissLoading();
+          this.hide = true;
+        })
+        .catch(err => {
+          this.loadingProvider.dismissLoading();
+          console.log(err);
+        });
   }
 }

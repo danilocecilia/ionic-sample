@@ -7,27 +7,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid *ngIf="!hide">
-    <ion-row padding class="border-bottom">
-      <ion-col col-12>
-        <b>{{assessmentStore.assessment?.Training.Training}}</b>
-      </ion-col>
-    </ion-row>
-    <ion-row class="border-bottom">
-      <ion-list radio-group style="width:100%" *ngFor="let q of assessmentStore.assessment?.Questions; let question_index = index">
-        <p padding>
-          <b>{{q.Question}}</b>
-        </p>
-        <ion-item *ngFor="let alternative of q.Alternatives; let alternative_index = index">
-          <ion-label>{{alternative.Alternative}}</ion-label>
-          <ion-radio  ng-required="true" (ionSelect)="saveAnswer(alternative)" value="{{alternative.ID}}"></ion-radio>
-        </ion-item>
-      </ion-list>
-    </ion-row>
-    <ion-row>
-      <button ion-button full (click)="onClickSubmitEvaluation()">{{'Submit' | translate}}</button>
-    </ion-row>
-  </ion-grid>
+    <ion-grid *ngIf="!hide">
+      <ion-row padding class="border-bottom">
+        <ion-col col-12>
+          <b>{{assessmentStore.assessment?.Training.Training}}</b>
+        </ion-col>
+      </ion-row>
+      <ion-row class="border-bottom">
+        <ion-list radio-group style="width:100%" *ngFor="let q of assessmentStore.assessment?.Questions; let question_index = index">
+          <p padding>
+            <b>{{q.Question}}</b>
+          </p>
+          <ion-item *ngFor="let alternative of q.Alternatives; let alternative_index = index">
+            <ion-label>{{alternative.Alternative}}</ion-label>
+            <ion-radio (ionSelect)="saveAnswer(alternative)" value="{{alternative.ID}}"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+      <ion-row>
+        <button ion-button full (click)="onClickSubmitEvaluation()">{{'Submit' | translate}}</button>
+      </ion-row>
+    </ion-grid>
   <ion-grid *ngIf="hide">
     <ion-row>
       <ion-col col-12 text-center>
@@ -40,5 +40,5 @@
     </ion-row>
     <button ion-button full (click)="onClickCurriculumList()">{{'MyCurriculum' | translate}}</button>
   </ion-grid>
-  
+
 </ion-content>

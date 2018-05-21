@@ -24,11 +24,16 @@
       <ion-col col-11><b>{{assessmentType | translate}}</b></ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col *ngIf="stepType === 0">
         <p>{{msg1}}</p>
         <p>{{'AssessmentMsg2' | translate}}</p>
         <p>{{'AssessmentMsg3' | translate}}</p>
       </ion-col>
+      <ion-col *ngIf="stepType === 1">
+          <p>{{msg1}}</p>
+          <p>{{'AssessmentMsg4' | translate}}</p>
+          <p>{{'AssessmentMsg3' | translate}}</p>
+        </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>

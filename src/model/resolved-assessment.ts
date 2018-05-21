@@ -4,6 +4,7 @@ export class ResolvedAssessment {
   }
   ID_Assessment: number;
   ID_Class: number;
+  ID_Training: number;
   Questions: ResolvedQuestion[];
 }
 
