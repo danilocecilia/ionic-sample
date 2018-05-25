@@ -65,7 +65,6 @@ import { ModalCourseStepsComponent } from "../pages/modal-course-steps/modal-cou
 //Providers
 /***********************/
 import { AuthProvider } from "../providers/auth/auth";
-import { FooterProvider } from "../providers/footer/footer";
 import { CurriculumProvider } from "../providers/curriculum/curriculum";
 import { CompetencyProvider } from "../providers/competency/competency";
 import { AgendaProvider } from "../providers/agenda/agenda";
@@ -84,6 +83,7 @@ import { ToastProvider } from "../providers/toast/toast";
 import { LogisticStore } from "../stores/logistic.store";
 import { AssessmentStore } from "../stores/assessment.store";
 import { CompetencyStore } from "../stores/competency.store";
+import { UserStore } from "../stores/user.store";
 
 /***********************/
 //Modules
@@ -113,8 +113,9 @@ export function getAuthHttp(http: Http) {
       noJwtError: true,
       globalHeaders: [{ Accept: "application/json" }],
       tokenGetter: () =>
-        storage.get("currentUser").then(u => {
-          if (u) return u.Token;
+        storage.get("currentUser").
+        then(user => {
+          if (user) return user.Token;
         })
     }),
     http
@@ -217,10 +218,9 @@ export function getAuthHttp(http: Http) {
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
-      deps: [Http]
+      deps: [Http],
     },
     AuthProvider,
-    FooterProvider,
     CurriculumProvider,
     CompetencyProvider,
     AgendaProvider,
@@ -251,6 +251,7 @@ export function getAuthHttp(http: Http) {
     LogisticStore,
     AssessmentStore,
     CompetencyStore,
+    UserStore,
     DashboardProvider,
     AssessmentProvider,
     TrainingStepsProvider
