@@ -25,7 +25,7 @@ export class LoadingProvider {
 
       setTimeout(() => {
         this.loading.dismiss();
-      }, 10000);
+      }, 100000);
     });
   }
 
