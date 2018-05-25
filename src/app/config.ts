@@ -148,8 +148,7 @@ export let fileMimeTypes = [
   { name: "DOC", type: "application/msword" },
   {
     name: "DOCX",
-    type:
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   },
   { name: "XLS", type: "application/vnd.ms-excel" },
   {
@@ -159,18 +158,25 @@ export let fileMimeTypes = [
   { name: "PPT", type: "application/vnd.ms-powerpoint" },
   {
     name: "PPTX",
-    type:
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    type: "application/vnd.openxmlformats-officedocument.presentationml.presentation"
   },
   { name: "MP4A", type: "audio/mp4" },
-  { name: "MP4", type: "application/mp4" },
-  { name: "AVI", type: "video/x-msvideo" },
-  { name: "PNG", type: "image/png" },
-  { name: "JPG", type: "image/jpeg" },
+  { name: "MP4",  type: "application/mp4" },
+  { name: "AVI",  type: "video/x-msvideo" },
+  { name: "PNG",  type: "image/png" },
+  { name: "JPG",  type: "image/jpeg" },
   { name: "JPEG", type: "image/jpeg" }
 ];
 
-export let cultures = ["pt-BR", "en-US", "es"];
+export const APP_NAME = "MSX LEARN"; 
+
+export let CULTURES = { english: "en" , portuguese : "pt" , spanish : "es" };
+
+export const COLORS = { darkblue : "#003a8b" };
+
+export const CURRENT_USER = "currentUser";
+
+export const DEVICE = { ios : "ios", android : "android", windows: "windows"};
 
 export function hasFoundAPIStatus(errorMessage) {
   for (const status in APIStatus) {
