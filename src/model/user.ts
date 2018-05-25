@@ -7,4 +7,7 @@ export class User {
   @observable Email: string;
   @observable Status: string;
   @observable Profile: string;
+  @observable Token: string;
+  @observable Permissions: any;
+  @observable Language:any;
 }
