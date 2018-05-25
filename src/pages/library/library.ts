@@ -6,6 +6,7 @@ import { AuthProvider } from "../../providers/auth/auth";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { DownloadProvider } from "../../providers/download/download";
+import { UserStore } from "../../stores/user.store";
 
 @Component({
   selector: "library",
@@ -20,15 +21,15 @@ export class LibraryPage implements OnInit {
 
   constructor(
     private libProvider: LibraryProvider,
-    private authProvider: AuthProvider,
     private loadingProvider: LoadingProvider,
     private toastProvider: ToastProvider,
     private translateProvider: TranslateProvider,
-    private downloadProvider: DownloadProvider
+    private downloadProvider: DownloadProvider,
+    private userStore: UserStore
   ) { }
 
   ngOnInit() {
-    this.loggedUser = this.authProvider.loggedUser;
+    this.loggedUser = this.userStore.user;
     this.currentCulture = this.loggedUser.Language.Culture;
     this.loadLibrary();
     this.getTranslatedOpenButton();

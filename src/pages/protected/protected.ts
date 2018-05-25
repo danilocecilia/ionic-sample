@@ -1,22 +1,19 @@
 import { NavController } from "ionic-angular";
-import { Storage } from "@ionic/storage";
+import { UserStore } from "../../stores/user.store";
 
 export class ProtectedPage {
   constructor(
     public navCtrl: NavController,
-    public storage: Storage
-  ) {}
-
-  ionViewDidLoad() {}
+    public userStore: UserStore
+  )
+  {}
 
   ionViewCanEnter() {
-    this.storage.get("currentUser").then(user => {
-      if (!user) {
-        this.navCtrl.setRoot("AuthPage");
-        return false;
-      }
-    });
-
-    return true;
+    if (this.userStore.user) {
+      return true;
+    } else {
+      this.navCtrl.setRoot("AuthPage");
+      return false;
+    }
   }
 }

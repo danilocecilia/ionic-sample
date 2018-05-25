@@ -2,25 +2,21 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as AppConfig from "../../app/config";
 import { AuthProvider } from "../../providers/auth/auth";
+import { UserStore  } from "../../stores/user.store";
 
 @Injectable()
 export class NotificationProvider {
-  private cfg: any;
-  notification: any;
-
-  constructor(public http: HttpClient, private authProvider: AuthProvider) {
-    this.cfg = AppConfig.cfg;
-  }
+  constructor(private http: HttpClient, private userStore: UserStore) {}
 
   loadNotifications() {
-    return this.http.get(`${this.cfg.apiUrl + this.cfg.notification.all}?token=${this.authProvider.loggedUser.Token}`).toPromise();
+    return this.http.get(`${AppConfig.cfg.apiUrl + AppConfig.cfg.notification.all}?token=${this.userStore.user.Token}`).toPromise();
   }
 
   setNotificationRead(id){
     let notificationReadParams = {
       ID: id,
-      Token: this.authProvider.loggedUser.Token
+      Token: this.userStore.user.Token
     } 
-    return this.http.post(`${this.cfg.apiUrl + this.cfg.notification.notifyRead}`, notificationReadParams).toPromise();
+    return this.http.post(`${AppConfig.cfg.apiUrl + AppConfig.cfg.notification.notifyRead}`, notificationReadParams).toPromise();
   }
 }

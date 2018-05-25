@@ -8,6 +8,7 @@ import { LoadingProvider } from "../../providers/loading/loading";
 import { AuthProvider } from "../../providers/auth/auth";
 import { EnrollmentProvider } from "../../providers/enrollment/enrollment";
 import { CompetencyStore } from "../../stores/competency.store";
+import { UserStore  } from "../../stores/user.store";
 
 @Component({
   selector: "curriculums",
@@ -31,7 +32,8 @@ export class CurriculumsComponent implements OnInit {
     private loadingProvider: LoadingProvider,
     private authProvider: AuthProvider,
     private enrollmentProvider: EnrollmentProvider,
-    private competencyStore: CompetencyStore
+    private competencyStore: CompetencyStore,
+    private userStore: UserStore
   ) {
     this.idCompetency = navParams.get("idCompetency");
   }
@@ -65,7 +67,7 @@ export class CurriculumsComponent implements OnInit {
   onClickStartCourse(training, status) {
     let history = {
       ID_Class: 0,
-      ID_User: this.authProvider.loggedUser.ID,
+      ID_User: this.userStore.user.ID,
       ID_Training: training.ID
     };
 

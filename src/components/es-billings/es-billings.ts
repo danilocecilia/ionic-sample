@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { BillingProvider } from "../../providers/billing/billing";
 import * as AppConfig from "../../app/config";
-import { AuthProvider } from "../../providers/auth/auth";
 import { NavParams } from "ionic-angular";
 import { ToastProvider } from "../../providers/toast/toast";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { UserStore } from "../../stores/user.store";
 @Component({
   selector: "es-billings",
   templateUrl: "es-billings.html"
@@ -17,12 +17,13 @@ export class EsBillingsComponent implements OnInit {
 
   constructor(
     private billingProvider: BillingProvider,
-    private authProvider: AuthProvider,
     private navParam: NavParams,
     private toastProvider: ToastProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private userStore: UserStore
+
   ) {
-    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
+    this.currentCulture = userStore.user.Language.Culture;
 
     this.currentClass = this.navParam.get("currentClass");
   }
@@ -41,13 +42,6 @@ export class EsBillingsComponent implements OnInit {
         console.log(err);
         this.loadingProvider.dismissLoading();
       });
-    // this.billingProvider.billingData.subscribe(response => {
-    //   this.loadingProvider.dismissLoading();
-    //   this.billings = response;
-    //   console.log(this.billings);
-    // });
-
-    // this.billingProvider.getBillsByClass(this.currentClass.ID);
   }
 
   update(item) {

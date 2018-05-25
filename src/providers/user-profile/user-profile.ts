@@ -1,23 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as AppConfig from "../../app/config";
-import { AuthProvider } from "../auth/auth";
+import { UserStore } from "../../stores/user.store";
 
 @Injectable()
 export class UserProfileProvider {
-  constructor(public http: HttpClient, private authProvider: AuthProvider) {}
+  constructor(public http: HttpClient, private userStore: UserStore) {}
 
   updateUserAvatar(userThumbnail: string) {
     let apiUser = {
-      Token: this.authProvider.loggedUser.Token,
+      Token: this.userStore.user.Token,
       Thumbnail: userThumbnail
     };
 
-    return this.http
-      .post(
-        `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateUserAvatar}`,
-        apiUser
-      )
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateUserAvatar}`,apiUser)
       .toPromise()
       .catch(err => {
         return err;
@@ -25,10 +21,7 @@ export class UserProfileProvider {
   }
 
   getUserProfile() {
-    return this.http
-      .get(
-        `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.getUserProfile}?token=${this.authProvider.loggedUser.Token}`
-      )
+    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.getUserProfile}?token=${this.userStore.user.Token}`)
       .toPromise()
       .catch(err => {
         return err;
@@ -36,11 +29,7 @@ export class UserProfileProvider {
   }
 
   updateUserProfile(userProfile){
-    return this.http
-    .post(
-      `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateUserProfile}`,
-      userProfile
-    )
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateUserProfile}`,userProfile)
     .toPromise()
     .catch(err => {
       return err;
@@ -48,6 +37,6 @@ export class UserProfileProvider {
   }
 
   loadUsersByClass(idClass, page){
-    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.allUsers}?token=${this.authProvider.loggedUser.Token}&idClass=${idClass}&page=${page}&results=`).toPromise();
+    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.allUsers}?token=${this.userStore.user.Token}&idClass=${idClass}&page=${page}&results=`).toPromise();
   }
 }

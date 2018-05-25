@@ -1,21 +1,18 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
-import {
-  FileTransfer,
-  FileUploadOptions,
-  FileTransferObject
-} from "@ionic-native/file-transfer";
+import { FileTransfer, FileUploadOptions, FileTransferObject } from "@ionic-native/file-transfer";
 import { FileChooser } from "@ionic-native/file-chooser";
+import * as AppConfig from "../../app/config";
+
 import { LoadingProvider } from "../../providers/loading/loading";
 import { LogisticProvider } from "../../providers/logistic/logistic";
-import { AuthProvider } from "../../providers/auth/auth";
 import { ToastProvider } from "../../providers/toast/toast";
-import * as AppConfig from "../../app/config";
 import { DownloadProvider } from "../../providers/download/download";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { Logistic, LogisticItem, LogisticType } from "../../model/logistic";
 import { LogisticStore } from "../../stores/logistic.store";
 import { Class } from "../../model/class";
+import { UserStore } from "../../stores/user.store";
 export class MonetarySymbol {
   Currency: string;
   ID: number;
@@ -53,7 +50,7 @@ export class ModalLogisticPage {
     private fileChooser: FileChooser,
     private loadingProvider: LoadingProvider,
     private logisticProvider: LogisticProvider,
-    private authProvider: AuthProvider,
+    private userStore: UserStore,
     private downloadProvider: DownloadProvider,
     private translateProvider: TranslateProvider,
     public logisticStore: LogisticStore
@@ -132,7 +129,7 @@ export class ModalLogisticPage {
       fileKey: "receiptLogistic",
       params: {
         ID_LogisticItemXClass: this.logistic.ID,
-        token: this.authProvider.loggedUser.Token
+        token: this.userStore.user.Token
       }
     };
     fileTransfer
@@ -249,7 +246,7 @@ export class ModalLogisticPage {
 
     this.classAPI = this.navParam.get("classAPI");
 
-    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
+    this.currentCulture = this.userStore.user.Language.Culture;
 
     if (selectedLogistic) {
       this.logistic = Object.assign(new Logistic(), selectedLogistic);

@@ -1,11 +1,11 @@
 <ion-content>
   <div class="menu-header">
     <ion-avatar item-start>
-      <img class="user-avatar round" *ngIf="currentUser != null && currentUser.Thumbnail != undefined"
-        src="data:image/png;base64,{{currentUser.Thumbnail}}" onerror="this.src='assets/img/thumbnail.png'">
+      <img class="user-avatar round" *ngIf="userStore.user != null && userStore.user.Thumbnail != undefined"
+        src="data:image/png;base64,{{userStore.user.Thumbnail}}" onerror="this.src='assets/img/thumbnail.png'">
     </ion-avatar>
-    <p class="name">{{currentUser != null ? currentUser.Name : ''}}</p>
-    <p class="e-mail">{{currentUser != null ? currentUser.Email : ''}}</p>
+    <p class="name">{{userStore.user != null ? userStore.user.Name : ''}}</p>
+    <p class="e-mail">{{userStore.user != null ? userStore.user.Email : ''}}</p>
   </div>
   <ion-list no-lines>
     <button menuClose="left" ion-item detail-none *ngFor="let p of pages" [menuToggle] (click)="openPage(p)">

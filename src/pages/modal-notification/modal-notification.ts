@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { IonicPage,NavController,NavParams,ViewController } from "ionic-angular";
-import { AuthProvider } from "../../providers/auth/auth";
+import { IonicPage, NavController, NavParams, ViewController } from "ionic-angular";
+import { UserStore  } from "../../stores/user.store";
+
 @IonicPage()
 @Component({
   selector: "page-modal-notification",
@@ -11,21 +12,16 @@ export class ModalNotificationPage {
   currentCulture: string;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public viewCtrl: ViewController,
-    private authProvider: AuthProvider
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private viewCtrl: ViewController,
+    private userStore: UserStore
   ) {
     this.notification = this.navParams.get("notification");
-
-    this.currentCulture = this.authProvider.loggedUser.Language.Culture;
+    this.currentCulture = userStore.user.Language.Culture;
   }
 
   onCloseModal() {
     this.navCtrl.pop();
-  }
-
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad ModalNotificationPage");
   }
 }

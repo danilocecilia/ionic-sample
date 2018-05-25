@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { ModalLogisticPage } from "../../pages/modal-logistic/modal-logistic";
 import { LogisticProvider } from "../../providers/logistic/logistic";
-import { AuthProvider } from "../../providers/auth/auth";
 import { ToastProvider } from "../../providers/toast/toast";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { LogisticStore } from "../../stores/logistic.store";
+import { UserStore } from "../../stores/user.store";
 
 @Component({
   selector: "es-logistics",
@@ -22,10 +22,10 @@ export class EsLogisticsComponent implements OnInit {
     private navCtrl: NavController,
     private navParam: NavParams,
     private logisticProvider: LogisticProvider,
-    private authProvider: AuthProvider,
     private toastProvider: ToastProvider,
     private loadingProvider: LoadingProvider,
-    private logisticStore: LogisticStore
+    private logisticStore: LogisticStore,
+    private userStore: UserStore
   ) {
     this.idClass = this.navParam.get("idClass");
     this.classCode = this.navParam.get("classCode");
@@ -38,8 +38,7 @@ export class EsLogisticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedUser = this.authProvider.loggedUser;
-    this.currentCulture = this.loggedUser.Language.Culture;
+    this.currentCulture = this.userStore.user.Language.Culture;
 
     this.logisticProvider.getLogisticsByClass(this.idClass);
   }

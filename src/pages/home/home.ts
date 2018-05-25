@@ -6,7 +6,6 @@ import {
   ModalController,
   Refresher
 } from "ionic-angular";
-import { Storage } from "@ionic/storage";
 import { ProtectedPage } from "../protected/protected";
 import { AuthProvider } from "../../providers/auth/auth";
 import * as APPConfig from "../../app/config";
@@ -15,20 +14,18 @@ import { NotificationProvider } from "../../providers/notification/notification"
 import { ModalNotificationPage } from "../modal-notification/modal-notification";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
+import { UserStore  } from "../../stores/user.store";
 
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
 })
 export class HomePage extends ProtectedPage implements OnInit {
-  //username: string;
-  todos: any;
   isButtonsHidden: boolean = true;
   notifications: any = [];
 
   constructor(
     public navCtrl: NavController,
-    public storage: Storage,
     private events: Events,
     private modalCtrl: ModalController,
     private menu: MenuController,
@@ -36,16 +33,17 @@ export class HomePage extends ProtectedPage implements OnInit {
     private toastProvider: ToastProvider,
     private notificationProvider: NotificationProvider,
     private loadingProvider: LoadingProvider,
-    private translateProvider: TranslateProvider
+    private translateProvider: TranslateProvider,
+    public userStore: UserStore
   ) {
-    super(navCtrl, storage);
+    super(navCtrl, userStore);
 
     this.menu.enable(true);
+
     this.navCtrl = navCtrl;
   }
 
   ngOnInit() {
-    this.loadingProvider.presentLoadingDefault();
     this.loadNotifications(null);
   }
 
@@ -53,28 +51,11 @@ export class HomePage extends ProtectedPage implements OnInit {
     this.events.publish("hideHeader", { isHidden: false });
   }
 
-  ionViewDidLoad() {}
-
   viewDidLeave() {
     this.events.publish("hideHeader", { isHidden: true });
   }
 
-  userHasPermission() {
-    let user = this.authProvider.loggedUser;
-
-    if (user.Permissions) {
-      user.Permissions.find(element => {
-        let permission = APPConfig.APIPermission[element];
-
-        if (permission === "GPS" || permission === "DASHBOARD") {
-          this.isButtonsHidden = false;
-        }
-      });
-    }
-  }
-
   doRefresh(refresher?: Refresher) {
-    //console.log("DOREFRESH", refresher);
     this.loadNotifications(refresher);
   }
 
@@ -83,13 +64,14 @@ export class HomePage extends ProtectedPage implements OnInit {
   }
 
   loadNotifications(refresher: Refresher) {
-    this.notificationProvider
-      .loadNotifications()
-      .then(res => {
-        this.loadingProvider.dismissLoading();
-        this.notifications = this.notificationProvider.notification = res;
+    this.notificationProvider.loadNotifications()
+      .then(notifications => {
+        this.notifications = notifications;
+        
         this.events.publish("updateBadge", this.notifications.QtyUnread);
-        refresher.complete();
+
+        if(refresher)
+          refresher.complete();
       })
       .catch(err => {
         if (APPConfig.hasFoundAPIStatus(err.error)) {
@@ -99,13 +81,11 @@ export class HomePage extends ProtectedPage implements OnInit {
               this.toastProvider.presentToast(translatedMsg);
             });
         }
-        this.loadingProvider.dismissLoading();
       });
   }
 
   openNotification(notificationItem) {
-    this.notificationProvider
-      .setNotificationRead(notificationItem.ID)
+    this.notificationProvider.setNotificationRead(notificationItem.ID)
       .then(() => {
         this.openModal(notificationItem);
       })
@@ -115,9 +95,7 @@ export class HomePage extends ProtectedPage implements OnInit {
   }
 
   openModal(notificationItem) {
-    let modal = this.modalCtrl.create(ModalNotificationPage, {
-      notification: notificationItem
-    });
+    let modal = this.modalCtrl.create(ModalNotificationPage, {notification: notificationItem});
 
     modal.onDidDismiss(() => {
       this.loadNotifications(null);

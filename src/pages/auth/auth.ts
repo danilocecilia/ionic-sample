@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import {
   IonicPage,
   NavController,
@@ -15,6 +15,8 @@ import { LoadingProvider } from "../../providers/loading/loading";
 import { TranslateService } from "@ngx-translate/core";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { ToastProvider } from "../../providers/toast/toast";
+import { UserStore  } from "../../stores/user.store";
+import * as AppConfig from '../../app/config';
 
 @IonicPage()
 @Component({
@@ -28,9 +30,7 @@ export class AuthPage {
   maxlength: any = { value: "30" };
 
   authForm: FormGroup;
-  userProfile = {};
-  toastMessage: string;
-  loggedUser: any;
+  appName: string;
 
   constructor(
     private navCtrl: NavController,
@@ -43,22 +43,27 @@ export class AuthPage {
     private translate: TranslateService,
     private translateProvider: TranslateProvider,
     private toastProvider: ToastProvider,
-    private platform: Platform
+    private platform: Platform,
+    private userStore: UserStore
   ) {
     this.menu.enable(false);
 
+    this.appName = AppConfig.APP_NAME;
+
     this.navCtrl = navCtrl;
 
-    this.toastMessage = this.navParams.get("message");
+    this.initializeAuthForm();
 
+    this.events.publish("hideHeader", { isHidden: true });
+  }
+
+  initializeAuthForm(){
     this.authForm = this.formBuilder.group({
       username: ["", Validators.compose([Validators.required])],
       password: ["",Validators.compose([Validators.required, Validators.minLength(3)])],
       devideToken: "uiashdfiuahs79dfasdyf8asbdfugas0dfajs8",
-      device: this.platform.is('ios') ? 'ios' : 'android'
+      device: this.platform.is(AppConfig.DEVICE.ios) ? AppConfig.DEVICE.ios : AppConfig.DEVICE.android
     });
-
-    this.events.publish("hideHeader", { isHidden: true });
   }
 
   redirectToHome() {
@@ -69,21 +74,14 @@ export class AuthPage {
   onSubmit(value: any): void {
     if (this.authForm.valid) {
       this.loadingProvider.presentLoadingDefault();
-      this.authProvider
-        .getAuthenticate(this.authForm.value)
-        .then(response => {
-          if (response !== undefined) {
-            console.log("RESPOSNE: " + response);
-            return this.loadingProvider.dismissLoading().then(res => {
-              if (this.authProvider.loggedUser) {
-                this.loggedUser = this.authProvider.loggedUser;
-                this.events.publish("currentUser", this.loggedUser);
-              }
 
-              this.setCurrentCulture();
-              this.redirectToHome();
-            });
-          }
+      this.authProvider.authenticateUser(this.authForm.value)
+        .then(response => {
+          //     this.setCurrentCulture();
+          this.redirectToHome();
+          this.loadingProvider.dismissLoading();
+          //   });
+          // }
         })
         .catch(err => {
           this.translateProvider.translateMessage(err.error).then(value => {
@@ -97,27 +95,19 @@ export class AuthPage {
   }
 
   ionViewDidLoad() {
-    if (this.toastMessage) {
-      this.translateProvider
-        .translateMessage(this.toastMessage)
-        .then(translated => {
-          if (translated) this.toastProvider.presentToast(translated);
-          else console.log("translated not found: " + translated);
-        });
-    }
     this.events.publish("hideHeader", { isHidden: true });
   }
 
-  setCurrentCulture() {
-    if (this.loggedUser.Language && this.loggedUser.Language.Culture) {
-      let culture = this.loggedUser.Language.Culture.substring(0, 2);
+  // setCurrentCulture() {
+  //   if (this.userStore.user.Language && this.userStore.user.Language.Culture) {
+  //     let culture = this.userStore.user.Language.Culture.substring(0, 2);
 
-      this.translate.setDefaultLang(culture);
-      this.translate.use(culture);
-    }
-  }
+  //     this.translate.setDefaultLang(culture);
+  //     this.translate.use(culture);
+  //   }
+  // }
 
-  goToPasswordRecovery() {
+  redirectToPasswordRecovery() {
     this.navCtrl.push(PasswordRecoveryPage);
   }
 }

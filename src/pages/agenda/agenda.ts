@@ -1,18 +1,19 @@
 import { NavController, ModalController } from "ionic-angular/index";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import * as moment from "moment";
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
-import { AgendaProvider } from "../../providers/agenda/agenda";
 import { ViewController } from "ionic-angular/navigation/view-controller";
 import { NavParams } from "ionic-angular/navigation/nav-params";
-import { EventSummaryComponent } from "../../components/event-summary/event-summary";
-import { LoadingProvider } from "../../providers/loading/loading";
-import { AuthProvider } from "../../providers/auth/auth";
+import { registerLocaleData } from "@angular/common";
 import localePt from "@angular/common/locales/pt";
 import localeEs from "@angular/common/locales/es";
-import { registerLocaleData } from "@angular/common";
+import * as moment from "moment";
+
+import { LoadingProvider } from "../../providers/loading/loading";
+import { AgendaProvider } from "../../providers/agenda/agenda";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { ModalCourseStepsComponent } from "../modal-course-steps/modal-course-steps";
+import { EventSummaryComponent } from "../../components/event-summary/event-summary";
+import { UserStore } from "../../stores/user.store";
 
 @Component({
   selector: "agenda",
@@ -36,13 +37,13 @@ export class AgendaPage implements OnInit {
   constructor(
     private navController: NavController,
     private alertCtrl: AlertController,
-    private agendaProvider: AgendaProvider,
     private viewCtrl: ViewController,
     private navParams: NavParams,
     private loadingProvider: LoadingProvider,
-    private authProvider: AuthProvider,
+    private agendaProvider: AgendaProvider,
     private translateProvider: TranslateProvider,
-    private modalCtrl : ModalController
+    private modalCtrl : ModalController,
+    private userStore: UserStore,
   ) {
     this.param = this.navParams.data;
   }
@@ -111,7 +112,7 @@ export class AgendaPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedUser = this.authProvider.loggedUser;
+    this.loggedUser = this.userStore.user;
 
     this.loadLocaleData(this.loggedUser.Language.Culture);
 
@@ -156,7 +157,6 @@ export class AgendaPage implements OnInit {
   bindElements(response) {
     if (response) {
       this.events = response;
-
       this.events.forEach(element => {
         element.startTime = new Date(element.startTime);
         element.endTime = new Date(element.endTime);

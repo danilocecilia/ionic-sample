@@ -1,19 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as AppConfig from "../../app/config";
-import { AuthProvider } from "../auth/auth";
+import { UserStore  } from "../../stores/user.store";
 
 @Injectable()
 export class CurriculumProvider {
   private cfg: any;
 
-  constructor(public http: HttpClient, private auth: AuthProvider) {
-    this.cfg = AppConfig.cfg;
-  }
+  constructor(private http: HttpClient, private userStore: UserStore) {}
 
   loadCurriculum() {
-    return this.http
-        .get(`${this.cfg.apiUrl + this.cfg.curriculum.all}?token=${this.auth.loggedUser.Token}`)
-        .toPromise();
+    return this.http.get(`${AppConfig.cfg.apiUrl + AppConfig.cfg.curriculum.all}?token=${this.userStore.user.Token}`).toPromise();
   }
 }

@@ -1,64 +1,44 @@
 import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
 import { HttpClient } from "@angular/common/http";
-import { JwtHelper } from "angular2-jwt";
-import { CredentialsModel, ChangePasswordModel } from "../../model/credentials";
-import "rxjs/add/operator/map";
-import * as AppConfig from "../../app/config";
-import { Observable } from "rxjs/Rx";
 import { App } from "ionic-angular";
+import { JwtHelper } from "angular2-jwt";
+import { Observable } from "rxjs/Rx";
+import "rxjs/add/operator/map";
+
+import * as AppConfig from "../../app/config";
+import { CredentialsModel, ChangePasswordModel } from "../../model/credentials";
+import { UserStore } from "../../stores/user.store";
+import { User } from "../../model/user";
 
 @Injectable()
 export class AuthProvider {
   jwtHelper: JwtHelper = new JwtHelper();
-  private cfg: any;
-  public loggedUser: any;
-  token: string;
   refreshSubscription: any;
 
   constructor(
     private http: HttpClient,
-    private storage: Storage,
-    private app: App
-  ) {
-    this.cfg = AppConfig.cfg;
-  }
+    private app: App,
+    private userStore: UserStore
+  ) {}
 
-  getAuthenticate(credentials: CredentialsModel) {
-    return this.http
-      .post(`${this.cfg.apiUrl + this.cfg.user.login}`, credentials)
-      .toPromise()
-      .then(data => {
-        this.saveToLocalStorage(data);
-        this.loggedUser = data;
+  authenticateUser(credentials: CredentialsModel) {
+    return this.http.post(`${AppConfig.cfg.apiUrl + AppConfig.cfg.user.login}`, credentials).toPromise()
+      .then((user: User) => {
+        this.userStore.authenticateUser(user);
+
         this.scheduleRefresh();
-        return data;
       })
       .catch(err => {
+        console.error(err);
         throw err;
       });
   }
 
   public scheduleRefresh() {
-    // If the user is authenticated, use the token stream
-    // provided by angular2-jwt and flatMap the token
-    let source = Observable.of(this.loggedUser.Token).flatMap(token => {
-      // The delay to generate in this case is the difference
-      // between the expiry time and the issued at time
-      //let jwtIssuedAt = this.jwtHelper.decodeToken(token).iat;
-      // let jwtExpirationTime = this.jwtHelper.decodeToken(token).exp;
-      // let issuedAt = new Date(0);
-      // let expiration = new Date(0);
-
-      // let delay = (expiration.setUTCSeconds(jwtExpirationTime) - issuedAt.setUTCSeconds(jwtIssuedAt)) - 15000;
-
-      // console.info("delay: " + delay);
-      // console.info("will start refresh after :", delay / 1000 / 60) + "minutes";
-
-      // if (delay - 1000 <= 0) delay = 1;
-
-      return Observable.interval(60000);
-    });
+    let source = Observable.of(this.userStore.user.Token)
+      .flatMap(token => {
+        return Observable.interval(60000);
+      });
 
     this.refreshSubscription = source.subscribe(() => {
       this.refreshUserInfo();
@@ -68,21 +48,9 @@ export class AuthProvider {
   public startupTokenRefresh() {
     // If the user is authenticated, use the token stream
     // provided by angular2-jwt and flatMap the token
-    if (this.loggedUser) {
-      if (this.loggedUser.Token) {
-        let source = Observable.of(this.loggedUser.Token).flatMap(token => {
-          // Get the expiry time to generate a delay in milliseconds
-          // let now: number = new Date().valueOf();
-          // let jwtExpirarionTime: number = this.jwtHelper.decodeToken(token).exp;
-          // let expiration: Date = new Date(0);
-          // expiration.setUTCSeconds(jwtExpirarionTime);
-          // let delay: number = expiration.valueOf() - now;
-
-          // if (delay <= 0) {
-          //   delay = 1;
-          // }
-          // Use the delay in a timer to
-          // run the refresh at the proper time
+    if (this.userStore.user) {
+      if (this.userStore.user.Token) {
+        let source = Observable.of(this.userStore.user.Token).flatMap(token => {
           return Observable.timer(60000);
         });
 
@@ -104,22 +72,11 @@ export class AuthProvider {
   public refreshUserInfo() {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
-    if (this.loggedUser) {
-      this.http
-        .get(
-          this.cfg.apiUrl +
-            this.cfg.user.refresh +
-            "?token=" +
-            this.loggedUser.Token
-        )
-        // .map(response => response.json())
-        .subscribe(
-          userData => {
+    if (this.userStore.user) {
+        this.http.get(AppConfig.cfg.apiUrl + AppConfig.cfg.user.refresh + "?token=" + this.userStore.user.Token)
+        .subscribe((userData:User) => {
             if (userData) {
-              this.loggedUser = userData;
-
-              this.saveToLocalStorage(this.loggedUser);
-
+              this.userStore.authenticateUser(userData);
               console.log("User Data Refreshed");
             } else {
               console.log("The Token Black Listed");
@@ -134,11 +91,13 @@ export class AuthProvider {
     }
   }
 
+
+
   logout(message?) {
     // stop function of auto refesh
     this.unscheduleRefresh();
-    this.storage.remove("currentUser");
-
+    this.userStore.logout();
+    
     var nav = this.app.getRootNav();
     nav.push("AuthPage", { message });
   }
@@ -150,32 +109,13 @@ export class AuthProvider {
     }
   }
 
-  saveToLocalStorage(data: any) {
-    this.storage.set("currentUser", data);
-  }
-
-  getLoggedUser() {
-    return this.storage.get("currentUser").then(user => {
-      if (user) {
-        return (this.loggedUser = user);
-      }
-    });
-  }
-
   changePassword(changePassword: ChangePasswordModel) {
-    changePassword.token = this.loggedUser.Token;
+    changePassword.token = this.userStore.user.Token;
 
-    return this.http
-      .post(
-        `${this.cfg.apiUrl}${this.cfg.user.changePassword}?token=${
-          this.loggedUser.Token
-        }`,
-        changePassword
-      )
-      .toPromise();
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user.changePassword}?token=${this.userStore.user.Token}`,changePassword).toPromise();
   }
 
   recoverPassword(email: string) {
-    return this.http.get(`${this.cfg.apiUrl}${this.cfg.user.recoveryPassowrd}?login=${email}`).toPromise();
+    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user.recoveryPassowrd}?login=${email}`).toPromise();
   }
 }

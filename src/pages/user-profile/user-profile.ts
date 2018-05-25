@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { IonicPage } from "ionic-angular";
-import { AuthProvider } from "../../providers/auth/auth";
+import { TranslateService } from "@ngx-translate/core";
 import { CameraOptions, Camera } from "@ionic-native/camera";
 import { ToastProvider } from "../../providers/toast/toast";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { UserProfileProvider } from "../../providers/user-profile/user-profile";
 import { LoadingProvider } from "../../providers/loading/loading";
-import { TranslateService } from "@ngx-translate/core";
+import { UserStore } from "../../stores/user.store";
 
 export interface Language {
   Language: string;
@@ -55,17 +55,17 @@ export class UserProfilePage implements OnInit {
   placeholder = "assets/img/thumbnail.png";
 
   constructor(
-    private authProvider: AuthProvider,
     private camera: Camera,
     private toastProvider: ToastProvider,
     private translateProvider: TranslateProvider,
     private userProfileProvider: UserProfileProvider,
     private translate: TranslateService,
-    private loaderProvider: LoadingProvider
+    private loaderProvider: LoadingProvider,
+    private userStore: UserStore,
   ) {}
 
   ngOnInit() {
-    this.loggedUser = this.authProvider.loggedUser;
+    this.loggedUser = this.userStore.user;
     this.loadUserProfile();
   }
 
@@ -84,13 +84,11 @@ export class UserProfilePage implements OnInit {
         .updateUserAvatar(imageData)
         .then(response => {
           this.loaderProvider.dismissLoading();
-
           if (response.status) {
             return "ErrorMessage";
           } else {
             this.loggedUser.Thumbnail = response;
-            
-            this.authProvider.saveToLocalStorage(this.loggedUser);
+            this.userStore.user = this.loggedUser;
             return "SuccessAvatarMsg";
           }
         })
@@ -136,11 +134,10 @@ export class UserProfilePage implements OnInit {
         } else {
           this.updateLoggedUserObject();
 
-          this.authProvider.saveToLocalStorage(this.loggedUser);
-
-          let culture = this.currentLanguage.Culture.substring(0, 2);
+          this.updateAppLanguage();
           
-          this.translate.use(culture);
+          this.userStore.user = this.loggedUser;
+
           this.shouldReload ? window.location.reload() : false;
 
           return "SuccessProfileMsg";
@@ -151,6 +148,12 @@ export class UserProfilePage implements OnInit {
           this.toastProvider.presentToast(translated);
         });
       });
+  }
+
+  updateAppLanguage(){
+    let culture = this.currentLanguage.Culture.substring(0, 2);
+          
+    this.translate.use(culture);
   }
 
   private updateUserProfileObject() {

@@ -1,22 +1,23 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { App, Nav, MenuController, Events } from "ionic-angular";
 import { AuthProvider } from "../../providers/auth/auth";
+import { UserStore } from "../../stores/user.store";
 
 @Component({
   selector: "header-menu",
   templateUrl: "header-menu.html"
 })
-export class HeaderMenuComponent implements OnInit {
+export class HeaderMenuComponent {
   @ViewChild(Nav) nav: Nav;
-  currentUser: any;
 
   pages: Array<{ title: string; component: any; method?: any; icon?: any }>;
 
   constructor(
-    private authProvider: AuthProvider,
     private app: App,
     private menuCtrl: MenuController,
     private events: Events,
+    private userStore: UserStore,
+    private authProvider: AuthProvider
   ) {
     this.pages = [
       {
@@ -36,23 +37,6 @@ export class HeaderMenuComponent implements OnInit {
         icon: "md-log-out"
       }
     ];
-
-    this.events.subscribe("currentUser", user => {
-      if (user) this.currentUser = user;
-    });
-  }
-
-  ngOnInit() {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser() {
-    this.authProvider.getLoggedUser().then(res => {
-      if (res) {
-        this.currentUser = res;
-        //console.log("getCurrentUser: " + this.currentUser);
-      }
-    });
   }
 
   openPage(page) {

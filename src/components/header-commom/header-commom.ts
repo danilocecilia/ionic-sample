@@ -1,11 +1,13 @@
 import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
-import { DashboardComponent } from "../dashboard/dashboard";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { Toast } from "@ionic-native/toast";
+
+import * as AppConfig from "../../app/config";
 import { AuthProvider } from "../../providers/auth/auth";
-import * as APPConfig from "../../app/config";
+import { DashboardComponent } from "../dashboard/dashboard";
 import { PrePostTestComponent } from "../pre-post-test/pre-post-test";
+import { UserStore  } from "../../stores/user.store";
 
 @Component({
   selector: "header-commom",
@@ -13,24 +15,26 @@ import { PrePostTestComponent } from "../pre-post-test/pre-post-test";
 })
 export class HeaderCommomComponent {
   isButtonsHidden: boolean = true;
-  
+  appName: string;
+
   constructor(
     private navCtrl: NavController,
     private barcodeScanner: BarcodeScanner,
     private authProvider: AuthProvider,
-    private toast: Toast
+    private toast: Toast,
+    private userStore: UserStore
   ) {
+    this.appName = AppConfig.APP_NAME;
+
     this.userHasPermission();
   }
 
   userHasPermission() {
-    let user = this.authProvider.loggedUser;
+    let userPermissions = this.userStore.user.Permissions;
 
-    if (user.Permissions) {
-      user.Permissions.find(element => {
-        let permission = APPConfig.APIPermission[element];
-
-        if (permission === "GPS" || permission === "DASHBOARD") {
+    if (userPermissions) {
+      userPermissions.find(element => {
+        if(element === AppConfig.APIPermission.GPS || element === AppConfig.APIPermission.DASHBOARD){
           this.isButtonsHidden = false;
         }
       });
@@ -44,20 +48,10 @@ export class HeaderCommomComponent {
   openQRCode() {
     this.barcodeScanner.scan().then(
       barcodeData => {
-        this.navCtrl.push(PrePostTestComponent, { idClass : 7});
-        // this.selectedProduct = this.products.find(
-        //   product => product.plu === barcodeData.text
-        // );
-        // if (this.selectedProduct !== undefined) {
-        //   this.productFound = true;
-        // } else {
-        //   this.productFound = false;
-        //   this.toast
-        //     .show(`Product not found`, "5000", "center")
-        //     .subscribe(toast => {
-        //       console.log(toast);
-        //     });
-        // }
+        if (!barcodeData.cancelled) {
+          let values = barcodeData.text.split("|");
+          this.navCtrl.push(PrePostTestComponent, {idTraining: values[0],idClass: values[1]});
+        }
       },
       err => {
         this.toast.show(err, "5000", "center").subscribe(toast => {
@@ -65,7 +59,5 @@ export class HeaderCommomComponent {
         });
       }
     );
-
-    //this.navCtrl.push(QrcodeComponent);
   }
 }
