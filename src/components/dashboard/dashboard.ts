@@ -1,50 +1,54 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
-import chartJs from 'chart.js';
-import datalabels from 'chartjs-plugin-datalabels'
+import chartJs from "chart.js";
+import datalabels from "chartjs-plugin-datalabels";
 import { DashboardProvider } from "../../providers/dashboard/dashboard";
 
 @Component({
   selector: "dashboard",
   templateUrl: "dashboard.html"
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
   @ViewChild("lineCanvas") lineCanvas;
   @ViewChild("barCanvas") barCanvas;
-  @ViewChild('pieCanvas') pieCanvas;
+  @ViewChild("pieCanvas") pieCanvas;
 
   lineChart: any;
   barChart: any;
   pieChart: any;
+  dashboard: any;
 
-  dashboard:any;
+  constructor(private dashboardProvider: DashboardProvider) {}
 
-  constructor(private dashboardProvider: DashboardProvider) { }
+  ngOnInit() {
+    this.dashboardProvider
+      .loadDashboard()
+      .then(response => {
+        this.dashboard = response;
 
-  ngOnInit(){
-    this.dashboardProvider.loadDashboard()
-    .then((response) => {
-      this.dashboard = response;
-      console.log(this.dashboard);
-    }).catch(err => console.log(err));
+        setTimeout(() => {
+          this.lineChart = this.getLineChart();
+          // this.radarChart = this.getRadarChart();
+          // this.polarAreaChart = this.getPolarAreaChart();
+        }, 100);
+
+        setTimeout(() => {
+          this.barChart = this.getBarChart();
+          // this.doughnutChart = this.getDoughnutChart();
+          // this.halfDoughnutChart = this.getHalfDoughnutChart();
+        }, 200);
+
+        setTimeout(() => {
+          // this.bubbleChart = this.getBubbleChart();
+          // this.mixedChart = this.getMixedChart();
+          this.pieChart = this.getPieChart();
+        }, 300);
+
+        console.log(this.dashboard);
+      })
+      .catch(err => console.log(err));
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.barChart = this.getBarChart();
-      // this.doughnutChart = this.getDoughnutChart();
-      // this.halfDoughnutChart = this.getHalfDoughnutChart();
-    }, 400);
-    setTimeout(() => {
-      this.lineChart = this.getLineChart();
-      // this.radarChart = this.getRadarChart();
-      // this.polarAreaChart = this.getPolarAreaChart();
-    }, 800);
-    setTimeout(() => {
-      // this.bubbleChart = this.getBubbleChart();
-      // this.mixedChart = this.getMixedChart();
-      this.pieChart = this.getPieChart();
-    }, 1200);
-  }
+  ngAfterViewInit() {}
 
   getLineChart() {
     const data = {
@@ -78,13 +82,15 @@ export class DashboardComponent implements OnInit{
 
     const options = {
       scales: {
-        yAxes: [{
-          ticks: {
-            min: 0,
-            stepSize: 10,
-            max: 60
+        yAxes: [
+          {
+            ticks: {
+              min: 0,
+              stepSize: 10,
+              max: 60
+            }
           }
-        }]
+        ]
       }
     };
 
@@ -94,14 +100,16 @@ export class DashboardComponent implements OnInit{
   getBarChart() {
     const data = {
       labels: this.dashboard.BillingSummary.Types,
-      datasets: [{
-        //label: '# of Votes',
-        data: this.dashboard.BillingSummary.Values,
-        backgroundColor: this.dashboard.BillingSummary.BackgroundColor,
-        borderColor: this.dashboard.BillingSummary.BorderColor,
-        borderWidth: 1,
-        fill: false
-      }]
+      datasets: [
+        {
+          //label: '# of Votes',
+          data: this.dashboard.BillingSummary.Values,
+          backgroundColor: this.dashboard.BillingSummary.BackgroundColor,
+          borderColor: this.dashboard.BillingSummary.BorderColor,
+          borderWidth: 1,
+          fill: false
+        }
+      ]
     };
 
     const options = {
@@ -109,37 +117,41 @@ export class DashboardComponent implements OnInit{
         display: false
       },
       scales: {
-        yAxes: [{
-          gridLines: {
-            display: false,
-            drawBorder: false
-          },
-          ticks: {
-            min: 0,
-            stepSize: 300,
-            max: 850
+        yAxes: [
+          {
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              min: 0,
+              stepSize: 300,
+              max: 850
+            }
           }
-        }]
+        ]
       },
       plugins: [datalabels]
     };
 
-    return this.getChart(this.barCanvas.nativeElement, 'bar', data, options);
+    return this.getChart(this.barCanvas.nativeElement, "bar", data, options);
   }
 
   getPieChart() {
     const data = {
       labels: this.dashboard.TrainingStatus.Status,
-      labelFontSize : '6',
+      labelFontSize: "6",
       datasets: [
         {
           data: this.dashboard.TrainingStatus.Values,
           backgroundColor: this.dashboard.TrainingStatus.BackgroundColor,
-          hoverBackgroundColor: this.dashboard.TrainingStatus.HoverBackgroundColor
-        }]
+          hoverBackgroundColor: this.dashboard.TrainingStatus
+            .HoverBackgroundColor
+        }
+      ]
     };
 
-    return this.getChart(this.pieCanvas.nativeElement, 'pie', data);
+    return this.getChart(this.pieCanvas.nativeElement, "pie", data);
   }
 
   getChart(context, chartType, data, options?, plugins?) {
