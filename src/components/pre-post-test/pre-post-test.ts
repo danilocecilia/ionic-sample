@@ -33,7 +33,6 @@ export class PrePostTestComponent implements OnInit {
   ngOnInit() {
     this.assessmentProvider.getAssessment(this.idTraining)
     .then(assessment => {
-      debugger;
       this.resolvedAssessment.ID_Assessment = this.assessmentStore.assessment.ID;
       this.resolvedAssessment.ID_Training = this.idTraining;
 
@@ -73,7 +72,6 @@ export class PrePostTestComponent implements OnInit {
   }
 
   onClickSubmitEvaluation() {
-    debugger;
       this.loadingProvider.presentLoadingDefault();
       this.assessmentProvider
         .addResolvedAssessment(this.resolvedAssessment)
