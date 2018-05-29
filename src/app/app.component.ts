@@ -1,9 +1,5 @@
 import { Component, ViewChild, ChangeDetectionStrategy } from "@angular/core";
-import {
-  Platform,
-  NavController,
-  AlertController
-} from "ionic-angular";
+import { Platform, NavController, AlertController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { TranslateService } from "@ngx-translate/core";
@@ -36,26 +32,29 @@ export class MyApp {
     private userStore: UserStore
   ) {
     platform.ready().then(() => {
-      this.initializeAplication(statusBar, splashScreen);
+      this.initializeAplication();
     });
   }
 
-  initializeAplication(statusBar, splashScreen){
-    statusBar.backgroundColorByHexString(AppConfig.COLORS.darkblue);
+  initializeAplication() {
+    this.statusBar.backgroundColorByHexString(AppConfig.COLORS.darkblue);
 
-    splashScreen.hide();
+    this.splashScreen.hide();
 
-    this.currentUser = this.userStore.user;
+    this.userStore.getUser()
+    .then(user => {
+      this.currentUser = user;
 
-    this.authProvider.startupTokenRefresh();
+      this.authProvider.startupTokenRefresh();
 
-    this.setupPushNotification();
+      this.setupPushNotification();
 
-    this.loadDefaultLanguage();
+      this.loadDefaultLanguage();
 
-    this.redirectToPage();
+      this.redirectToPage();
 
-    this.showSplash = false;
+      this.showSplash = false;
+    });
   }
 
   setupPushNotification() {

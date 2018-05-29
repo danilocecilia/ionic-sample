@@ -1,20 +1,40 @@
-import { observable, action, computed, autorun } from "mobx";
+import { observable, action, computed } from 'mobx-angular';
 import { Injectable } from "@angular/core";
-import { User } from "../model/user";
+import * as mobx from 'mobx';
 import * as AppConfig from "../app/config";
+import { Storage } from "@ionic/storage";
+import { User } from "../model/user";
 
 @Injectable()
 export class UserStore {
   @observable user: User;
 
-  constructor() {
-    if (localStorage.savedTransations) {
-      this.user = JSON.parse(localStorage.savedTransations);
-    }
+  constructor(private storage: Storage) {
+    this.getUser().then(() => mobx.autorun(() => this.saveUser()));
+  }
 
-    autorun(() => {
-      localStorage.savedTransations = JSON.stringify(this.user);
-    });
+  getUser(): Promise<User>{
+    return this.storage.ready()
+    .then(() => this.storage.get(AppConfig.CURRENT_USER))
+    .then(data => {
+      const user = JSON.parse(data);
+
+      if(user){
+        this.user = user;
+        return user;
+      }
+
+      return null;
+    })
+  }
+
+  saveUser(){
+    if(this.user)
+      return this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
+  }
+
+  getUserStorage(){
+    return this.storage.get(AppConfig.CURRENT_USER).then(data => this.user = data);
   }
 
   @action
@@ -22,8 +42,9 @@ export class UserStore {
     this.user = user;
   }
 
-  @action logout(){
-    localStorage.savedTransations = null;
+  @action
+  logout() {
     this.user = null;
   }
 }
+
