@@ -41,7 +41,7 @@
       </ion-item>
 
     </ion-list>
-    <ion-list no-border>
+    <ion-list no-border *ngIf="userProfile.Address">
       <ion-list-header color="secondary">
         {{'AddressInfo' | translate}}
       </ion-list-header>
@@ -69,7 +69,7 @@
         <ion-input [(ngModel)]="userProfile.Address.PostalCode"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-list>
+    <ion-list *ngIf="userProfile.Address">
       <ion-list-header color="secondary">
         {{'PhoneInfo' | translate}}
       </ion-list-header>
