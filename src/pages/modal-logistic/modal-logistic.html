@@ -18,12 +18,12 @@
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="logistic.Type">
+  <div *ngIf="logisticItemXClass.Type">
     <ion-item>
       <ion-label>
         <b>{{'Type' | translate}}</b>
       </ion-label>
-      <ion-select interface="popover" [(ngModel)]="logistic.Type.ID" (ionChange)="ionChangeLogType($event)">
+      <ion-select interface="popover" [(ngModel)]="logisticItemXClass.Type.ID" (ionChange)="ionChangeLogType($event)">
         <ion-option [value]="ltype.ID" *ngFor="let ltype of logisticTypes">{{ltype.Type}}</ion-option>
       </ion-select>
     </ion-item>
@@ -31,7 +31,7 @@
       <ion-label>
         <b>Item</b>
       </ion-label>
-      <ion-select interface="popover" [(ngModel)]="logistic.Item.ID" class="logisticItemSelect">
+      <ion-select interface="popover" [(ngModel)]="logisticItemXClass.Item.ID" class="logisticItemSelect">
         <ion-option [value]="logItem.ID" *ngFor="let logItem of logisticItems">{{logItem.Item}}</ion-option>
       </ion-select>
     </ion-item>
@@ -39,13 +39,13 @@
       <ion-label fixed>
         <b>{{'Quantity' | translate}}</b>
       </ion-label>
-      <ion-input type="number" [(ngModel)]="logistic.Qty" placeholder="Quantity of items" (change)="calcTotalCost()"></ion-input>
+      <ion-input type="number" [(ngModel)]="logisticItemXClass.Qty" placeholder="Quantity of items" (change)="calculateTotalCost()"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>
         <b>{{'Currency' | translate}}</b>
       </ion-label>
-      <ion-select interface="popover" [(ngModel)]="logistic.Item.MonetarySymbol">
+      <ion-select interface="popover" [(ngModel)]="logisticItemXClass.Item.MonetarySymbol">
         <ion-option [value]="monetary.ID" *ngFor="let monetary of monetarySymbol">{{monetary.Currency}}</ion-option>
       </ion-select>
     </ion-item>
@@ -53,13 +53,13 @@
       <ion-label fixed>
         <b>{{'TotalCost' | translate}}</b>
       </ion-label>
-      <ion-input type="text" [(ngModel)]="logistic.Qty === undefined ? 0 : logistic.Cost" placeholder="Total Cost" [readonly]="true"></ion-input>
+      <ion-input type="text" [(ngModel)]="logisticItemXClass.Qty === undefined ? 0 : logisticItemXClass.Cost" placeholder="Total Cost" [readonly]="true"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed class="logisticDate">
         <b>{{'Date' | translate}}</b>
       </ion-label>
-      <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logistic.Date"></ion-datetime>
+      <ion-datetime displayFormat="{{currentCulture | localeFormat:currentCulture}}" [(ngModel)]="logisticItemXClass.Date"></ion-datetime>
     </ion-item>
   </div>
   <div *ngIf="logistic !== undefined">

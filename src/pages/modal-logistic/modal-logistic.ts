@@ -9,7 +9,7 @@ import { LogisticProvider } from "../../providers/logistic/logistic";
 import { ToastProvider } from "../../providers/toast/toast";
 import { DownloadProvider } from "../../providers/download/download";
 import { TranslateProvider } from "../../providers/translate/translate";
-import { Logistic, LogisticItem, LogisticType } from "../../model/logistic";
+import { Logistic, LogisticItem, LogisticType, LogisticItemXClass } from "../../model/logistic";
 import { LogisticStore } from "../../stores/logistic.store";
 import { Class } from "../../model/class";
 import { UserStore } from "../../stores/user.store";
@@ -24,6 +24,7 @@ export class MonetarySymbol {
 })
 export class ModalLogisticPage {
   classAPI: any;
+  logisticItemXClass: LogisticItemXClass = new LogisticItemXClass();
   logistic: Logistic = new Logistic();
   fileURI: any;
   imageFileName: any;
@@ -100,11 +101,9 @@ export class ModalLogisticPage {
     this.loadingProvider.presentLoadingDefault();
 
     this.logisticProvider
-      .removeFile(idFile, this.logistic.ID)
+      .removeFile(idFile, this.logisticItemXClass.ID)
       .then((files: File[]) => {
         this.loadingProvider.dismissLoading();
-        // this.logistic.Files = new Files()[];
-        // this.logistic.Files = files;
       })
       .catch(err => {
         this.loadingProvider.dismissLoading();
@@ -113,12 +112,13 @@ export class ModalLogisticPage {
       });
   }
 
-  calcTotalCost() {
+  calculateTotalCost() {
+    debugger;
     let lgItem = this.logisticItems.find(
-      item => item.ID === this.logistic.Item.ID
+      item => item.ID === this.logisticItemXClass.Item.ID
     );
 
-    this.logistic.Cost = this.logistic.Qty * lgItem.UnitCost;
+    this.logisticItemXClass.Cost = this.logisticItemXClass.Qty * lgItem.UnitCost;
   }
 
   uploadFile() {
@@ -128,7 +128,7 @@ export class ModalLogisticPage {
     let options: FileUploadOptions = {
       fileKey: "receiptLogistic",
       params: {
-        ID_LogisticItemXClass: this.logistic.ID,
+        ID_LogisticItemXClass: this.logisticItemXClass.ID,
         token: this.userStore.user.Token
       }
     };
@@ -142,7 +142,7 @@ export class ModalLogisticPage {
         obj => {
           this.loadingProvider.dismissLoading();
           if (obj) {
-            this.logistic.Files = JSON.parse(obj.response);
+            this.logisticItemXClass.Files = JSON.parse(obj.response);
             this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
             console.log(obj.response + " Uploaded Successfully");
           }
@@ -216,9 +216,8 @@ export class ModalLogisticPage {
   editOrAddLogistic() {
     if (this.isNew) {
       this.isNew = false;
-      this.logistic.Class.ID = this.classAPI.idClass;
-      this.logisticProvider
-        .addLogistic(this.logistic)
+      this.logisticItemXClass.Class.ID = this.classAPI.idClass;
+      this.logisticProvider.addLogistic(this.logisticItemXClass)
         .then(() => {
           this.toastProvider.presentTranslatedToast("SuccessLogistic");
         })
@@ -227,8 +226,7 @@ export class ModalLogisticPage {
           console.log(err);
         });
     } else {
-      this.logisticProvider
-        .updateLogistic(this.logistic)
+      this.logisticProvider.updateLogistic(this.logisticItemXClass)
         .then(() => {
           this.toastProvider.presentTranslatedToast("SuccessLogistic");
         })
@@ -240,6 +238,7 @@ export class ModalLogisticPage {
   }
 
   ionViewDidLoad() {
+    
     this.getTranslatedOpenButton();
     this.loadLogisticTypes();
     let selectedLogistic = this.navParam.get("logistic");
@@ -247,19 +246,17 @@ export class ModalLogisticPage {
     this.classAPI = this.navParam.get("classAPI");
 
     this.currentCulture = this.userStore.user.Language.Culture;
-
+    
     if (selectedLogistic) {
-      this.logistic = Object.assign(new Logistic(), selectedLogistic);
+      this.logisticItemXClass = Object.assign(new LogisticItemXClass(), selectedLogistic);
+      this.loadLogisticItems(this.logisticItemXClass.Type.ID);
       this.isNew = false;
-      this.loadLogisticItems(this.logistic.Type.ID);
     } else {
-      this.logistic.Type = new LogisticType();
-      this.logistic.Item = new LogisticItem();
+      this.logisticItemXClass.Type = new LogisticType();
+      this.logisticItemXClass.Item = new LogisticItem();
       this.logistic.Class = new Class();
       this.isNew = true;
     }
-
-    console.log(this.logistic);
   }
 
   onCloseModal() {

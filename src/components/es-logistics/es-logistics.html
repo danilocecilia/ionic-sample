@@ -11,7 +11,7 @@
       <ion-col col-8 padding-vertical>
         <b>{{classCode}}</b>
         <p><b>{{'TotalCost' | translate}}:</b>
-          <span class="expense">{{logisticStore.logistic?.ClassAPI.QtyLogistic}}</span></p>
+          <span class="expense">{{logisticStore.logistic?.ClassAPI?.QtyLogistic}}</span></p>
       </ion-col>
       <ion-col col-4 text-right>
           <button ion-button color="primary" (click)="addLogistic()">
@@ -34,10 +34,10 @@
                 <b>{{'UnitCost' | translate}}</b>
               </ion-col>
               <ion-col col-6>
-                {{logistic.Type.Type}}
+                {{logistic.Type?.Type}}
               </ion-col>
               <ion-col col-6 text-right>
-                {{logistic.MonetarySymbol}} {{logistic.Item.UnitCost}}
+                {{logistic?.MonetarySymbol}} {{logistic.Item?.UnitCost}}
               </ion-col>
             </ion-row>
             <ion-row class="border-bottom">
@@ -48,10 +48,10 @@
                 <b>{{'Date' | translate}}</b>
               </ion-col>
               <ion-col col-6>
-                {{logistic.Item.Item}}
+                {{logistic.Item?.Item}}
               </ion-col>
               <ion-col col-6 text-right>
-                {{logistic.Date | localeDate:currentCulture}}
+                {{logistic?.Date | localeDate:currentCulture}}
               </ion-col>
             </ion-row>
             <ion-row>
@@ -61,8 +61,8 @@
               <ion-col col-6 text-right>
                 <b>{{'TotalCost' | translate}}</b>
               </ion-col>
-              <ion-col col-6>{{logistic.Qty}}</ion-col>
-              <ion-col col-6 text-right>{{logistic.TotalCostMonetary}}</ion-col>
+              <ion-col col-6>{{logistic?.Qty}}</ion-col>
+              <ion-col col-6 text-right>{{logistic?.TotalCostMonetary}}</ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>

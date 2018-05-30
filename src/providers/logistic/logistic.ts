@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as AppConfig from "../../app/config";
-import { Logistic } from '../../model/logistic';
+import { Logistic, LogisticItemXClass } from '../../model/logistic';
 import { LogisticStore } from '../../stores/logistic.store';
 import { UserStore  } from "../../stores/user.store";
 
@@ -41,18 +41,18 @@ export class LogisticProvider {
     return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.removeFile}?ID_LogisticItemXClass=${idLogistic}&token=${this.userStore.user.Token}`, idFile).toPromise();
   }
 
-  updateLogistic(obj:Logistic) {
-    return this.http.post<Logistic>(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.update}?token=${this.userStore.user.Token}`, obj).toPromise()
+  updateLogistic(obj:LogisticItemXClass) {
+    return this.http.post<LogisticItemXClass>(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.update}?token=${this.userStore.user.Token}`, obj).toPromise()
     .then(response => {
       this.logisticStore.updateLogistic(response);
     });
   }
 
-  addLogistic(obj: Logistic){
-    return this.http.post<Logistic>(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.add}?token=${this.userStore.user.Token}`, obj).toPromise()
+  addLogistic(obj: LogisticItemXClass){
+    return this.http.post<LogisticItemXClass>(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.logistic.add}?token=${this.userStore.user.Token}`, obj).toPromise()
     .then(response => {
-      obj.ID = response.ID;
-      this.logisticStore.addLogistic(response);
+       obj.ID = response.ID;
+       this.logisticStore.addLogistic(response);
     })
   }
 }

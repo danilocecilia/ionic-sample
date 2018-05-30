@@ -39,7 +39,6 @@ export class EsLogisticsComponent implements OnInit {
 
   ngOnInit() {
     this.currentCulture = this.userStore.user.Language.Culture;
-
     this.logisticProvider.getLogisticsByClass(this.idClass);
   }
 
