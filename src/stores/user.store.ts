@@ -9,10 +9,7 @@ import { User } from "../model/user";
 export class UserStore {
   @observable user: User;
 
-  constructor(private storage: Storage) {
-    // mobx.autorun(() => this.saveUser())
-    // this.getUser().then(() => mobx.autorun(() => this.saveUser()));
-  }
+  constructor(private storage: Storage) {}
 
   initialize(){
     return new Promise((resolve, reject) => {
@@ -20,51 +17,26 @@ export class UserStore {
       .then(() => this.storage.get(AppConfig.CURRENT_USER))
       .then(data => {
         if(data){
-          // const user = JSON.parse(data);
-          this.authenticateUser(JSON.parse(data));
+          this.setUser(JSON.parse(data));
         } else {
-          this.authenticateUser(null);
+          this.setUser(null);
         }
-        mobx.autorun(() => this.saveUser());
+        mobx.autorun(() => {this.persistUser()});
         resolve();
       })
     })
   }
 
-  // getUser(): Promise<User>{
-  //   // return new Promise((reject, resolve) => {
-
-  //   // })
-  //   return this.storage.ready()
-  //   .then(() => this.storage.get(AppConfig.CURRENT_USER))
-  //   .then(data => {
-  //     const user = JSON.parse(data);
-
-  //     if(user){
-  //       this.user = user;
-  //       return user;
-  //     }
-
-  //     return null;
-  //   })
-  // }
-
-  // persistUser
-  saveUser(){
+  persistUser(){
     this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
     // if(this.user)
     //   return this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
   }
 
-  // getUserStorage(){
-  //   return this.storage.get(AppConfig.CURRENT_USER).then(data => this.user = data);
-  // }
-
-  //setUser
   @action
-  authenticateUser(user: User) {
+  setUser(user: User) {
     this.user = user;
-    this.saveUser();
+    this.persistUser();
   }
 
   @action

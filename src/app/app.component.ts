@@ -42,12 +42,8 @@ export class MyApp {
     this.splashScreen.hide();
 
     this.userStore.initialize()
-    // this.userStore.getUser()
     .then(() => {
-      // this.currentUser = user;
-      // this.userStore.user
-
-      this.authProvider.startupTokenRefresh();
+      this.authProvider.startupRefreshUserInfo();
 
       this.setupPushNotification();
 

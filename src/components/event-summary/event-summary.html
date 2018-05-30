@@ -11,16 +11,15 @@
 
   <accordion-list title="Downloads" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
     <ion-col col-12 text-center>
-      <button full ion-button small round (click)="downloadFile(eventSummary.Download.PresenceList, 'xlsx')">{{'PresenceList' | translate}}</button>
+      <button full ion-button small (click)="downloadFile(eventSummary.Download.PresenceList, 'xlsx')">{{'PresenceList' | translate}}</button>
     </ion-col>
     <ion-col col-12 text-center>
-      <button full ion-button small round (click)="downloadFile(eventSummary.Download.PreTest, 'docx')">{{'PreTest' | translate}}</button>
+      <button full ion-button small (click)="downloadFile(eventSummary.Download.PreTest, 'docx')">{{'PreTest' | translate}}</button>
     </ion-col>
     <ion-col col-12 text-center>
-      <button full ion-button small round (click)="downloadFile(eventSummary.Download.PostTest, 'docx')">{{'PostTest' | translate}}</button>
+      <button full ion-button small (click)="downloadFile(eventSummary.Download.PostTest, 'docx')">{{'PostTest' | translate}}</button>
     </ion-col>
   </accordion-list>
-
 
   <accordion-list title="{{'Actions' | translate}}" textColor="#ffffff" hasMargin="false" headerColor="#003e75" [expanded]="index === 0">
     <ion-col col-12>

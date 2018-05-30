@@ -80,8 +80,6 @@ export class AuthPage {
           //     this.setCurrentCulture();
           this.redirectToHome();
           this.loadingProvider.dismissLoading();
-          //   });
-          // }
         })
         .catch(err => {
           this.translateProvider.translateMessage(err.error).then(value => {

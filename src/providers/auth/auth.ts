@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { App } from "ionic-angular";
-import { JwtHelper } from "angular2-jwt";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
@@ -12,8 +11,6 @@ import { User } from "../../model/user";
 
 @Injectable()
 export class AuthProvider {
-  jwtHelper: JwtHelper = new JwtHelper();
-  refreshSubscription: any;
 
   constructor(
     private http: HttpClient,
@@ -24,7 +21,7 @@ export class AuthProvider {
   authenticateUser(credentials: CredentialsModel) {
     return this.http.post(`${AppConfig.cfg.apiUrl + AppConfig.cfg.user.login}`, credentials).toPromise()
       .then((user: User) => {
-        this.userStore.authenticateUser(user);
+        this.userStore.setUser(user);
 
         // this.scheduleRefresh();
       })
@@ -34,76 +31,18 @@ export class AuthProvider {
       });
   }
 
-  // public scheduleRefresh() {
-  //   let source = Observable.of(this.userStore.user.Token)
-  //     .flatMap(token => {
-  //       return Observable.interval(60000);
-  //     });
-
-  //   this.refreshSubscription = source.subscribe(() => {
-  //     this.refreshUserInfo();
-  //   });
-  // }
-
-  public startupTokenRefresh() {
-    this.refreshInterval = setInterval(() => {
+  public startupRefreshUserInfo() {
+    setInterval(() => {
       this.maybeRefreshUserInfo();
-    }, 60000)
-    // this.ONE_MINUTE = 60000;
-
-    // // If the user is authenticated, use the token stream
-    // // provided by angular2-jwt and flatMap the token
-    // if(!this.userStore.user){
-    //   console.info("there is no user logedin");
-    //   return;
-    // }
-    // if(!this.userStore.user.Token){
-    //   console.info("there is no token");
-    //   return;
-    // }
-
-    // setInterval(() => {
-    //   this.refreshUserInfo();
-    //   this.scheduleRefresh();
-    // }, 60000)
-
-
-
-    // if (this.userStore.user) {
-    //   if (this.userStore.user.Token) {
-    //     setInterval(() => {
-    //       this.refreshUserInfo();
-    //       // this.scheduleRefresh();
-    //     }, 60000)
-
-
-    //     // let source = Observable.of(this.userStore.user.Token).flatMap(token => {
-    //     //   return Observable.timer(60000);
-    //     // });
-
-    //     // // Once the delay time from above is
-    //     // // reached, get a new JWT and schedule
-    //     // // additional refreshes
-    //     // source.subscribe(() => {
-    //     //   this.refreshUserInfo();
-    //     //   this.scheduleRefresh();
-    //     // });
-    //   } else {
-    //     console.info("there is no token");
-    //   }
-    // } else {
-    //   console.info("there is no user logedin");
-    // }
+    }, AppConfig.ONE_MINUTE)
   }
 
-  public maybeRefreshUserInfo() {
-    // Get a new JWT from Auth0 using the refresh token saved
-    // in local storage
+  private maybeRefreshUserInfo() {
     if (this.userStore.user) {
         this.http.get(AppConfig.cfg.apiUrl + AppConfig.cfg.user.refresh + "?token=" + this.userStore.user.Token)
         .subscribe((userData:User) => {
             if (userData) {
-              this.userStore.authenticateUser(userData);
+              this.userStore.setUser(userData);
               console.log("User Data Refreshed");
             } else {
               console.log("The Token Black Listed");
@@ -112,29 +51,16 @@ export class AuthProvider {
           },
           err => {
             // this will be reached for example when there is no network
-            console.error("refreshUserInfo ERROR", err);
-            // this.logout();
+            console.error("maybeRefreshUserInfo ERROR", err);
           }
         );
     }
   }
 
-
-
   logout(message?) {
-    // stop function of auto refesh
-    this.unscheduleRefresh();
     this.userStore.logout();
-    
     var nav = this.app.getRootNav();
     nav.push("AuthPage", { message });
-  }
-
-  public unscheduleRefresh() {
-    // Unsubscribe from the refresh
-    if (this.refreshSubscription) {
-      this.refreshSubscription.unsubscribe();
-    }
   }
 
   changePassword(changePassword: ChangePasswordModel) {
