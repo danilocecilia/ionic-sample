@@ -182,6 +182,8 @@ export const CURRENT_USER = "currentUser";
 
 export const DEVICE = { ios : "ios", android : "android", windows: "windows"};
 
+export const ONE_MINUTE = 60000;
+
 export function hasFoundAPIStatus(errorMessage) {
   for (const status in APIStatus) {
     if (errorMessage === status) {
