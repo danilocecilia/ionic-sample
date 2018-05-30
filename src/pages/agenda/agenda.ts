@@ -234,15 +234,6 @@ export class AgendaPage implements OnInit {
 
   onEventSelected(event) {
     this.doConfirm(event);
-
-    console.log(
-      "Event selected:" +
-        event.startTime +
-        "-" +
-        event.endTime +
-        "," +
-        event.title
-    );
   }
 
   changeMode(mode) {
@@ -251,17 +242,6 @@ export class AgendaPage implements OnInit {
 
   today() {
     this.calendar.currentDate = new Date();
-  }
-
-  onTimeSelected(ev) {
-    // console.log(
-    //   "Selected time: " +
-    //     ev.selectedTime +
-    //     ", hasEvents: " +
-    //     (ev.events !== undefined && ev.events.length !== 0) +
-    //     ", disabled: " +
-    //     ev.disabled
-    // );
   }
 
   onCloseModal() {
@@ -286,10 +266,6 @@ export class AgendaPage implements OnInit {
     // Clone the value before .endOf()
     var endDate = moment(startDate).endOf('month').format("YYYY-MM-DD");
 
-    // // just for demonstration:
-    console.log(startDate);
-    console.log(endDate);
-    
     // make sure to call toDate() for plain JavaScript date type
     return { start: startDate, end: endDate };
 }
