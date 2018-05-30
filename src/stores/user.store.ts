@@ -10,36 +10,61 @@ export class UserStore {
   @observable user: User;
 
   constructor(private storage: Storage) {
-    this.getUser().then(() => mobx.autorun(() => this.saveUser()));
+    // mobx.autorun(() => this.saveUser())
+    // this.getUser().then(() => mobx.autorun(() => this.saveUser()));
   }
 
-  getUser(): Promise<User>{
-    return this.storage.ready()
-    .then(() => this.storage.get(AppConfig.CURRENT_USER))
-    .then(data => {
-      const user = JSON.parse(data);
-
-      if(user){
-        this.user = user;
-        return user;
-      }
-
-      return null;
+  initialize(){
+    return new Promise((resolve, reject) => {
+      this.storage.ready()
+      .then(() => this.storage.get(AppConfig.CURRENT_USER))
+      .then(data => {
+        if(data){
+          // const user = JSON.parse(data);
+          this.authenticateUser(JSON.parse(data));
+        } else {
+          this.authenticateUser(null);
+        }
+        mobx.autorun(() => this.saveUser());
+        resolve();
+      })
     })
   }
 
+  // getUser(): Promise<User>{
+  //   // return new Promise((reject, resolve) => {
+
+  //   // })
+  //   return this.storage.ready()
+  //   .then(() => this.storage.get(AppConfig.CURRENT_USER))
+  //   .then(data => {
+  //     const user = JSON.parse(data);
+
+  //     if(user){
+  //       this.user = user;
+  //       return user;
+  //     }
+
+  //     return null;
+  //   })
+  // }
+
+  // persistUser
   saveUser(){
-    if(this.user)
-      return this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
+    this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
+    // if(this.user)
+    //   return this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
   }
 
-  getUserStorage(){
-    return this.storage.get(AppConfig.CURRENT_USER).then(data => this.user = data);
-  }
+  // getUserStorage(){
+  //   return this.storage.get(AppConfig.CURRENT_USER).then(data => this.user = data);
+  // }
 
+  //setUser
   @action
   authenticateUser(user: User) {
     this.user = user;
+    this.saveUser();
   }
 
   @action

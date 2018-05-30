@@ -26,7 +26,7 @@ export class AuthProvider {
       .then((user: User) => {
         this.userStore.authenticateUser(user);
 
-        this.scheduleRefresh();
+        // this.scheduleRefresh();
       })
       .catch(err => {
         console.error(err);
@@ -34,42 +34,69 @@ export class AuthProvider {
       });
   }
 
-  public scheduleRefresh() {
-    let source = Observable.of(this.userStore.user.Token)
-      .flatMap(token => {
-        return Observable.interval(60000);
-      });
+  // public scheduleRefresh() {
+  //   let source = Observable.of(this.userStore.user.Token)
+  //     .flatMap(token => {
+  //       return Observable.interval(60000);
+  //     });
 
-    this.refreshSubscription = source.subscribe(() => {
-      this.refreshUserInfo();
-    });
-  }
+  //   this.refreshSubscription = source.subscribe(() => {
+  //     this.refreshUserInfo();
+  //   });
+  // }
 
   public startupTokenRefresh() {
-    // If the user is authenticated, use the token stream
-    // provided by angular2-jwt and flatMap the token
-    if (this.userStore.user) {
-      if (this.userStore.user.Token) {
-        let source = Observable.of(this.userStore.user.Token).flatMap(token => {
-          return Observable.timer(60000);
-        });
+    this.refreshInterval = setInterval(() => {
+      this.maybeRefreshUserInfo();
+    }, 60000)
+    // this.ONE_MINUTE = 60000;
 
-        // Once the delay time from above is
-        // reached, get a new JWT and schedule
-        // additional refreshes
-        source.subscribe(() => {
-          this.refreshUserInfo();
-          this.scheduleRefresh();
-        });
-      } else {
-        console.info("there is no token");
-      }
-    } else {
-      console.info("there is no user logedin");
-    }
+    // // If the user is authenticated, use the token stream
+    // // provided by angular2-jwt and flatMap the token
+    // if(!this.userStore.user){
+    //   console.info("there is no user logedin");
+    //   return;
+    // }
+    // if(!this.userStore.user.Token){
+    //   console.info("there is no token");
+    //   return;
+    // }
+
+    // setInterval(() => {
+    //   this.refreshUserInfo();
+    //   this.scheduleRefresh();
+    // }, 60000)
+
+
+
+    // if (this.userStore.user) {
+    //   if (this.userStore.user.Token) {
+    //     setInterval(() => {
+    //       this.refreshUserInfo();
+    //       // this.scheduleRefresh();
+    //     }, 60000)
+
+
+    //     // let source = Observable.of(this.userStore.user.Token).flatMap(token => {
+    //     //   return Observable.timer(60000);
+    //     // });
+
+    //     // // Once the delay time from above is
+    //     // // reached, get a new JWT and schedule
+    //     // // additional refreshes
+    //     // source.subscribe(() => {
+    //     //   this.refreshUserInfo();
+    //     //   this.scheduleRefresh();
+    //     // });
+    //   } else {
+    //     console.info("there is no token");
+    //   }
+    // } else {
+    //   console.info("there is no user logedin");
+    // }
   }
 
-  public refreshUserInfo() {
+  public maybeRefreshUserInfo() {
     // Get a new JWT from Auth0 using the refresh token saved
     // in local storage
     if (this.userStore.user) {
@@ -84,8 +111,9 @@ export class AuthProvider {
             }
           },
           err => {
+            // this will be reached for example when there is no network
             console.error("refreshUserInfo ERROR", err);
-            this.logout();
+            // this.logout();
           }
         );
     }

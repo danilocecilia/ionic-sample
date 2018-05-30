@@ -16,7 +16,7 @@ import { UserStore } from "../stores/user.store";
   templateUrl: "app.html"
 })
 export class MyApp {
-  currentUser: any;
+  // currentUser: any;
   showSplash = true;
   @ViewChild("content") nav: NavController;
 
@@ -41,9 +41,11 @@ export class MyApp {
 
     this.splashScreen.hide();
 
-    this.userStore.getUser()
-    .then(user => {
-      this.currentUser = user;
+    this.userStore.initialize()
+    // this.userStore.getUser()
+    .then(() => {
+      // this.currentUser = user;
+      // this.userStore.user
 
       this.authProvider.startupTokenRefresh();
 
@@ -76,7 +78,7 @@ export class MyApp {
   }
 
   redirectToPage() {
-    if (this.currentUser) {
+    if (this.userStore.user) {
       this.nav.setRoot(TabsPage);
     } else {
       this.nav.setRoot(AuthPage);
@@ -84,7 +86,7 @@ export class MyApp {
   }
 
   loadDefaultLanguage() {
-    let user = this.currentUser;
+    let user = this.userStore.user
 
     if (user) {
       if (user.Language && user.Language.Culture) {

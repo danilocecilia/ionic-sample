@@ -4,14 +4,14 @@
 //let baseUrl = "http://136.140.193.16:10002/API/Authentication/";
 
 export let cfg = {
-  baseUrl: "http://136.140.193.16:10003", // EXTERNAL IP
-  apiUrl: "http://136.140.193.16:10003/API/", // INTERNAL IP
+  // baseUrl: "http://136.140.193.16:10003", // EXTERNAL IP
+  // apiUrl: "http://136.140.193.16:10003/API/", // INTERNAL IP
   // baseUrl: "http://198.180.251.216:10003",
   // apiUrl: "http://198.180.251.216:10003/API/",
     // baseUrl: "http://test.treinamentoford.com.br",
   // apiUrl:  "http://test.treinamentoford.com.br/API/",
-  // baseUrl: "http://test.fordu.com.br",
-  // apiUrl:  "http://test.fordu.com.br/API/",
+  baseUrl: "http://test.fordu.com.br",
+  apiUrl:  "http://test.fordu.com.br/API/",
   tokenName: "token",
   agenda: {
     getClassesByDate: "Class/GetClassesByDate",
