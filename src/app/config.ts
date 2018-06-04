@@ -184,6 +184,8 @@ export const DEVICE = { ios : "ios", android : "android", windows: "windows"};
 
 export const ONE_MINUTE = 60000;
 
+export const FILE_STATUS = {downloaded : "downloaded", opened : "opened"};
+
 export function hasFoundAPIStatus(errorMessage) {
   for (const status in APIStatus) {
     if (errorMessage === status) {

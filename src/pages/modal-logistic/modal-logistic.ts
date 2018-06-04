@@ -13,6 +13,7 @@ import { Logistic, LogisticItem, LogisticType, LogisticItemXClass } from "../../
 import { LogisticStore } from "../../stores/logistic.store";
 import { Class } from "../../model/class";
 import { UserStore } from "../../stores/user.store";
+
 export class MonetarySymbol {
   Currency: string;
   ID: number;
@@ -25,9 +26,7 @@ export class MonetarySymbol {
 export class ModalLogisticPage {
   classAPI: any;
   logisticItemXClass: LogisticItemXClass = new LogisticItemXClass();
-  logistic: Logistic = new Logistic();
   fileURI: any;
-  imageFileName: any;
   logisticTypes: any;
   logisticItems: any;
   currentCulture: string;
@@ -113,7 +112,6 @@ export class ModalLogisticPage {
   }
 
   calculateTotalCost() {
-    debugger;
     let lgItem = this.logisticItems.find(
       item => item.ID === this.logisticItemXClass.Item.ID
     );
@@ -139,12 +137,12 @@ export class ModalLogisticPage {
         options
       )
       .then(
-        obj => {
+        files => {
           this.loadingProvider.dismissLoading();
-          if (obj) {
-            this.logisticItemXClass.Files = JSON.parse(obj.response);
+          if (files) {
+            this.logisticItemXClass.Files = JSON.parse(files.response);
             this.toastProvider.presentTranslatedToast("SuccessReceiptUpload");
-            console.log(obj.response + " Uploaded Successfully");
+            console.log(files.response + " Uploaded Successfully");
           }
         },
         err => {
@@ -175,7 +173,7 @@ export class ModalLogisticPage {
       .then(status => {
         this.loadingProvider.dismissLoading();
 
-        if (status === "downloaded") {
+        if (status === AppConfig.FILE_STATUS.downloaded) {
           this.showSuccessToast(sourceFileName);
         }
       })
@@ -207,8 +205,9 @@ export class ModalLogisticPage {
       });
   }
 
-  getTranslatedOpenButton() {
-    this.translateProvider.translateMessage("Open").then(translated => {
+  translateTheOpenWord() {
+    this.translateProvider.translateMessage("Open")
+    .then(translated => {
       this.open = translated;
     });
   }
@@ -238,8 +237,8 @@ export class ModalLogisticPage {
   }
 
   ionViewDidLoad() {
-    
-    this.getTranslatedOpenButton();
+    this.translateTheOpenWord();
+
     this.loadLogisticTypes();
     let selectedLogistic = this.navParam.get("logistic");
 
@@ -254,7 +253,7 @@ export class ModalLogisticPage {
     } else {
       this.logisticItemXClass.Type = new LogisticType();
       this.logisticItemXClass.Item = new LogisticItem();
-      this.logistic.Class = new Class();
+      this.logisticItemXClass.Class = new Class();
       this.isNew = true;
     }
   }

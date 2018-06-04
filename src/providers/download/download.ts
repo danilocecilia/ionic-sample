@@ -34,7 +34,7 @@ export class DownloadProvider {
         this.file.checkFile(this.fileObject.targetPath, this.fileObject.targeFileName)
           .then(() => {
             this.openDocument();
-            resolve("opened");
+            resolve(AppConfig.FILE_STATUS.opened);
           }).catch((err) => {
             this.downloadFile(resolve, reject);
           });
@@ -73,7 +73,7 @@ export class DownloadProvider {
         fullSourcePath,
         this.getDocumentPathFromDevice(this.fileObject.sourceFileName)
       ).then(() => {
-        resolve("downloaded");
+        resolve(AppConfig.FILE_STATUS.downloaded);
       }).catch(err => {
         reject(err);
       });
@@ -81,7 +81,7 @@ export class DownloadProvider {
   }
 
   getDocumentPathFromDevice(fileName: string) {
-    if (this.platform.is("ios")) {
+    if (this.platform.is(AppConfig.DEVICE.ios)) {
       return `${this.file.documentsDirectory}/${fileName}`;
     } else {
       return `${this.file.externalRootDirectory}Download/${fileName}`;
@@ -91,7 +91,7 @@ export class DownloadProvider {
   getFileObject(filePath: string, fileName: string, extension: string) {
     let fileObject: any = {};
 
-    if (this.platform.is("ios")) {
+    if (this.platform.is(AppConfig.DEVICE.ios)) {
       fileObject.targetPath = this.file.documentsDirectory;
       fileObject.targeFileName = fileName;
     } else {
