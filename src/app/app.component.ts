@@ -41,8 +41,7 @@ export class MyApp {
 
     this.splashScreen.hide();
 
-    this.userStore.initialize()
-    .then(() => {
+    this.userStore.initialize().then(() => {
       this.authProvider.startupRefreshUserInfo();
 
       this.setupPushNotification();
@@ -56,11 +55,35 @@ export class MyApp {
   }
 
   setupPushNotification() {
-    const options: PushOptions = {};
+    const options: PushOptions = {
+      android: {
+        senderID: "691007744829",
+        sound: "true",
+        vibrate: "true",
+        forceShow: "true"
+      }
+    };
 
     const pushObject: PushObject = this.push.init(options);
 
-    pushObject.on("registration").subscribe((registration: any) => {});
+    pushObject.on("registration").subscribe((registration: any) => {
+      debugger;
+      if (this.userStore.user) {
+        this.userStore.user.DeviceToken = registration.registrationId;
+
+        this.authProvider
+          .updateDeviceToken(this.userStore.user)
+          .then(() => {
+            console.log("Updated DeviceToken :" + registration.registrationId);
+          })
+          .catch(err =>
+            console.error(
+              "Error when updating the device token: " +
+                +registration.registrationId
+            )
+          );
+      }
+    });
 
     pushObject.on("notification").subscribe((notification: any) => {
       if (notification.additionalData.foreground) {
@@ -82,7 +105,7 @@ export class MyApp {
   }
 
   loadDefaultLanguage() {
-    let user = this.userStore.user
+    let user = this.userStore.user;
 
     if (user) {
       if (user.Language && user.Language.Culture) {

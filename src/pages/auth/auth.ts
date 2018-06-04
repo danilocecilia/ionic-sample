@@ -61,7 +61,7 @@ export class AuthPage {
     this.authForm = this.formBuilder.group({
       username: ["", Validators.compose([Validators.required])],
       password: ["",Validators.compose([Validators.required, Validators.minLength(3)])],
-      devideToken: "uiashdfiuahs79dfasdyf8asbdfugas0dfajs8",
+      devideToken: "",
       device: this.platform.is(AppConfig.DEVICE.ios) ? AppConfig.DEVICE.ios : AppConfig.DEVICE.android
     });
   }
@@ -74,10 +74,10 @@ export class AuthPage {
   onSubmit(value: any): void {
     if (this.authForm.valid) {
       this.loadingProvider.presentLoadingDefault();
-
+      debugger;
       this.authProvider.authenticateUser(this.authForm.value)
         .then(response => {
-          //     this.setCurrentCulture();
+          //this.setCurrentCulture();
           this.redirectToHome();
           this.loadingProvider.dismissLoading();
         })

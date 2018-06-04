@@ -45,7 +45,8 @@ export let cfg = {
     updateUserAvatar: "User/UpdateUserAvatar",
     getUserProfile: "User/GetUserProfile",
     updateUserProfile: "User/UpdateUserProfile",
-    allUsers: "User/GetUsersByClass"
+    allUsers: "User/GetUsersByClass",
+    updateDeviceToken: 'User/UpdateDeviceToken'
   },
   notification: {
     all: "notification/GetNotifications",

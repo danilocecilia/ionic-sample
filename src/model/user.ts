@@ -8,6 +8,8 @@ export class User {
   @observable Status: string;
   @observable Profile: string;
   @observable Token: string;
+  @observable DeviceToken: string;
+  @observable Device: string;
   @observable Permissions: any;
   @observable Language:any;
 }

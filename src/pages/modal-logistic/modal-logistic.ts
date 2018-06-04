@@ -113,7 +113,6 @@ export class ModalLogisticPage {
   }
 
   calculateTotalCost() {
-    debugger;
     let lgItem = this.logisticItems.find(
       item => item.ID === this.logisticItemXClass.Item.ID
     );
