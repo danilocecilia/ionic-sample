@@ -29,8 +29,6 @@ export class UserStore {
 
   persistUser(){
     this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
-    // if(this.user)
-    //   return this.storage.set(AppConfig.CURRENT_USER, JSON.stringify(this.user));
   }
 
   @action

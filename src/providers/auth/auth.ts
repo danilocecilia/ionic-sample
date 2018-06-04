@@ -11,7 +11,6 @@ import { User } from "../../model/user";
 
 @Injectable()
 export class AuthProvider {
-
   constructor(
     private http: HttpClient,
     private app: App,
@@ -19,11 +18,11 @@ export class AuthProvider {
   ) {}
 
   authenticateUser(credentials: CredentialsModel) {
-    return this.http.post(`${AppConfig.cfg.apiUrl + AppConfig.cfg.user.login}`, credentials).toPromise()
+    return this.http
+      .post(`${AppConfig.cfg.apiUrl + AppConfig.cfg.user.login}`, credentials)
+      .toPromise()
       .then((user: User) => {
         this.userStore.setUser(user);
-
-        // this.scheduleRefresh();
       })
       .catch(err => {
         console.error(err);
@@ -31,16 +30,27 @@ export class AuthProvider {
       });
   }
 
+  updateDeviceToken(user:User) {
+    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user_profile.updateDeviceToken}`, user).toPromise();
+  }
+
   public startupRefreshUserInfo() {
     setInterval(() => {
       this.maybeRefreshUserInfo();
-    }, AppConfig.ONE_MINUTE)
+    }, AppConfig.ONE_MINUTE);
   }
 
   private maybeRefreshUserInfo() {
     if (this.userStore.user) {
-        this.http.get(AppConfig.cfg.apiUrl + AppConfig.cfg.user.refresh + "?token=" + this.userStore.user.Token)
-        .subscribe((userData:User) => {
+      this.http
+        .get(
+          AppConfig.cfg.apiUrl +
+            AppConfig.cfg.user.refresh +
+            "?token=" +
+            this.userStore.user.Token
+        )
+        .subscribe(
+          (userData: User) => {
             if (userData) {
               this.userStore.setUser(userData);
               console.log("User Data Refreshed");
@@ -66,10 +76,23 @@ export class AuthProvider {
   changePassword(changePassword: ChangePasswordModel) {
     changePassword.token = this.userStore.user.Token;
 
-    return this.http.post(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user.changePassword}?token=${this.userStore.user.Token}`,changePassword).toPromise();
+    return this.http
+      .post(
+        `${AppConfig.cfg.apiUrl}${AppConfig.cfg.user.changePassword}?token=${
+          this.userStore.user.Token
+        }`,
+        changePassword
+      )
+      .toPromise();
   }
 
   recoverPassword(email: string) {
-    return this.http.get(`${AppConfig.cfg.apiUrl}${AppConfig.cfg.user.recoveryPassowrd}?login=${email}`).toPromise();
+    return this.http
+      .get(
+        `${AppConfig.cfg.apiUrl}${
+          AppConfig.cfg.user.recoveryPassowrd
+        }?login=${email}`
+      )
+      .toPromise();
   }
 }
