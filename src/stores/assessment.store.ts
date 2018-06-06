@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx-angular";
+import { observable, action } from "mobx-angular";
 import { Injectable } from "@angular/core";
 import { Assessment } from "../model/assessment";
 

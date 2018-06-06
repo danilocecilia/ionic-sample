@@ -1,11 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AssessmentStore } from "../../stores/assessment.store";
 import { AssessmentProvider } from "../../providers/assessment/assessment";
-import { Assessment } from "../../model/assessment";
 import { ResolvedAssessment, ResolvedQuestion } from "../../model/resolved-assessment";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { NavParams, NavController } from "ionic-angular";
-import { CurriculumsComponent } from "../curriculums/curriculums";
 
 @Component({
   selector: "pre-post-test",
@@ -40,9 +38,6 @@ export class PrePostTestComponent implements OnInit {
 
       this.resolvedAssessment.ID_Class = idClass === undefined ? null : idClass;
     });
-
-    //this.resolvedAssessment.ID_Class = 11;
-    console.log(this.assessmentStore);
 
     this.assessmentType = this.navParam.get("assessmentType");
     this.idCompetency = this.navParam.get("idCompetency");

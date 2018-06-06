@@ -1,12 +1,10 @@
 import { JobRole } from "./jobrole";
 import { observable } from "mobx-angular";
-import { User } from "./user";
 import { Level } from "./level";
 
 export class Competency {
   ID: number | string;
   @observable JobRole: JobRole;
-  //    @observable User: User;
   @observable CurrentLevel: Level;
   @observable Competency: ItemCompetency;
   @observable JobRoleOrdinal: number;

@@ -8,15 +8,17 @@ import {
   Platform
 } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
-import { AuthProvider } from "../../providers/auth/auth";
-import { TabsPage } from "../tabs/tabs";
-import { LoadingProvider } from "../../providers/loading/loading";
 import { TranslateService } from "@ngx-translate/core";
+
+import * as AppConfig from "../../app/config";
+import { AuthProvider } from "../../providers/auth/auth";
 import { TranslateProvider } from "../../providers/translate/translate";
 import { ToastProvider } from "../../providers/toast/toast";
-import { UserStore  } from "../../stores/user.store";
-import * as AppConfig from '../../app/config';
+import { LoadingProvider } from "../../providers/loading/loading";
+import { TabsPage } from "../tabs/tabs";
+import { PasswordRecoveryPage } from "../password-recovery/password-recovery";
+import { UserStore } from "../../stores/user.store";
+
 
 @IonicPage()
 @Component({
@@ -57,12 +59,17 @@ export class AuthPage {
     this.events.publish("hideHeader", { isHidden: true });
   }
 
-  initializeAuthForm(){
+  initializeAuthForm() {
     this.authForm = this.formBuilder.group({
       username: ["", Validators.compose([Validators.required])],
-      password: ["",Validators.compose([Validators.required, Validators.minLength(3)])],
+      password: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(3)])
+      ],
       devideToken: "",
-      device: this.platform.is(AppConfig.DEVICE.ios) ? AppConfig.DEVICE.ios : AppConfig.DEVICE.android
+      device: this.platform.is(AppConfig.DEVICE.ios)
+        ? AppConfig.DEVICE.ios
+        : AppConfig.DEVICE.android
     });
   }
 
@@ -75,7 +82,8 @@ export class AuthPage {
     if (this.authForm.valid) {
       this.loadingProvider.presentLoadingDefault();
       debugger;
-      this.authProvider.authenticateUser(this.authForm.value)
+      this.authProvider
+        .authenticateUser(this.authForm.value)
         .then(response => {
           //this.setCurrentCulture();
           this.redirectToHome();

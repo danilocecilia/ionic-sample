@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as AppConfig from "../../app/config";
-import { BehaviorSubject, Subject } from "rxjs";
 import { UserStore } from "../../stores/user.store";
 
 @Injectable()

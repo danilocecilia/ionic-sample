@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, ViewController } from "ionic-angular";
-import { UserStore  } from "../../stores/user.store";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { UserStore } from "../../stores/user.store";
 
 @IonicPage()
 @Component({
@@ -14,7 +14,6 @@ export class ModalNotificationPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private viewCtrl: ViewController,
     private userStore: UserStore
   ) {
     this.notification = this.navParams.get("notification");

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { PrePostTestComponent } from "../../components/pre-post-test/pre-post-test";
-import { NavController, NavParams, App } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import * as AppConfig from "../../app/config";
 import { TranslateProvider } from "../../providers/translate/translate";
 @Component({

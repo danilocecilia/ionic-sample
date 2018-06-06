@@ -185,6 +185,8 @@ export const DEVICE = { ios : "ios", android : "android", windows: "windows"};
 
 export const ONE_MINUTE = 60000;
 
+export const SENDER_ID = "691007744829";
+
 export function hasFoundAPIStatus(errorMessage) {
   for (const status in APIStatus) {
     if (errorMessage === status) {

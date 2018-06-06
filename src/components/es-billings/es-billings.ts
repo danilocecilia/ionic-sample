@@ -5,6 +5,7 @@ import { NavParams } from "ionic-angular";
 import { ToastProvider } from "../../providers/toast/toast";
 import { LoadingProvider } from "../../providers/loading/loading";
 import { UserStore } from "../../stores/user.store";
+
 @Component({
   selector: "es-billings",
   templateUrl: "es-billings.html"
