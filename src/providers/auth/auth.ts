@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { App } from "ionic-angular";
-import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
 import * as AppConfig from "../../app/config";

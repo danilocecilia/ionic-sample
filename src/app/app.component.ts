@@ -1,10 +1,10 @@
 import { Component, ViewChild, ChangeDetectionStrategy } from "@angular/core";
-import { Platform, NavController, AlertController } from "ionic-angular";
+import { Platform, NavController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
-import { PushOptions, PushObject, Push } from "@ionic-native/push";
+import { PushOptions, PushObject } from "@ionic-native/push";
 import * as AppConfig from "../app/config";
 
 import { AuthProvider } from "../providers/auth/auth";
@@ -16,7 +16,6 @@ import { UserStore } from "../stores/user.store";
   templateUrl: "app.html"
 })
 export class MyApp {
-  // currentUser: any;
   showSplash = true;
   @ViewChild("content") nav: NavController;
 
@@ -27,8 +26,6 @@ export class MyApp {
     private authProvider: AuthProvider,
     private translate: TranslateService,
     private globalization: Globalization,
-    private push: Push,
-    private alertCtrl: AlertController,
     private userStore: UserStore
   ) {
     platform.ready().then(() => {
@@ -44,55 +41,11 @@ export class MyApp {
     this.userStore.initialize().then(() => {
       this.authProvider.startupRefreshUserInfo();
 
-      this.setupPushNotification();
-
       this.loadDefaultLanguage();
 
       this.redirectToPage();
 
       this.showSplash = false;
-    });
-  }
-
-  setupPushNotification() {
-    const options: PushOptions = {
-      android: {
-        senderID: "691007744829",
-        sound: "true",
-        vibrate: "true",
-        forceShow: "true"
-      }
-    };
-
-    const pushObject: PushObject = this.push.init(options);
-
-    pushObject.on("registration").subscribe((registration: any) => {
-      debugger;
-      if (this.userStore.user) {
-        this.userStore.user.DeviceToken = registration.registrationId;
-
-        this.authProvider
-          .updateDeviceToken(this.userStore.user)
-          .then(() => {
-            console.log("Updated DeviceToken :" + registration.registrationId);
-          })
-          .catch(err =>
-            console.error(
-              "Error when updating the device token: " +
-                +registration.registrationId
-            )
-          );
-      }
-    });
-
-    pushObject.on("notification").subscribe((notification: any) => {
-      if (notification.additionalData.foreground) {
-        let youralert = this.alertCtrl.create({
-          title: notification.label,
-          message: notification.message
-        });
-        youralert.present();
-      }
     });
   }
 
